@@ -7,8 +7,8 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import net.comment.action.Action;
-import net.comment.action.ActionForward;
+import net.core.Action;
+import net.core.ActionForward;
 @WebServlet("/members/*")
 public class MemberFrontController extends jakarta.servlet.http.HttpServlet {
 
