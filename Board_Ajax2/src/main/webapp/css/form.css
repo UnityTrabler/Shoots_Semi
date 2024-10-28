@@ -1,0 +1,38 @@
+ form {
+	text-align: center
+}
+
+input {
+	height: 30px;
+	width: 300px;
+	margin-left: 20px;
+	margin-bottom: 10px;
+	border-radius: 5px;
+	border: 1px solid green
+}
+
+input:focus {
+	background-color: orange;
+	border: 1px solid green
+}
+
+div {
+	text-align: center
+}
+
+button {
+	width: 210px;
+	background-color: green;
+	margin-left: 0px;
+	color: white;
+	height: 35px;
+	border: 1px solid green;
+}
+
+body > form > input[type=submit]{
+	background-color: green;
+	margin-left: 50px;
+	color: white;
+	height: 35px;
+	width:300px;
+}
