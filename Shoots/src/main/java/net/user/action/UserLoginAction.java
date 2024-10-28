@@ -13,8 +13,9 @@ public class UserLoginAction implements Action {
 	public ActionForward execute(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		ActionForward forward = new ActionForward();
-		forward.setRedirect(true);
-		forward.setPath("/WEB-INF/views/member/login.jsp");
+		forward.setRedirect(false);
+		forward.setPath("/WEB-INF/views/user/login.jsp");
+		System.out.println("login action");
 		return forward;
 	}
 

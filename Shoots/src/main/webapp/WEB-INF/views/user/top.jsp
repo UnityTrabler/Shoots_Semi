@@ -6,7 +6,7 @@
 <body class="container" style="background: silver;">
 	<div class="d-flex" style="background: orange;">
 		<span class="ms-auto">
-			<a href="members/login"><b class="me-5">login</b></a>
+			<a href="${pageContext.request.contextPath}/user/login"><b class="me-5">login</b></a>
 			<b class="me-5">sign up</b>
 		</span>
 	</div>	

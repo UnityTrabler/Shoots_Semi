@@ -9,7 +9,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import net.core.Action;
 import net.core.ActionForward;
-@WebServlet("/members/*")
+@WebServlet("/user/*")
 public class UserFrontController extends jakarta.servlet.http.HttpServlet {
 
 	private static final long serialVersionUID = 1L;
@@ -30,7 +30,7 @@ public class UserFrontController extends jakarta.servlet.http.HttpServlet {
 
 		// RequestURI에서 컨텍스트 경로 길이 + "/members".length()의 인덱스 위치의 문자부터 마지막 위치 문자까지 추출합니다.
 		// command는 "/login" 반환됩니다.
-		String command = RequestURI.substring(contextPath.length() + "/members".length());
+		String command = RequestURI.substring(contextPath.length() + "/user".length());
 		System.out.println("command = " + command);
 		
 		//초기화
