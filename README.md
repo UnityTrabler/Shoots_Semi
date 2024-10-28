@@ -4,10 +4,10 @@
 
 ## implements
 1. file system
-2. test db 구축
+2. test db construction
 3. mail send system
 4. pagination
-5. 대댓글
-6. 네이버 맵 API
+5. nested comment
+6. naver map API
 7. forbidden
-8. ajax
+8. ajax feature
