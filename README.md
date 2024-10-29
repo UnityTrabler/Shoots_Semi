@@ -1,5 +1,5 @@
 # Git write & upload
-Please write only the *`src files`*.
+Please write only the <b style="background : orange;">**`Shoots/src/*`**.</b> files
 
 # File Description
 1. Main Project is `Shoots`
