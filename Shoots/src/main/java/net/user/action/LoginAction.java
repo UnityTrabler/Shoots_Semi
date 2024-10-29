@@ -10,11 +10,13 @@ import net.core.action.ActionForward;
 
 public class LoginAction implements Action {
 
-	@Override
 	public ActionForward execute(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		return null;
+		ActionForward forward = new ActionForward();
+		forward.setRedirect(false);
+		forward.setPath("/WEB-INF/views/user/login.jsp");
+		System.out.println("login action");
+		return forward;
 	}
 
 }
