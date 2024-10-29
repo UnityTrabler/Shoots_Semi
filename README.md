@@ -1,5 +1,5 @@
 # Git write & upload
-Please write only the <h4 style="background : orange;">**`Shoots/src/*`**.</h4> files
+Please write only the <h4>$\it{\large{\color{#DD6565}Shoots/src/*}}$</h4> files.
 
 # File Description
 1. Main Project is `Shoots`
