@@ -1,5 +1,5 @@
 package net.user.action;
 
-public class LoginProcessAction {
+public class UserLoginProcessAction {
 
 }

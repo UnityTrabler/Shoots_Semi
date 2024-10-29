@@ -1,5 +1,5 @@
 package net.user.action;
 
-public class LogoutAction {
+public class UserLogoutAction {
 
 }
