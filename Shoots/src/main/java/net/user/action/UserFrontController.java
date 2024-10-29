@@ -7,8 +7,8 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import net.core.Action;
-import net.core.ActionForward;
+import net.core.action.Action;
+import net.core.action.ActionForward;
 @WebServlet("/user/*")
 public class UserFrontController extends jakarta.servlet.http.HttpServlet {
 
@@ -39,7 +39,7 @@ public class UserFrontController extends jakarta.servlet.http.HttpServlet {
 
 		switch (command) {
 			case "/login":
-				action = new UserLoginAction();
+				action = new LoginAction();
 				break;
 
 			default:
