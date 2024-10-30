@@ -1,4 +1,4 @@
-package net.inguiry.db;
+package net.inquiry.db;
 
 public class InquiryCommentBean {
 
