@@ -1,16 +1,27 @@
-# Git write & upload
-Please write only the <h4>$\it{\large{\color{#DD6565}Shoots/src/*}}$</h4> files.
+## 💻 PROJECT INTRODUCTION
 
-# File Description
-1. Main Project is `Shoots`
-2. Test Project is `Board_Ajax2`
+## ⚙️ DEVELOPMENT ENVIRONMENT
+- JAVA 17
+- Framework : Tomcat 10.1
+- Database : Oracle
+- Front : HTML/CSS, JavaScript, JQuery, Ajax
+- Eclipse, GitHub
 
-## implements
-1. file system
-2. test db construction
-3. mail send system
-4. pagination
-5. nested comment
-6. naver map API
-7. forbidden
-8. ajax feature
+## 👤 MEMBER
+- 강성현
+- 김동휘
+- 임현빈
+- 최영수
+- 최주경
+  
+## ✅ FEATURE
+
+## 🗓️ DEVELOPMENT PERIOD
+2024.10.11 ~ 2024.11.28
+
+## 📑 DEMO
+
+## 📂 PROJECT STRUCTURE
+
+## 📋 PLAN
+
