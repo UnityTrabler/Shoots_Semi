@@ -26,7 +26,7 @@ public class UserFrontController extends jakarta.servlet.http.HttpServlet {
 		// getContextPath() - 영어 그대로
 		// contextPath는 "/JSP_Template_JSTL"가 반환됨.
 		String contextPath = req.getContextPath();
-		System.out.println(" contextPath : " + contextPath);
+		System.out.println("contextPath : " + contextPath);
 
 		// RequestURI에서 컨텍스트 경로 길이 + "/members".length()의 인덱스 위치의 문자부터 마지막 위치 문자까지 추출합니다.
 		// command는 "/login" 반환됩니다.
@@ -51,9 +51,9 @@ public class UserFrontController extends jakarta.servlet.http.HttpServlet {
 		forward = action.execute(req, resp);
 
 		if (forward != null) {
-			if (forward.isRedirect()) {
+			if (forward.isRedirect()) 
 				resp.sendRedirect(forward.getPath());
-			} else {
+			 else {
 				RequestDispatcher dispatcher = req.getRequestDispatcher(forward.getPath());
 				dispatcher.forward(req, resp);
 			}
