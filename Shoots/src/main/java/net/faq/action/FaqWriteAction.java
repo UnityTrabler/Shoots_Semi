@@ -1,30 +1,20 @@
 package net.faq.action;
 
 import java.io.IOException;
-import java.util.List;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import net.core.Action;
 import net.core.ActionForward;
-import net.faq.db.*;
 
-
-public class FaqListAction implements Action {
+public class FaqWriteAction implements Action{
 
 	@Override
 	public ActionForward execute(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
-		ActionForward forward = new ActionForward();
-		FaqDAO dao = new FaqDAO();
 		
-		List<FaqBean> list = null;
-		list = dao.getList();
-		req.setAttribute("totallist", list);
-		forward.setPath("/WEB-INF/views/faq/faqPay.jsp");
-		forward.setRedirect(false);
-		return forward;
+		return null;
 	}
 
 }
