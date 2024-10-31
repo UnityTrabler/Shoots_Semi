@@ -6,7 +6,7 @@
 <body class="container">
 	<jsp:include page="top.jsp"></jsp:include>
 	<div class="d-flex justify-content-center align-items-center">
-		<b>this is login page</b>
+		<b>this is login page</b> 
 	</div>
 </body>
 </html>
