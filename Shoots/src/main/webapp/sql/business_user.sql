@@ -17,3 +17,41 @@ CREATE SEQUENCE business_seq
 START WITH 1
 INCREMENT BY 1
 NOCACHE;
+
+INSERT INTO BUSINESS_USER 
+VALUES (
+    business_seq.nextval, 
+    'businessAdmin', 
+    '1234', 
+    '기업관리자', 
+    '1234567891', 
+    '0319090909', 
+    'htaFoot@gmail.com',
+    '12345', 
+    '서울시 종로구', 
+    null,  
+    null,  
+    SYSDATE
+);
+
+ALTER TABLE BUSINESS_USER
+MODIFY business_name VARCHAR2(100);
+
+INSERT INTO BUSINESS_USER 
+VALUES (
+    business_seq.nextval, 
+    'qwerty1', 
+    '1234', 
+    '종로구 풋살장 A', 
+    '1234567891', 
+    '028088080', 
+    'JongRsc@gmail.com',
+    '10882', 
+    '서울시 종로구 종로3가', 
+    null,  
+    null,  
+    SYSDATE
+);
+
+
+SELECT * FROM business_user;

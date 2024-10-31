@@ -1,7 +1,8 @@
 CREATE TABLE match_post(
     match_id NUMBER(10) PRIMARY KEY,
     writer NUMBER(10) references business_user(business_idx) on delete cascade,
-    match_datetime date NOT NULL,
+    match_date date NOT NULL,
+    match_time varchar2(5) NOT NULL,
     player_max NUMBER(2) NOT NULL,
     player_min NUMBER(2) NOT NULL,
     player_gender char(1) NOT NULL,
@@ -14,5 +15,5 @@ START WITH 1
 INCREMENT BY 1
 NOCACHE;
 
-ALTER TABLE match_post
-ADD readcount number;
+
+select * from match_post;
