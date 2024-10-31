@@ -1,4 +1,4 @@
-package net.inquiry.db;
+package net.inquiryComment.db;
 
 public class InquiryCommentDAO {
 
