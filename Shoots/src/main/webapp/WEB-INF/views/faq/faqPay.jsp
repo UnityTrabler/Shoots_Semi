@@ -1,19 +1,23 @@
 <%--
 	0. faq 첫 페이지이자 결제 및 환불 탭을 눌렀을 때 나오는 페이지
-	1. href에 들어갈 경로명을 지정해야 합니다.
-		-frontcontroller에서 해당 경로 명을 받으면 서블렛으로 이동하고 서블렛에서 해당jsp로 연결되도록 합니다.
-	2. class="accordion"은 foreach문으로 faq 테이블에 있는 모든 title, content르 받아 title을 클릭하면 content
-		가 보이도록 합니다.
-	3. 관리자 모드일 때만 글쓰기 버튼이 보이도록 버튼을 추가하려면 하고 그러면 글쓰기 폼을 만들어야 하고
+	1. 이동지정 경로명은 /faq/* 입니다.
+	2. class="accordion"은 foreach문으로 faq 테이블에 있는 모든 title, content를 받아 title을 클릭하면 content가 보이도록 합니다.
+	3. 관리자모드(user_id = 'admin')일 때에만 '수정', '삭제', '글쓰기' 버튼이 보입니다.
+	4. '삭제'버튼을 클릭할 경우 삭제를 확인하는 comfirm문이 나오고 확인을 누르면 삭제되고 취소를 누르면 삭제되지 않습니다.
+	
+	=============================================================================================
+	
+	5. 로그인 기능이 없어 admin이 아니어도 해당 내용을 확인할 수 있도록 설정했으며 admin일 경우는 주석처리 했습니다.
+	6. <ul>안에 있는 다른 페이지로 이동과 검색 항목은 스토리보드에는 있었으나 구현 여부는 확실치 않아 경로 지정을 하지는 않았습니다.
  --%>
 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
-<script src = "${pageContext.request.contextPath}/js/list.js"></script>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="${pageContext.request.contextPath}/js/jquery-3.7.1.js"></script>
 <title>FAQ</title>
 <style>
 .accordion {
@@ -40,9 +44,13 @@
   overflow: hidden;
   transition: max-height 0.2s ease-out;
 }
+
+h1{
+	text-align:center;
+	
+}
 </style>
 <script>
-	//search 버튼을 눌렀을 때 글 제목, 내용을 가진 게시글이 나올 수 있도록
 
 	$(document).ready(function(){
   		$(".accordion").on("click", function() {
@@ -56,21 +64,22 @@
     		}
   		});
   		
-  		/*
-  		$("div > a").click(function(event){
+  		
+  		$("div > a:nth-of-type(2)").click(function(event){
 			const answer = confirm("정말 삭제하시겠습니까?");
 			console.log(answer);//취소를 클릭한 경우-false
 			if (!answer){//취소를 클릭한 경우
 				event.preventDefault(); //이동하지 않습니다.	
 			}
 		})//삭제 클릭 end
-		*/
+		
 	});
 
 </script>
 
 </head>
 <body>
+	<h1>FAQ</h1>
 	<ul class="navbar-nav">
 		<li class="nav-item">
 			<%--(FAQ)결제 및 환풀 탭으로 이동 --%>
@@ -111,32 +120,29 @@
 				<div class="panel">
   					<p>${f.content}</p>
 				</div>
-			<c:if test="${id=='admin'}">
+			<c:if test="${user_id=='admin'}">
 				<a href="delete?id=${f.faq_id}">삭제</a>
 				<a href="update?id=${f.faq_id}">수정</a>
 			</c:if>
 		</div>
 	</c:forEach>
 	 --%>
+	 
+	 <c:forEach var="f" items="${totallist}">
+		<div class="faqlist">
+			<button class="accordion">${f.title}</button>
+				<div class="panel">
+  					<p>${f.content}</p>
+				</div>
+				<a href="update?id=${f.faq_id}">수정</a>
+				<a href="delete?id=${f.faq_id}">삭제</a>
+				
+		</div>
+	</c:forEach>
+	
 	<button class="accordion">매치신청 취소를 하고 싶어요</button>
 		<div class="panel">
   			<p>jhl</p>
-		</div>
-		
-		
-	<button class="accordion">비나 눈이 와도 매치가 진행되나요?</button>
-		<div class="panel">
-  			<p>비나 눈이 와도</p>
-		</div>
-
-	<button class="accordion">인원이 채워지지 않으면 경기가 취소 되나요?</button>
-		<div class="panel">
-  			<p>부족한 인원</p>
-		</div>
-	
-	<button class="accordion">날짜를 잘못 신청해서 취소하고 싶어요</button>
-		<div class="panel">
-  			<p>잘못된 날짜</p>
 		</div>
 		
 	<button class="accordion">환불하고 싶어요</button>
@@ -144,6 +150,9 @@
   			<p>환불신청</p>
 		</div>
 		
+	<a href="write">
+		<button type="button" class="btn btn-info float-right">글 쓰 기</button>
+	</a>
 	
 	<%--
 	관리자만 볼 수 있는 글쓰기 버튼
@@ -151,13 +160,6 @@
 		<button type="button" class="btn btn-info float-right">글 쓰 기</button>
 	</c:if>
 	
-	
-	js/list.js에서 
-		$(function(){
-			$("button").click(function(){
-				location.href="write";
-			})
-		})로 하고 FaqFrontController에 /write case추가해서 글쓰기 기능 추가 가능
 	 --%>
 	
 </body>
