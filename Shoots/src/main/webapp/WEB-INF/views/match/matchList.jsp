@@ -9,10 +9,19 @@
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
 	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+	<link rel = "stylesheet" href = "${pageContext.request.contextPath}/css/matchList.css" type = "text/css">
 </head>
 <body>
-	<h1> MATCH LIST </h1>
-	
+	<div class = "imgb">
+		<div class = "imgL">
+			<img  class = "Limg" src = "${pageContext.request.contextPath}/img/matchL.jpg">
+			<div class="overlay">
+				<p> 언제, 어디서나 빠르고 간편한 매칭을 원한다면? </p>
+				<p class = "imgP2"> SHOOT MATCHING ! </p>
+				<p> 지금 가입해서 즐겨보세요 </p>
+			</div>
+		</div>
+	</div>
 	<div class = "container">
 		<c:if test = '${listcount > 0 }'>
 			<table class = "table text-center">
@@ -30,9 +39,9 @@
 					<tr>
 						<td> ${match.match_date.substring(0,10)} </td>
 						<td> ${match.match_time} </td>
-						<td> ${match.business_name} </td>
+						<td> <a href = "detail?match_id=${match.match_id}" class = "locatinA"> ${match.business_name} </a> </td>
 						<td> ${match.player_max} </td>
-						<td> 신청가능 </td>
+						<td> <input type = "button" class = "status" value = "신청가능"></td>
 					</tr>
 					</c:forEach>
 				</tbody>
@@ -45,12 +54,13 @@
 		
 	</div>
 	
-	
-	<button type = "button" class = "btn btn-danger"> 매칭 글 작성 </button>
+	<div class = "btnD">
+		<input type = "button" class = "uploadBtn" value = "매칭 글 작성">
+	</div>
 	
 	<script>
 	$(function(){
-		$('button').click(function(){
+		$('.uploadBtn').click(function(){
 			location.href = "write";
 		})
 	})

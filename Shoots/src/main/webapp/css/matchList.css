@@ -1,0 +1,32 @@
+@charset "EUC-KR";
+
+.imgb {text-align:center}
+.imgL {position: relative; display: inline-block; text-align : center;  min-width: 1200px; margin : 100px 0 50px 0;}
+.Limg {width : 80%; height : auto; display: block; margin : 0 auto}
+
+.container {min-width : 1200px;}
+.table {width : 80%; margin : 0 auto}
+
+.locatinA {text-decoration: none; color : black}
+.locatinA:hover {text-decoration: none; font-weight : bold; color : #059669}
+
+.status {font-size :  10px; border-radius : 10px; border : none; width : 70px; height : 23px; color : white ; background : #1d4ed8}
+.status:hover {font-size :  8px; border : 1px solid #1d4ed8; border-radius : 10px; width : 70px; height : 23px; color : #1d4ed8 ; background : white}
+
+.overlay {
+    position: absolute;
+    top: 50%;
+    left: 50%; 
+    transform: translate(-180%, -50%); 
+    color: white; /* 글자 색상 */
+    background-color: rgba(0, 0, 0, 0);
+    padding: 10px;
+    border-radius: 5px; 
+    text-align: left;
+}
+
+p {margin-bottom : 0px}
+.imgP2 {font-weight : bold}
+
+.btnD {text-align:center; margin-top : 30px}
+.uploadBtn {font-size :  10px; border-radius : 20px; border : none; width : 80px; height : 20px; color : white ; background : #be123c; margin-left : 10px }

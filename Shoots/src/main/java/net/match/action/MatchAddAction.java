@@ -32,7 +32,7 @@ public class MatchAddAction implements Action {
 		
 		if (result == 1) {
 			forward.setRedirect(true);
-			forward.setPath("/list");
+			forward.setPath("list");
 			return forward;
 		} else {
 			forward.setRedirect(false);

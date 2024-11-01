@@ -16,7 +16,7 @@ public class MatchWriteAction implements Action {
 		
 		ActionForward forward = new ActionForward();
 		forward.setRedirect(false);
-		forward.setPath("/WEB-INF/views/match_post/matchForm.jsp");
+		forward.setPath("/WEB-INF/views/match/matchForm.jsp");
 		return forward;
 	}
 

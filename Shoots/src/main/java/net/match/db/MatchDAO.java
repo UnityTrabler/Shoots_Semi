@@ -71,7 +71,7 @@ public class MatchDAO {
 				from match_post mp 
 				join business_user b
 				on mp.writer = b.business_idx
-				order by mp.register_date desc
+				order by mp.match_date desc
 				""";
 		List<MatchBean> list = new ArrayList();
 		try (Connection con = ds.getConnection();
@@ -94,5 +94,78 @@ public class MatchDAO {
 			System.out.println("getMatchList() 에러 : " + e);
 		}
 		return list;
+	}
+
+	public MatchBean getDetail(int matchId) {
+		String sql = """
+				select mp.*, b.business_name, b.address from match_post mp join business_user b
+				on mp.writer = b.business_idx where match_id = ?
+				""";
+		MatchBean match = null;
+		try (Connection con = ds.getConnection();
+				PreparedStatement pstmt = con.prepareStatement(sql);) {
+			pstmt.setInt(1, matchId);
+			
+			try (ResultSet rs = pstmt.executeQuery()) {
+				if (rs.next()) {
+					match = new MatchBean();
+					match.setMatch_id(rs.getInt("match_id"));
+					match.setMatch_date(rs.getString("match_date"));
+					match.setMatch_time(rs.getString("match_time"));
+					match.setPlayer_max(rs.getInt("player_max"));
+					match.setPlayer_min(rs.getInt("player_min"));
+					match.setPlayer_gender(rs.getString("player_gender"));
+					match.setPrice(rs.getInt("price"));
+					match.setBusiness_name(rs.getString("business_name"));
+					match.setAddress(rs.getString("address"));
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("getDetail() 에러 : " + e);
+		}
+		return match;
+	}
+
+	public int matchUpdate(MatchBean match) {
+		int result = 0;
+		String sql = """
+				update match_post set match_date = ?, match_time = ?, player_min = ?, 
+					player_max = ?, player_gender = ?, price = ?
+				where match_id = ?
+				""";
+		try (Connection con = ds.getConnection();
+				PreparedStatement pstmt = con.prepareStatement(sql);) {
+			
+			pstmt.setString(1, match.getMatch_date());
+			pstmt.setString(2, match.getMatch_time());
+			pstmt.setInt(3, match.getPlayer_min());
+			pstmt.setInt(4, match.getPlayer_max());
+			pstmt.setString(5, match.getPlayer_gender());
+			pstmt.setInt(6, match.getPrice());
+			pstmt.setInt(7, match.getMatch_id());
+			
+			result = pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("matchUpdate() 에러 : " + e);
+		}
+		return result;
+	}
+
+	public int matchDelete(int matchId) {
+		int result = 0;
+		String sql = """
+				delete from match_post where match_id = ?
+				""";
+		try (Connection con = ds.getConnection();
+				PreparedStatement pstmt = con.prepareStatement(sql);) {
+			pstmt.setInt(1, matchId);
+			result = pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("matchDelete() 에러 : " + e);
+		}
+		return result;
 	}
 }
