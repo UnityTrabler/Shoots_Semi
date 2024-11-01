@@ -15,9 +15,10 @@ public class FaqDeleteAction implements Action {
 	@Override
 	public ActionForward execute(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
-		int id = Integer.parseInt(req.getParameter("faq_id"));
+		int id = Integer.parseInt(req.getParameter("id"));
 		FaqDAO dao = new FaqDAO();
 		
+		//faqDelete()메서드를 사용해 내용 삭제
 		int result = dao.faqDelete(id);
 		if(result == 0) {
 			System.out.println("faq 삭제 실패");
