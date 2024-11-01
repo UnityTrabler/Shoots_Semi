@@ -1,12 +1,13 @@
 CREATE TABLE post (
-    post_id NUMBER(10) PRIMARY KEY, --게시글 식별 번호
+    post_id NUMBER(10) PRIMARY KEY, --게시글 식별 번호 (글번호)
     writer NUMBER(10) NOT NULL, --작성자
-    category char(1) CHECK (category IN ('A', 'B')), --글 종류
+    category char(1) CHECK (category IN ('A', 'B')) not null, --글 종류
     title VARCHAR2(100) NOT NULL, --제목
     content clob NOT NULL, --내용
     post_file VARCHAR2(50), --첨부파일
     price NUMBER(10), --가격
-    register_date DATE DEFAULT SYSDATE --등록일 
+    register_date DATE DEFAULT SYSDATE --등록일
+    readcount number --조회수
 );
 
 CREATE SEQUENCE post_seq
@@ -14,8 +15,25 @@ START WITH 1
 INCREMENT BY 1
 NOCACHE;
 
-ALTER TABLE post
-ADD readcount number; --조회수
+
+
+
+/*
+  
+CREATE TABLE post (
+    post_id NUMBER(10) PRIMARY KEY, --게시글 식별 번호 (글번호)
+    writer NUMBER(10) NOT NULL, --작성자
+    category char(1) CHECK (category IN ('A', 'B')), --글 종류
+    title VARCHAR2(100) NOT NULL, --제목
+    content clob NOT NULL, --내용
+    post_file VARCHAR2(50), --첨부파일
+    price NUMBER(10), --가격
+    register_date DATE DEFAULT SYSDATE --등록일 
+    readcount number
+);
+
+*/
+
 
 
 select * from post;
@@ -33,5 +51,11 @@ order by register_date desc;
 insert into POST
 (post_id, writer, category, title, content)
 values (1, 2, 'A', 4, 5);
+
+
+select *
+from post
+where category = 'A'
+order by register_date desc;
 
 
