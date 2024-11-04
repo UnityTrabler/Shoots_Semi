@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
 <%-- textarea{resize:none} --%>
@@ -14,8 +14,9 @@
 <body>
 		<form action="updateProcess" method="post" enctype="multipart/form-data" name="modifyform">
 		<input type="hidden" name="faq_id" value="${fb.faq_id}">
+			
 			<div class="form-group">
-				<label for="writer">글쓴이</label>
+				<label>글쓴이</label>
 				<input type="text" class="form-control" value="${fb.writer}" readOnly>
 			</div>
 			
@@ -33,11 +34,12 @@
 			
 			<div class="form-group">
 					<label>파일 첨부
-						<img src="${pageContext.request.contextPath}/image/attach.png" alt="파일첨부" width="20px">
+						<img src="${pageContext.request.contextPath}/img/attach.png" alt="파일첨부" width="20px">
 						<input type="file" id="upfile" name="faq_file">
 					</label>
+					<br>
 					<span id="filevalue">${fb.faq_file}</span>
-					<img src="${pageContext.request.contextPath}/image/remove.png" 
+					<img src="${pageContext.request.contextPath}/img/remove.png" 
 						alt="파일삭제" width="10px" class="remove">
 			</div>
 			

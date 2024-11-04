@@ -37,7 +37,7 @@ public class FaqFrontController extends jakarta.servlet.http.HttpServlet{
 		case "/faqAdmin":
 			action = new FaqAdmin();
 			break;
-		case "/faqPay":
+		case "/faqList":
 			action = new FaqListAction();
 			break;
 		case "/write":
@@ -54,6 +54,12 @@ public class FaqFrontController extends jakarta.servlet.http.HttpServlet{
 			break;
 		case "/delete":
 			action = new FaqDeleteAction();
+			break;
+		case "/down":
+			action = new FaqFileDownAction();
+			break;
+		case "/detail":
+			action = new FaqDetailAction();
 			break;
 			
 		default:
