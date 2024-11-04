@@ -36,7 +36,7 @@ select.form-control {
  <div class="container">
  
   <%-- 게시글이 있는 경우 --%>
-  <c:if test="${readcount > 0 }">
+  <c:if test="${listcount > 0 }">
   
    <table class="table table-striped">
     <thead>
@@ -57,19 +57,19 @@ select.form-control {
     <c:forEach var="p" items="${postlist}">
      <tr>
       <td><%-- 글번호 --%>
-       <c:out value="${num}"/><%-- num 출력 --%>
-       <c:set  var="num" value="${num-1}"/>		<%-- num=num-1; 의미 --%>
+       <c:out value="${p.post_id}"/><%-- num 출력 --%>
+       <c:set  var="post_id" value="${p.post_id-1}"/>		<%-- num=num-1; 의미 --%>
       </td>
       <td><%-- 제목 --%>
       <div>
-      <a href="detail?num=${p.post_id}">
+      <a href="detail?post_id=${p.post_id}">
 		<c:if test="${p.title.length()>=20}">
 			<c:out value="${p.title.substring(0,20)}..."/>
 		</c:if>
 		<c:if test="${p.title.length()<20}">
 			<c:out value="${p.title}"/>
 		</c:if>
-	</a>[${p.cnt}]
+	</a>
       </div>
       </td>
 	<td><div>${p.writer}</div></td><%-- 작성자 --%>
@@ -83,7 +83,7 @@ select.form-control {
    
    
    <%-- 게시글이 없는 경우 --%>
-  <c:if test="${readcount  == 0 }">
+  <c:if test="${listcount  == 0 }">
   	<h3 style="text-align:center">등록된 글이 없습니다.</h3>
   </c:if>
    <button type="button" class="btn btn-info float-right"> 글 작 성</button>
