@@ -106,14 +106,14 @@ public class InquiryListAction implements Action {
 			req.setAttribute("listcount", listcount); // 총 글 
 			
 			//해당 페이지의 글 목록을 갖고있는 리스트
-			req.setAttribute("boardlist", inquirylist); // 총 글 
+			req.setAttribute("inquirylist", inquirylist); // 총 글 
 			req.setAttribute("limit", limit);
 			
 			ActionForward forward = new ActionForward();
 			forward.setRedirect(false);
 			
 			//글 목록 페이지로 이동하기 위해 경로를 설정함.
-			forward.setPath("/WEB-INF/views/board/boardList.jsp");
+			forward.setPath("/WEB-INF/views/inquiry/inquiryList.jsp");
 			return forward;
 		} else {
 			System.out.println("state=ajax");
@@ -133,8 +133,8 @@ public class InquiryListAction implements Action {
 			
 			//List => JsonElement
 			JsonElement je = new Gson().toJsonTree(inquirylist);
-			System.out.println("boardlist=" +je.toString());
-			object.add("boardlist", je);
+			System.out.println("inquirylist=" +je.toString());
+			object.add("inquirylist", je);
 			
 			resp.setContentType("application/json;charset=utf-8");
 			resp.getWriter().print(object);
