@@ -15,7 +15,7 @@ public class InquiryDAO {
 	
 	private DataSource ds;
 
-	public InquiryDAO() {
+	public InquiryDAO() { //DB와 연결
 		try {
 			Context init = new InitialContext();
 			this.ds = (DataSource) init.lookup("java:comp/env/jdbc/OracleDB");
@@ -24,7 +24,7 @@ public class InquiryDAO {
 		}
 	}
 
-	public int getListCount() {
+	public int getListCount() { //문의글의 총 개수를 세는 메서드
 		String sql = "select count(*) from inquiry";
 		int x = 0;
 		try (Connection con = ds.getConnection(); PreparedStatement pstmt = con.prepareStatement(sql);) {
@@ -40,7 +40,7 @@ public class InquiryDAO {
 		return x;
 	} // getListCount() end
 
-	public List<InquiryBean> getInquiryList(int page, int limit) {
+	public List<InquiryBean> getInquiryList(int page, int limit) { //문의글의 글 페이지네이션 + 리스트 뜨게 하는 메서드
 		// page : 페이지
 		// limit : 페이지 당 목록수
 		// board_re_ref desc, board_re_seq asc에 의해 정렬한 것을 조건절에 맞는 rnum의 범위만큼 가져오는 쿼리문
@@ -85,7 +85,7 @@ public class InquiryDAO {
 				return list;
 	}
 	
-	public boolean inquiryInsert(InquiryBean iq) {
+	public boolean inquiryInsert(InquiryBean iq) { //문의글 작성시 적은 글의 데이터를 삽입하는 메서드
 		int result=0;
 		
 		//원문글의 BOARD_RE_REF 는 자신의 글번호.
@@ -140,12 +140,12 @@ public class InquiryDAO {
 	
 	
 	
-	public InquiryBean getDetail(int num) {
-		InquiryBean board = null;
+	public InquiryBean getDetail(int num) { //문의글을 누르면 상세 페이지가 나오게 하는 메서드
+		InquiryBean ib = new InquiryBean();
 		String sql = """
 				select *
-				from board
-				where board_num = ?
+				from inquiry
+				where inquiry_id = ?
 				""";
 		
 		try (Connection con = ds.getConnection();
@@ -154,77 +154,74 @@ public class InquiryDAO {
 					
 					try (ResultSet rs = pstmt.executeQuery()){
 						if (rs.next()) {
-//							board = new InquiryBean();
-//							board.setBoard_num(rs.getInt("board_num"));
-//							board.setBoard_name(rs.getString("board_name"));
-//							board.setBoard_subject(rs.getString("board_subject"));
-//							board.setBoard_content(rs.getString("board_content"));
-//							board.setBoard_file(rs.getString("board_file"));
-//							board.setBoard_re_ref(rs.getInt("board_re_ref"));
-//							board.setBoard_re_lev(rs.getInt("board_re_lev"));
-//							board.setBoard_re_seq(rs.getInt("board_re_seq"));
-//							board.setBoard_readcount(rs.getInt("board_readcount"));
-//							board.setBoard_date(rs.getString("board_date"));
+							ib.setInquiry_id(rs.getInt("inquiry_id"));
+							ib.setInquiry_type(rs.getString("inquiry_type"));
+							ib.setInquiry_ref_idx(rs.getInt("inquiry_ref_idx"));
+							ib.setTitle(rs.getString("title"));
+							ib.setContent(rs.getString("content"));
+							ib.setInquiry_file(rs.getString("inquiry_file"));
+							ib.setRegister_date(rs.getString("register_date"));
 						}
 					}
 				}catch (Exception ex) {
 						System.out.println("getDetail() 에러:" + ex);
 				}
 		
-		return board;
+		return ib;
 	} //getDetail()메서드
 
-	public boolean isBoardWriter(int num, String pass) {
-		boolean result = false;
-		String board_sql = """
-				select BOARD_PASS
-				from board
-				where BOARD_NUM =?
-				""";
-		
-		try(Connection con = ds.getConnection();
-				PreparedStatement pstmt = con.prepareStatement(board_sql);){
-					pstmt.setInt(1, num);
-					
-					try(ResultSet rs = pstmt.executeQuery()){
-						if(rs.next()) {
-							if(pass.equals(rs.getString("BOARD_PASS"))) {
-								result = true;
-							}
-						}
-					}
-					
-				} catch (SQLException ex) {
-					ex.printStackTrace();
-					System.out.println("isBoardWriter() 에러: " + ex);
-				}
-			return result;
-		
-	} //isBoardWriter 끝
+//	글 수정하기 전에 작성자의 비번과 수정시도자의 입력비번을 검증하는 메서드.
+//	public boolean isBoardWriter(int listnum, int id) {
+//		boolean result = false;
+//		String board_sql = """
+//				select inquiry_ref_idx
+//				from inquiry
+//				where inquiry_id =?
+//				""";
+//		
+//		try(Connection con = ds.getConnection();
+//				PreparedStatement pstmt = con.prepareStatement(board_sql);){
+//					pstmt.setInt(1, listnum);
+//					
+//					try(ResultSet rs = pstmt.executeQuery()){
+//						if(rs.next()) {
+//							if(id == rs.getInt("inquiry_ref_idx")) {
+//								result = true;
+//							}
+//						}
+//					}
+//					
+//				} catch (SQLException ex) {
+//					ex.printStackTrace();
+//					System.out.println("isBoardWriter() 에러: " + ex);
+//				}
+//			return result;
+//		
+//	} //isBoardWriter 끝
 
 	
-	public boolean boardModify(InquiryBean boarddata) {
-		String board_sql = """
-				update board
-				set BOARD_SUBJECT = ? , BOARD_CONTENT = ?, BOARD_FILE = ?
-				where BOARD_NUM = ?
+	public boolean inquiryModify(InquiryBean inquirydata) {
+		String sql = """
+				update inquiry
+				set title = ? , content = ?, inquiry_file = ?
+				where inquiry_id = ?
 				""";
 		
 		try(Connection con = ds.getConnection();
-				PreparedStatement pstmt = con.prepareStatement(board_sql);){
-//					pstmt.setString(1, boarddata.getBoard_subject());
-//					pstmt.setString(2, boarddata.getBoard_content());
-//					pstmt.setString(3, boarddata.getBoard_file());
-//					pstmt.setInt(4, boarddata.getBoard_num());
+				PreparedStatement pstmt = con.prepareStatement(sql);){
+					pstmt.setString(1, inquirydata.getTitle());
+					pstmt.setString(2, inquirydata.getContent());
+					pstmt.setString(3, inquirydata.getInquiry_file());
+					pstmt.setInt(4, inquirydata.getInquiry_id());
 					int result = pstmt.executeUpdate();
 					
 					if(result ==1) {
-						System.out.println("업데이트 성공");
+						System.out.println("업데이트에 성공했습니다.");
 						return true;
 					}
 					
 				} catch (SQLException ex) {
-					System.out.println("boardModify() 에러: " + ex);
+					System.out.println("inquiryModify() 에러: " + ex);
 				}
 		
 		return false;
@@ -321,48 +318,25 @@ public class InquiryDAO {
 		
 	} //reply_update() 끝 
 
-	public boolean boardDelete(int num) {
-		String select_sql = """
-				select BOARD_RE_REF, BOARD_RE_LEV, BOARD_RE_SEQ
-				from board
-				where BOARD_NUM = ?
-				""";
-		String board_delete_sql = """
-				delete from board
-			where board_re_ref = ?
-			and board_re_lev >= ?
-			and board_re_seq >= ?
-			and board_re_seq <= ( nvl((select min (board_re_seq)-1
-					from board
-					where board_re_ref =?
-					and board_re_lev = ?
-					and board_re_seq > ?) ,(select max(board_re_seq)
-							from board
-							where board_re_ref = ?) )
-					)
+	
+	public boolean boardDelete(int num) { //문의글 삭제하는 메서드
+		String inquiry_delete_sql = """
+				delete from inquiry
+			where inquiry_id = ?
 				""";
 		
 		try(Connection con = ds.getConnection();
-			PreparedStatement pstmt = con.prepareStatement(select_sql);){
+			PreparedStatement pstmt = con.prepareStatement(inquiry_delete_sql);){
 			pstmt.setInt(1, num);
-			try(ResultSet rs = pstmt.executeQuery();){
-				if(rs.next()) {
-					try(PreparedStatement pstmt2 = con.prepareStatement(board_delete_sql);){
-					pstmt2.setInt(1, rs.getInt("BOARD_RE_REF"));
-					pstmt2.setInt(2, rs.getInt("BOARD_RE_LEV"));
-					pstmt2.setInt(3, rs.getInt("BOARD_RE_SEQ"));
-					pstmt2.setInt(4, rs.getInt("BOARD_RE_REF"));
-					pstmt2.setInt(5, rs.getInt("BOARD_RE_LEV"));
-					pstmt2.setInt(6, rs.getInt("BOARD_RE_SEQ"));
-					pstmt2.setInt(7, rs.getInt("BOARD_RE_REF"));
-					
-					if(pstmt2.executeUpdate() >= 1)
-						return true; //삭제가 안된 경우에는 false를 반환함.
-					} //try 3
-				} // if (rs.next()){
-			}  //try2
+			int result = pstmt.executeUpdate();
+			
+			if(result ==1) {
+				System.out.println("데이터가 삭제되었습니다.");
+				return true;
+			}
+			
 		} catch(Exception ex) {
-			System.out.println("boardDelete()에러: " + ex);
+			System.out.println("inquiryDelete()에러: " + ex);
 			ex.printStackTrace();
 		}
 		
