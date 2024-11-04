@@ -28,13 +28,14 @@ $(function(){
 			$board_content.focus();
 			return false;
 		}
-		
+		/*
 		const $board_pass = $('#board_pass');
 		if($board_pass.val().trim() == ""){
 			alert("password 입력.");
 			$board_pass.focus();
 			return false;
 		}
+		*/
 		
 		if(check == 0){
 			const value = $('#filevalue').text();

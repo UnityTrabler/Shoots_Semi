@@ -54,6 +54,25 @@ private static final long serialVersionUID = 1L;
 				action = new PostAddAction();
 				break;
 				
+			case "/detail":
+				action = new PostDetailAction();
+				break;
+				
+			case "/modify":
+				action = new PostModifyAction();
+				break;
+				
+			case "/modifyProcess":
+				action = new PostModifyProcessAction();
+				break;
+				
+			case "/delete":
+				action = (Action) new PostDeleteAction();
+				break;
+				
+			case "/down":
+				action = new PostFileDownAction();
+				break;
 			
 			default:
 				RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/views/error/error404.jsp");

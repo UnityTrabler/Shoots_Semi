@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
   <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
@@ -27,42 +27,42 @@ select.form-control {
 	body > div > table > thead > tr:nth-child(2) > th:nth-child(5){width:11%}
  </style>
  
-<meta charset="EUC-KR">
+<meta charset="UTF-8">
 <script src="${pageContext.request.contextPath}/js/jquery-3.7.1.js"></script>
 <script src="${pageContext.request.contextPath}/js/list.js"></script>
-<title>ÀÚÀ¯ °Ô½ÃÆÇ</title>
+<title>ììœ  ê²Œì‹œíŒ</title>
 </head>
 <body>
  <div class="container">
  
-  <%-- °Ô½Ã±ÛÀÌ ÀÖ´Â °æ¿ì --%>
+  <%-- ê²Œì‹œê¸€ì´ ìˆëŠ” ê²½ìš° --%>
   <c:if test="${listcount > 0 }">
   
    <table class="table table-striped">
     <thead>
      <tr>
-      <th colspan="3">ÀÚÀ¯°Ô½ÃÆÇ</th>
+      <th colspan="3">ììœ ê²Œì‹œíŒ</th>
      </tr>
      
      <tr>
-     	<th><div>±Û¹øÈ£</div></th>
-     	<th><div>Á¦¸ñ</div></th>
-     	<th><div>ÀÛ¼ºÀÚ</div></th>
-     	<th><div>ÀÛ¼ºÀÏ</div></th>
-     	<th><div>Á¶È¸¼ö</div></th>
+     	<th><div>ê¸€ë²ˆí˜¸</div></th>
+     	<th><div>ì œëª©</div></th>
+     	<th><div>ì‘ì„±ì</div></th>
+     	<th><div>ì‘ì„±ì¼</div></th>
+     	<th><div>ì¡°íšŒìˆ˜</div></th>
      </tr>
     </thead>
     <tbody>
     <c:set var="num" value="${listcount-(page-1)*limit}"/>
     <c:forEach var="p" items="${postlist}">
      <tr>
-      <td><%-- ±Û¹øÈ£ --%>
-       <c:out value="${p.post_id}"/><%-- num Ãâ·Â --%>
-       <c:set  var="post_id" value="${p.post_id-1}"/>		<%-- num=num-1; ÀÇ¹Ì --%>
+      <td><%-- ê¸€ë²ˆí˜¸ --%>
+       <c:out value="${num}"/><%-- num ì¶œë ¥ --%>
+       <c:set  var="num" value="${num-1}"/>		<%-- num=num-1; ì˜ë¯¸ --%>
       </td>
-      <td><%-- Á¦¸ñ --%>
+      <td><%-- ì œëª© --%>
       <div>
-      <a href="detail?post_id=${p.post_id}">
+      <a href="detail?num=${p.post_id}">
 		<c:if test="${p.title.length()>=20}">
 			<c:out value="${p.title.substring(0,20)}..."/>
 		</c:if>
@@ -72,9 +72,9 @@ select.form-control {
 	</a>
       </div>
       </td>
-	<td><div>${p.writer}</div></td><%-- ÀÛ¼ºÀÚ --%>
-	<td><div>${p.register_date}</div></td><%-- ÀÛ¼ºÀÏ --%>
-	<td><div>${p.readcount}</div></td><%-- Á¶È¸¼ö --%>
+	<td><div>${p.writer}</div></td><%-- ì‘ì„±ì --%>
+	<td><div>${p.register_date}</div></td><%-- ì‘ì„±ì¼ --%>
+	<td><div>${p.readcount}</div></td><%-- ì¡°íšŒìˆ˜ --%>
       </tr>
       </c:forEach>
     </tbody>
@@ -82,11 +82,11 @@ select.form-control {
    </c:if> <%-- <c:if test="${readcount > 0 }"> end --%>
    
    
-   <%-- °Ô½Ã±ÛÀÌ ¾ø´Â °æ¿ì --%>
+   <%-- ê²Œì‹œê¸€ì´ ì—†ëŠ” ê²½ìš° --%>
   <c:if test="${listcount  == 0 }">
-  	<h3 style="text-align:center">µî·ÏµÈ ±ÛÀÌ ¾ø½À´Ï´Ù.</h3>
+  	<h3 style="text-align:center">ë“±ë¡ëœ ê¸€ì´ ì—†ìŠµë‹ˆë‹¤.</h3>
   </c:if>
-   <button type="button" class="btn btn-info float-right"> ±Û ÀÛ ¼º</button>
+   <button type="button" class="btn btn-info float-right"> ê¸€ ì‘ ì„±</button>
  </div> <%-- <div class="container"> end --%>
 </body>
 </html>
