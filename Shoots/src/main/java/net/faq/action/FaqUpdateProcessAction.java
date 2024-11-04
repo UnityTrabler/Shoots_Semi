@@ -65,7 +65,7 @@ public class FaqUpdateProcessAction implements Action{
 				System.out.println("FAQ 수정 완료");
 				forward.setRedirect(true);
 				//수정한 글 내용을 보여주기 위해 글 내용 보기 페이지로 이동하기 위해 경로를 설정합니다.
-				forward.setPath("faqPay");
+				forward.setPath("faqAdmin");
 			}
 			
 			

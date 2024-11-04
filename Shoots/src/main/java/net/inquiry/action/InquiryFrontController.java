@@ -49,6 +49,22 @@ public class InquiryFrontController extends jakarta.servlet.http.HttpServlet {
 			case "/add":
 				action = new InquiryAddAction();
 				break;
+				
+			case "/detail":
+				action = new InquiryDetailAction();
+				break;
+				
+			case "/modify":
+				action = new InquiryModifyAction();
+				break;
+				
+			case "/modifyProcess":
+				action = new InquiryModifyProcessAction();
+				break;
+				
+			case "/delete":
+				action = new InquiryDeleteAction();
+				break;
 			
 			default:
 				RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/error/error.jsp");

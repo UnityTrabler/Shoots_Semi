@@ -9,7 +9,7 @@
 </head>
 <body>
 	<div> 
-		<form action = "updateProcess" method = "post" name = "matchUpdateForm">
+		<form action = "updateProcess" method = "post" id = "matchUpdateForm">
 			<h1> MATCH UPLOAD </h1>
 			<input type = "hidden" id = "match_id" name = "match_id" value = "${match.match_id}">
 			<div> 날짜 </div>
@@ -27,7 +27,7 @@
 			<input type = "radio" id = "player_gender" name = "player_gender" value = "m"> 남자
 			<input type = "radio" id = "player_gender" name = "player_gender" value = "f"> 여자
 			<div>
-				<input type = "submit" value = "UPDATE" class = "btn btn-danger">
+				<input type = "submit" class = ".update" value = "UPDATE" class = "btn btn-danger">
 				<input type = "reset" value = "RESET">
 				<input type = "button" class = "back" value = "BACK">
 			</div>
@@ -39,6 +39,25 @@
 		$('.back').click(function(){
 			location.href = location.href = "../matchs/detail?match_id=${match.match_id}";
 		});
+		
+		$(function(){
+			$('#matchUpdateForm').submit(function(event){
+				event.preventDefault();
+				if (confirm("매칭글을 수정하시겠습니까?")) {
+					$.ajax({
+						type: "POST", 
+						url: "update?match_id=${match.match_id}", 
+						success: function(response) {
+							alert("수정되었습니다."); 
+							location.href = "../matchs/list"; 
+						},
+						error: function() {
+							alert("수정 실패. 다시 시도해주세요.");
+						}
+					});
+				}
+			});
+		})
 	</script>
 </body>
 </html>

@@ -28,7 +28,7 @@ private DataSource ds;
 		List<FaqBean> list = new ArrayList<FaqBean>();
 		String sql = """
 				select * 
-				from faq
+				from faq order by faq_id
 				""";
 		
 		try(Connection con = ds.getConnection();
@@ -41,7 +41,7 @@ private DataSource ds;
 					fb.setTitle(rs.getString(3));
 					fb.setContent(rs.getString(4));
 					fb.setFaq_file(rs.getString(5));
-					fb.setRegister_date(rs.getString(6));
+					fb.setRegister_date(rs.getString(6).substring(0, 10));
 					list.add(fb);
 				}
 			}
@@ -114,7 +114,7 @@ private DataSource ds;
 			System.out.println("getDetail() 에러: " + ex);
 		}
 		return fb;
-	}
+	}//getDetail() end
 
 	public int faqUpdate(FaqBean fb) {
 		int result = 0;
@@ -137,7 +137,7 @@ private DataSource ds;
 		}
 		
 		return result;
-	}
+	}//faqUpdate() end
 	
 	
 }

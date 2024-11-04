@@ -4,12 +4,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<script src = "https://code.jquery.com/jquery-3.7.1.js"></script>
+	<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel = "stylesheet" href = "${pageContext.request.contextPath}/css/matchDetail.css" type = "text/css">
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
 	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+	<script src="https://cdn.iamport.kr/v1/iamport.js"></script>
 </head>
 <body>
 	<input type = "hidden" id = "match_id" name = "match_id" value = ${match.match_id}>
@@ -47,7 +48,7 @@
 		 	<hr class = "hr1">
 		 	<p class = "price"> ${match.price}원 <span class = "time">  / 2시간 </span></p>
 		 	<div class = "btndiv">
-		 		<input type = "button" class = "btn1" value = "신청하기">
+		 		<input type = "button" class = "btn1" id = "paymentBtn" value = "신청하기">
 		 	</div>
 		</div>
 	</div>
@@ -57,7 +58,41 @@
 		<input type = "button" class = "deleteBtn" value = "삭제하기">
 	</div>
 	<script>
-		$(function(){
+		 $(function() {
+		        $('#paymentBtn').click(function() {
+		            // 결제 요청
+		            var IMP = window.IMP;
+		            IMP.init('imp35523152'); // 가맹점 식별코드
+
+		            IMP.request_pay({
+		                pg: 'html5_inicis',
+		                pay_method: 'card', 
+		                merchant_uid: 'merchant_' + new Date().getTime(),
+		                name: '주문명:결제테스트',
+		                amount: ${match.price}, 
+		                buyer_email: 'example@gmail.com',
+		                buyer_name: '구매자 이름',
+		                buyer_tel: '연락처',
+		                buyer_addr: '주소',
+		                buyer_postcode: '우편번호'
+		            }, function(rsp) {
+		                if (rsp.success) {
+		                    var msg = '결제가 완료되었습니다.';
+		                    msg += '고유ID : ' + rsp.imp_uid;
+		                    msg += '결제 금액 : ' + rsp.paid_amount;
+		                    msg += '카드 승인번호 : ' + rsp.apply_num;
+
+		                    pay_info(rsp);
+
+		                } else {
+		                    var msg = '결제에 실패하였습니다.';
+		                    msg += '에러내용 : ' + rsp.error_msg;
+		                    
+		                    alert(msg);
+		         
+		                }
+		            });
+		        });
 			
 			$('.listBtn').click(function(){
 				location.href = location.href = "../matchs/list";
@@ -82,8 +117,7 @@
 					});
 				}
 			});
-			
-		})
+		});
 	</script>
 </body>
 </html>
