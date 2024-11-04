@@ -1,38 +1,37 @@
 $(function() {
 	$('button').click(function() {
 		location.href = "write";
+
+		});
 	});
 	
-	$("#upfile").change(function(){
-		console.log($(this).val());
+	
+	
+$(document).ready(function(){
+	
+	$("#upfile").change(function() {
+		console.log($(this).val()) //c.\fakepath\upload.png
 		const inputfile = $(this).val().split('\\');
-		$('#filevalue').text(inputfile[inputfile.length-1]);
+		$('#filevalue').text(inputfile[inputfile.length - 1]);
 	});
 	
-	//submit event
-	$("form[name=boardform]").submit(function() {
-		const $boardPass = $("#board_pass");
-		if ($boardPass.val().trim() == "") {
-			alert("비밀번호 입력하세요");
-			$boardPass.focus();
-			return false;
-		}//if
+	
+	// submit 버튼 클릭할 때 이벤트 부분
+	$("form[name=postform]").submit(function() {
 		
-		const $boardSubject = $("#board_subject");
-		if ($boardSubject.val().trim() == "") {
+		const $title = $("#title");
+		if ($title.val().trim() == "") {
 			alert("제목을 입력하세요");
-			$boardSubject.focus();
+			$title.focus();
 			return false;
-		}//if
+		}
 		
-		const $boardContent = $("#board_content");
-		if ($boardContent.val().trim() == "") {
+		const $content = $("#content");
+		if ($content.val().trim() == "") {
 			alert("내용을 입력하세요");
-			$boardContent.focus();
+			$content.focus();
 			return false;
-		}//if
+		}
 		
-	})//submit 
-
-})
-
+	}); //submit end
+}) // ready() end

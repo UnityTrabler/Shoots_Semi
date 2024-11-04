@@ -71,7 +71,7 @@ private DataSource ds;
 						PostBean post = new PostBean();
 						post.setPost_id(rs.getInt("POST_ID"));
 						post.setWriter(rs.getInt("WRITER"));
-						
+						 
 						post.setTitle(rs.getString("TITLE"));
 						
 						post.setRegister_date(rs.getString("REGISTER_DATE"));
