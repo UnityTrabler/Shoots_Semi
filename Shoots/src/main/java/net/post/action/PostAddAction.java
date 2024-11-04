@@ -35,7 +35,7 @@ public class PostAddAction implements Action {
 		System.out.println("realFolder= " + realFolder);
 		try {
 			MultipartRequest multi =
-					new MultipartRequest(request, realFolder, fileSize, "EUC-KR",
+					new MultipartRequest(request, realFolder, fileSize, "utf-8",
 					new DefaultFileRenamePolicy());
 			
 			//PostBean 객체에 글 등록 폼에서 입력 받은 정보들을 저장합니다.

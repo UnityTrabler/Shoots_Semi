@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,47 +9,47 @@
   .container{width:60%}
   label{font-weight:bold}
  </style>
-<meta charset="EUC-KR">
-<title>°Ô½ÃÆÇ ±Û¾²±â</title>
+<meta charset="UTF-8">
+<title>ê²Œì‹œíŒ ê¸€ì“°ê¸°</title>
 </head>
 <body>
 <div class="container">
   <form action="add" method="post" enctype="multipart/form-data"
   		name="postform">
-  	<h1>°Ô½ÃÆÇ ±Û¾²±â</h1>
+  	<h1>ê²Œì‹œíŒ ê¸€ì“°ê¸°</h1>
   	
   	
   	
   	<div class="form-group">
   		<label for="category" ></label>
-  			<input type="radio" name="category" value="A" required><span>ÀÚÀ¯°Ô½ÃÆÇ</span>
-			<input type="radio" name="category" value="B" ><span>Áß°í°Ô½ÃÆÇ</span>
+  			<input type="radio" name="category" value="A" required><span>ìžìœ ê²Œì‹œíŒ</span>
+			<input type="radio" name="category" value="B" ><span>ì¤‘ê³ ê²Œì‹œíŒ</span>
   	</div>
   	
   	<div class="form-group">
-  		<label for="title">±Û ÀÛ¼º</label>
+  		<label for="title">ê¸€ ìž‘ì„±</label>
   		<input name="title" id="title" type="text" maxlength="100"
-  				class="form-control" placeholder="Á¦¸ñÀ» ÀÔ·ÂÇØÁÖ¼¼¿ä">
+  				class="form-control" placeholder="ì œëª©ì„ ìž…ë ¥í•´ì£¼ì„¸ìš”">
   	</div>
   	
   	<div class="form-group">
-  		<label for="content">³»¿ë</label>
+  		<label for="content">ë‚´ìš©</label>
   		<textarea name="content" id="content"
-  				rows="20" class="form-control" placeholder="³»¿ëÀ» ÀÔ·ÂÇÏ¼¼¿ä."></textarea>
+  				rows="20" class="form-control" placeholder="ë‚´ìš©ì„ ìž…ë ¥í•˜ì„¸ìš”."></textarea>
   	</div>
   	
   	<div class="form-group">
   		<label>
-  		ÆÄÀÏÃ·ºÎ
-  		 <img src="${pageContext.request.contextPath}/img/attach.png" alt="ÆÄÀÏÃ·ºÎ">
+  		íŒŒì¼ì²¨ë¶€
+  		 <img src="${pageContext.request.contextPath}/img/attach.png" alt="íŒŒì¼ì²¨ë¶€">
   		 <input type="file" id="upfile" name="post_file">
   		</label>
   		<span id="filevalue"></span>
   	</div>
   	
   	<div class="form-group">
-  		<button type=reset class="btn btn-danger">Ãë¼Ò</button>
-  		<button type=submit class="btn btn-primary">µî·Ï</button>
+  		<button type=reset class="btn btn-danger">ì·¨ì†Œ</button>
+  		<button type=submit class="btn btn-primary">ë“±ë¡</button>
   	</div>
   	</form>
  </div>
