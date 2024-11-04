@@ -22,7 +22,7 @@ public class FaqListAction implements Action {
 		List<FaqBean> list = null;
 		list = dao.getList();
 		req.setAttribute("totallist", list);
-		forward.setPath("/WEB-INF/views/faq/faqPay.jsp");
+		forward.setPath("/WEB-INF/views/faq/faqList.jsp");
 		forward.setRedirect(false);
 		return forward;
 	}

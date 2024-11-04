@@ -28,7 +28,7 @@ public class FaqAddAction implements Action{
 		//webapp 아래에 faq에서 업로드한 파일이 들어가는 폴더 faqupload
 		String saveFolder = "faqupload";
 		
-		int fileSize = 5 * 1024 * 1024;	//업로드할 파일의 최대 사이즈 : 5MB
+		int fileSize = 25 * 1024 * 1024;	//업로드할 파일의 최대 사이즈 : 5MB
 		
 		//실제 저장 경로를 지정합니다
 		ServletContext sc = req.getServletContext();
@@ -61,7 +61,7 @@ public class FaqAddAction implements Action{
 				//글 등록이 완료되면 글 목록을 보여주기 위해 "faq/list"로 이동합니다.
 				//Redirect 여부를 true로 설정합니다.
 				forward.setRedirect(true);
-				forward.setPath("faqPay");//faq가 추가되고 이동할 경로는 faq/list입니다.
+				forward.setPath("faqAdmin");//faq가 추가되고 이동할 경로는 faq/list입니다.
 			}
 			return forward;
 			
