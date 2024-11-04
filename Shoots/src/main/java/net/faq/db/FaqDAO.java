@@ -42,6 +42,7 @@ private DataSource ds;
 					fb.setContent(rs.getString(4));
 					fb.setFaq_file(rs.getString(5));
 					fb.setRegister_date(rs.getString(6));
+					list.add(fb);
 				}
 			}
 			
@@ -51,7 +52,7 @@ private DataSource ds;
 		}
 		
 		return list;
-	}
+	}//getList() faqselectall end
 
 	public int faqDelete(int id) {
 		int result = 0;
@@ -66,6 +67,75 @@ private DataSource ds;
 			e.printStackTrace();
 			System.out.println("faqDelete() 에러: " + e);
 		}
+		return result;
+	}//faqDelete end
+
+	public int faqInsert(FaqBean fb) {
+		int result = 0;
+		String sql = """
+				insert into faq values(faq_seq.nextval, ?, ?, ?, ?, sysdate)
+				""";
+		try(Connection con = ds.getConnection();
+				PreparedStatement pstmt = con.prepareStatement(sql);){
+			pstmt.setInt(1, fb.getWriter());
+			pstmt.setString(2, fb.getTitle());
+			pstmt.setString(3, fb.getContent());
+			pstmt.setString(4, fb.getFaq_file());
+			result = pstmt.executeUpdate();
+		}
+		catch(Exception ex) {
+			ex.printStackTrace();
+			System.out.println("commentsInsert() 에러: " + ex);
+		}
+		return result;
+	}//faqInsert end
+
+	public FaqBean getDetail(int id) {
+		FaqBean fb = null;
+		String sql = """
+				select * from faq where faq_id = ?
+				""";
+		try(Connection con = ds.getConnection();
+			PreparedStatement pstmt = con.prepareStatement(sql);){
+			pstmt.setInt(1, id);
+			try(ResultSet rs = pstmt.executeQuery()){
+				if(rs.next()) {
+					fb = new FaqBean();
+					fb.setFaq_id(rs.getInt("faq_id"));
+					fb.setWriter(rs.getInt("writer"));
+					fb.setTitle(rs.getString("title"));
+					fb.setContent(rs.getString("content"));
+					fb.setFaq_file(rs.getString("faq_file"));
+					fb.setRegister_date(rs.getString("register_date"));
+				}
+			}
+			
+		}catch(Exception ex) {
+			System.out.println("getDetail() 에러: " + ex);
+		}
+		return fb;
+	}
+
+	public int faqUpdate(FaqBean fb) {
+		int result = 0;
+		String sql = """
+				update faq set title=?, content=?, faq_file=?
+				where faq_id=?
+				""";
+		try(Connection con = ds.getConnection();
+			PreparedStatement pstmt = con.prepareStatement(sql);){
+			pstmt.setString(1, fb.getTitle());
+			pstmt.setString(2, fb.getContent());
+			pstmt.setString(3, fb.getFaq_file());
+			pstmt.setInt(4, fb.getFaq_id());
+			
+			result = pstmt.executeUpdate();
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+			System.out.println("faqUpdate() 에러: " + e);
+		}
+		
 		return result;
 	}
 	

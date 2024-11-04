@@ -1,4 +1,4 @@
-package net.faq.action;
+package net.post.action;
 
 import java.io.IOException;
 
@@ -8,14 +8,14 @@ import jakarta.servlet.http.HttpServletResponse;
 import net.core.Action;
 import net.core.ActionForward;
 
-public class FaqWriteAction implements Action{
+public class PostWriteAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		ActionForward forward = new ActionForward();
-		forward.setRedirect(false);	//포워딩 방식으로 주소가 바뀌지 않아요
-		forward.setPath("/WEB-INF/views/faq/faqWrite.jsp");
+		forward.setRedirect(false); // 포워딩 방식으로 주소가 바뀌지 않아요
+		forward.setPath("/WEB-INF/views/post/postWrite.jsp");
 		return forward;
 	}
 

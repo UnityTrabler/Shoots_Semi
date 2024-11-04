@@ -1,21 +1,29 @@
 package net.faq.action;
 
 import java.io.IOException;
+import java.util.List;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import net.core.Action;
 import net.core.ActionForward;
+import net.faq.db.FaqBean;
+import net.faq.db.FaqDAO;
 
-public class FaqWriteAction implements Action{
+public class FaqAdmin implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		ActionForward forward = new ActionForward();
-		forward.setRedirect(false);	//포워딩 방식으로 주소가 바뀌지 않아요
-		forward.setPath("/WEB-INF/views/faq/faqWrite.jsp");
+		FaqDAO dao = new FaqDAO();
+		
+		List<FaqBean> list = null;
+		list = dao.getList();
+		req.setAttribute("totallist", list);
+		forward.setPath("/WEB-INF/views/faq/faqAdmin.jsp");
+		forward.setRedirect(false);
 		return forward;
 	}
 
