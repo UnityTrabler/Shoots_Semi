@@ -3,7 +3,6 @@ package net.user.action;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.security.SecureRandom;
 import java.util.Base64;
 import java.util.Properties;
@@ -29,6 +28,14 @@ public class UserSignupProcessAction extends HttpServlet implements Action {
 
 	public ActionForward execute(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
+		String key = req.getParameter("key");
+		HttpSession session = req.getSession();
+		
+		//key값이 들어오는 경우는 email verifycode를 검증하는 경우.
+		if(key != null && !key.trim().equals("")) {
+			verifyCheck(key, (String)session.getAttribute("verifyNum"), resp);
+			return null;
+		}
 		
 		String receiver = req.getParameter("receiver");
 		SecureRandom random = new SecureRandom();
@@ -42,13 +49,29 @@ public class UserSignupProcessAction extends HttpServlet implements Action {
 		final String password = "won08980898A"; // 실제 비밀번호
 		String sender = username;
 		sendEmail(resp, host, username, password, sender, receiver, subject, imgPath, verifyNum);
-		HttpSession session = req.getSession();
 		session.setAttribute("verifyNum", verifyNum);
 		
 		System.out.println("signupProcess action");
 		return null;
 	}
 	
+
+	private void verifyCheck(String key, String target, HttpServletResponse resp) throws IOException {
+		System.out.println("key : "+ key);
+		System.out.println("key2 : "+ target);
+		resp.setContentType("application/json; charset=UTF-8");
+		if(key.equals(target)) {
+			resp.setStatus(HttpServletResponse.SC_OK);
+			resp.getWriter().println("{\"message\":\"verify code 통과!\"}");
+		}
+		else {
+			resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+			resp.getWriter().println("{\"message\":\"verify code 불일치!\"}");
+		}
+		
+	}
+
+
 	private void sendEmail(HttpServletResponse resp, String host, String username, String password, String sender, String receiver, String subject, String imgPath, String verifyNum) {
 		Properties props = new Properties();
 		props.put("mail.smtp.host", host);
