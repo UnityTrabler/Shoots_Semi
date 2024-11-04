@@ -1,2 +1,2 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR" pageEncoding="EUC-KR"%>
-<jsp:forward page="WEB-INF/views/post/postList.jsp"></jsp:forward>
+<jsp:forward page="matchs/list"></jsp:forward>

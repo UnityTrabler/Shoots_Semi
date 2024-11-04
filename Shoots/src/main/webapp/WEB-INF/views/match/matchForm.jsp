@@ -5,6 +5,7 @@
 <head>
 	<meta charset="EUC-KR">
 	<title>Insert title here</title>
+	<script src = "https://code.jquery.com/jquery-3.7.1.js"></script>
 </head>
 <body>
 	<div> 
@@ -28,9 +29,14 @@
 			<div>
 				<input type = "submit" value = "UPLOAD" class = "btn btn-danger">
 				<input type = "reset" value = "RESET">
-				<input type = "button" value = "BACK">
+				<input type = "button" value = "BACK" class = "back">
 			</div>
 		</form>
 	</div>
+	<script>
+		$('.back').click(function(){
+			location.href  = "../matchs/list";
+		});	
+	</script>
 </body>
 </html>
