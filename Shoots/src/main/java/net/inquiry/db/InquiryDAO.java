@@ -46,19 +46,13 @@ public class InquiryDAO {
 		// board_re_ref desc, board_re_seq asc에 의해 정렬한 것을 조건절에 맞는 rnum의 범위만큼 가져오는 쿼리문
 
 		String board_list_sql = """
-								select *
-				from (select rownum rnum, j.*
-						from (select inquiry.*, nvl(cnt, 0) as cnt
-								from board left outer join (select comment_board_num, count(*) cnt
-															from comm
-															group by comment_board_num)
-								on board_num=comment_board_num
-								order by Board_re_ref desc,
-								board_re_seq asc
-								) j
-						where rownum <= ?)
-				where rnum >= ? and rnum <= ?
-								""";
+			SELECT * FROM (
+							SELECT ROWNUM rnum, inquiry_id, inquiry_type, inquiry_ref_idx, 
+					        title, content, inquiry_file, register_date
+							       FROM (SELECT * FROM INQUIRY ORDER BY inquiry_id DESC)
+								         WHERE ROWNUM <= ?
+					     ) WHERE rnum >= ?
+								 """;
 
 		List<InquiryBean> list = new ArrayList<InquiryBean>();
 								//한 페이지당 10개씩 목록인 경우 1페이지, 2, 3, 4페이지...
@@ -69,75 +63,57 @@ public class InquiryDAO {
 				PreparedStatement pstmt = con.prepareStatement(board_list_sql);){
 					pstmt.setInt(1, endrow);
 					pstmt.setInt(2, startrow);
-					pstmt.setInt(3, endrow);
 					
 					try (ResultSet rs = pstmt.executeQuery()){
-						
 						//DB에서 가져온 데이터를 InquiryBean에 담음
 						while (rs.next()) {
-							InquiryBean board = new InquiryBean();
-							board.setBoard_num(rs.getInt("board_num"));
-							board.setBoard_name(rs.getString("board_name"));
-							board.setBoard_subject(rs.getString("board_subject"));
-							board.setBoard_content(rs.getString("board_content"));
-							board.setBoard_file(rs.getString("board_file"));
-							board.setBoard_re_ref(rs.getInt("board_re_ref"));
-							board.setBoard_re_lev(rs.getInt("board_re_lev"));
-							board.setBoard_re_seq(rs.getInt("board_re_seq"));
-							board.setBoard_readcount(rs.getInt("board_readcount"));
-							board.setBoard_date(rs.getString("board_date"));
-							board.setCnt(rs.getInt("cnt"));
-							list.add(board);
+							InquiryBean ib = new InquiryBean();
+							ib.setInquiry_id(rs.getInt("inquiry_id"));
+							ib.setInquiry_type(rs.getString("inquiry_type"));
+							ib.setInquiry_ref_idx(rs.getInt("inquiry_ref_idx"));
+							ib.setTitle(rs.getString("title"));
+							ib.setContent(rs.getString("content"));
+							ib.setInquiry_file(rs.getString("inquiry_file"));
+							ib.setRegister_date(rs.getString("register_date"));
+							list.add(ib);
 						}
 					}
 				} catch(Exception ex) {
 					ex.printStackTrace();
-					System.out.println("getBoardList() 에러 : " + ex);
+					System.out.println("getInquiryList() 에러 : " + ex);
 				}
 				return list;
 	}
 	
-	public boolean boardInsert(InquiryBean board) {
+	public boolean inquiryInsert(InquiryBean iq) {
 		int result=0;
-		String max_sql = "(select nvl(max(board_num),0)+1 from board)";
 		
 		//원문글의 BOARD_RE_REF 는 자신의 글번호.
 		//%1$s : 첫번째 인자를 문자열로 출력.
 		String sql = """
-					insert into board
-					(BOARD_NUM, BOARD_NAME, BOARD_PASS, BOARD_SUBJECT,
-					 BOARD_CONTENT, BOARD_FILE, BOARD_RE_REF,
-					 BOARD_RE_LEV, BOARD_RE_SEQ, BOARD_READCOUNT)
-					 values( %1$s , ? , ? , ? ,
-					 		  ?,	?,	%1$s,
-					 		  ?,	?,	?)
-				""".formatted(max_sql);
+					insert into inquiry
+					(inquiry_id, inquiry_ref_idx, inquiry_type, 
+					title, content, inquiry_file, register_date)
+					 values(inquiry_seq.nextval, ?, ?,
+					 		?, ?, ?, current_timestamp)
+				""";
 		try(Connection con = ds.getConnection();
 			PreparedStatement pstmt = con.prepareStatement(sql);){
 			
-			
-			//새 글 등록부분
-			pstmt.setString(1, board.getBoard_name());
-			pstmt.setString(2, board.getBoard_pass());
-			pstmt.setString(3, board.getBoard_subject());
-			pstmt.setString(4, board.getBoard_content());
-			pstmt.setString(5, board.getBoard_file());
-			
-			
-			//원문의 경우 Board_re_Lev, Board_re_seq 필드값은 0임
-			pstmt.setInt(6, 0); //board_Re_lev 필드
-			pstmt.setInt(7, 0); //board_re_seq 필드
-			pstmt.setInt(8, 0); //board_readcount 필드
-			
+			pstmt.setInt(1, iq.getInquiry_ref_idx());
+			pstmt.setString(2, iq.getInquiry_type());
+			pstmt.setString(3, iq.getTitle());
+			pstmt.setString(4, iq.getContent());
+			pstmt.setString(5, iq.getInquiry_file());
 			result = pstmt.executeUpdate();
 			if(result ==1) {
-				System.out.println("데이터 삽입 다 됐다");
+				System.out.println("데이터가 다 삽입 됐습니다.");
 				return true;
 			}
 			
 			
 		} catch (Exception e) {
-			System.out.println("boardInsert() 에러: " + e);
+			System.out.println("InquiryInsert() 에러: " + e);
 			e.printStackTrace();
 		}
 		
@@ -178,17 +154,17 @@ public class InquiryDAO {
 					
 					try (ResultSet rs = pstmt.executeQuery()){
 						if (rs.next()) {
-							board = new InquiryBean();
-							board.setBoard_num(rs.getInt("board_num"));
-							board.setBoard_name(rs.getString("board_name"));
-							board.setBoard_subject(rs.getString("board_subject"));
-							board.setBoard_content(rs.getString("board_content"));
-							board.setBoard_file(rs.getString("board_file"));
-							board.setBoard_re_ref(rs.getInt("board_re_ref"));
-							board.setBoard_re_lev(rs.getInt("board_re_lev"));
-							board.setBoard_re_seq(rs.getInt("board_re_seq"));
-							board.setBoard_readcount(rs.getInt("board_readcount"));
-							board.setBoard_date(rs.getString("board_date"));
+//							board = new InquiryBean();
+//							board.setBoard_num(rs.getInt("board_num"));
+//							board.setBoard_name(rs.getString("board_name"));
+//							board.setBoard_subject(rs.getString("board_subject"));
+//							board.setBoard_content(rs.getString("board_content"));
+//							board.setBoard_file(rs.getString("board_file"));
+//							board.setBoard_re_ref(rs.getInt("board_re_ref"));
+//							board.setBoard_re_lev(rs.getInt("board_re_lev"));
+//							board.setBoard_re_seq(rs.getInt("board_re_seq"));
+//							board.setBoard_readcount(rs.getInt("board_readcount"));
+//							board.setBoard_date(rs.getString("board_date"));
 						}
 					}
 				}catch (Exception ex) {
@@ -236,10 +212,10 @@ public class InquiryDAO {
 		
 		try(Connection con = ds.getConnection();
 				PreparedStatement pstmt = con.prepareStatement(board_sql);){
-					pstmt.setString(1, boarddata.getBoard_subject());
-					pstmt.setString(2, boarddata.getBoard_content());
-					pstmt.setString(3, boarddata.getBoard_file());
-					pstmt.setInt(4, boarddata.getBoard_num());
+//					pstmt.setString(1, boarddata.getBoard_subject());
+//					pstmt.setString(2, boarddata.getBoard_content());
+//					pstmt.setString(3, boarddata.getBoard_file());
+//					pstmt.setInt(4, boarddata.getBoard_num());
 					int result = pstmt.executeUpdate();
 					
 					if(result ==1) {
@@ -254,36 +230,36 @@ public class InquiryDAO {
 		return false;
 	} //boardModify () 메서드 끝
 
-	public int boardReply(InquiryBean board) {
-		int num = 0;
-		
-		try(Connection con = ds.getConnection();){
-			//트랜잭션을 이용하기 위해 setAutoCommit을 false로 설정함
-			con.setAutoCommit(false);
-			
-			try {
-				reply_update(con, board.getBoard_re_ref(), board.getBoard_re_seq());
-				num = reply_insert(con, board);
-				con.commit();
-			}
-			catch(SQLException e){
-				e.printStackTrace();
-				
-				if(con != null) {
-					try {
-						con.rollback();
-					} catch(SQLException ex) {
-						ex.printStackTrace();
-					}
-				}
-			}
-			con.setAutoCommit(true);
-		} catch(Exception ex) {
-			ex.printStackTrace();
-			System.out.println("boardReply() 에러: " + ex);
-		}
-		return num;
-	}//boardReply() 끝
+//	public int boardReply(InquiryBean board) {
+//		int num = 0;
+//		
+//		try(Connection con = ds.getConnection();){
+//			//트랜잭션을 이용하기 위해 setAutoCommit을 false로 설정함
+//			con.setAutoCommit(false);
+//			
+//			try {
+//				reply_update(con, board.getBoard_re_ref(), board.getBoard_re_seq());
+//				num = reply_insert(con, board);
+//				con.commit();
+//			}
+//			catch(SQLException e){
+//				e.printStackTrace();
+//				
+//				if(con != null) {
+//					try {
+//						con.rollback();
+//					} catch(SQLException ex) {
+//						ex.printStackTrace();
+//					}
+//				}
+//			}
+//			con.setAutoCommit(true);
+//		} catch(Exception ex) {
+//			ex.printStackTrace();
+//			System.out.println("boardReply() 에러: " + ex);
+//		}
+//		return num;
+//	}//boardReply() 끝
 
 	
 	
@@ -308,17 +284,17 @@ public class InquiryDAO {
 					?, ?, ?)
 				""";
 		try(PreparedStatement pstmt = con.prepareStatement(sql);){
-			pstmt.setInt(1, num);
-			pstmt.setString(2, board.getBoard_name());
-			pstmt.setString(3, board.getBoard_pass());
-			pstmt.setString(4, board.getBoard_subject());
-			pstmt.setString(5, board.getBoard_content());
-			pstmt.setString(6, ""); //답변에는 파일 업로드 안함.
-			pstmt.setInt(7, board.getBoard_re_ref()); //원문의 글번호
-			pstmt.setInt(8, board.getBoard_re_lev() + 1);
-			pstmt.setInt(9, board.getBoard_re_seq() + 1);
-			pstmt.setInt(10, 0); //BOARD_READCOUNT(조회수)는 0
-			pstmt.executeUpdate();
+//			pstmt.setInt(1, num);
+//			pstmt.setString(2, board.getBoard_name());
+//			pstmt.setString(3, board.getBoard_pass());
+//			pstmt.setString(4, board.getBoard_subject());
+//			pstmt.setString(5, board.getBoard_content());
+//			pstmt.setString(6, ""); //답변에는 파일 업로드 안함.
+//			pstmt.setInt(7, board.getBoard_re_ref()); //원문의 글번호
+//			pstmt.setInt(8, board.getBoard_re_lev() + 1);
+//			pstmt.setInt(9, board.getBoard_re_seq() + 1);
+//			pstmt.setInt(10, 0); //BOARD_READCOUNT(조회수)는 0
+//			pstmt.executeUpdate();
 		}
 		
 		return num;
