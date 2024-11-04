@@ -70,7 +70,7 @@ public class MatchListAction implements Action {
 			
 			ActionForward forward = new ActionForward();
 			forward.setRedirect(false);
-			forward.setPath("/WEB-INF/views/match_post/matchList.jsp");
+			forward.setPath("/WEB-INF/views/match/matchList.jsp");
 			return forward;
 		} else {
 			System.out.println("state = ajax");

@@ -12,7 +12,14 @@ public class MatchBean {
 	private int register_date;
 	private int readcount;
 	private String business_name;
+	private String address;
 	
+	public String getAddress() {
+		return address;
+	}
+	public void setAddress(String address) {
+		this.address = address;
+	}
 	public String getBusiness_name() {
 		return business_name;
 	}
@@ -79,6 +86,7 @@ public class MatchBean {
 	public void setReadcount(int readcount) {
 		this.readcount = readcount;
 	}
+
 	
 	
 }

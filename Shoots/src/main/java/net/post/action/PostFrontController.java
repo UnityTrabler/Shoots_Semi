@@ -46,6 +46,14 @@ private static final long serialVersionUID = 1L;
 				action = new PostListAction();
 				break;
 				
+			case "/write":
+				action = new PostWriteAction();
+				break;
+				
+			case "/add":
+				action = new PostAddAction();
+				break;
+				
 			
 			default:
 				RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/views/error/error404.jsp");
