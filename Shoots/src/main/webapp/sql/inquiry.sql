@@ -5,7 +5,7 @@ CREATE TABLE inquiry(
     title varchar2(100) NOT NULL, --문의 제목
     content clob NOT NULL, --문의 내용
     inquiry_file varchar2(50), --첨부파일
-    register_date timestamp DEFAULT current_timestamp --글 등록일
+    register_date DATE DEFAULT SYSDATE --글 등록일
 );
 
 CREATE SEQUENCE inquiry_seq
@@ -17,6 +17,3 @@ Select * from inquiry;
 
 insert into INQUIRY
 values (inquiry_seq.nextval, 'A', 1, '참조용 제목', '그래서 이게 작동한다고?', null, sysdate);
-
-select * from INQUIRY
-order by INQUIRY_id desc;

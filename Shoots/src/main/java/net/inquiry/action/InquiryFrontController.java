@@ -10,7 +10,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import net.core.Action;
 import net.core.ActionForward;
 
-@WebServlet("/inquiry/*")
+@WebServlet("/boards/*")
 public class InquiryFrontController extends jakarta.servlet.http.HttpServlet {
 
 	private static final long serialVersionUID = 1L;
@@ -30,7 +30,7 @@ public class InquiryFrontController extends jakarta.servlet.http.HttpServlet {
 		System.out.println("contextPath : " + contextPath);
 
 		// command는 "/list" 반환됩니다.
-		String command = RequestURI.substring(contextPath.length() + "/inquiry".length());
+		String command = RequestURI.substring(contextPath.length() + "/boards".length());
 		System.out.println("command = " + command);
 		
 		//초기화
@@ -40,14 +40,6 @@ public class InquiryFrontController extends jakarta.servlet.http.HttpServlet {
 		switch (command) {
 			case "/list":
 				action = new InquiryListAction();
-				break;
-				
-			case "/write":
-				action = new InquiryWriteAction();
-				break;
-				
-			case "/add":
-				action = new InquiryAddAction();
 				break;
 			
 			default:

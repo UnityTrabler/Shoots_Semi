@@ -8,15 +8,6 @@ public class InquiryBean {
 	private String content;
 	private String inquiry_file;
 	private String register_date;
-	private int cnt;
-	
-	
-	public int getCnt() {
-		return cnt;
-	}
-	public void setCnt(int cnt) {
-		this.cnt = cnt;
-	}
 	public int getInquiry_id() {
 		return inquiry_id;
 	}
