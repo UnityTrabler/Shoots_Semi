@@ -28,7 +28,7 @@ public class FaqAddAction implements Action{
 		//webapp 아래에 faq에서 업로드한 파일이 들어가는 폴더 faqupload
 		String saveFolder = "faqupload";
 		
-		int fileSize = 25 * 1024 * 1024;	//업로드할 파일의 최대 사이즈 : 5MB
+		int fileSize = 25 * 1024 * 1024;	//업로드할 파일의 최대 사이즈 : 25MB
 		
 		//실제 저장 경로를 지정합니다
 		ServletContext sc = req.getServletContext();

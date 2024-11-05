@@ -14,36 +14,56 @@
 <html>
 <head>
 <script src="${pageContext.request.contextPath}/js/jquery-3.7.1.js"></script>
+<link rel = "stylesheet" href = "${pageContext.request.contextPath}/css/faqList.css" type = "text/css">
+	<jsp:include page="../user/top.jsp"></jsp:include>
 <title>FAQ</title>
 <style>
 .accordion {
-  background-color: #eee;
   color: #444;
   cursor: pointer;
   padding: 18px;
-  width: 100%;
-  border: none;
+  width: 50%;
   text-align: left;
   outline: none;
   font-size: 15px;
   transition: 0.4s;
-}
-
-.active, .accordion:hover {
-  background-color: #ccc;
+  margin: 0 auto;
 }
 
 .panel {
   padding: 0 18px;
-  background-color: white;
   max-height: 0;
   overflow: hidden;
   transition: max-height 0.2s ease-out;
+  margin: 0 auto;
+  width: 50%; 
+}
+
+.active{
+	border: 1.5px dashed #059669;
+}
+
+.accordion:after {
+  content: '\25BC'; /* Unicode character for right arrow (→) */
+  font-size: 20px;
+  color: #059669;
+  position: absolute; /* 절대 위치로 설정 */
+  right: 10px;  /* 오른쪽 끝에 배치 */
+  top: 50%;  /* 수직 가운데 정렬 */
+  transform: translateY(-50%); /* 정확한 수직 중앙 정렬 */
+}
+
+.accordion.active:after {
+  content: '\25B2'; /* Unicode character for downwards arrow (↓) */
 }
 
 h1{
 	text-align:center;
 	
+}
+
+#downImg{
+	width : 10px
 }
 </style>
 <script>
@@ -59,31 +79,32 @@ h1{
      			 panel.css("max-height", panel.prop("scrollHeight") + "px");
     		}
   		});
-  		
-  		
-  		$("div > a:nth-of-type(2)").click(function(event){
-			const answer = confirm("정말 삭제하시겠습니까?");
-			console.log(answer);//취소를 클릭한 경우-false
-			if (!answer){//취소를 클릭한 경우
-				event.preventDefault(); //이동하지 않습니다.	
-			}
-		})//삭제 클릭 end
-		
 	});
 
 </script>
 
 </head>
+<div class = "imgb">
+		<div class = "imgL">
+			<img  class = "Limg" src = "${pageContext.request.contextPath}/img/matchL.jpg">
+			<div class="overlay">
+				<p class = "p1"> 언제, 어디서나 빠르고 간편한 매칭을 원한다면? </p>
+				<p class = "imgP2 p1"> SHOOT MATCHING ! </p>
+				<p> 지금 가입해서 즐겨보세요 </p>
+			</div>
+		</div>
+	</div>
 <body>
 	<h1>FAQ</h1>
 	 <c:forEach var="f" items="${totallist}">
 		<div class="faqlist">
 			<button class="accordion">${f.title}</button>
 				<div class="panel">
+				<br>
   					<p>${f.content}</p>
   					<%--파일을 첨부한 경우 --%>
 					<c:if test="${!empty f.faq_file}">
-						<p><img src="${pageContext.request.contextPath}/img/down.png" width="10px">
+						<p><img src="${pageContext.request.contextPath}/img/down.png" id="downImg">
 							<a href="down?filename=${f.faq_file}">${f.faq_file}</a></p>
 					</c:if>
 					
@@ -93,6 +114,8 @@ h1{
 					</c:if>
 				</div>
 		</div>
+		<br>
+		<br>
 	</c:forEach>
 	
 </body>

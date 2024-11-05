@@ -3,6 +3,7 @@
 <html>
 <head>
 <title>FAQ추가</title>
+<jsp:include page="../user/top.jsp"></jsp:include>
 <style>
 	h1{font-size:1.5rem; text-align:center; color:#1a92b9}
 	.container{width:60%}
