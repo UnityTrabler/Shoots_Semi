@@ -70,5 +70,6 @@
 	    });
     </script>
 </div>
+<jsp:include page="../user/bottom.jsp"></jsp:include>
 </body>
 </html>

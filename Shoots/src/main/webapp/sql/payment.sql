@@ -7,10 +7,13 @@ CREATE TABLE payment(
     amount number(10) NOT NULL,
     payment_date DATE DEFAULT SYSDATE,
     status varchar2(10) NOT NULL,
-    transaction_id varchar2(30)
+    apply_num varchar2(30) NOT NULL,
+    imp_uid varchar2(30) NOT NULL
 );
 
 CREATE SEQUENCE payment_seq
 START WITH 1
 INCREMENT BY 1
 NOCACHE;
+
+select * from payment;
