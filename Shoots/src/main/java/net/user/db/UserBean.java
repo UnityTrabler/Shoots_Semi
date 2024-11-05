@@ -4,10 +4,31 @@ public class UserBean {
 	private String id;
 	private String password;
 	private String name;
-	private int age;
+	private String RRN;
 	private String gender;
+	private String tel;
 	private String email;
-	private String memberfile;
+	private String nickname;
+	private String userfile;
+	
+	public String getRRN() {
+		return RRN;
+	}
+	public void setRRN(String RRN1, String RRN2) {
+		this.RRN = RRN1+"-"+RRN2;
+	}
+	public String getTel() {
+		return tel;
+	}
+	public void setTel(String tel) {
+		this.tel = tel;
+	}
+	public String getNickname() {
+		return nickname;
+	}
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
+	}
 	public String getId() {
 		return id;
 	}
@@ -26,12 +47,6 @@ public class UserBean {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public int getAge() {
-		return age;
-	}
-	public void setAge(int age) {
-		this.age = age;
-	}
 	public String getGender() {
 		return gender;
 	}
@@ -44,10 +59,10 @@ public class UserBean {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public String getMemberfile() {
-		return memberfile;
+	public String getUserfile() {
+		return userfile;
 	}
-	public void setMemberfile(String memberfile) {
-		this.memberfile = memberfile;
+	public void setUserfile(String userfile) {
+		this.userfile = userfile;
 	}
 }

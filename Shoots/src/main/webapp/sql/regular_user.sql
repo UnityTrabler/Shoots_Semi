@@ -9,7 +9,7 @@ CREATE TABLE regular_user (
     email VARCHAR2(30) NOT NULL,
     nickname VARCHAR2(20),
     user_file VARCHAR2(50),
-    register_date DATE DEFAULT SYSDATE 
+    register_date timestamp DEFAULT current_timestamp
 );
 
 CREATE SEQUENCE user_seq
