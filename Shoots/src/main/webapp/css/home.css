@@ -23,7 +23,8 @@ p {margin-bottom : 0px}
 
 .btnD {display: flex; justify-content: center; gap: 160px; margin : 50px;}
 .btnI {color : #059669; background : white; border : 1.5px solid #059669; border-radius : 30px; width : 150px; height : 130px; display: flex;
-    	flex-direction: column; align-items: center;  justify-content: center; position: relative;  transition: background 0.5s, color 0.5s;}
+    	flex-direction: column; align-items: center;  justify-content: center; position: relative;  transition: background 0.5s, color 0.5s;
+    	box-shadow : 5px 5px 5px -3px gray}
 
 .btnI:hover {color: white; background: #059669; border: 1.5px solid #059669;  opacity: 0.7;}
 

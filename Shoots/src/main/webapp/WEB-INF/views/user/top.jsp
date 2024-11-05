@@ -8,7 +8,7 @@
 <style>
 	nav {width: 1200px; height: 50px; margin: 30px auto;display: flex;justify-content: space-between;align-items: center;}
 	img {width: 45px;}
-	.brand {font-size: 30px; font-weight: bold; color: black; text-decoration: none!important;}
+	.brand {font-size: 30px; font-weight: bold; color: black; text-decoration: none!important; transition: background 0.3s, color 0.3s;}
 	.loginA, .joinA {color: black; text-decoration: none!important; margin-right : 10px ;  transition: background 0.3s, color 0.3s;}
 	.brand:hover, .loginA:hover, .joinA:hover {color: #059669;}
 	.navbar-nav {margin-top : 13px; font-size : 13px}
