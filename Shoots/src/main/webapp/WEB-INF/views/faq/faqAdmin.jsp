@@ -13,16 +13,20 @@
 2. 해당 페이지에서 수정, 삭제, 추가 관리를 할 수 있습니다.
 3. 보기 쉽게 일단 memberList.css를 가져왔습니다.
  --%>
+ <script src="${pageContext.request.contextPath}/js/jquery-3.7.1.js"></script>
+<link rel = "stylesheet" href = "${pageContext.request.contextPath}/css/faqAdmin.css" type = "text/css">
+	<jsp:include page="../user/top.jsp"></jsp:include>
 <title>FAQ 관리(관리자모드)</title>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
-  <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+
 <style>
-	table{
-		text-align: center;
+	th:nth-child(2), th:nth-child(3), th:nth-child(4){
+		text-align:center;
+	}
+	td:nth-child(2), td:nth-child(3), td:nth-child(4){
+		text-align:center;
 	}
 </style>
+
 <script>
 	$(function(){
 		$("tr > td:nth-child(4) > a").click(function(event){
@@ -32,15 +36,22 @@
 				event.preventDefault(); //이동하지 않습니다.	
 			}
 		})//삭제 클릭 end
+		
+		$('.btnWrite').click(function(){
+			location.href="write";
+		})
+		
+		
 	})
 	
 </script>
 
 </head>
 <body>
+
 <div class="container">
 	<h1>FAQ 관리</h1>
-	<table class="table table-striped">
+	<table class="table">
 		
 		<thead>
 			<tr>
@@ -55,19 +66,19 @@
 				<tr>
 					
 					<td>
-					<a href="detail?id=${f.faq_id}">${f.title}</a>
+					<a href="detail?id=${f.faq_id}" class="faqDetail">${f.title}</a>
 					</td>
 					
 					<td>${f.register_date}</td>
-					<td><a href="update?id=${f.faq_id}">수정</a></td>
-					<td><a href="delete?id=${f.faq_id}">삭제</a></td>
+					<td><a href="update?id=${f.faq_id}" type="button" class="faqUpdate">수정</a></td>
+					<td><a href="delete?id=${f.faq_id}"  type="button" class="faqDelete">삭제</a></td>
 				</tr>
 			</c:forEach>
 		</tbody>
 	</table>
-	<a href="write">
-		<button type="button" class="btn btn-info float-right">글 쓰 기</button>
-	</a>
+		<div class="btnD">
+			<button type="button" class="btnWrite">글 쓰 기</button>
+		</div>
 </div>
 </body>
 </html>

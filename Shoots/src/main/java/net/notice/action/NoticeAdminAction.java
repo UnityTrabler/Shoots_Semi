@@ -1,20 +1,29 @@
 package net.notice.action;
 
 import java.io.IOException;
+import java.util.List;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import net.core.Action;
 import net.core.ActionForward;
+import net.notice.db.*;
 
-public class NoticeDeleteAction implements Action{
+public class NoticeAdminAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		return null;
+		ActionForward forward = new ActionForward();
+		NoticeDAO dao = new NoticeDAO();
+		
+		List<NoticeBean> list = null;
+		list = dao.getList();
+		req.setAttribute("totallist", list);
+		forward.setPath("/WEB-INF/views/notice/noticeAdmin.jsp");
+		forward.setRedirect(false);
+		return forward;
 	}
 
 }
