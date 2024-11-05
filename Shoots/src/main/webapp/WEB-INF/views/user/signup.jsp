@@ -27,7 +27,8 @@
 			            console.log(response.message);
 			        }); //$.post
 				 
-			});
+			});//$('#send-email').click
+			
 			$('#check-email-verify').click(function() {
 				
 				$.ajax({
@@ -45,18 +46,38 @@
 					dataType : "json"
 				}); //$.ajax
 				 
-			});
-		});
+			});//$('#check-email-verify').click
+			
+			$('#signupform').click(function(e) {
+				$.ajax({
+					url: $(this).attr('action'),
+					method:$(this).attr('method'),
+					data:$(this).serialize();
+					success: function(resp) {
+						
+						
+						window.location.href = "/"; //이동
+					},
+					error: function(resp) {
+						e.preventDefault();
+						console.error("서버 오류:", error);
+					}
+				});//$.ajax
+				
+			});//$('#signupform').click
+			
+		});//ready 
 	</script>
 </head>
 <body class="container">
 	<jsp:include page="top.jsp"></jsp:include>
 	<%-- action="/JSP/mailSend" --%>
-	<form class="form-horizontal" method="post" action="#" onsubmit="return false;">
+	<form class="form-horizontal" method="post" action="signupProcess" id="signupform">
 		<h2 style="text-align: center;">회원가입(sign up)</h2>
 		
 		<font color='red'>*</font>표시는 필수 입력 사항입니다.<hr>
 		
+		<!-- name : id, pwd, name, RRN1, RRN2, gender, tel, email, nickname, profile? -->
 		아이디(id)<font color='red'>*</font>
 		<input type="text" name="id" id="id" class="form-control" placeholder="id..." >
 		
@@ -86,7 +107,7 @@
 		<input type="text" name="tel" id="tel" class="form-control" placeholder="tel..." >
 
 		이메일(Email)<font color='red'>*</font>
-		<input type="email" name="receiver" id="receiver" class="form-control" placeholder="받는 주소" value = "<%="kdhmm0325"%>@naver.com" required>
+		<input type="email" name="email" id="email" class="form-control" placeholder="받는 주소" value = "<%="kdhmm0325"%>@naver.com" required>
 		<input type="button" class="btn btn-primary" id="send-email" value="확인메일 전송(send verifycode)">
 		
 		<div id="verify-block" class="p-3"  style="background-color: #d4edda;">
@@ -95,7 +116,7 @@
 			<input type="button" class="btn btn-primary" id="check-email-verify" value="check">
 			<b id="verify-toggle-text"></b>
 		</div><br><br>
-		선택 사항입니다.<hr>
+		<hr>선택 사항입니다.<hr>
 		닉네임(nickname)
 		<input type="text" name="nickname" id="name" class="form-control" placeholder="name..." >
 		
@@ -109,6 +130,12 @@
 				<img src="${pageContext.request.contextPath}/img/attach.png" id="preview" style="width: 100px; height: 100px;"><br>
 			</span>
 		</label>
+		
+		<%-- <c:if test="${boarddata.board_name ==id || id == 'admin' }"> --%>
+		<a href="modify?num=${boarddata.board_num}">
+			<button class="btn btn-info">수정</button>
+		</a>
+		<input type="submit" class="submit btn btn-submit">
 	</form>
 </body>
 </html>

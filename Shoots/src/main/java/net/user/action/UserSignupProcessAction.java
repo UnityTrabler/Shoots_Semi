@@ -22,6 +22,8 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import net.core.Action;
 import net.core.ActionForward;
+import net.user.db.UserBean;
+import net.user.db.UserDAO;
 
 public class UserSignupProcessAction extends HttpServlet implements Action {
 	private static final long serialVersionUID = 1L;
@@ -34,31 +36,73 @@ public class UserSignupProcessAction extends HttpServlet implements Action {
 		//key값이 들어오는 경우는 email verifycode를 검증하는 경우.
 		if(key != null && !key.trim().equals("")) {
 			verifyCheck(key, (String)session.getAttribute("verifyNum"), resp);
+			req.removeAttribute("key");
+			session.removeAttribute("verifyNum");
 			return null;
 		}
 		
+		//receiver값이 들어오는 경우는 email verifycode를 검증하는 경우.
 		String receiver = req.getParameter("receiver");
-		SecureRandom random = new SecureRandom();
-		String verifyNum = String.valueOf(100000 + random.nextInt(900000));//인증용 난수
-		String subject = "shoots email verification : " + verifyNum;
-		String imgPath =  req.getServletContext().getRealPath("/img/logo.png");
-		// SMTP 서버 정보 설정
-		String domain = "naver.com";
-		String host = "smtp."+domain;
-		final String username = "kdhmm0325@"+domain; // 실제 아이디
-		final String password = "won08980898A"; // 실제 비밀번호
-		String sender = username;
-		sendEmail(resp, host, username, password, sender, receiver, subject, imgPath, verifyNum);
-		session.setAttribute("verifyNum", verifyNum);
+		if(receiver != null) {
+			SecureRandom random = new SecureRandom();
+			String verifyNum = String.valueOf(100000 + random.nextInt(900000));//인증용 난수
+			String subject = "shoots email verification : " + verifyNum;
+			String imgPath =  req.getServletContext().getRealPath("/img/logo.png");
+			// SMTP 서버 정보 설정
+			String domain = "naver.com";
+			String host = "smtp."+domain;
+			final String username = "kdhmm0325@"+domain; // 실제 아이디
+			final String password = "won08980898A"; // 실제 비밀번호
+			String sender = username;
+			sendEmail(req, resp, host, username, password, sender, receiver, subject, imgPath, verifyNum);
+			session.setAttribute("verifyNum", verifyNum);
+			return null;
+		}
 		
-		System.out.println("signupProcess action");
+		//유효성 검증 및 회원가입 처리. id가 null 이 아닐때만 검증.
+		String id = req.getParameter("id");
+		if(id != null) {
+			
+			UserBean userBean = new UserBean();
+			//idx
+			userBean.setId(req.getParameter("id"));
+			userBean.setPassword(req.getParameter("pwd"));
+			userBean.setName(req.getParameter("name"));
+			userBean.setRRN(req.getParameter("RRN1"), req.getParameter("RRN2"));
+			userBean.setGender(req.getParameter("gender"));
+			userBean.setTel(req.getParameter("tel"));
+			userBean.setEmail(req.getParameter("email"));
+			userBean.setNickname(req.getParameter("nickname"));
+			//userBean.setUserfile(req.getParameter("profile"));
+			//registerDate
+			
+			int result = 0;
+			result = new UserDAO().insertUser(userBean);
+			resp.setContentType("application/json; charset=UTF-8");
+			if(result == 1) {
+				ActionForward forward = new ActionForward();
+				forward.setPath("/WEB-INF/views/user/home.jsp");
+				forward.setRedirect(true);
+				resp.setStatus(HttpServletResponse.SC_OK);
+				resp.getWriter().println("{\"message\":\"sign up successed\"}");
+				return forward;
+			}
+			else {
+				System.out.println("insert failed");
+				resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+				resp.getWriter().println("{\"message\":\"sign up failed\"}");
+				return null;
+			}
+
+		}
+		
 		return null;
 	}
 	
 
 	private void verifyCheck(String key, String target, HttpServletResponse resp) throws IOException {
-		System.out.println("key : "+ key);
 		System.out.println("key2 : "+ target);
+		System.out.println("key : "+ key);
 		resp.setContentType("application/json; charset=UTF-8");
 		if(key.equals(target)) {
 			resp.setStatus(HttpServletResponse.SC_OK);
@@ -72,7 +116,8 @@ public class UserSignupProcessAction extends HttpServlet implements Action {
 	}
 
 
-	private void sendEmail(HttpServletResponse resp, String host, String username, String password, String sender, String receiver, String subject, String imgPath, String verifyNum) {
+	
+	private void sendEmail(HttpServletRequest req, HttpServletResponse resp, String host, String username, String password, String sender, String receiver, String subject, String imgPath, String verifyNum) {
 		Properties props = new Properties();
 		props.put("mail.smtp.host", host);
 		props.put("mail.smtp.port", "587");
@@ -119,11 +164,15 @@ public class UserSignupProcessAction extends HttpServlet implements Action {
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
-		}	
+		}
+		finally {
+			req.removeAttribute("receiver");
+		}
 	}
 	
     // 파일을 Base64로 인코딩하는 메소드
-    private static String encodeFileToBase64(String filePath) throws IOException {
+   
+	private static String encodeFileToBase64(String filePath) throws IOException {
         File file = new File(filePath);
         byte[] fileContent = new byte[(int) file.length()];
         try (FileInputStream inputStream = new FileInputStream(file)) {
