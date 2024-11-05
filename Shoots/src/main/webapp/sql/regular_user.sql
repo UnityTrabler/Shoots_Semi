@@ -1,3 +1,4 @@
+DROP TABLE regular_user CASCADE CONSTRAINTS PURGE;
 CREATE TABLE regular_user (
     idx NUMBER(10) PRIMARY KEY,
     user_id VARCHAR2(30) NOT NULL,

@@ -26,7 +26,7 @@
 			</c:if>
 			<c:if test="${empty sessionScope.id}">
 				<a href="${pageContext.request.contextPath}/user/login" class="loginA"><b>LOGIN</b></a>
-				<a href="#" class="joinA"><b>SIGN UP</b></a>
+				<a href="${pageContext.request.contextPath}/user/signup" class="joinA"><b>SIGN UP</b></a>
 			</c:if>
 		</ul>
 	</div>  

@@ -17,7 +17,7 @@
 			$('#send-email').click(function() {
 				$('#verify-block').css('display', 'block');
 				
-				 $.post("${pageContext.request.contextPath}/user/signupProcess", {receiver: $('#receiver').val()},
+				 $.post("${pageContext.request.contextPath}/user/signupProcess", {email: $('#email').val()},
 					function(response) {
 			            alert("이메일이 전송되었습니 다.");
 			            console.log(response);
@@ -38,6 +38,8 @@
 							},
 					success : function(response){
 						$('#verify-toggle-text').show().text("일치합니다!").css('color', 'green');
+						$('#check-email-verify').prop('disabled', true);
+						$('#email-verify-text').prop('readonly', true);
 						${session.removeAttribute()}
 					},
 					error : function() {
@@ -48,23 +50,22 @@
 				 
 			});//$('#check-email-verify').click
 			
-			$('#signupform').click(function(e) {
+			$('#signupform').on('submit',function(e) {
+				e.preventDefault();
 				$.ajax({
 					url: $(this).attr('action'),
 					method:$(this).attr('method'),
-					data:$(this).serialize();
+					data:$(this).serialize(),
 					success: function(resp) {
-						
-						
-						window.location.href = "/"; //이동
+						alert('회원가입 성공');
+						window.location.href = "${pageContext.request.contextPath}/user/login"; //이동
 					},
-					error: function(resp) {
-						e.preventDefault();
+					error: function(error) {
 						console.error("서버 오류:", error);
+						alert('회원가입 실패');
 					}
 				});//$.ajax
-				
-			});//$('#signupform').click
+			});//$('#signupform').submit
 			
 		});//ready 
 	</script>
@@ -72,7 +73,7 @@
 <body class="container">
 	<jsp:include page="top.jsp"></jsp:include>
 	<%-- action="/JSP/mailSend" --%>
-	<form class="form-horizontal" method="post" action="signupProcess" id="signupform">
+	<form class="form-horizontal" method="post" action="signupProcess" id="signupform" >
 		<h2 style="text-align: center;">회원가입(sign up)</h2>
 		
 		<font color='red'>*</font>표시는 필수 입력 사항입니다.<hr>
@@ -90,18 +91,18 @@
 		주민등록번호(RRN)<font color='red'>*</font>
         <div class="row mb-3">
             <div class="col">
-                <input type="text" name="RRN1" class="form-control" placeholder="생년월일 (YYMMDD)" maxlength="6">
+                <input type="text" name="RRN" class="form-control" placeholder="앞자리(frontpart)" maxlength="6">
             </div>
             <div class="col-auto">
                 <span>-</span>
             </div>
+            <div class="col" >
+                <input type="text" name="gender"  class="form-control" placeholder="" maxlength="1" style="width: 40px;">
+            </div>
             <div class="col">
-                <input type="text" name="RRN2" class="form-control" placeholder="고유번호 (7자리)" maxlength="7">
+                	******
             </div>
         </div>
-		
-		성별(gender)<font color='red'>*</font>
-		<input type="text" name="gender" id="gender" class="form-control" placeholder="gender..." >
 		
 		전화번호(tel)<font color='red'>*</font>
 		<input type="text" name="tel" id="tel" class="form-control" placeholder="tel..." >
@@ -132,9 +133,6 @@
 		</label>
 		
 		<%-- <c:if test="${boarddata.board_name ==id || id == 'admin' }"> --%>
-		<a href="modify?num=${boarddata.board_num}">
-			<button class="btn btn-info">수정</button>
-		</a>
 		<input type="submit" class="submit btn btn-submit">
 	</form>
 </body>

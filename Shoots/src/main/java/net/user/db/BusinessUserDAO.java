@@ -11,7 +11,7 @@ public class BusinessUserDAO {
 	public BusinessUserDAO() {
 		try {
 			Context init = new InitialContext();
-			this.ds = (DataSource) init.lookup("java:comp/env/jdbc/OracleDB");
+			this.ds = (DataSource)init.lookup("java:comp/env/jdbc/OracleDB");
 		} catch (Exception e) {
 			System.out.println("DB 연결 실패 : " + e);
 		}

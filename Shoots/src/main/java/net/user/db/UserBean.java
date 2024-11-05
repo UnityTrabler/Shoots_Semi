@@ -4,18 +4,21 @@ public class UserBean {
 	private String id;
 	private String password;
 	private String name;
-	private String RRN;
-	private String gender;
+	private int RRN;
+	private int gender;
 	private String tel;
 	private String email;
 	private String nickname;
 	private String userfile;
 	
-	public String getRRN() {
+	public int getRRN() {
 		return RRN;
 	}
-	public void setRRN(String RRN1, String RRN2) {
-		this.RRN = RRN1+"-"+RRN2;
+	public void setRRN(int rRN) {
+		RRN = rRN;
+	}
+	public void setGender(int gender) {
+		this.gender = gender;
 	}
 	public String getTel() {
 		return tel;
@@ -47,11 +50,8 @@ public class UserBean {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public String getGender() {
+	public int getGender() {
 		return gender;
-	}
-	public void setGender(String gender) {
-		this.gender = gender;
 	}
 	public String getEmail() {
 		return email;
