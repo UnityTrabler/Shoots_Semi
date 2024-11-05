@@ -3,61 +3,85 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<jsp:include page="../user/top.jsp"></jsp:include>
 	<meta charset="EUC-KR">
 	<title>Insert title here</title>
 	<script src = "https://code.jquery.com/jquery-3.7.1.js"></script>
+	<link rel = "stylesheet" href = "${pageContext.request.contextPath}/css/matchUpdateForm.css" type = "text/css">
 </head>
 <body>
 	<div> 
 		<form action = "updateProcess" method = "post" id = "matchUpdateForm">
-			<h1> MATCH UPLOAD </h1>
-			<input type = "hidden" id = "match_id" name = "match_id" value = "${match.match_id}">
-			<div> 날짜 </div>
-			<input type = "date" id = "match_date" name = "match_date" value = "${match.match_date.substring(0,10)}" required>
-			<div> 시간 </div>
-			<input type = "time" id = "match_time" name = "match_time" value = "${match.match_time}" required>
-			<div> 최소 인원 </div>
-			<input type = "number" id = "player_min" name = "player_min" value = "${match.player_min}" required>
-			<div> 최대 인원 </div>
-			<input type = "number" id = "player_max" name = "player_max" value = "${match.player_max}" required>
-			<div> 가격 </div>
-			<input type = "number" id = "price" name = "price" value = "${match.price}" required>
-			<div> 플레이어 성별 </div>
-			<input type = "radio" id = "player_gender" name = "player_gender" value = "a"> 모든 성별
-			<input type = "radio" id = "player_gender" name = "player_gender" value = "m"> 남자
-			<input type = "radio" id = "player_gender" name = "player_gender" value = "f"> 여자
-			<div>
-				<input type = "submit" class = ".update" value = "UPDATE" class = "btn btn-danger">
-				<input type = "reset" value = "RESET">
-				<input type = "button" class = "back" value = "BACK">
+			<div class = "container">
+				<h1> MATCH UPLOAD </h1>
+				<input type = "hidden" id = "match_id" name = "match_id" value = "${match.match_id}">
+				<div class = "d1">
+					<div class = "d2"> 
+						<span> 날짜 </span> <input type = "date" id = "match_date" name = "match_date" value = "${match.match_date.substring(0,10)}" required>
+					</div>
+					<div>
+						 <span> 시간 </span> <input type = "time" id = "match_time" name = "match_time" value = "${match.match_time}" required>
+					</div>
+				</div>
+				<hr>
+				<div class = "d1">
+					<div class = "d2">
+						<span> 인원 </span> 
+						<input type = "number" id = "player_min" class = "playerMm" name = "player_min" value = "${match.player_min}" placeholder = "최소" min = "4" max = "20" required>
+						<input type = "number" id = "player_max" class = "playerMm" name = "player_max" value = "${match.player_max}" placeholder = "최대" min = "6" max = "20" required>
+					</div>
+					<div>
+						<span> 가격 </span> <input type = "number" id = "price" name = "price" value = "${match.price}" min = "1000" max = "100000" required>
+					</div>
+				</div>
+				<hr>
+				<div>
+					<div class = "pD"> <span class = "pS"> 플레이어 성별 </span>
+						<label>
+							<input type = "radio" id = "player_gender" class = "player_gender" name = "player_gender" value = "a" required> 모든성별
+						</label>
+						<label>
+							<input type = "radio" id = "player_gender" class = "player_gender" name = "player_gender" value = "m"> 남자
+						</label>
+						<label>
+							<input type = "radio" id = "player_gender" class = "player_gender" name = "player_gender" value = "f"> 여자
+						</label>
+					</div>
+				</div>
+				<hr>
+				<div class = "d1">
+					<span class = "Ds"> 구장 정보 </span>
+					<div class = "Dd2">
+						
+					</div>
+				</div>
+				<div>
+					<input type = "submit" class = "uploadbBtn" value = "UPDATE" class = "btn btn-danger">
+					<input type = "reset" value = "RESET" class = "resetBtn">
+					<input type = "button" class = "backBtn" value = "BACK">
+				</div>
 			</div>
 		</form>
 	</div>
 	<script>
 		$("input[name='player_gender'][value='${match.player_gender}']").prop('checked', true);
 		
-		$('.back').click(function(){
+		$('.backBtn').click(function(){
 			location.href = location.href = "../matchs/detail?match_id=${match.match_id}";
 		});
 		
+			
 		$(function(){
-			$('#matchUpdateForm').submit(function(event){
-				event.preventDefault();
-				if (confirm("매칭글을 수정하시겠습니까?")) {
-					$.ajax({
-						type: "POST", 
-						url: "update?match_id=${match.match_id}", 
-						success: function(response) {
-							alert("수정되었습니다."); 
-							location.href = "../matchs/list"; 
-						},
-						error: function() {
-							alert("수정 실패. 다시 시도해주세요.");
-						}
-					});
-				}
-			});
-		})
+		    $('#matchUpdateForm').submit(function(event){
+		        event.preventDefault();
+
+		        if (confirm("매칭글을 수정하시겠습니까?")) {
+		            location.href = "update?match_id=${match.match_id}",
+		            this.submit();
+		        }
+		    });
+		});
+
 	</script>
 </body>
 </html>

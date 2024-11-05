@@ -4,6 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<jsp:include page="../user/top.jsp"></jsp:include>
 	<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel = "stylesheet" href = "${pageContext.request.contextPath}/css/matchDetail.css" type = "text/css">
@@ -68,13 +69,13 @@
 		                pg: 'html5_inicis',
 		                pay_method: 'card', 
 		                merchant_uid: 'merchant_' + new Date().getTime(),
-		                name: '주문명:결제테스트',
+		                name: ${match.match_id} + ' 번 매치 플레이어 신청',
 		                amount: ${match.price}, 
 		                buyer_email: 'example@gmail.com',
 		                buyer_name: '구매자 이름',
 		                buyer_tel: '연락처',
 		                buyer_addr: '주소',
-		                buyer_postcode: '우편번호'
+		                buyer_postcode: '우편번호',
 		            }, function(rsp) {
 		                if (rsp.success) {
 		                    var msg = '결제가 완료되었습니다.';

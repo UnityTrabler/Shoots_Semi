@@ -67,15 +67,27 @@ public class MatchDAO {
 
 	public List<MatchBean> getMatchList(int page, int limit) {
 		String sql = """
-				select mp.match_id, mp.match_date, mp.match_time, mp.player_max, mp.player_gender, b.business_name 
-				from match_post mp 
-				join business_user b
-				on mp.writer = b.business_idx
-				order by mp.match_date desc
+				select * from (
+				    select rownum rnum, mp.match_id, mp.match_date, mp.match_time, 
+				    					mp.player_max, mp.player_gender, b.business_name
+				    from match_post mp
+				    join business_user b
+				    on mp.writer = b.business_idx
+				    order by mp.match_date desc
+				) p
+				where p.rnum >= ? and p.rnum <= ?
 				""";
 		List<MatchBean> list = new ArrayList();
+		
+		int startrow = (page - 1) * limit + 1;
+		int endrow = startrow + limit - 1;
+		
 		try (Connection con = ds.getConnection();
 				PreparedStatement pstmt = con.prepareStatement(sql);) {
+			
+				pstmt.setInt(1, startrow);
+				pstmt.setInt(2, endrow);
+				
 			try (ResultSet rs = pstmt.executeQuery()) {
 				while (rs.next()) {
 					MatchBean match = new MatchBean();
