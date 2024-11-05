@@ -65,6 +65,10 @@ public class InquiryFrontController extends jakarta.servlet.http.HttpServlet {
 			case "/delete":
 				action = new InquiryDeleteAction();
 				break;
+				
+			case "/down":
+				action = new InquiryFileDownAction();
+				break;
 			
 			default:
 				RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/error/error.jsp");

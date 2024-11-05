@@ -4,10 +4,12 @@ CREATE TABLE inquiry_comment(
     writer NUMBER(10) not null,
     content clob NOT NULL,
     comment_file varchar2(50),
-    register_date DATE DEFAULT SYSDATE 
+    register_date timestamp DEFAULT current_timestamp 
 );
 
 CREATE SEQUENCE inquiry_comment_seq
 START WITH 1
 INCREMENT BY 1
 NOCACHE;
+
+select * from inquiry_comment;

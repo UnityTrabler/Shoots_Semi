@@ -6,13 +6,13 @@
 <html>
 <head>
 <meta charset="EUC-KR">
-<link rel="stylesheet"
-	href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
-<script src="${pageContext.request.contextPath }/js/jquery-3.7.1.js"></script>
-<script src="${pageContext.request.contextPath }/js/inquiryJs/inquirylist.js"></script>
+<link rel="stylesheet"	href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+<script src="${pageContext.request.contextPath}/js/jquery-3.7.1.js"></script>
+<script src="${pageContext.request.contextPath}/js/inquiryJs/inquirylist.js"></script>
+<script src="${pageContext.request.contextPath}/css/inquiry.css"></script>
+<jsp:include page = "/WEB-INF/views/user/top.jsp"/>
 
 <title>문의 게시판</title>
-<%--<jsp:include page = "header.jsp"/> --%>
 </head>
 <body>
 	<div class="container">
@@ -63,30 +63,53 @@
 									</a> [${i.cnt}]
 								</div>
 							</td>
-							<td><div>${i.inquiry_type}</div></td>
-							<td><div>${i.inquiry_ref_idx}</div></td>
+							<%--문의자 유형 : A면 개인, B면 기업 --%>
+							 <td>
+							    <div>
+							        <c:choose>
+							            <c:when test="${i.inquiry_type == 'A'}">
+							                개인회원 문의
+							            </c:when>
+							            <c:when test="${i.inquiry_type == 'B'}">
+							                기업회원 문의
+							            </c:when>
+							        </c:choose>
+							    </div>
+							</td>
+
+							<%--문의자의 ID. 초기 버전은 문의자의 식별번호였음. 
+							(문의글 식별번호 & 문의글 쓴 사람의 idx 번호  2개를 조인 한 뒤 user_id를 뽑아옴) --%>
+							<td><div>${i.user_id}</div></td>
+							
+							<%--문의 등록일--%>
 							<td><div>${i.register_date}</div></td>
 						</tr>
 					</c:forEach>
 				</tbody>
 			</table>
 
-			<div class="cetner-block">
-				<ul class="pagination justify-content-center">
-					<li class="page-item"><a
-						${page > 1 ? 'href=list?page=' += (page-1) : ''}
-						class="page-link ${page <=1 ? 'gray' : ''}"> 이전&nbsp; </a></li>
-					<c:forEach var="a" begin="${startpage}" end="${endpage}">
-						<li class="page-item ${a==page ? 'active' : ''}"><a
-							${a==page ? '' : 'href=list?page='+=a} class="page-link">
-								${a} </a></li>
-					</c:forEach>
-					<li class="page-item"><a
-						${page < maxpage ? 'href=list?page=' += (page + 1 ) : ''}
-						class="page-link ${page >= maxpage ? 'gray' : ''}"> &nbsp;다음 </a>
-					</li>
-				</ul>
-			</div>
+			<div class = "center-block">
+            <ul class = "pagination justify-content-center">
+               <li class = "page-item">
+                  <a ${page > 1 ? 'href = list?page=' += (page - 1) : '' }
+                     class = "page-link ${page <= 1 ? 'gray' : '' }">
+                     &lt;&lt;
+                  </a>
+               </li>
+               <c:forEach var = "a" begin = "${startpage}" end = "${endpage}">
+                  <li class = "page-item ${a == page ? 'active' : '' }">
+                     <a ${a == page ? '' : 'href = list?page=' += a }
+                        class = "page-link">${a}</a>
+                  </li>
+               </c:forEach>
+               <li class = "page-item">
+                  <a ${page < maxpage ? 'href = list?page=' += (page + 1) : '' }
+                     class = "page-link" ${page >= maxpage ? 'gray' : '' }">
+                     &gt;&gt;
+                  </a>
+               </li>
+            </ul>
+         </div>
 		</c:if>
 		<%--<c:if test"${listcounbt > 0}"> end --%>
 		<%--게시글이 없는 경우 --%>

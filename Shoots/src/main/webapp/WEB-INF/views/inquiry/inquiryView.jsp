@@ -5,7 +5,8 @@
 <html>
 <head>
 <title>문의 게시판</title>
-<%-- <jsp:include page="header.jsp" /> --%>
+<%--<script src="${pageContext.request.contextPath}/css/inquiry.css"></script> --%>
+<jsp:include page = "/WEB-INF/views/user/top.jsp"/>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
 
 <script src="${pageContext.request.contextPath }/js/jquery-3.7.1.js"></script>
@@ -13,7 +14,6 @@
 
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath }/css/view.css" type="text/css">
-
 </head>
 <body>
 
@@ -82,7 +82,6 @@
 	
 	
 	<%--댓글창 시작 --%>
-	<%-- 
    <div class="container">
 	<div class="comment-area">
 	<div class="comment-head">
@@ -100,7 +99,7 @@
 			<div class="comment-write-area">
 				<b class="comment-write-area-name">${id}</b> 
 				<span class="comment-write-area-count">0/200</span>
-				<textarea placeholder="댓글을 남겨보세요" rows="1" class="comment-write-area-text" maxlength="200"></textarea>
+				<textarea placeholder="댓글을 남겨보세요" rows="3" class="comment-write-area-text" maxlength="200"></textarea>
 					
 			</div>
 			<div class="register-box">
@@ -110,8 +109,9 @@
 		</div>
 	</div>
 	</div>
-	--%>
-	<script>
+	
+	
+<script>
 $(function(){
 	$('#inquiryDelete').click(function(){
 		if (confirm("문의글을 삭제하시겠습니까?")) {
