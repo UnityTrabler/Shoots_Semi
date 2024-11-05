@@ -5,8 +5,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>문의글 : 수정</title>		
-	<%-- <jsp:include page="header.jsp"/> --%>
+<title>1:1문의글 : 수정</title>		
+<%--<script src="${pageContext.request.contextPath}/css/inquiry.css"></script> --%>
+<jsp:include page = "/WEB-INF/views/user/top.jsp"/>
 	<script src="${pageContext.request.contextPath}/js/inquiryJs/inquirymodifyform.js"></script>
 	<script src="${pageContext.request.contextPath }/js/jquery-3.7.1.js"></script>
 	<style>
@@ -21,7 +22,7 @@
 	<div class="container">
 		<form action="modifyProcess" method="post" enctype="multipart/form-data" name="modifyform">
 			<input type="hidden" name="inquiry_id" value="${inquirydata.inquiry_id}">
-			<h1>문의글 수정</h1>		
+			<h1>1:1 문의글 수정</h1>		
 			<div class="form-group">
 				<label for ="inquiry_ref_idx">문의자</label>
 				<input value="${inquirydata.inquiry_ref_idx}" type="text" 

@@ -3,9 +3,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<%-- <jsp:include page="header.jsp"/> --%>
-	<script src="${pageContext.request.contextPath}/js/inquiryJs/inquirywriteform.js"></script>
 	<script src="${pageContext.request.contextPath }/js/jquery-3.7.1.js"></script>
+	<script src="${pageContext.request.contextPath}/js/inquiryJs/inquirywriteform.js"></script>
 	<style>
 	h1{font-size:1.5rem;  text-align:center; color:#1a92b9}
 	.container{width:60%;}
@@ -13,6 +12,7 @@
 	#upfile{display:none}
 	img{width:20px;}
 	</style>	
+<jsp:include page = "/WEB-INF/views/user/top.jsp"/>
 </head>
 <body>
 	<div class="container">
@@ -46,12 +46,14 @@
 					<img src="${pageContext.request.contextPath }/img/attach.png" alt="파일첨부">
 					<input type="file" id="upfile" name="inquiry_file">
 				</label>
-				<span id="filevalue"></span>
-			</div>
+				<span id="filevalue">${inquirydata.inquiry_file}</span>
+				<img src="${pageContext.request.contextPath}/img/remove.png"
+				alt="파일삭제" width="10px" class="remove">
+			 </div>
 			
 			<div class="form-group">
 				<button type="submit" class="btn btn-primary">등록</button>
-				<button type="reset" class="btn btn-danger">취소</button>
+				<button type="button" class="btn btn-danger">취소</button>
 			</div>
 		</form>
 	</div>

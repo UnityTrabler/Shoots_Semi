@@ -6,8 +6,8 @@ function getList(state) {
 	option = state;
 	$.ajax({
 		type: "get",
-		url : "../comments/list",
-		data: { "comment_board_num": $("#comment_board_num").val(),
+		url : "../iqcomments/list",
+		data: { "inquiry_id": $("#inquiry_id").val(),
 		state: state
 		},
 		dataType: "json",
@@ -33,9 +33,6 @@ function getList(state) {
 				
 				let src = comment.memberfile ? `../memberupload/${comment.memberfile}` : '../image/profile.png';
 				
-				let replyButton = (lev < 2) ? `<a href='javascript:replyform(${comment.num},${lev},${comment.comment_re_seq},
-					${comment.comment_re_ref})' class='comment-info-button'>답글쓰기</a>` : '';
-					
 				//로그인 한 사람이 댓글 작성자인 경우
 				let toolButtons = $("#loginid").val() == comment.id ? `
 					<div class='comment-tool'>
@@ -115,7 +112,7 @@ function del(num){//num : 댓글 번호
 	}//if
 	
 	$.ajax({
-		url:'../comments/delete',
+		url:'../iqcomments/delete',
 		data:{num:num},
 		success:function(rdata){
 			if(rdata == 1)
@@ -125,45 +122,7 @@ function del(num){//num : 댓글 번호
 	
 }//function(del) end
 
-
-//답글 달기 폼
-function replyform (num, lev, seq, ref){
-	//수정 삭제 영역 선택 후 답글쓰기를 클릭한 경우
-	$(".LayeroMore").hide(); //수정 삭제 영역 숨김
 	
-	let $num = $('#' + num);
-	//선택한 글 뒤에 답글 폼을 추가함.
-	$num.after(`<li class = "comment-list-item comment-list-item--reply lev${lev}"></li>`);
-	
-	//글쓰기 영역 복사함.
-	let replyForm = $('.comment-list+.comment-write').clone();
-	
-	//복사한 폼을 답글 영역에 추가
-	let $num_next = $num.next().html(replyForm);
-	
-	
-	//답글 폼의 <textarea>의 속성 'placeholder'를 '답글을 남겨보세요'로 바꿔줌.
-	$num_next.find('textarea').attr('placeholder', '답글을 남겨봐라');
-	
-	//답글 폼의 '.btn-cancel'을 보여주고 클래스 'reply-cancel'를 추가함
-	$num_next.find('.btn-cancel').show().addClass('reply-cancel');
-	
-	/*
-	답글 폼의 'btn-register'에 클래스 'reply' 추가함.
-	속성 'data-ref'에 ref, 'data-lev'에 lev, 'data-seq'에 seq값을 설정함.
-	등록을 답글 완료로 변경함.
-	 */
-	$num_next.find('.btn-register')
-			.addClass('reply')
-			.attr({'data-ref': ref, 'data-lev': lev, 'data-seq': seq})
-			.text('답글완료');
-	
-	//댓글 폼 보이지 않음.
-	$("body > div > div.comment-area > div.comment-write").hide();
-}
-
-	
-
 
 $(function(){
 	getList(option);  //처음 로드 될때는 등록순 정렬
@@ -190,13 +149,11 @@ $(function(){
 		}
 		
 		$.ajax({
-			url : '../comments/add', //원문 등록
+			url : '../iqcomments/add', //원문 등록
 			data : {
 				id : $("#loginid").val(),
 				content : content,
-				comment_board_num : $("#comment_board_num").val(),
-				comment_re_lev : 0, //원문인 경우 comment_re_seq 는 0, re_ref는 댓글의 원문 글번호
-				comment_re_seq:0
+				inquiry_id : $("#inquiry_id").val(),
 			},
 			
 			type: 'post',
@@ -229,7 +186,7 @@ $(function(){
 		}
 		const num = $(this).attr('data-id');
 		$.ajax({
-			url: '../comments/update',
+			url: '../iqcomments/update',
 			data: {num:num, content:content},
 			success:function (rdata){
 				if(rdata==1){
@@ -281,35 +238,6 @@ $(function(){
 		}
 	}) //답글쓰기 클릭 후 계속 누르기 방지 - 끝
 	
-	//답글완료 클릭한 경우
-	$('.comment-area').on('click', '.reply', function(){
-		const content = $(this).parent().parent().find('.comment-write-area-text').val();
-		if(!content){//내용없이 답글완료 클릭했을때
-		alert("답글을 입력해라");
-		return;
-		}
-		
-		$.ajax({
-			type:'post',
-			url: '../comments/reply',
-			data : {
-				id : $("#loginid").val(),
-				content : content,
-				comment_board_num : $("#comment_board_num").val(),
-				comment_re_lev : $(this).attr('data-lev'),
-				comment_re_ref : $(this).attr('data-ref'),
-				comment_re_seq : $(this).attr('data-seq')
-			},
-			success : function(rdata){
-				if (rdata==1){
-					getList(option);
-				}
-			}
-		}) //ajax
-		
-		//답글 폼 보여줌
-		$("body > div > div.comment-area > div.comment-write").show();
-	}) //답글완료 클릭한 경우 - 끝
 	
 }) //ready
 

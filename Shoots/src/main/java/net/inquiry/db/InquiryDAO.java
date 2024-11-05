@@ -45,14 +45,19 @@ public class InquiryDAO {
 		// limit : 페이지 당 목록수
 		// board_re_ref desc, board_re_seq asc에 의해 정렬한 것을 조건절에 맞는 rnum의 범위만큼 가져오는 쿼리문
 
-		String board_list_sql = """
-			SELECT * FROM (
-							SELECT ROWNUM rnum, inquiry_id, inquiry_type, inquiry_ref_idx, 
-					        title, content, inquiry_file, register_date
-							       FROM (SELECT * FROM INQUIRY ORDER BY inquiry_id DESC)
-								         WHERE ROWNUM <= ?
-					     ) WHERE rnum >= ?
-								 """;
+		String sql = """
+			select * from (
+							SELECT ROWNUM rnum, inquiry_id, inquiry_type, inquiry_ref_idx, title, content, inquiry_file, register_date, user_id
+							FROM(
+								select i.*, r.user_id 
+								from inquiry i 
+								join regular_user r 
+								on i.inquiry_ref_idx = r.idx
+								order by inquiry_id desc
+								)
+							where rownum <= ? 
+			) where rnum >= ?
+					 """;
 
 		List<InquiryBean> list = new ArrayList<InquiryBean>();
 								//한 페이지당 10개씩 목록인 경우 1페이지, 2, 3, 4페이지...
@@ -60,7 +65,7 @@ public class InquiryDAO {
 		int endrow = startrow + limit - 1; // 읽을 마지막 row 번호 (10 20 30 40 ...
 		
 		try (Connection con = ds.getConnection();
-				PreparedStatement pstmt = con.prepareStatement(board_list_sql);){
+				PreparedStatement pstmt = con.prepareStatement(sql);){
 					pstmt.setInt(1, endrow);
 					pstmt.setInt(2, startrow);
 					
@@ -74,7 +79,8 @@ public class InquiryDAO {
 							ib.setTitle(rs.getString("title"));
 							ib.setContent(rs.getString("content"));
 							ib.setInquiry_file(rs.getString("inquiry_file"));
-							ib.setRegister_date(rs.getString("register_date"));
+							ib.setRegister_date(rs.getString("register_date").substring(0,16));
+							ib.setUser_id(rs.getString("user_id"));
 							list.add(ib);
 						}
 					}

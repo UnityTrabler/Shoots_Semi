@@ -9,8 +9,22 @@ public class InquiryBean {
 	private String inquiry_file;
 	private String register_date;
 	private int cnt;
+	private String user_id;
+	private String business_name;
 	
 	
+	public String getUser_id() {
+		return user_id;
+	}
+	public void setUser_id(String user_id) {
+		this.user_id = user_id;
+	}
+	public String getBusiness_name() {
+		return business_name;
+	}
+	public void setBusiness_name(String business_name) {
+		this.business_name = business_name;
+	}
 	public int getCnt() {
 		return cnt;
 	}
