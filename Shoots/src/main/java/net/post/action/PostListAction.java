@@ -9,6 +9,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import net.core.Action;
@@ -16,10 +17,17 @@ import net.core.ActionForward;
 import net.post.db.PostBean;
 import net.post.db.PostDAO;
 
+@WebServlet("/postList")
 public class PostListAction implements Action {
 	
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		
+		  // 카테고리 파라미터 받기 (기본값은 A)
+        String category = request.getParameter("category");
+        if (category == null || category.isEmpty()) {
+            category = "A"; // 기본값 설정
+        }	
 		
 	PostDAO postdao = new PostDAO();
 
@@ -46,10 +54,10 @@ public class PostListAction implements Action {
 	System.out.println("넘어온 limit =" + limit);
 	
 	// 총 리스트 수를 받아옵니다.
-	int listcount = postdao.getListCount();
+	int listcount = postdao.getListCount(category);
 	
 	//리스트를 받아옵니다.
-	postlist = postdao.getPostList(page,limit);
+	postlist = postdao.getPostList(category, page,limit);
 	
 	/*
 		총 페이지 수
@@ -96,8 +104,14 @@ public class PostListAction implements Action {
 	System.out.println("현재 페이지에 보여줄 마지막 페이지 수:" + endpage);
 	String state = request.getParameter("state");
 	
-	if (state == null) {
+	if (state == null) { // 일반 요청 (페이지 전환)
 		System.out.println("state==null");
+		 // JSP에 전달할 값들
+		request.setAttribute("category", category);
+		
+//		int post_id = 0;
+//		request.setAttribute("post_id", post_id);
+		
 		request.setAttribute("page", page); // 현재 페이지 수
 		request.setAttribute("maxpage", maxpage); // 최대 페이지 수
 		
@@ -114,33 +128,41 @@ public class PostListAction implements Action {
 		
 		request.setAttribute("limit", limit);
 		
+		// ActionForward 객체 반환
 		ActionForward forward = new ActionForward();
 		forward.setRedirect(false);
 		
 		// 글 목록 페이지로 이동하기 위해 경로를 설정합니다.
 		forward.setPath("/WEB-INF/views/post/postList.jsp");
 		return forward;
-	}else {
+	}else { // AJAX 요청
 		System.out.println("state=ajax");
-		
+		// JsonObject로 반환하기 위한 설정
 		//위에서 request로 담았던 것을 JsonObject에 담습니다.
 		JsonObject object = new JsonObject();
+		object.addProperty("category", category);
 		object.addProperty("page", page); //{"page": 변수 page의 값} 형식으로 저장
 		object.addProperty("maxpage", maxpage);
 		object.addProperty("startpage", startpage);
 		object.addProperty("endpage", endpage);
 		object.addProperty("listcount", listcount);
 		object.addProperty("limit", limit);
+		// object.addProperty("post_id", post_id);
 		
 		//JsonObject에 List 형식을 담을 수 있는 addProperty() 존재하지 않습니다.
 		//void com.google.gson.JsonObject.add(String property, JsonElement value) 메서드를 통해서 저장합니다.
 		//List형식을 JsonElement로 바꾸어 주어야 object에 저장할 수 있습니다.
 		
-		// List => JsonElement
+		
+		 
+        
+		
+		// List => JsonElement // List<PostBean>을 JSON으로 변환
 		JsonElement je = new Gson().toJsonTree(postlist);
 		System.out.println("postlist=" + je.toString());
 		object.add("postlist", je);
 		
+		// JSON 응답 처리
 		response.setContentType("application/json;charset=utf-8");
 		response.getWriter().print(object);
 		System.out.println(object.toString());
