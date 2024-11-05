@@ -26,8 +26,8 @@ private DataSource ds;
 
 	
 	
-	public int getListCount() {
-		String sql = "select count(*) from post";
+	public int getListCount(String category) {
+		String sql = "select count(*) from post WHERE category = ?";
 		int x = 0;
 		
 		try (Connection con = ds.getConnection();
@@ -48,50 +48,27 @@ private DataSource ds;
 	
 	
 
-	public List<PostBean> getPostList(int page, int limit) {
+	public List<PostBean> getPostList(String category, int page, int limit) {
 		// page : 페이지
 		// limit : 페이지 당 목록의 수
 			
 		String post_list_sql = """
 				select *
 				from post
+				where category = ?
 				order by register_date desc
 			""";
-		
 //		 자유(A), 중고(B) << 카테고리 나누는거 해결하기
 //		 동휘씨가 자꾸 한줄만 추가하면 된다는데
 //		 한줄은 좀 오바같고 진짜 모르겠음
-		
-		
-		/*
-		String post_list_sql = """
-	            SELECT * FROM (
-	                SELECT p.*, ROWNUM rnum FROM (
-	                    SELECT POST_ID, WRITER, TITLE, REGISTER_DATE, READCOUNT
-	                    FROM post
-	                    WHERE category = ?
-	                    ORDER BY REGISTER_DATE DESC
-	                ) p
-	                WHERE ROWNUM <= ?
-	            )
-	            WHERE rnum > ?;
-	            """;
-		*/
-		
-		/*
-		 String post_list_sql = """
-					select *
-					from post
-					where category = 'A'
-					order by register_date desc
-				""";
-		 */
 		
 		List<PostBean> list = new ArrayList<PostBean>();
 			
 		try (Connection con = ds.getConnection();
 				 PreparedStatement pstmt = con.prepareStatement(post_list_sql);) {
 				
+			pstmt.setString(1, category);
+			
 			/*
 			 int startRow = (page - 1) * limit; // 시작 행 계산
 		        pstmt.setString(1, category);
@@ -107,6 +84,10 @@ private DataSource ds;
 						post.setPost_id(rs.getInt("POST_ID"));
 						post.setWriter(rs.getInt("WRITER"));
 						post.setTitle(rs.getString("TITLE"));
+						post.setContent(rs.getString("content"));
+		                post.setPrice(rs.getInt("price"));
+		                post.setPost_file(rs.getString("post_file"));
+		                post.setCategory(rs.getString("category"));
 						post.setRegister_date(rs.getString("REGISTER_DATE"));
 						post.setReadcount(rs.getInt("READCOUNT"));
 						
@@ -126,6 +107,8 @@ private DataSource ds;
 				}
 			return list;
 	}
+
+
 
 
 
