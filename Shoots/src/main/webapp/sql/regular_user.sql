@@ -10,6 +10,7 @@ CREATE TABLE regular_user (
     nickname VARCHAR2(20),
     user_file VARCHAR2(50),
     register_date timestamp DEFAULT current_timestamp
+    role VARCHAR2(10) DEFAULT 'common' not null
 );
 
 CREATE SEQUENCE user_seq
@@ -19,11 +20,17 @@ NOCACHE;
 
 select * from regular_user;
 
+--테이블 수정사항 : role 이라는 컬럼 추가. 기본값 common (모든 회원), admin 값을 가지고 있으면 관리자.
+alter table regular_user
+add role varchar2(10) default 'common' not null;
+
+
+--임의의 데이터 3개 삽입 (로그인 전 테스트 위함)
 insert into regular_user
-values (user_seq.nextval, 'youngsoo1', '1', '일수',  111111, 1, '01012345678', '1@1.com', null, null, current_timestamp);
+values (user_seq.nextval, 'youngsoo1', '1', '일수',  111111, 1, '01012345678', '1@1.com', null, null, current_timestamp, 'common');
 
 insert into regular_user
-values (user_seq.nextval, 'youngsoo2', '2', '이수',  222222, 2, '01012345678', '2@2.com', null, null, current_timestamp);
+values (user_seq.nextval, 'youngsoo2', '2', '이수',  222222, 2, '01012345678', '2@2.com', null, null, current_timestamp, 'common');
 
 insert into regular_user
-values (user_seq.nextval, 'youngsoo3', '3', '삼수',  333333, 3, '01012345678', '3@3.com', null, null, current_timestamp);
+values (user_seq.nextval, 'youngsoo3', '3', '삼수',  333333, 3, '01012345678', '3@3.com', null, null, current_timestamp, 'common');
