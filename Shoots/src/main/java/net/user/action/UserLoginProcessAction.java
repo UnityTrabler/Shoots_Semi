@@ -35,8 +35,8 @@ public class UserLoginProcessAction implements Action {
 			
 			//forward
 			ActionForward forward = new ActionForward();
-			forward.setPath("/WEB-INF/views/user/home.jsp");
-			forward.setRedirect(false);
+			forward.setRedirect(true);
+			forward.setPath("/Shoots/index.jsp");
 			resp.setStatus(HttpServletResponse.SC_OK);
 			resp.getWriter().println("{\"message\":\"sign up successed\"}");
 			return forward;

@@ -19,7 +19,7 @@
 				
 				 $.post("${pageContext.request.contextPath}/user/signupProcess", {email: $('#email').val()},
 					function(response) {
-			            alert("이메일이 전송되었습니 다.");
+			            alert("이메일이 전송되었습니다.");
 			            console.log(response);
 			        }, "json").fail(function(response) {
 			            alert("이메일 전송에 실패했습니다.");
@@ -43,7 +43,7 @@
 						${session.removeAttribute()}
 					},
 					error : function() {
-						$('#verify-toggle-text').show().text("불일치합니다.").css('color', 'red');
+						$('#verify-toggle-text').show().text("불일치 합니다.").css('color', 'red');
 					},
 					dataType : "json"
 				}); //$.ajax
@@ -57,12 +57,12 @@
 					method:$(this).attr('method'),
 					data:$(this).serialize(),
 					success: function(resp) {
-						alert('회원가입 성공');
+						alert('회원가입에 성공하셨습니다.');
 						window.location.href = "${pageContext.request.contextPath}/user/login"; //이동
 					},
 					error: function(error) {
 						console.error("서버 오류:", error);
-						alert('회원가입 실패');
+						alert('회원가입에 실패하셨습니다.');
 					}
 				});//$.ajax
 			});//$('#signupform').submit
@@ -96,10 +96,8 @@
             <div class="col-auto">
                 <span>-</span>
             </div>
-            <div class="col" >
+            <div class="col d-flex align-items-center">
                 <input type="text" name="gender"  class="form-control" placeholder="" maxlength="1" style="width: 40px;">
-            </div>
-            <div class="col">
                 	******
             </div>
         </div>
