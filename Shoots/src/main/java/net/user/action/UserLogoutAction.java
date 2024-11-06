@@ -14,8 +14,8 @@ public class UserLogoutAction implements Action {
 		session.removeAttribute("id");
 		
 		ActionForward forward = new ActionForward();
-		forward.setPath("../user/login");
 		forward.setRedirect(true);
+		forward.setPath("/Shoots/index.jsp");
 		return forward;
 
 	}
