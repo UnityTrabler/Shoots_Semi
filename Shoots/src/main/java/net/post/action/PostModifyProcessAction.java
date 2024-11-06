@@ -61,7 +61,7 @@ public class PostModifyProcessAction implements Action {
 			postdata.setPost_id(num);
 			postdata.setTitle(multi.getParameter("title"));
 			postdata.setContent(multi.getParameter("content"));
-			
+			postdata.setPrice(Integer.parseInt(multi.getParameter("price")));
 			String check = multi.getParameter("check");
 			System.out.println("check=" + check);
 			if (check != null) {

@@ -25,19 +25,21 @@ public class PostListAction implements Action {
 		String category = request.getParameter("category");
 		if (category == null || category.isEmpty()) 
 			category = "A"; // 기본값 설정
-
+		
+		
 		PostDAO postdao = new PostDAO();
 		List<PostBean> postlist = new ArrayList<PostBean>();
-
+		
+		
+		
 		// boards/list 에서 boards/detail로 접속하는 경우에만 카운트 되도록하기 위해 세션에 저장합니다.
 		// 새로고침으로 조회수 올리는거 방지
 		request.getSession().setAttribute("referer", "list");
 		request.getSession().setAttribute("postlist", "list");
-
 		// 로그인 성공시 파라미터 page가 없어요. 그래서 초기값이 필요합니다.
 		int page = 1; // 보여줄 page
 		int limit = 10; // 한 페이지에 보여줄 게시판 목록의 수
-
+		
 		if (request.getParameter("page") != null) 
 			page = Integer.parseInt(request.getParameter("page"));
 
@@ -81,7 +83,6 @@ public class PostListAction implements Action {
 			request.setAttribute("listcount", listcount); // 총 글의 수
 			request.setAttribute("postlist", postlist); // 해당 페이지의 글 목록을 갖고 있는 리스트
 			request.setAttribute("limit", limit);
-
 			// ActionForward 객체 반환
 			ActionForward forward = new ActionForward();
 			forward.setRedirect(false);
@@ -102,7 +103,6 @@ public class PostListAction implements Action {
 			object.addProperty("endpage", endpage);
 			object.addProperty("listcount", listcount);
 			object.addProperty("limit", limit);
-
 			// JsonObject에 List 형식을 담을 수 있는 addProperty() 존재하지 않습니다.
 			// void com.google.gson.JsonObject.add(String property, JsonElement value) 메서드를
 			// 통해서 저장합니다.

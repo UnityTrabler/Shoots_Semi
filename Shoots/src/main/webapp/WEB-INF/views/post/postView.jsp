@@ -33,6 +33,17 @@
 				</td>
 			</tr>
 			
+			<c:if test="${postdata.category==B}">
+			<tr>
+				<td><div>가격</div></td>
+				<td style="padding-right: 0px">
+					<textarea class="form-control" rows="5" readOnly>
+						${postdata.price}
+					</textarea>
+				</td>
+			</tr>
+			</c:if>
+			
 		<%-- <c:if test="${boarddata.board_re_lev==0}">
 				<%-- 원문글인 경우에만 첨부파일을 추가 할 수 있습니다. --%> 
 			<tr>

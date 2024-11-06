@@ -63,23 +63,23 @@ private DataSource ds;
 				order by register_date desc
 			""";
 //		 자유(A), 중고(B) << 카테고리 나누는거 해결하기
-//		 동휘씨가 자꾸 한줄만 추가하면 된다는데
-//		 한줄은 좀 오바같고 진짜 모르겠음
+//		 동휘씨가 자꾸 한줄만 추가하면 된다는데 
+//		 한줄은 좀 오바같고 진짜 모르겠음  >> 9억줄 정도 추가해서 성공
 		
 		List<PostBean> list = new ArrayList<PostBean>();
 			
 		try (Connection con = ds.getConnection();
 				 PreparedStatement pstmt = con.prepareStatement(post_list_sql);) {
-				
+			
+			pstmt.setString(1, category); // 카테고리와 페이지, 한 페이지에 보여줄 게시글 수를 세팅
 			
 //	        int startRow = (page - 1) * limit; // 시작 행 계산
-	        pstmt.setString(1, category); // 카테고리와 페이지, 한 페이지에 보여줄 게시글 수를 세팅
 //	        pstmt.setInt(2, startRow);  // 시작 위치
 //	        pstmt.setInt(3, limit);     // 페이지 당 보여줄 게시글 수
 	        
 			/*
 			 int startRow = (page - 1) * limit; // 시작 행 계산
-		        pstmt.setString(1, category);
+		        pstmt.setString(1, category); 
 		        pstmt.setInt(2, page * limit);
 		        pstmt.setInt(3, startRow);
 			 */
@@ -91,11 +91,11 @@ private DataSource ds;
 						PostBean post = new PostBean();
 						post.setPost_id(rs.getInt("POST_ID"));
 						post.setWriter(rs.getInt("WRITER"));
+						post.setCategory(rs.getString("category"));
 						post.setTitle(rs.getString("TITLE"));
 						post.setContent(rs.getString("content"));
+						post.setPost_file(rs.getString("post_file"));
 		                post.setPrice(rs.getInt("price"));
-		                post.setPost_file(rs.getString("post_file"));
-		                post.setCategory(rs.getString("category"));
 						post.setRegister_date(rs.getString("REGISTER_DATE"));
 						post.setReadcount(rs.getInt("READCOUNT"));
 						
@@ -150,13 +150,15 @@ private DataSource ds;
 			
 			// 새로운 글을 등록하는 부분입니다.
 			pstmt.setInt(1,  postdata.getWriter());
+			//System.out.println("writer 값은 : " + postdata.getWriter()); //지우셈
 			pstmt.setString(2,  postdata.getCategory());
 			pstmt.setString(3,  postdata.getTitle());
 			pstmt.setString(4,  postdata.getContent());
+			//System.out.println("content 값은? " + postdata.getContent());
 			pstmt.setString(5,  postdata.getPost_file());
 			pstmt.setInt(6, postdata.getPrice());
 			pstmt.setInt(7, postdata.getReadcount());
-			System.out.println("content 값은? " + postdata.getContent());
+			
 			result = pstmt.executeUpdate();
 			
 			if (result == 1) {
@@ -267,7 +269,7 @@ private DataSource ds;
 	public boolean postModify(PostBean postdata) {
 		String sql = """
 				update post
-				set writer=?, title=?, content=?, post_file=?
+				set writer=?, title=?, content=?, post_file=?, price=?
 				where post_id = ?
 				""";
 		
@@ -277,7 +279,8 @@ private DataSource ds;
 			pstmt.setString(2, postdata.getTitle());
 			pstmt.setString(3, postdata.getContent());
 			pstmt.setString(4, postdata.getPost_file());
-			pstmt.setInt(5, postdata.getPost_id());
+			pstmt.setInt(5, postdata.getPrice());
+			pstmt.setInt(6, postdata.getPost_id());
 			
 			int result = pstmt.executeUpdate();
 			if (result == 1) {
