@@ -5,6 +5,7 @@
 <html>
 <head>
  <script src="${pageContext.request.contextPath}/js/jquery-3.7.1.js"></script>
+ <link rel = "stylesheet" href = "${pageContext.request.contextPath}/css/noticeAdmin.css" type = "text/css">
 <jsp:include page="../user/top.jsp"></jsp:include>
 <title>공지사항 관리(관리자 모드)</title>
 
@@ -15,8 +16,17 @@
 	td:nth-child(2), td:nth-child(3), td:nth-child(4){
 		text-align:center;
 	}
+	.noticeDetail {text-decoration: none; color : black}
+	.noticeDetail:hover {text-decoration: none; font-weight : bold; color : #059669}
+	
+	.noticeUpdate {text-decoration: none; font-size : 15px; border-radius : 10px; border : none; width : 50px; height : 23px; text-align: center; color : white ; background : #1d4ed8; transition: background 0.3s, color 0.3s; }
+	.noticeUpdate:hover {text-decoration: none; font-size : 15px; border : 1px solid #1d4ed8; border-radius : 10px; width : 50px; height : 23px; text-align: center; color : #1d4ed8 ; background : white}
+	
+	.noticeDelete {text-decoration: none; font-size : 15px; border-radius : 10px; border : none; width : 50px; height : 23px; text-align: center; color : white ; background : #be123c; transition: background 0.3s, color 0.3s; }
+	.noticeDelete:hover {text-decoration: none; font-size : 15px; border : 1px solid #be123c; border-radius : 10px; width : 50px; height : 23px; text-align: center; color : #be123c ; background : white}
+	 
 </style>
-
+ 
 <script>
 	$(function(){
 		$("tr > td:nth-child(5) > a").click(function(event){
@@ -55,7 +65,7 @@
 					<c:forEach var="notice" items="${totallist}">
 						<tr>
 							<td>
-								<a href="adminDetail?id=${notice.notice_id}">${notice.title}</a>
+								<a href="adminDetail?id=${notice.notice_id}" class="noticeDetail">${notice.title}</a>
 							</td>
 							<td>${notice.readcount }</td>
 							<td>${notice.register_date}</td>

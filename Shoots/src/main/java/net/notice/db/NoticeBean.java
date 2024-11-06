@@ -9,6 +9,7 @@ public class NoticeBean {
 	private String notice_file;
 	private String register_date;
 	private int readcount;
+	private String name; 
 	
 	public int getNotice_id() {
 		return notice_id;
@@ -51,6 +52,12 @@ public class NoticeBean {
 	}
 	public void setReadcount(int readcount) {
 		this.readcount = readcount;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
 	}
 	
 	

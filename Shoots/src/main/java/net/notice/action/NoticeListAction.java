@@ -8,6 +8,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import net.core.Action;
 import net.core.ActionForward;
+import java.util.ArrayList;
 
 import net.notice.db.*;
 
@@ -19,14 +20,21 @@ public class NoticeListAction implements Action{
 		ActionForward forward = new ActionForward();
 		NoticeDAO dao = new NoticeDAO();
 		
-		List<NoticeBean> list = null;
+		List<NoticeBean> list = new ArrayList<NoticeBean>();
+		req.getSession().setAttribute("referer", "noticelist");
 		
+		int page = 1;
+		int limit = 10;
+		if (req.getParameter("page") != null) {
+			page = Integer.parseInt(req.getParameter("page"));
+		}
 		
-		//seach_field
-		int index = -1;
+		System.out.println("넘어온 페이지 = " + page);
 		
-		String search_word = "";
-		
+		if (req.getParameter("limit") != null) {
+			limit = Integer.parseInt(req.getParameter("limit"));
+		}
+		System.out.println("넘어온 limit = " + limit);
 		
 		//총 리스트 수를 받아옵니다.
 		int listcount = dao.getListCount();
