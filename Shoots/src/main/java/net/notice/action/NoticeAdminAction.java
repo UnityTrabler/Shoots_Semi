@@ -19,7 +19,14 @@ public class NoticeAdminAction implements Action {
 		NoticeDAO dao = new NoticeDAO();
 		
 		List<NoticeBean> list = null;
+		
+		//총 리스트 수를 받아옵니다.
+		int listcount = dao.getListCount();
+				
+		//리스트를 받아옵니다
 		list = dao.getList();
+		
+		req.setAttribute("listcount", listcount);
 		req.setAttribute("totallist", list);
 		forward.setPath("/WEB-INF/views/notice/noticeAdmin.jsp");
 		forward.setRedirect(false);

@@ -85,7 +85,7 @@ private DataSource ds;
 		}
 		catch(Exception ex) {
 			ex.printStackTrace();
-			System.out.println("commentsInsert() 에러: " + ex);
+			System.out.println("faqInsert() 에러: " + ex);
 		}
 		return result;
 	}//faqInsert end

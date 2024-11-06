@@ -14,3 +14,10 @@ NOCACHE;
 
 ALTER TABLE notice
 ADD readcount number;
+
+ALTER TABLE notice
+ADD notice_num number;
+
+ALTER TABLE notice DROP COLUMN notice_num
+
+select * from notice 

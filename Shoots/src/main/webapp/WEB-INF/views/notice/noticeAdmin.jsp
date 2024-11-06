@@ -19,7 +19,7 @@
 
 <script>
 	$(function(){
-		$("tr > td:nth-child(4) > a").click(function(event){
+		$("tr > td:nth-child(5) > a").click(function(event){
 			const answer = confirm("정말 삭제하시겠습니까?");
 			console.log(answer);//취소를 클릭한 경우-false
 			if (!answer){//취소를 클릭한 경우
@@ -40,28 +40,37 @@
 <body>
 	<div class="container">
 		<h1>공지사항 관리</h1>
-		<table class="table">
-			<thead>
-				<tr>
-					<th>제목</th>
-					<th>등록일</th>
-					<th>수정</th>
-					<th>삭제</th>
-				</tr>
-			</thead>
-			<tbody>
-				<c:forEach var="notice" items="${totallist}">
+		<c:if test="${listcount > 0 }">
+			<table class="table">
+				<thead>
 					<tr>
-						<td>
-							<a href="adminDetail?id=${notice.notice_id}">${notice.title}</a>
-						</td>
-						<td>${f.register_date}</td>
-						<td><a href="update?id=${notice.notice_id}" type="button" class="noticeUpdate">수정</a></td>
-						<td><a href="delete?id=${notice.notice_id}"  type="button" class="noticeDelete">삭제</a></td>
+						<th>제목</th>
+						<th>조회수</th>
+						<th>등록일</th>
+						<th>수정</th>
+						<th>삭제</th>
 					</tr>
-				</c:forEach>
-			</tbody>
-		</table>
+				</thead>
+				<tbody>
+					<c:forEach var="notice" items="${totallist}">
+						<tr>
+							<td>
+								<a href="adminDetail?id=${notice.notice_id}">${notice.title}</a>
+							</td>
+							<td>${notice.readcount }</td>
+							<td>${notice.register_date}</td>
+							<td><a href="update?id=${notice.notice_id}" type="button" class="noticeUpdate">수정</a></td>
+							<td><a href="delete?id=${notice.notice_id}"  type="button" class="noticeDelete">삭제</a></td>
+						</tr>
+					</c:forEach>
+				</tbody>
+			</table>
+		</c:if>
+		<%-- 게시글이 없는 경우 --%>
+		<c:if test="${listcount == 0 }">
+			<h3 style="text-align:center">등록된 글이 없습니다.</h3>
+		</c:if>
+		
 			<div class="btnD">
 				<button type="button" class="btnWrite">글 쓰 기</button>
 			</div>
