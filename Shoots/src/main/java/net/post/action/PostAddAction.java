@@ -33,13 +33,16 @@ public class PostAddAction implements Action {
 		ServletContext sc = request.getServletContext();
 		realFolder = sc.getRealPath(saveFolder);
 		System.out.println("realFolder= " + realFolder);
-		try {
+		try { // 파일 업로드 처리
 			MultipartRequest multi =
 					new MultipartRequest(request, realFolder, fileSize, "utf-8",
 					new DefaultFileRenamePolicy());
 			
-			//PostBean 객체에 글 등록 폼에서 입력 받은 정보들을 저장합니다.
-			postdata.setTitle(multi.getParameter("category")); //
+			// 폼 데이터 처리
+            String category = multi.getParameter("category");  // 카테고리 값(A 또는 B)
+            postdata.setCategory(category);  // PostBean에 카테고리 값 설정
+			
+			//PostBean 객체에 글 등록 폼에서 입력 받은 정보들을 저장합니다.//
 			postdata.setTitle(multi.getParameter("title"));
 			postdata.setContent(multi.getParameter("content"));
 			
@@ -59,6 +62,9 @@ public class PostAddAction implements Action {
 				forward.setRedirect(false);
 			} else {
 				System.out.println("게시판 등록 완료");
+//				forward.setRedirect(true);
+//				// 등록 후 카테고리별 게시글 목록으로 리다이렉트
+//                forward.setPath("list?category=" + postdata.getCategory()); 
 				
 				// 글 등록이 완료되면 글 목록을 보여주기 위해 "boards/list"로 이동합니다.
 				// Redirect 여부를 true로 설정합니다.
