@@ -36,8 +36,6 @@ public class UserSignupProcessAction extends HttpServlet implements Action {
 		//key값이 들어오는 경우는 email verifycode를 검증하는 경우.
 		if(key != null && !key.trim().equals("")) {
 			verifyCheck(key, (String)session.getAttribute("verifyNum"), resp);
-			req.removeAttribute("key");
-			session.removeAttribute("verifyNum");
 			return null;
 		}
 		
@@ -57,7 +55,7 @@ public class UserSignupProcessAction extends HttpServlet implements Action {
 			userBean.setNickname(req.getParameter("nickname"));
 			//userBean.setUserfile(req.getParameter("profile"));
 			//registerDate
-			
+			//registerDAtttttttttttttttttttttttttttttttttttttttttttttttttttt
 			int result = 0;
 			result = new UserDAO().insertUser(userBean);
 			System.out.println(result);
@@ -98,7 +96,6 @@ public class UserSignupProcessAction extends HttpServlet implements Action {
 			session.setAttribute("verifyNum", verifyNum);
 			return null;
 		}
-		
 		return null;
 	}//ActionForward execute
 
