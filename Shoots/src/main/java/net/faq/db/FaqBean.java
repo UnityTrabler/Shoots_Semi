@@ -7,6 +7,7 @@ public class FaqBean {
 	private String content;
 	private String faq_file;
 	private String register_date;
+	private String name;
 	
 	public int getFaq_id() {
 		return faq_id;
@@ -43,6 +44,12 @@ public class FaqBean {
 	}
 	public void setRegister_date(String register_date) {
 		this.register_date = register_date;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
 	}
 	
 	

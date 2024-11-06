@@ -7,14 +7,23 @@
 <jsp:include page="../user/top.jsp"></jsp:include>
 <title>공지사항</title>
 <script src="${pageContext.request.contextPath}/js/jquery-3.7.1.js"></script>
+<style>
+	.noticeDetail {text-decoration: none; color : black; }
+	.noticeDetail:hover {text-decoration: none; font-weight : bold; color : #059669}
+	
+	th:nth-child(2), th:nth-child(3), th:nth-child(4){
+		text-align:center;
+	}
+	td:nth-child(2), td:nth-child(3), td:nth-child(4){
+		text-align:center;
+	}
+</style>
 </head>
 <body>
 	<div class="container">
 		<h1>공지사항</h1>
 		<c:if test="${listcount > 0 }">
 			
-		
-		
 			<table class="table">
 				<thead>
 					<tr>
@@ -28,7 +37,7 @@
 				<tbody>
 					<c:forEach var="notice" items="${totallist}">
 						<tr>
-							<td>${notice.writer}</td>
+							<td>${notice.name}</td>
 							<td>
 							<a href="detail?id=${notice.notice_id}" class="noticeDetail">${notice.title}</a>
 							</td>

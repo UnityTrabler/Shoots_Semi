@@ -30,7 +30,7 @@
 		<table class="table">
 			<tr>
 				<td><div>글쓴이</div></td>
-				<td><div>${nb.writer}</div></td>
+				<td><div>${nb.name}</div></td>
 			</tr>
 			<tr>
 				<td><div>제목</div></td>

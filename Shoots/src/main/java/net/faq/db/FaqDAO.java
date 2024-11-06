@@ -27,8 +27,10 @@ private DataSource ds;
 	public List<FaqBean> getList() {
 		List<FaqBean> list = new ArrayList<FaqBean>();
 		String sql = """
-				select * 
-				from faq order by faq_id
+				select f.*, u.name 
+				from faq f join regular_user u
+				on f.writer = u.idx  
+				order by faq_id
 				""";
 		
 		try(Connection con = ds.getConnection();
@@ -42,6 +44,7 @@ private DataSource ds;
 					fb.setContent(rs.getString(4));
 					fb.setFaq_file(rs.getString(5));
 					fb.setRegister_date(rs.getString(6).substring(0, 10));
+					fb.setName(rs.getString("name"));
 					list.add(fb);
 				}
 			}
@@ -93,7 +96,10 @@ private DataSource ds;
 	public FaqBean getDetail(int id) {
 		FaqBean fb = null;
 		String sql = """
-				select * from faq where faq_id = ?
+				select f.*, u.name  
+				from faq f join regular_user u 
+				on f.writer = u.idx  
+				where faq_id = ?
 				""";
 		try(Connection con = ds.getConnection();
 			PreparedStatement pstmt = con.prepareStatement(sql);){
@@ -107,6 +113,7 @@ private DataSource ds;
 					fb.setContent(rs.getString("content"));
 					fb.setFaq_file(rs.getString("faq_file"));
 					fb.setRegister_date(rs.getString("register_date"));
+					fb.setName(rs.getString("name"));
 				}
 			}
 			

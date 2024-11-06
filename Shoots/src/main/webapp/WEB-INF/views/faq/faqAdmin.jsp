@@ -11,7 +11,7 @@
 경로명 :  ${pageContext.request.contextPath}/faq/faqAdmin
 1. faq 테이블에 저장되어 있는 faq 내용을 모두 가져옵니다.
 2. 해당 페이지에서 수정, 삭제, 추가 관리를 할 수 있습니다.
-3. 보기 쉽게 일단 memberList.css를 가져왔습니다.
+3. faqAdmin.css를 가져왔습니다.
  --%>
  <script src="${pageContext.request.contextPath}/js/jquery-3.7.1.js"></script>
 <link rel = "stylesheet" href = "${pageContext.request.contextPath}/css/faqAdmin.css" type = "text/css">

@@ -22,7 +22,7 @@
 				<td>${nb.title}</td>
 			</tr>
 			<tr>
-				<td>작성자 : ${nb.writer }</td>
+				<td>작성자 : ${nb.name }</td>
 				<td> 작성일 : ${nb.register_date }</td>
 			</tr>
 			

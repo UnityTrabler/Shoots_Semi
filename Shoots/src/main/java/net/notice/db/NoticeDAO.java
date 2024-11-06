@@ -23,10 +23,14 @@ private DataSource ds;
 		}
 	}
 
+	//notice 테이블에 저장된 모든 값을 가져옵니다
 	public List<NoticeBean> getList() {
 		List<NoticeBean> list = new ArrayList<NoticeBean>();
 		String sql = """
-				select * from notice order by notice_id
+				select n.*, u.name 
+				from notice n join regular_user u 
+				on n.writer = u.idx
+				order by notice_id
 				""";
 		try(Connection con = ds.getConnection();
 				PreparedStatement pstmt = con.prepareStatement(sql);){
@@ -40,6 +44,7 @@ private DataSource ds;
 					nb.setNotice_file(rs.getString(5));
 					nb.setRegister_date(rs.getString(6).substring(0, 10));
 					nb.setReadcount(rs.getInt(7));
+					nb.setName(rs.getString("name"));
 					list.add(nb);
 				}
 			}
@@ -51,14 +56,56 @@ private DataSource ds;
 		}
 		return list;
 	}//getList() end
+	
+	//페이징을 위한 getNoticeList
+	public List<NoticeBean> getNoticeList(int page, int limit){
+		List<NoticeBean> list = new ArrayList<NoticeBean>();
+		String sql = """
+				select * from (
+					select rownum rnum, n.notice_id, n.title, n.register_date, u.name
+					from notice n 
+					join regular_user u 
+					on n.writer = u.idx 
+				) p where p.rnum >= ? and p.rnum <= ? 
+				""";
+		int startrow = (page - 1) * limit + 1;
+		int endrow = startrow + limit - 1;
+		
+		try(Connection con = ds.getConnection();
+			PreparedStatement pstmt = con.prepareStatement(sql);){
+			pstmt.setInt(1, startrow);
+			pstmt.setInt(2, endrow);
+			
+			try (ResultSet rs = pstmt.executeQuery()){
+				while(rs.next()) {
+					NoticeBean nb = new NoticeBean();
+					nb.setNotice_id(rs.getInt("notice_id"));
+					nb.setTitle(rs.getString("title"));
+					nb.setRegister_date(rs.getString("register_date"));
+					nb.setName(rs.getString("name"));
+					
+					list.add(nb);
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("getMatchList() 에러 : " + e);
+		}
+		
+		return list;
+	}//getNoticeList() end
 
+	//notice 자세히 보기
 	public NoticeBean getDetail(int id) {
 		NoticeBean nb = null;
 		String sql = """
-				select * from notice where notice_id = ?
+				select n.*, u.name 
+				from notice n join regular_user u 
+				on n.writer = u.idx 
+				where notice_id = ?
 				""";
 		try(Connection con = ds.getConnection();
-				PreparedStatement pstmt = con.prepareStatement(sql);){
+			PreparedStatement pstmt = con.prepareStatement(sql);){
 			
 			pstmt.setInt(1, id);
 			try(ResultSet rs = pstmt.executeQuery()){
@@ -67,10 +114,11 @@ private DataSource ds;
 					nb.setNotice_id(rs.getInt("notice_id"));
 					nb.setWriter(rs.getInt("writer"));
 					nb.setTitle(rs.getString("title"));
-					nb.setContent(rs.getString(4));
-					nb.setNotice_file(rs.getString(5));
-					nb.setRegister_date(rs.getString(6));
-					nb.setReadcount(rs.getInt(7));
+					nb.setContent(rs.getString("content"));
+					nb.setNotice_file(rs.getString("notice_file"));
+					nb.setRegister_date(rs.getString("register_date"));
+					nb.setReadcount(rs.getInt("readcount"));
+					nb.setName(rs.getString("name"));
 				}
 			}
 			
