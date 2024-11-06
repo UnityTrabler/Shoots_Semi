@@ -14,8 +14,13 @@
 
 <style>
 .modal-content {
-    width: 800px;
+    width: 700px;
     height: 400px;
+}
+
+.modal-content {
+    border-radius: 40px;
+    border: 3px solid #1FAF82;
 }
 
 </style>
@@ -25,10 +30,10 @@
 
 	<!-- 모달창 시작-->		
 <div class="modal report-modal fade" style="display:none">
-	
+	<fieldset style="border-radius: 100px">
 	 <div class="modal-dialog" role="document">
         <div class="modal-content"> <!-- 모달 내용으로 포함시킬 부분 -->
-        	
+        	<h1 style="text-align:center;">플레이어 신고</h1>
         	<!-- 플레이어1 구간 -->
 			<div class="player" id="p1">
 			<span>
@@ -65,10 +70,16 @@
 			<input type="text" maxlength="100">
 			</div> <!-- 플레이어2 끝 -->
 			
+			
+			<button class="btn btn-danger" style="width:60px;  font-size:10px">신고하기</button>
 		</div> <!-- modal-content -->
 	</div> <!-- modal-dialog -->
+	</fieldset>
 </div> <!-- 모달창 끝 -->
 
+
+
+<!--  모달창에 플레이어 목록을 테이블 형태로 만들기 위한 테스트 부분. 차후 위의 모달창과 합침 -->
 <table class="table table-striped">
 	<caption>신고할 플레이어 목록</caption>
 	<thead>

@@ -43,7 +43,6 @@ public class InquiryDAO {
 	public List<InquiryBean> getInquiryList(int page, int limit) { //문의글의 글 페이지네이션 + 리스트 뜨게 하는 메서드
 		// page : 페이지
 		// limit : 페이지 당 목록수
-		// board_re_ref desc, board_re_seq asc에 의해 정렬한 것을 조건절에 맞는 rnum의 범위만큼 가져오는 쿼리문
 
 		String sql = """
 			select * from (
@@ -146,17 +145,22 @@ public class InquiryDAO {
 	
 	
 	
-	public InquiryBean getDetail(int num) { //문의글을 누르면 상세 페이지가 나오게 하는 메서드
+	public InquiryBean getDetail(int inquiryid) { //문의글을 누르면 상세 페이지가 나오게 하는 메서드
 		InquiryBean ib = new InquiryBean();
 		String sql = """
-				select *
-				from inquiry
+				select * from(
+							select i.*, r.user_id 
+							from inquiry i 
+							join regular_user r 
+							on i.inquiry_ref_idx = r.idx
+							order by inquiry_id desc
+							)
 				where inquiry_id = ?
 				""";
 		
 		try (Connection con = ds.getConnection();
 				PreparedStatement pstmt = con.prepareStatement(sql);){
-				pstmt.setInt(1, num);
+				pstmt.setInt(1, inquiryid);
 					
 					try (ResultSet rs = pstmt.executeQuery()){
 						if (rs.next()) {
@@ -167,6 +171,7 @@ public class InquiryDAO {
 							ib.setContent(rs.getString("content"));
 							ib.setInquiry_file(rs.getString("inquiry_file"));
 							ib.setRegister_date(rs.getString("register_date"));
+							ib.setUser_id(rs.getString("user_id"));
 						}
 					}
 				}catch (Exception ex) {

@@ -52,7 +52,7 @@
 							<td>
 								<%--Á¦¸ñ --%>
 								<div>
-									<a href="detail?num=${i.inquiry_id}"> 
+									<a href="detail?inquiryid=${i.inquiry_id}"> 
 										<c:if test="${i.title.length()>=20 }">
 											<c:out value="${i.title.substring(0,20 )}..." />
 										</c:if> 
