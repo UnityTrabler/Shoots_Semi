@@ -1,3 +1,4 @@
+DROP TABLE notice CASCADE CONSTRAINTS PURGE;
 CREATE TABLE notice(
     notice_id NUMBER(10) PRIMARY KEY,
     writer NUMBER(10) references regular_user(idx) on delete cascade,
@@ -16,8 +17,11 @@ ALTER TABLE notice
 ADD readcount number;
 
 ALTER TABLE notice
-ADD notice_num number;
+ADD cnt number;
 
 ALTER TABLE notice DROP COLUMN notice_num
 
-select * from notice 
+select * from regular_user
+select * from notice
+
+select n.*, u.name from notice n join regular_user u on n.writer = u.idx where notice_id = 12

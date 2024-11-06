@@ -18,7 +18,7 @@ public class BusinessMypageAction implements Action {
 		
 		BusinessUserDAO dao = new BusinessUserDAO();
 		
-		int business_idx = Integer.parseInt(req.getParameter("business_idx"));
+		int business_idx = 5; // 임시
 		BusinessUserBean businessUser = dao.getUserInfoById(business_idx);
 		
 		ActionForward forward = new ActionForward();

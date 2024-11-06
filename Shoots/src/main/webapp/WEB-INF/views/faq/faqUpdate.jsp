@@ -17,7 +17,7 @@
 			
 			<div class="form-group">
 				<label>글쓴이</label>
-				<input type="text" class="form-control" value="${fb.writer}" readOnly>
+				<input type="text" class="form-control" value="${fb.name}" readOnly>
 			</div>
 			
 			<div class="form-group">

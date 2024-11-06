@@ -32,7 +32,7 @@
 		<table class="table">
 			<tr>
 				<td><div>글쓴이</div></td>
-				<td><div>${fb.writer}</div></td>
+				<td><div>${fb.name}</div></td>
 			</tr>
 			<tr>
 				<td><div>제목</div></td>
