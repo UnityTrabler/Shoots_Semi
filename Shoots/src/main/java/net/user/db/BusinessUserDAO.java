@@ -23,7 +23,7 @@ public class BusinessUserDAO {
 
 	public BusinessUserBean getUserInfoById(int business_idx) {
 		String sql = """
-				select * from where business_idx = ?
+				select * from business_user where business_idx = ?
 				""";
 		BusinessUserBean businessUser = null;
 		try (Connection con = ds.getConnection();
@@ -45,7 +45,7 @@ public class BusinessUserDAO {
 					businessUser.setAddress(rs.getString("address"));
 					businessUser.setDescription(rs.getString("description"));
 					businessUser.setBusiness_file(rs.getString("business_file"));
-					businessUser.setRegister_date(rs.getInt("register_date"));
+					businessUser.setRegister_date(rs.getString("register_date"));
 				}
 			}
 		} catch (Exception e) {

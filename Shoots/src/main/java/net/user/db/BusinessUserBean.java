@@ -13,7 +13,7 @@ public class BusinessUserBean {
 	private String address;
 	private String description;
 	private String business_file;
-	private int register_date;
+	private String register_date;
 	
 	public int getBusiness_idx() {
 		return business_idx;
@@ -81,10 +81,10 @@ public class BusinessUserBean {
 	public void setBusiness_file(String business_file) {
 		this.business_file = business_file;
 	}
-	public int getRegister_date() {
+	public String getRegister_date() {
 		return register_date;
 	}
-	public void setRegister_date(int register_date) {
+	public void setRegister_date(String register_date) {
 		this.register_date = register_date;
 	}
 	
