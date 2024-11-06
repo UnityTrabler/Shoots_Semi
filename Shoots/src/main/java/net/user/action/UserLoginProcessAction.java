@@ -26,11 +26,11 @@ public class UserLoginProcessAction implements Action {
 			HttpSession session = req.getSession();
 			session.setAttribute("id", id);
 			
-			//cookie
+			//store cookie
 			Cookie cookie = new Cookie("id", id);
-			cookie.setMaxAge(60 * 60 * 1); //1시간
-			if(!req.getParameter("store").equals("store"))
-				cookie.setMaxAge(0);
+			cookie.setMaxAge(0);
+			if(req.getParameter("remember") != null && req.getParameter("remember").equals("store"))
+				cookie.setMaxAge(60 * 60 * 1); //1시간
 			resp.addCookie(cookie);
 			
 			//forward

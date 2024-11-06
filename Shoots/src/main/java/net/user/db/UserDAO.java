@@ -27,7 +27,7 @@ public class UserDAO {
 		String sql = """
 				select user_id, password
 				from regular_user
-				where id = ?
+				where user_id = ?
 				""";
 		int result = 0;
 		
