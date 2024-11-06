@@ -5,6 +5,13 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+	$(function() {
+		$('#logout').on('click', function() {
+			sessionStorage.removeItem("id");
+		});
+	});
+</script>
 <style>
 	nav {width: 1200px; height: 50px; margin: 30px auto;display: flex;justify-content: space-between;align-items: center;}
 	img {width: 45px;}
@@ -21,12 +28,12 @@
 	<div class="collapse navbar-collapse flex-row-reverse" id="collapsibleNavbar">
 		<ul class="navbar-nav">
 			<c:if test="${!empty sessionScope.id}">
-				<li class="nav-item"><a class="nav-link">${id}님이 로그인 되었습니다.</a></li>
-				<li class="nav-item"><a class="nav-link" href="#"> 로그아웃 </a></li>
+				<li class="nav-item"><a class="loginA">${id}님이 로그인 되었습니다.</a></li>
+				<li class="nav-item"><a class="loginA" href="logout" id="logout"> 로그아웃 </a></li>
 			</c:if>
 			<c:if test="${empty sessionScope.id}">
 				<a href="${pageContext.request.contextPath}/user/login" class="loginA"><b>LOGIN</b></a>
-				<a href="#" class="joinA"><b>SIGN UP</b></a>
+				<a href="${pageContext.request.contextPath}/user/signup" class="joinA"><b>SIGN UP</b></a>
 			</c:if>
 		</ul>
 	</div>  

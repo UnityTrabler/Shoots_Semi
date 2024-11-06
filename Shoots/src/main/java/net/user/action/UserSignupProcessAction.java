@@ -41,8 +41,48 @@ public class UserSignupProcessAction extends HttpServlet implements Action {
 			return null;
 		}
 		
+		//유효성 검증 및 회원가입 처리. id가 null 이 아닐때만 검증.
+		String id = req.getParameter("id");
+		if(id != null) {
+			
+			UserBean userBean = new UserBean();
+			//idx
+			userBean.setId(req.getParameter("id"));
+			userBean.setPassword(req.getParameter("pwd"));
+			userBean.setName(req.getParameter("name"));
+			userBean.setRRN(Integer.parseInt(req.getParameter("RRN")));
+			userBean.setGender(Integer.parseInt(req.getParameter("gender")));
+			userBean.setTel(req.getParameter("tel"));
+			userBean.setEmail(req.getParameter("email"));
+			userBean.setNickname(req.getParameter("nickname"));
+			//userBean.setUserfile(req.getParameter("profile"));
+			//registerDate
+			
+			int result = 0;
+			result = new UserDAO().insertUser(userBean);
+			System.out.println(result);
+			resp.setContentType("application/json; charset=UTF-8");
+			if(result == 1) {
+				System.out.println("user insert successed");
+				ActionForward forward = new ActionForward();
+				forward.setPath("/user/login");
+				forward.setRedirect(false);
+				resp.setStatus(HttpServletResponse.SC_OK);
+				resp.getWriter().println("{\"message\":\"sign up successed\"}");
+				return forward;
+			}
+			else {
+				System.out.println("user insert failed");
+				resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+				resp.getWriter().println("{\"message\":\"sign up failed\"}");
+				return null;
+			}
+			
+		}//if id!=null
+
 		//receiver값이 들어오는 경우는 email verifycode를 검증하는 경우.
-		String receiver = req.getParameter("receiver");
+		String receiver = req.getParameter("email");
+		System.out.println(req.getParameter("email"));
 		if(receiver != null) {
 			SecureRandom random = new SecureRandom();
 			String verifyNum = String.valueOf(100000 + random.nextInt(900000));//인증용 난수
@@ -59,46 +99,8 @@ public class UserSignupProcessAction extends HttpServlet implements Action {
 			return null;
 		}
 		
-		//유효성 검증 및 회원가입 처리. id가 null 이 아닐때만 검증.
-		String id = req.getParameter("id");
-		if(id != null) {
-			
-			UserBean userBean = new UserBean();
-			//idx
-			userBean.setId(req.getParameter("id"));
-			userBean.setPassword(req.getParameter("pwd"));
-			userBean.setName(req.getParameter("name"));
-			userBean.setRRN(req.getParameter("RRN1"), req.getParameter("RRN2"));
-			userBean.setGender(req.getParameter("gender"));
-			userBean.setTel(req.getParameter("tel"));
-			userBean.setEmail(req.getParameter("email"));
-			userBean.setNickname(req.getParameter("nickname"));
-			//userBean.setUserfile(req.getParameter("profile"));
-			//registerDate
-			
-			int result = 0;
-			result = new UserDAO().insertUser(userBean);
-			resp.setContentType("application/json; charset=UTF-8");
-			if(result == 1) {
-				ActionForward forward = new ActionForward();
-				forward.setPath("/WEB-INF/views/user/home.jsp");
-				forward.setRedirect(true);
-				resp.setStatus(HttpServletResponse.SC_OK);
-				resp.getWriter().println("{\"message\":\"sign up successed\"}");
-				return forward;
-			}
-			else {
-				System.out.println("insert failed");
-				resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-				resp.getWriter().println("{\"message\":\"sign up failed\"}");
-				return null;
-			}
-
-		}
-		
 		return null;
-	}
-	
+	}//ActionForward execute
 
 	private void verifyCheck(String key, String target, HttpServletResponse resp) throws IOException {
 		System.out.println("key2 : "+ target);
@@ -118,6 +120,7 @@ public class UserSignupProcessAction extends HttpServlet implements Action {
 
 	
 	private void sendEmail(HttpServletRequest req, HttpServletResponse resp, String host, String username, String password, String sender, String receiver, String subject, String imgPath, String verifyNum) {
+		System.out.println("sendEmail()");
 		Properties props = new Properties();
 		props.put("mail.smtp.host", host);
 		props.put("mail.smtp.port", "587");
@@ -166,7 +169,7 @@ public class UserSignupProcessAction extends HttpServlet implements Action {
 			e.printStackTrace();
 		}
 		finally {
-			req.removeAttribute("receiver");
+			req.removeAttribute("email");
 		}
 	}
 	
