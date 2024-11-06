@@ -3,10 +3,11 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<jsp:include page="../user/top.jsp"></jsp:include>
 	<meta charset="EUC-KR">
 	<title>Insert title here</title>
 </head>
 <body>
 
 </body>
-</html> 
+</html>

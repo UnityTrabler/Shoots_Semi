@@ -1,18 +1,31 @@
+
 package net.user.db;
 
 public class BusinessUserBean {
-	private String id;
+	private int business_idx;
+	private String business_id;
 	private String password;
-	private String name;
-	private int age;
-	private String gender;
+	private String business_name;
+	private int business_number;
+	private int req;
 	private String email;
-	private String memberfile;
-	public String getId() {
-		return id;
+	private int post;
+	private String address;
+	private String description;
+	private String business_file;
+	private int register_date;
+	
+	public int getBusiness_idx() {
+		return business_idx;
 	}
-	public void setId(String id) {
-		this.id = id;
+	public void setBusiness_idx(int business_idx) {
+		this.business_idx = business_idx;
+	}
+	public String getBusiness_id() {
+		return business_id;
+	}
+	public void setBusiness_id(String business_id) {
+		this.business_id = business_id;
 	}
 	public String getPassword() {
 		return password;
@@ -20,23 +33,23 @@ public class BusinessUserBean {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	public String getName() {
-		return name;
+	public String getBusiness_name() {
+		return business_name;
 	}
-	public void setName(String name) {
-		this.name = name;
+	public void setBusiness_name(String business_name) {
+		this.business_name = business_name;
 	}
-	public int getAge() {
-		return age;
+	public int getBusiness_number() {
+		return business_number;
 	}
-	public void setAge(int age) {
-		this.age = age;
+	public void setBusiness_number(int business_number) {
+		this.business_number = business_number;
 	}
-	public String getGender() {
-		return gender;
+	public int getReq() {
+		return req;
 	}
-	public void setGender(String gender) {
-		this.gender = gender;
+	public void setReq(int req) {
+		this.req = req;
 	}
 	public String getEmail() {
 		return email;
@@ -44,10 +57,35 @@ public class BusinessUserBean {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public String getMemberfile() {
-		return memberfile;
+	public int getPost() {
+		return post;
 	}
-	public void setMemberfile(String memberfile) {
-		this.memberfile = memberfile;
+	public void setPost(int post) {
+		this.post = post;
 	}
+	public String getAddress() {
+		return address;
+	}
+	public void setAddress(String address) {
+		this.address = address;
+	}
+	public String getDescription() {
+		return description;
+	}
+	public void setDescription(String description) {
+		this.description = description;
+	}
+	public String getBusiness_file() {
+		return business_file;
+	}
+	public void setBusiness_file(String business_file) {
+		this.business_file = business_file;
+	}
+	public int getRegister_date() {
+		return register_date;
+	}
+	public void setRegister_date(int register_date) {
+		this.register_date = register_date;
+	}
+	
 }

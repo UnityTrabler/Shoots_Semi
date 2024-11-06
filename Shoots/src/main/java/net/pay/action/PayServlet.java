@@ -14,8 +14,17 @@ public class PayServlet implements Action {
 	public ActionForward execute(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		
-	        
-		return null;
+		String matchId = req.getParameter("match_id");
+		String price = req.getParameter("price");
+
+	    req.setAttribute("matchId", matchId);
+	    req.setAttribute("price", price);
+
+	    ActionForward forward = new ActionForward();
+	    forward.setPath("/WEB-INF/views/pay/payment.jsp");
+	    forward.setRedirect(false);
+
+	    return forward;
 	}
 
 }

@@ -1,4 +1,4 @@
-package net.pay.action;
+package net.business.action;
 
 import java.io.IOException;
 
@@ -10,17 +10,10 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import net.core.Action;
 import net.core.ActionForward;
-import net.match.action.MatchAddAction;
-import net.match.action.MatchDeleteAction;
-import net.match.action.MatchDetailAction;
-import net.match.action.MatchListAction;
-import net.match.action.MatchUpdateAction;
-import net.match.action.MatchUpdateProcessAction;
-import net.match.action.MatchWriteAction;
 
-@WebServlet("/payments/*")
-public class PayFrontController extends HttpServlet {
-private static final long serialVersionUID = 1L;
+@WebServlet("/business/*")
+public class BusinessFrontController extends HttpServlet {
+	private static final long serialVersionUID = 1L;
 	
 	protected void doProcess(HttpServletRequest request, 
 			HttpServletResponse response) throws ServletException, IOException {
@@ -32,15 +25,27 @@ private static final long serialVersionUID = 1L;
 		String contextPath = request.getContextPath();
 		System.out.println("contextPath = " + contextPath);
 		
-		String command = RequestURI.substring(contextPath.length() + "/payments".length());
+		String command = RequestURI.substring(contextPath.length() + "/business".length());
 		System.out.println("command = " + command);
 		
 		ActionForward forward = null;
 		Action action = null;
 		
 		switch (command) {
-			case "/pay" :
-				action = new PayServlet();
+			case "/mypage" :
+				action = new BusinessMypageAction();
+				break;
+			case "/statistics" :
+				action = new BusinessStatisticsAction();
+				break;
+			case "/sales" :
+				action = new BusinessSalesAction();
+				break;
+			case "/myposts" :
+				action = new BusinessMypostsAction();
+				break;
+			case "/customers" :
+				action = new BusinessCustomersAction();
 				break;
 			
 			default:
@@ -68,8 +73,7 @@ private static final long serialVersionUID = 1L;
 		
 		protected void doPost(HttpServletRequest request, 
 		HttpServletResponse response) throws ServletException, IOException  {
-			doProcess(request, response); 
+			doProcess(request, response);
 		
 		}
 }
-
