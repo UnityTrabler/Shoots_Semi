@@ -11,6 +11,8 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
+import net.inquiry.db.InquiryBean;
+
 public class PostDAO {
 	
 private DataSource ds;
@@ -27,15 +29,17 @@ private DataSource ds;
 	
 	
 	public int getListCount(String category) {
-		String sql = "select count(*) from post WHERE category = ?";
+		String sql = "select count(*) from post where category = ?";
 		int x = 0;
 		
 		try (Connection con = ds.getConnection();
 			 PreparedStatement pstmt = con.prepareStatement(sql);) {
+			pstmt.setString(1, category);
 			
 			try (ResultSet rs = pstmt.executeQuery()) {
 				if(rs.next()) {
 					x = rs.getInt(1);
+					
 				}
 			}
 			} catch (Exception ex) {
@@ -67,8 +71,12 @@ private DataSource ds;
 		try (Connection con = ds.getConnection();
 				 PreparedStatement pstmt = con.prepareStatement(post_list_sql);) {
 				
-			pstmt.setString(1, category);
 			
+//	        int startRow = (page - 1) * limit; // 시작 행 계산
+	        pstmt.setString(1, category); // 카테고리와 페이지, 한 페이지에 보여줄 게시글 수를 세팅
+//	        pstmt.setInt(2, startRow);  // 시작 위치
+//	        pstmt.setInt(3, limit);     // 페이지 당 보여줄 게시글 수
+	        
 			/*
 			 int startRow = (page - 1) * limit; // 시작 행 계산
 		        pstmt.setString(1, category);

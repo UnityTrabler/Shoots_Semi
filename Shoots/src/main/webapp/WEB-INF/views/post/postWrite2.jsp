@@ -14,25 +14,32 @@
 </head>
 <body>
 <div class="container">
-  <form action="add" method="post" enctype="multipart/form-data" name="postform">
+  <form action="add" method="post" enctype="multipart/form-data"
+  		name="postform">
   	<h1>게시판 글쓰기</h1>
-  
+  	
+  	
+  	
   	<div class="form-group">
-  		<label for="category"></label>
-  		<input type="radio" name="category" value="A" required><span>자유게시판</span>
-		<input type="radio" name="category" value="B"><span>중고게시판</span>
+  		<label for="category" ></label>
+  			<input type="radio" name="category" value="A" required><span>자유게시판</span>
+			<input type="radio" name="category" value="B" ><span>중고게시판</span>
   	</div>
-  
+  	
   	<div class="form-group">
   		<label for="title">글 작성</label>
-  		<input name="title" id="title" type="text" maxlength="100" class="form-control" placeholder="제목을 입력해주세요">
+  		<input name="title" id="title" type="text" maxlength="100"
+  				class="form-control" placeholder="제목을 입력해주세요">
   	</div>
-  
+  	
+  	
+  	
   	<div class="form-group">
   		<label for="content">내용</label>
-  		<textarea name="content" id="content" rows="20" class="form-control" placeholder="내용을 입력하세요."></textarea>
+  		<textarea name="content" id="content"
+  				rows="20" class="form-control" placeholder="내용을 입력하세요."></textarea>
   	</div>
-  
+  	
   	<div class="form-group">
   		<label>
   		파일첨부
@@ -41,12 +48,12 @@
   		</label>
   		<span id="filevalue"></span>
   	</div>
-  
+  	
   	<div class="form-group">
   		<button type=reset class="btn btn-danger">취소</button>
   		<button type=submit class="btn btn-primary">등록</button>
   	</div>
-  </form>
+  	</form>
  </div>
 </body>
 </html>
