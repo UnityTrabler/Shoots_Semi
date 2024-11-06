@@ -31,7 +31,7 @@
 					<p class = "mpP"> 남자만 참여할 수 있어요 </p>
 				</c:when>
 				<c:when test="${match.player_gender == 'f'}">
-					<p class = "mpP"> 여자만 참여만 참여할 수 있어요 </p>
+					<p class = "mpP"> 여자만 참여만 참여할 수 있어요 </p> 
 				</c:when>
 				<c:when test="${match.player_gender == 'a'}">
 					<p class = "mpP"> 남녀 모두 참여할 수 있어요 </p>
@@ -60,41 +60,14 @@
 	</div>
 	<script>
 		 $(function() {
-		        $('#paymentBtn').click(function() {
-		            // 결제 요청
-		            var IMP = window.IMP;
-		            IMP.init('imp35523152'); // 가맹점 식별코드
-
-		            IMP.request_pay({
-		                pg: 'html5_inicis',
-		                pay_method: 'card', 
-		                merchant_uid: 'merchant_' + new Date().getTime(),
-		                name: ${match.match_id} + ' 번 매치 플레이어 신청',
-		                amount: ${match.price}, 
-		                buyer_email: 'example@gmail.com',
-		                buyer_name: '구매자 이름',
-		                buyer_tel: '연락처',
-		                buyer_addr: '주소',
-		                buyer_postcode: '우편번호',
-		            }, function(rsp) {
-		                if (rsp.success) {
-		                    var msg = '결제가 완료되었습니다.';
-		                    msg += '고유ID : ' + rsp.imp_uid;
-		                    msg += '결제 금액 : ' + rsp.paid_amount;
-		                    msg += '카드 승인번호 : ' + rsp.apply_num;
-
-		                    pay_info(rsp);
-
-		                } else {
-		                    var msg = '결제에 실패하였습니다.';
-		                    msg += '에러내용 : ' + rsp.error_msg;
-		                    
-		                    alert(msg);
-		         
-		                }
-		            });
-		        });
 			
+			$('#paymentBtn').click(function(){
+				var matchId = $('#match_id').val();
+				var price = '${match.price}';
+
+				location.href = "../payments/pay?match_id=" + matchId + "&price=" + price;
+			});
+			 
 			$('.listBtn').click(function(){
 				location.href = location.href = "../matchs/list";
 			});
