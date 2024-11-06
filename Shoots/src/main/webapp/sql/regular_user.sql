@@ -10,7 +10,7 @@ CREATE TABLE regular_user (
     email VARCHAR2(30) NOT NULL,
     nickname VARCHAR2(20),
     user_file VARCHAR2(50),
-    register_date timestamp DEFAULT current_timestamp
+    register_date timestamp DEFAULT current_timestamp,
     role VARCHAR2(10) DEFAULT 'common' not null
 );
 
@@ -35,3 +35,6 @@ values (user_seq.nextval, 'youngsoo2', '2', '이수',  222222, 2, '01012345678',
 
 insert into regular_user
 values (user_seq.nextval, 'youngsoo3', '3', '삼수',  333333, 3, '01012345678', '3@3.com', null, null, current_timestamp, 'common');
+
+insert into regular_user
+values (user_seq.nextval, 'A111', '1234', '테스트',  000305, 4, '01012345678', 'GId@gmail.com', null, null, current_timestamp, 'common')
