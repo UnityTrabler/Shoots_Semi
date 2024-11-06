@@ -11,28 +11,40 @@
 <body>
 	<div class="container">
 		<h1>공지사항</h1>
-		<table>
-			<thead>
-				<tr>
-					<th>작성자</th>
-					<th>제목</th>
-					<th>작성일</th>
-				</tr>
-			</thead>
+		<c:if test="${listcount > 0 }">
 			
-			<tbody>
-				<c:forEach var="notice" items="${totallist}">
+		
+		
+			<table class="table">
+				<thead>
 					<tr>
-						<td>${notice.writer}</td>
-						<td>
-						<a href="detail?id=${notice.notice_id}" class="noticeDetail">${notice.title}</a>
-						</td>
-						<td>${notice.register_date }</td>
+						<th>작성자</th>
+						<th>제목</th>
+						<th>작성일</th>
+						<th>조회수</th>
 					</tr>
-				</c:forEach>
-			</tbody>
-			
-		</table>
+				</thead>
+				
+				<tbody>
+					<c:forEach var="notice" items="${totallist}">
+						<tr>
+							<td>${notice.writer}</td>
+							<td>
+							<a href="detail?id=${notice.notice_id}" class="noticeDetail">${notice.title}</a>
+							</td>
+							<td>${notice.register_date }</td>
+							<td>${notice.readcount }</td>
+						</tr>
+					</c:forEach>
+				</tbody>
+				
+			</table>
+		</c:if>
+		
+		<%-- 게시글이 없는 경우 --%>
+		<c:if test="${listcount == 0 }">
+			<h3 style="text-align:center">등록된 글이 없습니다.</h3>
+		</c:if>
 		
 	</div>
 </body>

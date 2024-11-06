@@ -30,7 +30,7 @@
 				<th>내용</th>
 				<td style="padding-right: 0px">
 					<textarea class="form-control"
-							rows="5" readOnly>${nb.title}</textarea></td>
+							rows="5" readOnly>${nb.content}</textarea></td>
 			</tr>
 			
 			<tr>

@@ -51,6 +51,9 @@ public class NoticeFrontController extends jakarta.servlet.http.HttpServlet{
 			case "/update":
 				action = new NoticeUpdateAction();
 				break;
+			case "/updateProcess":
+				action = new NoticeUpdateProcessAction();
+				break;
 			case "/delete":
 				action = new NoticeDeleteAction();
 				break;

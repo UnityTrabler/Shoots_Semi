@@ -8,6 +8,8 @@ public class NoticeBean {
 	private String content;
 	private String notice_file;
 	private String register_date;
+	private int readcount;
+	
 	public int getNotice_id() {
 		return notice_id;
 	}
@@ -44,5 +46,12 @@ public class NoticeBean {
 	public void setRegister_date(String register_date) {
 		this.register_date = register_date;
 	}
+	public int getReadcount() {
+		return readcount;
+	}
+	public void setReadcount(int readcount) {
+		this.readcount = readcount;
+	}
+	
 	
 }
