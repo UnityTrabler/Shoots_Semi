@@ -19,7 +19,7 @@ public class InquiryDetailAction implements Action {
 		InquiryDAO inquirydao = new InquiryDAO();
 		
 		//글번호 파라미터값을 num 변수에 저장함
-		int num = Integer.parseInt(req.getParameter("num"));
+		int iquiryid = Integer.parseInt(req.getParameter("inquiryid"));
 				
 		// boards/list 에서 boards/detail로 이동 후 sessionREferer 값 확인
 		HttpSession session = req.getSession();
@@ -30,14 +30,14 @@ public class InquiryDetailAction implements Action {
 			String headerReferer = req.getHeader("referer");
 			if(headerReferer != null && headerReferer.contains("inquiry/list")) {
 				//내용을 확인할 글의 조회수를 증가시킴.
-				inquirydao.setReadCountUpdate(num);
-				System.out.println("count 증가");
+				inquirydao.setReadCountUpdate(iquiryid);
+				System.out.println("조회수 증가");
 			}
 			session.removeAttribute("referer");
 		}
 				
 		//글의 내용을 DAO에서 읽은 후 얻은 결과를 boarddata 객체에 저장함.
-		InquiryBean inquirydata = inquirydao.getDetail(num);
+		InquiryBean inquirydata = inquirydao.getDetail(iquiryid);
 		
 		ActionForward forward = new ActionForward();
 		//boarddata=null; //error 테스트를 위한 값 설정

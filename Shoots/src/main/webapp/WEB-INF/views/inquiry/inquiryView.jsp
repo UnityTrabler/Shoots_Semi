@@ -26,7 +26,7 @@
 				</tr>
 				<tr>
 					<td><div>문의자</div></td>
-					<td><div>${inquirydata.inquiry_ref_idx}</div></td>
+					<td><div>${inquirydata.user_id}</div></td>
 					
 				</tr>
 				<tr>
@@ -70,9 +70,6 @@
 					<%--수정 삭제 완료시 원복 </c:if>   --%>
 						<a href="list">
 							<button class="btn btn-warning">목록</button>
-						</a>
-						<a href="reply?num=${inquirydata.inquiry_id}">
-							<button class="btn btn-success">답변</button>
 						</a>
 					</td>
 				</tr>

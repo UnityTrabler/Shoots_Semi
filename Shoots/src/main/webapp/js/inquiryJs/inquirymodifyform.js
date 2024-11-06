@@ -52,6 +52,7 @@ $(function(){
 		
 	});//submit click event
 	
+	//첨부파일 용량이 5mb 이상이면 경고창 띄우고 첨부 취소
 	$("#upfile").change(function(){
 		check++;
 		const maxSizeInBytes = 5 * 1024 * 1024;

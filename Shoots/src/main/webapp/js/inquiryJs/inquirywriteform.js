@@ -56,5 +56,19 @@ $(function() {
 		} else (history.back())
 	}) //click 끝
 	
+	//첨부파일 용량이 5mb 이상이면 경고창 띄우고 첨부 취소
+	$("#upfile").change(function(){
+		check++;
+		const maxSizeInBytes = 5 * 1024 * 1024;
+		const file = this.files[0];
+		if(file.size > maxSizeInBytes){
+			alert("첨부할 파일의 용량은 5MB 이하여야 합니다.");
+			$(this).val('');
+		}else
+			$('#filevalue').text(file.name);
+		
+		show();
+	});
+	
 	
 })
