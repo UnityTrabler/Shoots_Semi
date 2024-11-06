@@ -39,6 +39,11 @@
   				class="form-control" rows="10" >${postdata.content}</textarea>
   	</div>
   	
+  	<div class="form-group">
+  		<label for="price">가격</label>
+  		<textarea name="price" id="price" class="form-control" placeholder="중고게시글만 작성"></textarea>
+  	</div>
+  	
   
 	<%-- 원문글인 경우에만 파일 첨부 수정 가능합니다. --%>
 	<%--  <c:if test="${postdata.board_re_lev==0}"> --%>

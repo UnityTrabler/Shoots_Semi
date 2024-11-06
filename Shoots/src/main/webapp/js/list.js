@@ -12,9 +12,12 @@
 		                },
 		                dataType : 'json',
 		                success: function(response) {
+							// 응답 데이터 확인
+							console.log(response);
+							
 		                    // 서버로부터 받은 JSON 응답 처리
-		                    /*updatePostList(response);*/
-		                    console.log(response);
+		                    updatePostList(response);
+		                    
 		                    
 		                },
 		                error: function(xhr, status, error) {
@@ -37,6 +40,7 @@
             var tableBody = $('table tbody');
             tableBody.empty();  // 기존 내용 비우기
 
+
             // 새로 받은 게시글 목록을 테이블에 추가
             postList.forEach(function(post) {
                 var row = $('<tr>');
@@ -45,6 +49,7 @@
                 row.append('<td>' + post.writer + '</td>');
                 row.append('<td>' + post.register_date + '</td>');
                 row.append('<td>' + post.readcount + '</td>');
+                
                 if (category === 'B') {
                     // 카테고리 B일 경우 추가로 가격 표시
                     row.append('<td>' + post.price + '</td>');
@@ -62,13 +67,12 @@
                 var pageLink = $('<li class="page-item"><a class="page-link" href="javascript:void(0);" onclick="switchPage(' + i + ')">' + i + '</a></li>');
                 pagination.append(pageLink);
             }
-        
         }
 
         // 게시판 클릭 시 게시판 이동하는 함수 (페이지 이동)
         function switchPage(pageNumber) {
             var category = $('input[name="category"]:checked').val();  // 선택된 카테고리
-            switchCategory(category, pageNumber);
+            switchCategory(category, pageNumber); 
         }
 
         // 글쓰기 버튼 클릭 시 카테고리와 함께 '글쓰기' 페이지로 이동

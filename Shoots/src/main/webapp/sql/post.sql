@@ -6,7 +6,7 @@ CREATE TABLE post (
     content clob NOT NULL, --내용
     post_file VARCHAR2(50), --첨부파일
     price NUMBER(10), --가격
-    register_date DATE DEFAULT SYSDATE --등록일
+    register_date DATE DEFAULT SYSDATE, --등록일
     readcount number --조회수
 );
 
@@ -33,10 +33,16 @@ CREATE TABLE post (
 );
 
 */
+drop table post;
+
+
+
 
 
 
 select * from post;
+
+
 
 
 

@@ -29,6 +29,7 @@
 		<ul class="navbar-nav">
 			<c:if test="${!empty sessionScope.id}">
 				<li class="nav-item"><a class="loginA">${id}님이 로그인 되었습니다.</a></li>
+				<%-- <input type="hidden" id ="idx" name="idx" value="${id}"> --%>
 				<li class="nav-item"><a class="loginA" href="logout" id="logout"> 로그아웃 </a></li>
 			</c:if>
 			<c:if test="${empty sessionScope.id}">

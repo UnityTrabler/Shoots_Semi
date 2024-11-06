@@ -3,6 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<jsp:include page="../user/top.jsp"></jsp:include>
 <script src="${pageContext.request.contextPath}/js/writeform.js"></script>
  <style>
   h1{font-size:1.5em; text-align:center; color:#1a92b9}
@@ -22,6 +23,10 @@
   		<input type="radio" name="category" value="A" required><span>자유게시판</span>
 		<input type="radio" name="category" value="B"><span>중고게시판</span>
   	</div>
+  	
+  	<!-- 작성자 -->
+  	<input name="writer" id ="writer" value="${id}" 
+				type="hidden" class="form-control" readOnly>
   
   	<div class="form-group">
   		<label for="title">글 작성</label>
@@ -31,6 +36,11 @@
   	<div class="form-group">
   		<label for="content">내용</label>
   		<textarea name="content" id="content" rows="20" class="form-control" placeholder="내용을 입력하세요."></textarea>
+  	</div>
+  	
+  	<div class="form-group">
+  		<label for="price">가격</label>
+  		<textarea name="price" id="price" class="form-control" placeholder="중고게시글만 작성"></textarea>
   	</div>
   
   	<div class="form-group">

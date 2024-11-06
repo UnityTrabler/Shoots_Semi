@@ -10,7 +10,7 @@ CREATE TABLE regular_user (
     email VARCHAR2(30) NOT NULL,
     nickname VARCHAR2(20),
     user_file VARCHAR2(50),
-    register_date timestamp DEFAULT current_timestamp
+    register_date timestamp DEFAULT current_timestamp,
     role VARCHAR2(10) DEFAULT 'common' not null
 );
 
