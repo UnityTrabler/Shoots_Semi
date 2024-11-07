@@ -43,7 +43,7 @@ public class FaqBean {
 		return register_date;
 	}
 	public void setRegister_date(String register_date) {
-		this.register_date = register_date;
+		this.register_date = register_date.substring(0, 10);
 	}
 	public String getName() {
 		return name;
