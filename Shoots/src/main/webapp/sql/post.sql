@@ -34,7 +34,7 @@ CREATE TABLE post (
 
 */
 drop table post;
-
+drop sequence post_seq;
 
 
 

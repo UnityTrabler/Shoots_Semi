@@ -81,11 +81,22 @@
             var category = $('input[name="category"]:checked').val();  // 선택된 카테고리
             switchCategory(category, pageNumber); 
         }
-
+        
+        
+        // 글쓰기 버튼 클릭 시 카테고리와 함께 '글쓰기' 페이지로 이동
+		function postWrite() {
+		    var category = $('#categoryTab .nav-link.active').attr('id').replace('tab', '');  // 선택된 카테고리
+		    location.href = "write?category=" + category;  // 카테고리 파라미터를 함께 전달
+		}
+        
+        /*
         // 글쓰기 버튼 클릭 시 카테고리와 함께 '글쓰기' 페이지로 이동
         function postWrite() {
             location.href = "write";  // 카테고리 파라미터를 함께 전달
         }
+        
+         */
+        
         
         /* // 글쓰기 버튼 클릭 시 카테고리와 함께 '글쓰기' 페이지로 이동
         function postWrite() {

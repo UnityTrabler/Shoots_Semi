@@ -33,14 +33,11 @@
 				</td>
 			</tr>
 			
-			<c:if test="${postdata.category==B}">
+			<c:if test="${postdata.category=='B'}">
 			<tr>
-				<td><div>가격</div></td>
-				<td style="padding-right: 0px">
-					<textarea class="form-control" rows="5" readOnly>
-						${postdata.price}
-					</textarea>
-				</td>
+			<td><div>가격</div></td>
+				<td><c:out value="${postdata.price}" />원</td>
+				
 			</tr>
 			</c:if>
 			
