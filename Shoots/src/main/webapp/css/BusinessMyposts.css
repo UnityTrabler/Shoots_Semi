@@ -1,0 +1,20 @@
+@charset "EUC-KR";
+
+.table {width : 80%!important; margin : 0 auto; margin-top : 30px}
+
+.locatinA {text-decoration: none; color : black}
+.locatinA:hover {text-decoration: none; font-weight : bold; color : #059669}
+
+.status {font-size :  9px; border-radius : 10px; border : none; width : 60px; height : 20px; color : white ; background : #1d4ed8; transition: background 0.3s, color 0.3s; }
+.status:hover {font-size :  9px; border : 1px solid #1d4ed8; border-radius : 10px; width : 60px; height : 20px; color : #1d4ed8 ; background : white}
+
+.btnD {text-align:center; margin-top : 30px}
+
+.uploadBtn {font-size :  10px; border-radius : 20px; border : none; width : 80px; height : 23px; color : white ; background : #be123c; margin-left : 10px;  transition: background 0.3s, color 0.3s; }
+.uploadBtn:hover {font-size :  10px; border-radius : 20px; border : 1px solid #be123c; width : 80px; height : 23px; color : #be123c ; background : white; margin-left : 10px }
+
+.filterButton  {font-size : 9px; border-radius : 20px; border : none; width : 60px; height : 18px; color : white ; background : orange; margin-left : 10px;  transition: background 0.3s, color 0.3s; }
+.filterButton:hover  {font-size : 9px; border-radius : 20px; border : 1px solid orange; width : 60px; height : 18px; color : orange ; background : white; margin-left : 10px;  transition: background 0.3s, color 0.3s; }
+
+form {margin : 25px 0 0 10px}
+select {font-size : 10px; border-radius : 20px; border : 1px solid orange; width : 60px; height : 18px; text-align : center; outline: none;}

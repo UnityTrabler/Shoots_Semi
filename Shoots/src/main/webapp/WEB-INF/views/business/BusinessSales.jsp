@@ -7,6 +7,6 @@
 	<title>Insert title here</title>
 </head>
 <body>
-	매출
+	<p class = "cP1"> 매출 </p>
 </body>
 </html>
