@@ -64,16 +64,16 @@ private DataSource ds;
 			""";
 //		 자유(A), 중고(B) << 카테고리 나누는거 해결하기
 //		 동휘씨가 자꾸 한줄만 추가하면 된다는데 
-//		 한줄은 좀 오바같고 진짜 모르겠음  >> 9억줄 정도 추가해서 성공
+//		 한줄은 좀 오바같고 진짜 모르겠음  >> 9억줄 정도 추가해서 성공 >> 인줄 알았는데 게시글이 안불러와짐
 		
 		List<PostBean> list = new ArrayList<PostBean>();
 			
 		try (Connection con = ds.getConnection();
 				 PreparedStatement pstmt = con.prepareStatement(post_list_sql);) {
 			
-			pstmt.setString(1, category); // 카테고리와 페이지, 한 페이지에 보여줄 게시글 수를 세팅
 			
 //	        int startRow = (page - 1) * limit; // 시작 행 계산
+			pstmt.setString(1, category); // 카테고리와 페이지, 한 페이지에 보여줄 게시글 수를 세팅
 //	        pstmt.setInt(2, startRow);  // 시작 위치
 //	        pstmt.setInt(3, limit);     // 페이지 당 보여줄 게시글 수
 	        
@@ -99,13 +99,6 @@ private DataSource ds;
 						post.setRegister_date(rs.getString("REGISTER_DATE"));
 						post.setReadcount(rs.getInt("READCOUNT"));
 						
-						/*
-						post.setCategory(rs.getString("CATEGORY"));
-						post.setContent(rs.getString("CONTENT"));
-						post.setPost_file(rs.getString("POST_FILE"));
-						post.setPrice(rs.getInt("PRICE"));
-						*/
-						//if()
 						list.add(post); // 값을 담은 객체를 리스트에 저장합니다.
 					}
 				}
