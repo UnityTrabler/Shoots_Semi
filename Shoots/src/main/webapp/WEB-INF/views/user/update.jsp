@@ -128,15 +128,7 @@
 				<img src="${pageContext.request.contextPath}/img/attach.png" id="preview" style="width: 100px; height: 100px;"><br>
 			</span>
 			<span id="showImage">
-				<c:if test="${!empty member.memberfile}">
-					<c:set var='src' value='img/profile.png'/>
-				</c:if>
-				<c:if test="${empty member.memberfile}">
-					<%-- <c:set var='src' value='${"memberupload/"}${member.memberfile}'/> --%>
-					<c:set var='src' value='${"memberupload/"}${member.memberfile}'/>
-					<input type="hidden" name="check" value="${member.memberfile}"> <%-- 파일이 있는데 --%>
-				</c:if>
-				<img src="${pageContext.request.contextPath}/${src}" width="20px" alt="profile">
+			
 			</span>
 		</label>
 		

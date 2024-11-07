@@ -27,7 +27,8 @@ public class UserUpdateProcessAction implements Action {
 		
 		try {
 			MultipartRequest multi = new MultipartRequest(req, realFolder, fileSize, "utf-8", new DefaultFileRenamePolicy());
-			String userFile = multi.getFilesystemName("memberfile");
+			String userFile = multi.getFilesystemName("userfile");
+			System.out.println("userFile : " + userFile);
 
 			UserBean userBean = new UserBean();
 			userBean.setUserfile(userFile != null ? userFile : multi.getParameter("check"));
