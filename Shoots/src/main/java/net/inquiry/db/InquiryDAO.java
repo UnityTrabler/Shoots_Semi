@@ -93,8 +93,6 @@ public class InquiryDAO {
 	public boolean inquiryInsert(InquiryBean iq) { //문의글 작성시 적은 글의 데이터를 삽입하는 메서드
 		int result=0;
 		
-		//원문글의 BOARD_RE_REF 는 자신의 글번호.
-		//%1$s : 첫번째 인자를 문자열로 출력.
 		String sql = """
 					insert into inquiry
 					(inquiry_id, inquiry_ref_idx, inquiry_type, 
@@ -123,7 +121,7 @@ public class InquiryDAO {
 		}
 		
 		return false;
-	}//boardInsert()
+	}//inquiryInsert() 끝
 
 	
 	public void setReadCountUpdate(int num) {

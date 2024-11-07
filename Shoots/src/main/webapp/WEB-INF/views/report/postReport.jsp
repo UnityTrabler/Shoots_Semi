@@ -7,6 +7,7 @@
 <head>
 <meta charset="EUC-KR">
 <script src="${pageContext.request.contextPath }/js/jquery-3.7.1.js"></script>
+<script src="${pageContext.request.contextPath }/js/report.js"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/report.css">
