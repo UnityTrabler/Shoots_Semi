@@ -23,6 +23,15 @@
 
 .accordion {
     background: white;
+    color: #444;
+  	cursor: pointer;
+  	padding: 18px;
+  	width: 50%;
+  	text-align: left;
+  	outline: none;
+  	font-size: 15px;
+  	transition: 0.4s;
+  	margin: 0 auto;
     border: 1.5px solid #059669;
     border-radius: 30px;
     height: 30px;
@@ -37,7 +46,42 @@
 
 .accordion:hover {color: white; background: #059669; border: 1.5px solid #059669;  opacity: 0.7;}
 
-.panel{border-radius : 30px;}
+.panel{
+	border-radius : 30px;
+	padding: 0 18px;
+  	max-height: 0;
+  	overflow: hidden;
+  	transition: max-height 0.2s ease-out;
+  	margin: 0 auto;
+  	width: 50%; 
+  }
 
+.faq{
+	text-align:center;
+	font-size : 50px;
+	font-weight:bold;
+}
+
+.active{
+	border: 1.5px dashed #059669;
+}
+
+.accordion:after {
+  content: '\25BC'; /* Unicode character for right arrow (→) */
+  font-size: 20px;
+  color: #059669;
+  position: absolute; /* 절대 위치로 설정 */
+  right: 10px;  /* 오른쪽 끝에 배치 */
+  top: 50%;  /* 수직 가운데 정렬 */
+  transform: translateY(-50%); /* 정확한 수직 중앙 정렬 */
+}
+
+.accordion.active:after {
+  content: '\25B2'; /* Unicode character for downwards arrow (↓) */
+}
+
+#downImg{
+	width : 10px
+}
 
 

@@ -67,7 +67,7 @@
         </ul>
 
         <!-- 글 작성 버튼 -->
-        <button type="button" class="btn btn-info float-right" onclick="writePost()">글 작성</button>
+        <button type="button" class="btn btn-info float-right" onclick="postWrite()">글 작성</button>
     </div>
 </body>
 </html>

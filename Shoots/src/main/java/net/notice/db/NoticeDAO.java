@@ -30,7 +30,7 @@ private DataSource ds;
 				select n.*, u.name 
 				from notice n join regular_user u 
 				on n.writer = u.idx
-				order by notice_id
+				order by n.notice_id
 				""";
 		try(Connection con = ds.getConnection();
 				PreparedStatement pstmt = con.prepareStatement(sql);){
@@ -62,11 +62,11 @@ private DataSource ds;
 		List<NoticeBean> list = new ArrayList<NoticeBean>();
 		String sql = """
 				select * from (
-					select rownum rnum, n.notice_id, n.title, n.register_date, u.name
+					select rownum rnum, n.notice_id, n.title, n.register_date,n.readcount, u.name
 					from notice n 
 					join regular_user u 
-					on n.writer = u.idx 
-				) p where p.rnum >= ? and p.rnum <= ? 
+					on n.writer = u.idx order by n.notice_id
+				) p where p.rnum >= ? and p.rnum <= ?
 				""";
 		int startrow = (page - 1) * limit + 1;
 		int endrow = startrow + limit - 1;
@@ -82,6 +82,7 @@ private DataSource ds;
 					nb.setNotice_id(rs.getInt("notice_id"));
 					nb.setTitle(rs.getString("title"));
 					nb.setRegister_date(rs.getString("register_date"));
+					nb.setReadcount(rs.getInt("readcount"));
 					nb.setName(rs.getString("name"));
 					
 					list.add(nb);
@@ -219,5 +220,27 @@ private DataSource ds;
 				}
 				return x;
 	}
+	
+	//로그인을 받은 regular_id로 regular_user테이블에서 idx 받아오기
+	public int getId(String user_id) {
+		int x = 0;
+		String sql = """
+				select idx from regular_user where user_id = ?
+				""";
+		try(Connection con = ds.getConnection();
+			PreparedStatement pstmt = con.prepareStatement(sql);){
+			pstmt.setString(1, user_id);
+			try(ResultSet rs = pstmt.executeQuery()){
+				if(rs.next()) {
+					x = rs.getInt(1);
+				}
+			}
+			
+		}catch(Exception ex) {
+			ex.printStackTrace();
+			System.out.println("getId() 에러: " + ex);
+		}
+		return x;
+	}//getId() end
 	
 }

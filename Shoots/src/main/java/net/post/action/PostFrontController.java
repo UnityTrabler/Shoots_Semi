@@ -22,6 +22,7 @@ private static final long serialVersionUID = 1L;
 			http://localhost:8088/JspProject/members/login로 요청하면 getRequestURI()는
 			"/JspProject/members/login" 반환됩니다.
 		*/
+		
 		String RequestURI = request.getRequestURI(); 
 		System.out.println("RequestURI = " + RequestURI);
 

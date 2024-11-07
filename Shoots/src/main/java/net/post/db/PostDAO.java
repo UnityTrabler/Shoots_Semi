@@ -61,21 +61,22 @@ private DataSource ds;
 				from post
 				where category = ?
 				order by register_date desc
+				limit ? offset ?
 			""";
 //		 자유(A), 중고(B) << 카테고리 나누는거 해결하기
 //		 동휘씨가 자꾸 한줄만 추가하면 된다는데 
-//		 한줄은 좀 오바같고 진짜 모르겠음  >> 9억줄 정도 추가해서 성공
+//		 한줄은 좀 오바같고 진짜 모르겠음  >> 9억줄 정도 추가해서 성공 >> 인줄 알았는데 게시글이 안불러와짐 >> 불러오는거 성공하니까 글이 안써짐
 		
 		List<PostBean> list = new ArrayList<PostBean>();
 			
 		try (Connection con = ds.getConnection();
 				 PreparedStatement pstmt = con.prepareStatement(post_list_sql);) {
 			
-			pstmt.setString(1, category); // 카테고리와 페이지, 한 페이지에 보여줄 게시글 수를 세팅
 			
-//	        int startRow = (page - 1) * limit; // 시작 행 계산
-//	        pstmt.setInt(2, startRow);  // 시작 위치
-//	        pstmt.setInt(3, limit);     // 페이지 당 보여줄 게시글 수
+	        int startRow = (page - 1) * limit; // 시작 행 계산
+			pstmt.setString(1, category); // 카테고리와 페이지, 한 페이지에 보여줄 게시글 수를 세팅
+	        pstmt.setInt(2, startRow);  // 시작 위치
+	        pstmt.setInt(3, limit);     // 페이지 당 보여줄 게시글 수
 	        
 			/*
 			 int startRow = (page - 1) * limit; // 시작 행 계산
@@ -99,13 +100,6 @@ private DataSource ds;
 						post.setRegister_date(rs.getString("REGISTER_DATE"));
 						post.setReadcount(rs.getInt("READCOUNT"));
 						
-						/*
-						post.setCategory(rs.getString("CATEGORY"));
-						post.setContent(rs.getString("CONTENT"));
-						post.setPost_file(rs.getString("POST_FILE"));
-						post.setPrice(rs.getInt("PRICE"));
-						*/
-						//if()
 						list.add(post); // 값을 담은 객체를 리스트에 저장합니다.
 					}
 				}
@@ -124,12 +118,13 @@ private DataSource ds;
 	public boolean postInsert(PostBean postdata) {
 		int result = 0;
 		
+		
 		String sql = """
 				insert into post
-				(post_id, writer, category, title,
-				content, post_file, price, register_date, readcount)
+				(post_id, writer, category, title, content,
+				  post_file, price, register_date, readcount)
 				values(post_seq.nextval, ?, ?, ?, 
-						?, ?, ?, current_timestamp, ?)
+						?, ?, current_timestamp, ?)
 				""";
 		
 		/*
@@ -148,30 +143,41 @@ private DataSource ds;
 		try(Connection con = ds.getConnection();
 				PreparedStatement pstmt = con.prepareStatement(sql);) {
 			
-			// 새로운 글을 등록하는 부분입니다.
-			pstmt.setInt(1,  postdata.getWriter());
-			//System.out.println("writer 값은 : " + postdata.getWriter()); //지우셈
+			// 새로운 글을 등록하는 부분입니다. //파라미터 설정
+			pstmt.setInt(1, postdata.getWriter());
 			pstmt.setString(2,  postdata.getCategory());
 			pstmt.setString(3,  postdata.getTitle());
 			pstmt.setString(4,  postdata.getContent());
-			//System.out.println("content 값은? " + postdata.getContent());
 			pstmt.setString(5,  postdata.getPost_file());
-			pstmt.setInt(6, postdata.getPrice());
-			pstmt.setInt(7, postdata.getReadcount());
 			
-			result = pstmt.executeUpdate();
-			
-			if (result == 1) {
-				System.out.println("데이터 삽입이 모두 완료되었습니다.");
-				return true;
-			}
-		} catch (Exception ex) {
-			System.out.println("postInsert() 에러 : " + ex);
-			ex.printStackTrace();
-		}
-		return false;
+			// 중고게시판(B)일 경우 가격 설정, 아니면 0
+	        if ("B".equals(postdata.getCategory())) {
+	            pstmt.setInt(6, postdata.getPrice());
+	        } else {
+	            pstmt.setInt(6, 0);  // 자유게시판(A)은 가격이 0
+	        }
+
+	        // readcount는 0으로 초기화
+	        pstmt.setInt(7, 0);
+
+	        // 쿼리 실행
+	        result = pstmt.executeUpdate();
+	        
+	        // 삽입 성공 시 true 반환
+	        if (result == 1) {
+	            System.out.println("게시글 삽입 성공");
+	            return true;
+	        } else {
+	            System.out.println("게시글 삽입 실패");
+	        }
+
+	    } catch (Exception ex) {
+	        System.out.println("postInsert() 에러 : " + ex);
+	        ex.printStackTrace();
+	    }
+
+	    return false;  // 삽입 실패 시 false 반환
 	}
-	
 	
 	
 	

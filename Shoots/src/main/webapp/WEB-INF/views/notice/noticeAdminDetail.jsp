@@ -1,41 +1,39 @@
+<%--
+	0. 공지사항의 자세한 내용을 확인할 수 있는 관리자 페이지 입니다.
+	1. 일반 사용자의 noticeDetail페이지 내용에 수정, 삭제를 할 수 있는 버튼이 추가 되어 있습니다.
+	
+ --%>
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
-<title>공지사항 관리 더 보기</title>
-<jsp:include page="../user/top.jsp"></jsp:include>
-
-<style>
-#downImg{
-	width : 10px
-}
-</style>
-<script>
-
-	$(function(){
-		$("table tr:last-child td:nth-child(2) a").click(function(event){
-			const answer = confirm("정말 삭제하시겠습니까?");
-			console.log(answer);//취소를 클릭한 경우-false
-			if (!answer){//취소를 클릭한 경우
-				event.preventDefault(); //이동하지 않습니다.	
-			}
-		});//삭제 클릭 end
-	});
-</script>
+	<title>공지사항 관리 더 보기</title>
+	<jsp:include page="../user/top.jsp"></jsp:include>
+	<link rel = "stylesheet" href = "${pageContext.request.contextPath}/css/noticeAdminDetail.css" type = "text/css">
+	<script>
+		$(function(){
+			$("table tr:last-child td a:nth-child(2)").click(function(event){
+				const answer = confirm("정말 삭제하시겠습니까?");
+				console.log(answer);//취소를 클릭한 경우-false
+				if (!answer){//취소를 클릭한 경우
+					event.preventDefault(); //이동하지 않습니다.	
+				}
+			});//삭제 클릭 end
+		});
+	</script>
 </head>
 <body>
 	<div class="container">
 		<table class="table">
+			<caption><c:out value="${nb.title}" /></caption>
 			<tr>
 				<td><div>글쓴이</div></td>
 				<td><div>${nb.name}</div></td>
 			</tr>
-			<tr>
-				<td><div>제목</div></td>
-				<td><c:out value="${nb.title}" /></td>
-			</tr>
+			
 			<tr>
 				<td><div>내용</div></td>
 				<td style="padding-right: 0px">
@@ -57,15 +55,15 @@
 					<td></td>
 				</c:if>
 			</tr>
-			
 			<tr>
-				<td><a href="update?id=${nb.notice_id}">수정</a></td>
-				<td><a href="delete?id=${nb.notice_id}">삭제</a></td>
+				<td></td>
+				<td>
+                    <a href="update?id=${nb.notice_id}" type="button" class="updateBtn">수정</a>
+                    <a href="delete?id=${nb.notice_id}" type="button" class="deleteBtn">삭제</a>
+                    <a href="noticeAdmin" type="button" class="listBtn">목록</a>
+                </td>
 			</tr>
 		</table>
-		<a href="noticeAdmin">
-			<button class="btn btn-warning">목록</button>
-		</a>
 	</div>
 </body>
 </html>

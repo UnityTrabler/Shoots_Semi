@@ -1,5 +1,8 @@
 package net.notice.action;
-
+/*
+ 0. 공지사항 폼에서 입력받은 값을 notice 테이블에 저장합니다.
+ 1. 작성자를 idx(writer)가 아닌 regular_user 테이블의 user_id로 입력받았으므로 dao.getId()를 통해 idx값을 받아옵니다
+ */
 import java.io.IOException;
 
 import com.oreilly.servlet.MultipartRequest;
@@ -39,8 +42,11 @@ public class NoticeAddAction implements Action {
 			new MultipartRequest(req, realFolder, fileSize, "utf-8",
 			new DefaultFileRenamePolicy());
 			
+			String user_id = multi.getParameter("regular_user_id");
+			int writer = dao.getId(user_id);
+			
 			//FaqBean 객체에 글 등록 폼에서 입력 받은 정보들을 저장합니다.
-			nb.setWriter(Integer.parseInt(multi.getParameter("writer")));
+			nb.setWriter(writer);
 			nb.setTitle(multi.getParameter("title"));
 			nb.setContent(multi.getParameter("content"));
 			
@@ -57,10 +63,10 @@ public class NoticeAddAction implements Action {
 			}else {
 				System.out.println("공지사항 등록 완료");
 				
-				//글 등록이 완료되면 글 목록을 보여주기 위해 "faq/list"로 이동합니다.
+				//글 등록이 완료되면 글 목록을 보여주기 위해 "notice/noticeList"로 이동합니다.
 				//Redirect 여부를 true로 설정합니다.
 				forward.setRedirect(true);
-				forward.setPath("noticeAdmin");//faq가 추가되고 이동할 경로는 faq/list입니다.
+				forward.setPath("noticeAdmin");//notice가 추가되고 이동할 경로는 notice/noticeList입니다.
 			}
 			return forward;
 			

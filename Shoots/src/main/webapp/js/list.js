@@ -1,3 +1,9 @@
+	// 페이지가 로드될 때 자유게시판(A)의 게시글을 불러오는 부분을 추가합니다.
+	$(document).ready(function() {
+	    // 페이지가 로드되면 자동으로 자유게시판(A)로 게시글 목록을 불러오기
+	    switchCategory('A');
+	});
+
 
         // 카테고리 변경 시 게시글 목록을 비동기적으로 불러오는 함수
         function switchCategory(category) {
@@ -54,6 +60,7 @@
                     // 카테고리 B일 경우 추가로 가격 표시
                     row.append('<td>' + post.price + '</td>');
                 }
+                row.append('</tr>');
                 tableBody.append(row);
             });
             
@@ -74,9 +81,27 @@
             var category = $('input[name="category"]:checked').val();  // 선택된 카테고리
             switchCategory(category, pageNumber); 
         }
-
+        
+        
+        
+		
+		/*// 글쓰기 버튼 클릭 시 카테고리와 함께 '글쓰기' 페이지로 이동
+		function postWrite() {
+		    var category = $('#categoryTab .nav-link.active').attr('id').replace('tab', '');  // 선택된 카테고리
+		    location.href = "write?category=" + category;  // 카테고리 파라미터를 함께 전달
+		} */
+        
+        
         // 글쓰기 버튼 클릭 시 카테고리와 함께 '글쓰기' 페이지로 이동
-        function writePost() {
+        function postWrite() {
+            location.href = "write";  // 카테고리 파라미터를 함께 전달
+        }
+        
+         
+        
+        
+        /* // 글쓰기 버튼 클릭 시 카테고리와 함께 '글쓰기' 페이지로 이동
+        function postWrite() {
             var category = $('input[name="category"]:checked').val();  // 선택된 카테고리
             location.href = "write?category=" + category;  // 카테고리 파라미터를 함께 전달
-        }
+        }*/

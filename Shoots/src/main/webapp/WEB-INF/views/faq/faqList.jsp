@@ -13,89 +13,39 @@
 <!DOCTYPE html>
 <html>
 <head>
-<script src="${pageContext.request.contextPath}/js/jquery-3.7.1.js"></script>
-<link rel = "stylesheet" href = "${pageContext.request.contextPath}/css/faqList.css" type = "text/css">
+	<script src="${pageContext.request.contextPath}/js/jquery-3.7.1.js"></script>
+	<link rel = "stylesheet" href = "${pageContext.request.contextPath}/css/faqList.css" type = "text/css">
 	<jsp:include page="../user/top.jsp"></jsp:include>
-<title>FAQ</title>
-<style>
-.accordion {
-  color: #444;
-  cursor: pointer;
-  padding: 18px;
-  width: 50%;
-  text-align: left;
-  outline: none;
-  font-size: 15px;
-  transition: 0.4s;
-  margin: 0 auto;
-}
+	<title>FAQ</title>
 
-.panel {
-  padding: 0 18px;
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height 0.2s ease-out;
-  margin: 0 auto;
-  width: 50%; 
-}
-
-.active{
-	border: 1.5px dashed #059669;
-}
-
-.accordion:after {
-  content: '\25BC'; /* Unicode character for right arrow (→) */
-  font-size: 20px;
-  color: #059669;
-  position: absolute; /* 절대 위치로 설정 */
-  right: 10px;  /* 오른쪽 끝에 배치 */
-  top: 50%;  /* 수직 가운데 정렬 */
-  transform: translateY(-50%); /* 정확한 수직 중앙 정렬 */
-}
-
-.accordion.active:after {
-  content: '\25B2'; /* Unicode character for downwards arrow (↓) */
-}
-
-h1{
-	text-align:center;
-	
-}
-
-#downImg{
-	width : 10px
-}
-</style>
-<script>
-
-	$(document).ready(function(){
-  		$(".accordion").on("click", function() {
-    		$(this).toggleClass("active");
-    		var panel = $(this).next(".panel");
+	<script>
+		$(document).ready(function(){
+  			$(".accordion").on("click", function() {
+    			$(this).toggleClass("active");
+    			var panel = $(this).next(".panel");
     
-    		if (panel.css("max-height") !== "0px") {
-     			panel.css("max-height", "0");
-    		} else {
-     			 panel.css("max-height", panel.prop("scrollHeight") + "px");
-    		}
-  		});
-	});
-
+    			if (panel.css("max-height") !== "0px") {
+     				panel.css("max-height", "0");
+    			} else {
+     				 panel.css("max-height", panel.prop("scrollHeight") + "px");
+    			}
+  			});
+		});
 </script>
 
 </head>
 <div class = "imgb">
-		<div class = "imgL">
-			<img  class = "Limg" src = "${pageContext.request.contextPath}/img/matchL.jpg">
-			<div class="overlay">
-				<p class = "p1"> 언제, 어디서나 빠르고 간편한 매칭을 원한다면? </p>
-				<p class = "imgP2 p1"> SHOOT MATCHING ! </p>
-				<p> 지금 가입해서 즐겨보세요 </p>
-			</div>
+	<div class = "imgL">
+		<img  class = "Limg" src = "${pageContext.request.contextPath}/img/matchL.jpg">
+		<div class="overlay">
+			<p class = "p1"> 언제, 어디서나 빠르고 간편한 매칭을 원한다면? </p>
+			<p class = "imgP2 p1"> SHOOT MATCHING ! </p>
+			<p> 지금 가입해서 즐겨보세요 </p>
 		</div>
 	</div>
+</div>
 <body>
-	<h1>FAQ</h1>
+	<p class="faq">FAQ</p>
 	 <c:forEach var="f" items="${totallist}">
 		<div class="faqlist">
 			<button class="accordion">${f.title}</button>
@@ -117,6 +67,5 @@ h1{
 		<br>
 		<br>
 	</c:forEach>
-	
 </body>
 </html>

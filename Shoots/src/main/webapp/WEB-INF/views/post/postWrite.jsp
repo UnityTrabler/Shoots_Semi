@@ -15,13 +15,13 @@
 </head>
 <body>
 <div class="container">
-  <form action="add" method="post" enctype="multipart/form-data" name="postform">
+  <form action="add" method="post" enctype="multipart/form-data" name="writeform">
   	<h1>게시판 글쓰기</h1>
   
   	<div class="form-group">
   		<label for="category"></label>
-  		<input type="radio" name="category" value="A" required><span>자유게시판</span>
-		<input type="radio" name="category" value="B"><span>중고게시판</span>
+  		<input type="radio" name="category" id ="A" value="A" checked><span>자유게시판</span>
+		<input type="radio" name="category" id ="B" value="B"><span>중고게시판</span>
   	</div>
   	
   	<!-- 작성자 -->
@@ -29,18 +29,19 @@
 				type="hidden" class="form-control" readOnly>
   
   	<div class="form-group">
-  		<label for="title">글 작성</label>
-  		<input name="title" id="title" type="text" maxlength="100" class="form-control" placeholder="제목을 입력해주세요">
+  		<label for="title">제목</label>
+  		<input name="title" id="title" type="text" maxlength="100" class="form-control" placeholder="제목을 입력해주세요" >
   	</div>
   
   	<div class="form-group">
   		<label for="content">내용</label>
-  		<textarea name="content" id="content" rows="20" class="form-control" placeholder="내용을 입력하세요."></textarea>
+  		<textarea name="content" id="content" rows="20" class="form-control" placeholder="내용을 입력하세요." ></textarea>
   	</div>
   	
-  	<div class="form-group">
+  	<!-- 가격 입력 (중고게시판일 경우에만 보이게 설정) -->
+  	<div class="form-group fade active show" id="price">
   		<label for="price">가격</label>
-  		<textarea name="price" id="price" class="form-control" placeholder="중고게시글만 작성"></textarea>
+  		<input name="price" id="priceInput" type="text" class="form-control" placeholder="가격을 입력해주세요"></input >
   	</div>
   
   	<div class="form-group">
@@ -56,7 +57,44 @@
   		<button type=reset class="btn btn-danger">취소</button>
   		<button type=submit class="btn btn-primary">등록</button>
   	</div>
+  	
   </form>
  </div>
+ 
+ 
+ 
+ 
+  <!-- 자바스크립트로 라디오 버튼 선택 시 가격 입력란 보이기/숨기기 처리 -->
+    <script>
+        // DOM 로딩 후 실행
+        document.addEventListener("DOMContentLoaded", function() {
+            // 라디오 버튼 이벤트 리스너 등록
+            document.querySelectorAll("input[name='category']").forEach(function(radio) {
+                radio.addEventListener("change", function() {
+                    togglePriceField();
+                });
+            });
+
+            // 페이지 로드 시 카테고리 값에 따라 가격 입력란 상태 설정
+            togglePriceField();
+        });
+
+        function togglePriceField() {
+            const isUsedBoard = document.getElementById("B").checked;
+            const priceField = document.getElementById("price");
+            
+            // 중고게시판 선택 시 가격 입력란 보이기, 아니면 숨기기
+            if (isUsedBoard) {
+                priceField.style.display = "block";
+            } else {
+                priceField.style.display = "none";
+            }
+        }
+    </script>
+    
+    
+    
+  
+ 
 </body>
 </html>
