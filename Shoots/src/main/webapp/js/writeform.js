@@ -1,5 +1,21 @@
 
+
+/*
+ $(function() {
+	$('button').click(function() {
+		location.href = "list";
+
+		});
+	});
+*/
+
+
+
 $(document).ready(function(){
+	
+	
+	
+	/*
 	
 	// 카테고리 선택 시 가격 입력란 처리
     $("input[name='category']").change(function () {
@@ -9,6 +25,12 @@ $(document).ready(function(){
             $("#price").hide(); // 자유게시판 선택 시 가격 입력란 숨기기
         }
     });
+    
+    
+	 */
+	
+	
+	
     
 	
 	$("#upfile").change(function() {
@@ -39,7 +61,7 @@ $(document).ready(function(){
 
         // 중고게시판(B) 선택 시 가격 확인
         if ($("#B").is(":checked")) {
-            const $price = $("#price");
+            const $price = $("#priceInput");
             if ($price.val().trim() == "") {
                 alert("가격을 입력하세요");
                 $price.focus();
@@ -53,6 +75,12 @@ $(document).ready(function(){
             }
         }
 
+        
+        
+        
+        /* */
+        
+        
         // 모든 입력이 정상이라면 폼을 전송
         const formData = new FormData(this);  // this는 현재 폼을 가리킴
 
@@ -61,7 +89,7 @@ $(document).ready(function(){
 
         // AJAX를 통해 폼 데이터 전송
         $.ajax({
-            url: 'insertPost',  // 서버에 데이터 전송할 URL
+            url: 'postInsert',  // 서버에 데이터 전송할 URL
             type: 'POST',
             data: formData,
             contentType: false, // 파일 전송시 반드시 false로 설정
@@ -86,19 +114,16 @@ $(document).ready(function(){
                 $('button[type="submit"]').prop('disabled', false);
             }
         });
+        
+         
+        
+        
+        
     });
 	
 	
 }) // ready() end
 
-/*
- $(function() {
-	$('button').click(function() {
-		location.href = "write";
-
-		});
-	});
-*/
 
 
 	

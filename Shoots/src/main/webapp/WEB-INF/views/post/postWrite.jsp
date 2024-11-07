@@ -25,7 +25,7 @@
   	</div>
   	
   	<!-- 작성자 -->
-  	<input name="writer" id ="writer" value="${writer}" 
+  	<input name="writer" id ="writer" value="${id}" 
 				type="hidden" class="form-control" readOnly>
   
   	<div class="form-group">
@@ -39,9 +39,9 @@
   	</div>
   	
   	<!-- 가격 입력 (중고게시판일 경우에만 보이게 설정) -->
-  	<div class="form-group" id="price" style="display: none;">
+  	<div class="form-group fade active show" id="price">
   		<label for="price">가격</label>
-  		<input name="price" type="text" class="form-control" placeholder="가격을 입력해주세요"></input >
+  		<input name="price" id="priceInput" type="text" class="form-control" placeholder="가격을 입력해주세요"></input >
   	</div>
   
   	<div class="form-group">
@@ -60,6 +60,8 @@
   	
   </form>
  </div>
+ 
+ 
  
  
   <!-- 자바스크립트로 라디오 버튼 선택 시 가격 입력란 보이기/숨기기 처리 -->
@@ -89,7 +91,10 @@
             }
         }
     </script>
- 
+    
+    
+    
+  
  
 </body>
 </html>
