@@ -17,7 +17,8 @@ public class UserLoginProcessAction implements Action {
 			throws ServletException, IOException {
 		String id = req.getParameter("id");
 		String pwd = req.getParameter("pwd");
-		int result = new UserDAO().isId(id, pwd);
+		UserDAO userDAO = new UserDAO();
+		int result = userDAO.isId(id, pwd);
 		
 		if(result == 1) {
 			System.out.println("id :" + id +"- login 일치");
@@ -25,6 +26,7 @@ public class UserLoginProcessAction implements Action {
 			//session id
 			HttpSession session = req.getSession();
 			session.setAttribute("id", id);
+			session.setAttribute("idx", userDAO.getUserIdx(id));
 			
 			//store cookie
 			Cookie cookie = new Cookie("id", id);

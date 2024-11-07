@@ -30,7 +30,7 @@
 			<c:if test="${!empty sessionScope.id}">
 				<li class="nav-item"><a class="loginA">${id}님이 로그인 되었습니다.</a></li>
 				<li class="nav-item"><a class="loginA" href="${pageContext.request.contextPath}/user/logout" id="logout"> 로그아웃 </a></li>
-
+				<li class="nav-item"><a class="loginA" href="${pageContext.request.contextPath}/user/update">정보수정</a></li>
 			</c:if>
 			<c:if test="${empty sessionScope.id}">
 				<a href="${pageContext.request.contextPath}/user/login" class="loginA"><b>LOGIN</b></a>
