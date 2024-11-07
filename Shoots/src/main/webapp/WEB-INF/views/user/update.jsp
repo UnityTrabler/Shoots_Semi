@@ -72,7 +72,7 @@
 <body class="container">
 	<jsp:include page="top.jsp"></jsp:include>
 	<%-- action="/JSP/mailSend" --%>
-	<form class="form-horizontal" method="post" action="signupProcess" id="signupform" >
+	<form class="form-horizontal" method="post" action="updateProcess" id="signupform" >
 		<h2 style="text-align: center;">회원가입(sign up)</h2>
 		
 		<font color='red'>*</font>표시는 필수 입력 사항입니다.<hr>

@@ -53,6 +53,12 @@ public class UserFrontController extends jakarta.servlet.http.HttpServlet {
 			case "/logout":
 				action = new UserLogoutAction();
 				break;
+			case "/update":
+				action = new UserUpdateAction();
+				break;
+			case "/updateProcess":
+				action = new UserUpdateProcessAction();
+				break;
 
 			default:
 				RequestDispatcher dispatcher = req.getRequestDispatcher("/error/error404.jsp");
