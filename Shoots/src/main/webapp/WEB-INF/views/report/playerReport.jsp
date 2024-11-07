@@ -7,6 +7,7 @@
 <head>
 <meta charset="EUC-KR">
 <script src="${pageContext.request.contextPath }/js/jquery-3.7.1.js"></script>
+<script src="${pageContext.request.contextPath }/js/report.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script> <!-- 모달창 쓰려면 필요한 스크립트 -->
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/report.css">
 
