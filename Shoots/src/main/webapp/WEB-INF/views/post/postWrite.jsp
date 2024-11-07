@@ -83,9 +83,9 @@
             
             // 중고게시판 선택 시 가격 입력란 보이기, 아니면 숨기기
             if (isUsedBoard) {
-                price.style.display = "block";
+                priceField.style.display = "block";
             } else {
-            	price.style.display = "none";
+                priceField.style.display = "none";
             }
         }
     </script>
