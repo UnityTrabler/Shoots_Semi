@@ -14,7 +14,7 @@ public class UserUpdateAction implements Action {
 
 	public ActionForward execute(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
-		System.out.println("idx : "+req.getSession().getAttribute("idx"));
+
 		ActionForward forward = new ActionForward();
 		UserDAO userDAO = new UserDAO();
 		HttpSession session = req.getSession();
