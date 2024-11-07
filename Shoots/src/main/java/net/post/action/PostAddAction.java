@@ -24,6 +24,7 @@ public class PostAddAction implements Action {
 		PostBean postdata = new PostBean();
 		ActionForward forward = new ActionForward();
 		HttpSession session = request.getSession();  // 이거 지우면 글작성할때 login한 writer값 안들어가짐 
+		int writer = (int) session.getAttribute("idx");  // 세션에서 사용자 ID 가져오기
 		//String idx = "idx";
 		
 		String realFolder = "";
@@ -36,6 +37,7 @@ public class PostAddAction implements Action {
 		ServletContext sc = request.getServletContext();
 		realFolder = sc.getRealPath(saveFolder);
 		System.out.println("realFolder= " + realFolder);
+		
 		try { // 파일 업로드 처리
 			MultipartRequest multi =
 					new MultipartRequest(request, realFolder, fileSize, "utf-8",
@@ -44,12 +46,30 @@ public class PostAddAction implements Action {
 			// 폼 데이터 처리
             String category = multi.getParameter("category");  // 카테고리 값(A 또는 B)
             postdata.setCategory(category);  // PostBean에 카테고리 값 설정
-			
+            String title = request.getParameter("title");
+            String content = request.getParameter("content");
+            
+            int price = 0;
+            postdata.setTitle(title);
+            postdata.setContent(content);
+            postdata.setPrice(price);
+            
+            // 중고게시판(B)인 경우 가격 받기
+            if ("B".equals(category)) {
+                price = Integer.parseInt(request.getParameter("price"));
+            } else {
+            	postdata.setPrice(0);
+            }
+            
+            postdata.setWriter(writer);
+            
 			//PostBean 객체에 글 등록 폼에서 입력 받은 정보들을 저장합니다.//
+			//postdata.setCategory(multi.getParameter("category"));
 			postdata.setTitle(multi.getParameter("title"));
 			postdata.setContent(multi.getParameter("content"));
 			postdata.setWriter(Integer.parseInt(multi.getParameter("writer")));
-			postdata.setPrice(Integer.parseInt(multi.getParameter("price")));
+			
+			
 			// 시스템 상에 업로드된 실제 파일명을 얻어 옵니다.
 						String filename = multi.getFilesystemName("post_file");
 						postdata.setPost_file(filename);
@@ -68,7 +88,7 @@ public class PostAddAction implements Action {
 			} else {
 				System.out.println("게시판 등록 완료");
 //				forward.setRedirect(true);
-//				// 등록 후 카테고리별 게시글 목록으로 리다이렉트
+//				//등록 후 카테고리별 게시글 목록으로 리다이렉트
 //                forward.setPath("list?category=" + postdata.getCategory()); 
 				
 				// 글 등록이 완료되면 글 목록을 보여주기 위해 "boards/list"로 이동합니다.
@@ -77,6 +97,7 @@ public class PostAddAction implements Action {
 				forward.setPath("list"); // 이동할 경로를 지정합니다.
 			}
 			return forward;
+			
 		} catch (IOException ex) {
 			ex.printStackTrace();
 			forward.setPath("/WEB-INF/views/error/error.jsp");

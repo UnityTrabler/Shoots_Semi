@@ -15,17 +15,17 @@ $(function(){
 	let check = 0;
 	
 	$("form[name=modifyform]").submit(function(){
-		const $board_subject = $('#board_subject');
-		if($board_subject.val().trim() == ""){
+		const $title = $('#title');
+		if($title.val().trim() == ""){
 			alert("subject 입력.");
-			$board_subject.focus();
+			$title.focus();
 			return false;
 		}
 		
-		const $board_content = $('#board_content');
-		if($board_content.val().trim() == ""){
+		const $content = $('#content');
+		if($content.val().trim() == ""){
 			alert("content 입력.");
-			$board_content.focus();
+			$content.focus();
 			return false;
 		}
 		/*
@@ -57,6 +57,21 @@ $(function(){
 			$('#filevalue').text(file.name);
 		
 		show();
+	});
+	
+	function show() {
+		//파일 이름이 있는 경우 remove 이미지를 보이게 하고
+		//파일 이름이 없는 경우 remove 이미지 보이지 않게 합니다.
+		$('.remove').css('display', $('#filevalue').text() ? 'inline-block' : 'none')
+					.css({'position' : 'relative', 'top': '-5px'});
+	}
+	
+	show();
+	
+	// remove 이미지를 클릭하면 파일명을 ''로 변경하고 remove 이미지를 보이지 않게 합니다.
+	$(".remove").click(function() {
+		$('#filevalue').text('');
+		$(this).css('display', 'none');
 	});
 	
 });
