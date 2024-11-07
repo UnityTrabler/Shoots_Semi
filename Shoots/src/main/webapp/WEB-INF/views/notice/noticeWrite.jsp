@@ -1,27 +1,27 @@
+<%--
+	0. 공지사항을 입력하는 페이지 입니다.
+	1. 현재 접속한 관리자의 아이디를 사용합니다.(top.jsp에 들어있는 값이 사용자의 id이므로 그 값을 가져옵니다)
+	2. writer에 들어가는 것은 user_id가 아닌 idx값이므로 뒤에 NoticeAddAction()에서 해당 값을 수정해줍니다
+ --%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
-<title>공지사항 작성</title>
-<jsp:include page="../user/top.jsp"></jsp:include>
-<style>
-	h1{font-size:1.5rem; text-align:center; color:#1a92b9}
-	.container{width:60%}
-	label{font-weight:bold}
-	#upfile{display:none}
-	img{width:20px;}
-</style>
+	<title>공지사항 작성</title>
+	<jsp:include page="../user/top.jsp"></jsp:include>
+	<script src = "${pageContext.request.contextPath}/js/writeform.js"></script>
+	<link rel = "stylesheet" href = "${pageContext.request.contextPath}/css/noticeWrite.css" type = "text/css"> 
 </head>
 <body>
-	<div class="container">
-		<form action="add" method="post" enctype="multipart/form-data">
+	<form action="add" method="post" enctype="multipart/form-data">
+		<div class="container">
 			<h1>공지사항 작성</h1>
 			<div class="form-group">
-				<label for="writer">관리자</label>
-				<%-- value="${user_idx}" 로 해야하나요? --%>
-				<input name="writer" id="writer" value="${writer}" 
-						type="text" class="form-control"> <%--readOnly를 사용해야 하지만 로그인이 되어 있지 않은 상태이기 때문에 writer를 얻어올 수 없어 일단 제외시켰습니다 --%>
+				<label for="regular_user_id">관리자</label>
+				
+				<input name="regular_user_id" id="regular_user_id" value="${id}" 
+						type="text" class="form-control" readOnly > 
 			</div>
 		
 			<div class="form-group">
@@ -46,12 +46,16 @@
 			</div>
 		
 			<div class="form-group">
-				<button type=submit class="btn btn-primary">등록</button>
-				<button type=reset class="btn btn-danger">취소</button>
+				<input type = "submit" value = "UPLOAD" class = "btn btn-danger uploadbBtn">
+				<input type = "reset" value = "RESET" class = "resetBtn">
+				<input type = "button" value = "BACK" class = "backBtn">
 			</div>
-		
-		</form>
-	</div>
-
+			<script>
+				$('.backBtn').click(function(){
+					location.href  = "../notice/noticeAdmin";
+				});
+			</script>
+		</div>
+	</form>
 </body>
 </html>

@@ -43,7 +43,7 @@ private DataSource ds;
 					fb.setTitle(rs.getString(3));
 					fb.setContent(rs.getString(4));
 					fb.setFaq_file(rs.getString(5));
-					fb.setRegister_date(rs.getString(6).substring(0, 10));
+					fb.setRegister_date(rs.getString(6));
 					fb.setName(rs.getString("name"));
 					list.add(fb);
 				}
@@ -145,6 +145,28 @@ private DataSource ds;
 		
 		return result;
 	}//faqUpdate() end
+
+	//로그인으로 받은 user_id값으로 regular_user 테이블의 idx를 받아옵니다
+	public int getId(String user_id) {
+		int x = 0;
+		String sql = """
+				select idx from regular_user where user_id = ?
+				""";
+		try(Connection con = ds.getConnection();
+			PreparedStatement pstmt = con.prepareStatement(sql);){
+			pstmt.setString(1, user_id);
+			try(ResultSet rs = pstmt.executeQuery()){
+				if(rs.next()) {
+					x = rs.getInt(1);
+				}
+			}
+			
+		}catch(Exception ex) {
+			ex.printStackTrace();
+			System.out.println("getId() 에러: " + ex);
+		}
+		return x;
+	}//getId() end
 	
 	
 }

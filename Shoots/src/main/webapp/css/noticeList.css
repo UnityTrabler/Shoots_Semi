@@ -1,0 +1,23 @@
+@charset "EUC-KR";
+
+
+.container {min-width : 1200px;}
+.table {width : 70%; margin : 0 auto}
+
+table caption {
+	caption-side: top;
+	font-size : 30px;
+	font-weight: bold;
+	color : black;
+}
+
+
+.noticeDetail {text-decoration: none; color : black; }
+.noticeDetail:hover {text-decoration: none; font-weight : bold; color : #059669}
+	
+th:nth-child(2), th:nth-child(3), th:nth-child(4){
+	text-align:center;
+	}
+td:nth-child(2), td:nth-child(3), td:nth-child(4){
+	text-align:center;
+	}

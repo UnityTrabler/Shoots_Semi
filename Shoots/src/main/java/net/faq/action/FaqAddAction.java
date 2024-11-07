@@ -40,8 +40,11 @@ public class FaqAddAction implements Action{
 			new MultipartRequest(req, realFolder, fileSize, "utf-8",
 			new DefaultFileRenamePolicy());
 			
+			String user_id = multi.getParameter("regular_user_id");
+			int writer = dao.getId(user_id);
+			
 			//FaqBean 객체에 글 등록 폼에서 입력 받은 정보들을 저장합니다.
-			fb.setWriter(Integer.parseInt(multi.getParameter("writer")));
+			fb.setWriter(writer);
 			fb.setTitle(multi.getParameter("title"));
 			fb.setContent(multi.getParameter("content"));
 			
@@ -58,10 +61,10 @@ public class FaqAddAction implements Action{
 			}else {
 				System.out.println("FAQ 등록 완료");
 				
-				//글 등록이 완료되면 글 목록을 보여주기 위해 "faq/list"로 이동합니다.
+				//글 등록이 완료되면 글 목록을 보여주기 위해 "faq/faqList"로 이동합니다.
 				//Redirect 여부를 true로 설정합니다.
 				forward.setRedirect(true);
-				forward.setPath("faqAdmin");//faq가 추가되고 이동할 경로는 faq/list입니다.
+				forward.setPath("faqAdmin");//faq가 추가되고 이동할 경로는 faq/faqList입니다.
 			}
 			return forward;
 			
