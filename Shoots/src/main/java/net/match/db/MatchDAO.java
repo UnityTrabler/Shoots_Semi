@@ -180,4 +180,78 @@ public class MatchDAO {
 		}
 		return result;
 	}
+	
+	public int getListCount(int business_idx, int year, int month) {
+		String sql = """
+				select count(*) from match_post where writer = ?
+				and extract(year from match_date) = ?
+				and extract(month from match_date) = ?
+				""";
+		int x = 0;
+		
+		try (Connection con = ds.getConnection();
+				PreparedStatement pstmt = con.prepareStatement(sql);) {
+			
+			pstmt.setInt(1, business_idx);
+            pstmt.setInt(2, year);
+            pstmt.setInt(3, month);
+			
+			try (ResultSet rs = pstmt.executeQuery()) {
+				if (rs.next()) {
+					x = rs.getInt(1);
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("getListCount() 에러 : " + e);
+		}
+		return x;
+	}
+
+	public List<MatchBean> getMatchListById(int page, int limit, int business_idx, int year, int month) {
+		String sql = """
+				SELECT * FROM (
+                SELECT ROWNUM rnum, mp.*, b.business_name
+                FROM match_post mp
+                JOIN business_user b ON mp.writer = b.business_idx
+                WHERE mp.writer = ?
+                AND EXTRACT(YEAR FROM mp.match_date) = ?
+                AND EXTRACT(MONTH FROM mp.match_date) = ?
+                ORDER BY mp.match_date DESC
+	            ) p
+	            WHERE p.rnum BETWEEN ? AND ?
+	            """;
+		List<MatchBean> list = new ArrayList<MatchBean>();
+		
+		int startRow = (page - 1) * limit + 1;
+        int endRow = startRow + limit - 1;
+        
+		try (Connection con = ds.getConnection();
+				PreparedStatement pstmt = con.prepareStatement(sql);) {
+			
+			pstmt.setInt(1, business_idx);
+            pstmt.setInt(2, year);
+            pstmt.setInt(3, month);
+            pstmt.setInt(4, startRow);
+            pstmt.setInt(5, endRow);
+			
+			try (ResultSet rs = pstmt.executeQuery()) {
+				while(rs.next()) {
+					MatchBean match = new MatchBean();
+					match.setMatch_id(rs.getInt("match_id"));
+					match.setMatch_date(rs.getString("match_date"));
+					match.setMatch_time(rs.getString("match_time"));
+					match.setBusiness_name(rs.getString("business_name"));
+					match.setPlayer_max(rs.getInt("player_max"));
+					match.setPlayer_gender(rs.getString("player_gender"));
+					
+					list.add(match);
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("getMatchListById() 에러 : " + e);
+		}
+		return list;
+	}
 }

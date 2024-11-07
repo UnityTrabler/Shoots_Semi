@@ -10,7 +10,6 @@ public class MatchBean {
 	private String player_gender;
 	private int price;
 	private int register_date;
-	private int readcount;
 	private String business_name;
 	private String address;
 	
@@ -80,13 +79,4 @@ public class MatchBean {
 	public void setRegister_date(int register_date) {
 		this.register_date = register_date;
 	}
-	public int getReadcount() {
-		return readcount;
-	}
-	public void setReadcount(int readcount) {
-		this.readcount = readcount;
-	}
-
-	
-	
 }

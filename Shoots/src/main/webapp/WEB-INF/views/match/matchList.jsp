@@ -5,6 +5,7 @@
 <html>
 <head>
 	<link rel = "stylesheet" href = "${pageContext.request.contextPath}/css/matchList.css" type = "text/css">
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/css/pagination.css" type="text/css">
 	<jsp:include page="../user/top.jsp"></jsp:include>
 </head>
 <body>
@@ -49,32 +50,30 @@
 		</c:if>
 		
 		<div class = "center-block">
-				<ul class = "pagination justify-content-center">
-					<li class = "page-item">
-						<a ${page > 1 ? 'href = list?page=' += (page - 1) : '' }
-							class = "page-link ${page <= 1 ? 'gray' : '' }">
-							&lt;&lt;
-						</a>
+			<ul class = "pagination justify-content-center">
+				<li class = "page-item">
+					<a ${page > 1 ? 'href = list?page=' += (page - 1) : '' }
+						class = "page-link ${page <= 1 ? 'gray' : '' }">
+						&lt;&lt;
+					</a>
+				</li>
+				<c:forEach var = "a" begin = "${startpage}" end = "${endpage}">
+					<li class = "page-item ${a == page ? 'active' : '' }">
+						<a ${a == page ? '' : 'href = list?page=' += a }
+							class = "page-link">${a}</a>
 					</li>
-					<c:forEach var = "a" begin = "${startpage}" end = "${endpage}">
-						<li class = "page-item ${a == page ? 'active' : '' }">
-							<a ${a == page ? '' : 'href = list?page=' += a }
-								class = "page-link">${a}</a>
-						</li>
-					</c:forEach>
-					<li class = "page-item">
-						<a ${page < maxpage ? 'href = list?page=' += (page + 1) : '' }
-							class = "page-link" ${page >= maxpage ? 'gray' : '' }">
-							&gt;&gt;
-						</a>
-					</li>
-				</ul>
-			</div>
-		
-	</div>
-	
-	<div class = "btnD">
-		<input type = "button" class = "uploadBtn" value = "매칭 글 작성">
+				</c:forEach>
+				<li class = "page-item">
+					<a ${page < maxpage ? 'href = list?page=' += (page + 1) : '' }
+						class = "page-link" ${page >= maxpage ? 'gray' : '' }">
+						&gt;&gt;
+					</a>
+				</li>
+			</ul>
+		</div>
+		<div class = "btnD">
+			<input type = "button" class = "uploadBtn" value = "매칭 글 작성">
+		</div>
 	</div>
 	<jsp:include page="../user/bottom.jsp"></jsp:include>
 	<script>

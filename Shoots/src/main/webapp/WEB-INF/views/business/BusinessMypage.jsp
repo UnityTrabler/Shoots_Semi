@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
+<%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="EUC-KR"%>
 <!DOCTYPE html>
 <html>
@@ -7,6 +7,9 @@
 	<meta charset="EUC-KR">
 	<title>Insert title here</title>
 	<link rel = "stylesheet" href = "${pageContext.request.contextPath}/css/BusinessMypage.css" type = "text/css">
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/css/pagination.css" type="text/css">
+	<script src="${pageContext.request.contextPath}/js/businessJS/BusinessMypage.js"></script>
+	<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
 </head>
 <body>
 	<div class = "container0">
@@ -60,67 +63,5 @@
 			</div>
 		</div>
 	</div>
-	<script>
-     	
-		function toggleTab(tabId, element) {
-			var content = document.getElementById(tabId);
-	
-			if (content.style.display === "none") {
-				content.style.display = "block";
-				element.classList.add("active"); 
-			} else {
-				content.style.display = "none";
-				element.classList.remove("active"); 
-			}
-		        
-		}
-		
-		function loadBusinessStatistics() {
-			var xhr = new XMLHttpRequest();
-	        xhr.open('GET', '${pageContext.request.contextPath}/business/statistics', true); 
-	        xhr.onreadystatechange = function () {
-	                if (xhr.readyState === 4 && xhr.status === 200) {
-						document.getElementById('content-container').innerHTML = xhr.responseText;
-	                }
-	            };
-	        xhr.send(); 
-		}
-		
-		function loadBusinessSales() {
-			var xhr = new XMLHttpRequest();
-	        xhr.open('GET', '${pageContext.request.contextPath}/business/sales', true); 
-	        xhr.onreadystatechange = function () {
-	                if (xhr.readyState === 4 && xhr.status === 200) {
-						document.getElementById('content-container').innerHTML = xhr.responseText;
-	                }
-	            };
-	        xhr.send(); 
-		}
-		
-		function loadBusinessMyposts() {
-			var xhr = new XMLHttpRequest();
-	        xhr.open('GET', '${pageContext.request.contextPath}/business/myposts', true); 
-	        xhr.onreadystatechange = function () {
-	                if (xhr.readyState === 4 && xhr.status === 200) {
-						document.getElementById('content-container').innerHTML = xhr.responseText;
-	                }
-	            };
-	        xhr.send(); 
-		}
-		
-		function loadBusinessCustomer() {
-			var xhr = new XMLHttpRequest();
-	        xhr.open('GET', '${pageContext.request.contextPath}/business/customers', true); 
-	        xhr.onreadystatechange = function () {
-	                if (xhr.readyState === 4 && xhr.status === 200) {
-						document.getElementById('content-container').innerHTML = xhr.responseText;
-	                }
-	            };
-	        xhr.send(); 
-		}
-		
-		
-		
-	</script>
 </body>
 </html>
