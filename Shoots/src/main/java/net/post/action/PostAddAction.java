@@ -19,12 +19,13 @@ public class PostAddAction implements Action {
 	
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		
+		//System.out.println("왜안옴");//잘옴
 		PostDAO postdao = new PostDAO();
 		PostBean postdata = new PostBean();
 		ActionForward forward = new ActionForward();
 		HttpSession session = request.getSession();  // 이거 지우면 글작성할때 login한 writer값 안들어가짐 
-		int writer = (int) session.getAttribute("idx");  // 세션에서 사용자 ID 가져오기
+		int writer = Integer.parseInt((String) session.getAttribute("idx"));  // 세션에서 사용자 ID 가져오기
+		System.out.println("wirter : " + writer);
 		//String idx = "idx";
 		
 		String realFolder = "";
