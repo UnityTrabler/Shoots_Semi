@@ -38,7 +38,7 @@ public class ReportFrontController extends jakarta.servlet.http.HttpServlet {
 		System.out.println("contextPath : " + contextPath);
 
 		// command는 "/list" 반환됩니다.
-		String command = RequestURI.substring(contextPath.length() + "/inquiry".length());
+		String command = RequestURI.substring(contextPath.length() + "/report".length());
 		System.out.println("command = " + command);
 		
 		//초기화
@@ -51,18 +51,9 @@ public class ReportFrontController extends jakarta.servlet.http.HttpServlet {
 				action = new ReportAddAction();
 				break;
 				
-//			case "/list":
-//				action = new ReportListAction();
-//				break;
-//				
-//			case "/write":
-//				action = new ReportAction();
-//				break;
-//				
-//				
-//			case "/detail":
-//				action = new ReportDetailAction();
-//				break;
+			case "/screen":
+				action = new ReportScreenAction();
+				break;
 				
 			
 			default:
