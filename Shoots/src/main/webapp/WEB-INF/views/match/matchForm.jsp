@@ -20,7 +20,9 @@
 						<span> 날짜 </span> <input type = "date" id = "match_date" name = "match_date" required>
 					</div>
 					<div>
-						 <span> 시간 </span> <input type = "time" id = "match_time" name = "match_time"required>
+						 <span> 시간 </span> 
+						 <select name="match_time" id="match_time" required>
+                         </select>
 					</div>
 				</div>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 
  				<hr>
@@ -64,9 +66,30 @@
 		</form>
 	</div>
 	<script>
+	
+		function populateTimeOptions() {
+			var select = document.getElementById('match_time');
+			for (var hour = 9; hour < 24; hour++) {
+				for (var minute of [0, 30]) {
+					var hourFormatted = hour.toString().padStart(2, '0');
+					var minuteFormatted = minute.toString().padStart(2, '0');
+					var time = hourFormatted + ":" + minuteFormatted;
+	
+					var option = document.createElement('option');
+					option.value = time;
+					option.textContent = time;
+	
+					select.appendChild(option);
+	             }
+	         }
+	     }
+	
+		window.onload = populateTimeOptions;		 
+     
 		$('.backBtn').click(function(){
 			location.href  = "../matchs/list";
 		});
+		
 	</script>
 </body>
 </html>

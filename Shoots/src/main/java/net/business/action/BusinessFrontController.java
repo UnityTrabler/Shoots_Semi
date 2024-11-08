@@ -35,6 +35,9 @@ public class BusinessFrontController extends HttpServlet {
 			case "/mypage" :
 				action = new BusinessMypageAction();
 				break;
+			case "/info" :
+				action = new BusinessInfoAction();
+				break;
 			case "/statistics" :
 				action = new BusinessStatisticsAction();
 				break;

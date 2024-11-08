@@ -7,6 +7,8 @@ form {text-align : center}
 h1 {margin-bottom : 40px}
 span {margin : 0 10px 0 10px; font-weight : bold}
 input {width : 130px; height : 20px; border-radius : 20px; text-align : center; font-size : 12px; border : 1px solid #059669; outline: none; }
+#match_time {width : 130px; height : 20px; border-radius : 20px; text-align : center; font-size : 12px; border : 1px solid #059669; outline: none; margin-right : 5px}
+
 hr {width  : 70%}
 .d2 {margin-right : 150px;}
 .playerMm {width : 60px}

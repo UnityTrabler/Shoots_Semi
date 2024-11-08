@@ -12,6 +12,9 @@ table {width : 400px !important; margin : 0 auto; margin-top : 35px}
 .cA0:hover {color : #059669; text-decoration : none; font-weight : bold}
 .cP1 {font-size : 15px; font-weight : bold}
 
+.cP0-2 {margin : 20px 20px 20px 0; font-size : 13px; text-align : right;}
+.cP0-2:hover {color : #059669; text-decoration : none; font-weight : bold}
+
 .container2 {text-align : center; margin-top : 30px}
 .updateBtn {font-size :  10px; border-radius : 20px; border : none; width : 80px; height : 23px; color : white ; background : #059669; margin-left : 10px; transition: background 0.3s, color 0.3s;}
 .updateBtn:hover {font-size :  10px; border-radius : 20px; border : 1px solid #059669; width : 80px; height : 23px; color : #059669 ; background : white; margin-left : 10px; transition: background 0.3s, color 0.3s;}
@@ -20,3 +23,6 @@ table {width : 400px !important; margin : 0 auto; margin-top : 35px}
 .tab-content p {font-size: 10px; color: #333; text-align : right; margin-right : 20px}
 
 .cA0.active {color: #059669;}
+
+.empty-td {border : none!important}
+
