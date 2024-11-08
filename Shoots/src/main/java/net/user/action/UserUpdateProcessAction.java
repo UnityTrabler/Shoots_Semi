@@ -26,8 +26,8 @@ public class UserUpdateProcessAction implements Action {
 		System.out.println("realFolder : " + realFolder);
 		
 		try {
-			MultipartRequest multi = new MultipartRequest(req, realFolder, fileSize, "utf-8", new DefaultFileRenamePolicy());
-			String userFile = multi.getFilesystemName("userfile");
+			MultipartRequest multi = new MultipartRequest(req, realFolder, fileSize, "UTF-8", new DefaultFileRenamePolicy());
+			String userFile = multi.getFilesystemName("userFile");
 			System.out.println("userFile : " + userFile);
 
 			UserBean userBean = new UserBean();
@@ -35,7 +35,8 @@ public class UserUpdateProcessAction implements Action {
 			userBean.setId(multi.getParameter("id"));
 			
 			UserDAO userDAO = new UserDAO();
-			int result = userDAO.update(userBean); //update
+			int result = userDAO.update(userBean); //db update
+			System.out.println(result == 1 ? "update 성공" : "update 실패");
 			
 			printJSP(resp, result);
 		}
