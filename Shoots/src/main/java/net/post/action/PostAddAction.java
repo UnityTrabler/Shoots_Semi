@@ -9,7 +9,6 @@ import jakarta.servlet.ServletContext;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 import net.core.Action;
 import net.core.ActionForward;
 import net.post.db.PostBean;
@@ -19,13 +18,16 @@ public class PostAddAction implements Action {
 	
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		//System.out.println("왜안옴");//잘옴
+		
 		PostDAO postdao = new PostDAO();
 		PostBean postdata = new PostBean();
 		ActionForward forward = new ActionForward();
-		HttpSession session = request.getSession();  // 이거 지우면 글작성할때 login한 writer값 안들어가짐 
-		int writer = Integer.parseInt((String) session.getAttribute("idx"));  // 세션에서 사용자 ID 가져오기
-		System.out.println("wirter : " + writer);
+		//HttpSession session = request.getSession();  // 이거 지우면 글작성할때 login한 writer값 안들어가짐 
+		//Integer writer = (Integer) session.getAttribute("idx");
+		
+		
+		//int writer = Integer.parseInt((String) session.getAttribute("idx"));  // 세션에서 사용자 ID 가져오기
+		//System.out.println("wirter : " + writer);
 		//String idx = "idx";
 		
 		String realFolder = "";
@@ -46,29 +48,42 @@ public class PostAddAction implements Action {
 			
 			// 폼 데이터 처리
             String category = multi.getParameter("category");  // 카테고리 값(A 또는 B)
-            postdata.setCategory(category);  // PostBean에 카테고리 값 설정
-            String title = request.getParameter("title");
-            String content = request.getParameter("content");
+//            postdata.setCategory(category);  // PostBean에 카테고리 값 설정
+//            String title = request.getParameter("title");
+//            String content = request.getParameter("content");
+//            int price = 0;
+//            // 중고게시판(B)인 경우 가격 받기
+//            if ("B".equals(category)) {
+//                price = Integer.parseInt(request.getParameter("price"));
+//                postdata.setPrice(price);
+//            } else {
+//            	postdata.setPrice(0);
+//            }
+//            postdata.setTitle(title);
+//            postdata.setContent(content);
             
-            int price = 0;
-            postdata.setTitle(title);
-            postdata.setContent(content);
-            postdata.setPrice(price);
             
-            // 중고게시판(B)인 경우 가격 받기
-            if ("B".equals(category)) {
-                price = Integer.parseInt(request.getParameter("price"));
-            } else {
-            	postdata.setPrice(0);
-            }
-            
-            postdata.setWriter(writer);
+           
+            //postdata.setPrice(price);
+            //postdata.setWriter(writer);
             
 			//PostBean 객체에 글 등록 폼에서 입력 받은 정보들을 저장합니다.//
-			//postdata.setCategory(multi.getParameter("category"));
+			postdata.setCategory(multi.getParameter("category"));
 			postdata.setTitle(multi.getParameter("title"));
 			postdata.setContent(multi.getParameter("content"));
 			postdata.setWriter(Integer.parseInt(multi.getParameter("writer")));
+			//postdata.setPrice(Integer.parseInt(multi.getParameter("price")));
+			
+			// 중고게시판(B)인 경우 가격 받기
+			//int price = 0;
+          if ("B".equals(category)) {
+              //price = Integer.parseInt(request.getParameter("price"));
+              //postdata.setPrice(price);
+              postdata.setPrice(Integer.parseInt(multi.getParameter("price")));
+          } else {
+          	postdata.setPrice(0);
+          }
+          //postdata.setPrice(Integer.parseInt(multi.getParameter("price")));
 			
 			
 			// 시스템 상에 업로드된 실제 파일명을 얻어 옵니다.

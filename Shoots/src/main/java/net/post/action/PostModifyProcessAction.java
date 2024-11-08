@@ -37,8 +37,7 @@ public class PostModifyProcessAction implements Action {
 					new MultipartRequest(request, realFolder, fileSize, "utf-8",
 										 new DefaultFileRenamePolicy());
 			
-			int num = Integer.parseInt(multi.getParameter("post_id"));
-			String pass = multi.getParameter("post_pass");
+			int num = Integer.parseInt(multi.getParameter("num"));
 			
 			
 //			// 글쓴이 인지 확인하기 위해 저장된 비밀번호와 입력한 비밀번호를 비교합니다.
@@ -60,6 +59,7 @@ public class PostModifyProcessAction implements Action {
 			// BoardBean 객체에 글 등록 폼에서 입력 받은 정보들을 저장합니다.
 			postdata.setPost_id(num);
 			postdata.setTitle(multi.getParameter("title"));
+			//postdata.setWriter(Integer.parseInt(multi.getParameter("writer")));
 			postdata.setContent(multi.getParameter("content"));
 			postdata.setPrice(Integer.parseInt(multi.getParameter("price")));
 			String check = multi.getParameter("check");

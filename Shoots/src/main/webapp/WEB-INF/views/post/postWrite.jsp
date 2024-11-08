@@ -63,8 +63,17 @@
  
  
  
+ <%--
  
-  <!-- 자바스크립트로 라디오 버튼 선택 시 가격 입력란 보이기/숨기기 처리 -->
+ 
+ 
+    
+ 
+ 
+  --%>
+ 
+ 
+     <!-- 자바스크립트로 라디오 버튼 선택 시 가격 입력란 보이기/숨기기 처리 -->
     <script>
         // DOM 로딩 후 실행
         document.addEventListener("DOMContentLoaded", function() {
@@ -80,19 +89,17 @@
         });
 
         function togglePriceField() {
-            const isUsedBoard = document.getElementById("B").checked;
+            const B = document.getElementById("B").checked;
             const priceField = document.getElementById("price");
             
-            // 중고게시판 선택 시 가격 입력란 보이기, 아니면 숨기기
-            if (isUsedBoard) {
+            // 중고게시판(B) 선택 시 가격 입력란 보이기, 아니면 숨기기
+            if (B) {
                 priceField.style.display = "block";
             } else {
                 priceField.style.display = "none";
             }
         }
     </script>
-    
-    
     
   
  

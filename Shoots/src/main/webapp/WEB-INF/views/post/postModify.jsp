@@ -3,10 +3,10 @@
 <!DOCTYPE html>
 <html>
 <head>
+<jsp:include page="../user/top.jsp"></jsp:include>
 <meta charset="UTF-8">
 <title>수정</title>
 <script src="${pageContext.request.contextPath}/js/modifyform.js"></script>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
  <style>
   h1{font-size:1.5em; text-align:center; color:#1a92b9}
   .container{width:60%}
@@ -19,7 +19,12 @@
   <form action="modifyProcess" method="post" name="modifyform"
   		enctype="multipart/form-data">
   		<input type="hidden" name="post_id" value="${postdata.post_id}">
+  		
+  		
   	<h1>게시판 - 수정</h1>
+  	
+  	
+  	
   	<div class="form-group">
   		<label for="writer">작성자</label>
   		<input type="text" class="form-control"
@@ -77,5 +82,8 @@
   	</div>
   	</form>
  </div> <%-- class="container" end --%>
+ 
+ 
+ 
 </body>
 </html>
