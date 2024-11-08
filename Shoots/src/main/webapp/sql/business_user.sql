@@ -10,7 +10,7 @@ CREATE TABLE business_user (
     address VARCHAR2(100) NOT NULL,
     description clob,
     business_file varchar2(50),
-    register_date DATE DEFAULT SYSDATE 
+   	register_date timestamp DEFAULT current_timestamp,
 );
 
 CREATE SEQUENCE business_seq

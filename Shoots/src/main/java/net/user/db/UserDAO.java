@@ -75,7 +75,7 @@ public class UserDAO {
 		String sql = """
 				update regular_user
 				set user_file = ?
-				where id = ?
+				where user_id = ?
 				""";
 		int result = 0;
 		
