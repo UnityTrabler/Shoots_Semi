@@ -46,7 +46,6 @@
 			
 			<div class="form-group">
 				<input type = "submit" class = "uploadbBtn" value = "UPDATE" class = "btn btn-danger">
-				<input type = "reset" value = "RESET" class = "resetBtn">
 				<input type = "button" class = "backBtn" onClick="history.go(-1)" value = "BACK">
 			</div>
 		</div>

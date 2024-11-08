@@ -9,7 +9,7 @@
 <html>
 <head>
  <script src="${pageContext.request.contextPath}/js/jquery-3.7.1.js"></script>
- <link rel = "stylesheet" href = "${pageContext.request.contextPath}/css/noticeAdmin.css" type = "text/css">
+ <link rel = "stylesheet" href = "${pageContext.request.contextPath}/css/noticeList.css" type = "text/css">
   <link rel = "stylesheet" href = "${pageContext.request.contextPath}/css/pagination.css" type = "text/css">
 <jsp:include page="../user/top.jsp"></jsp:include>
 <title>공지사항 관리(관리자 모드)</title>
@@ -23,14 +23,32 @@
 				event.preventDefault(); //이동하지 않습니다.	
 			}
 		})//삭제 클릭 end
+		
+		//검색 버튼 클릭한 경우
+		$(".Sbtn").click(function(){
+			//검색어 공백 유효성 검사합니다.
+			const word = $(".search").val();
+			if (word == ""){
+				alert("검색어를 입력하세요");
+				$(".search").focus();
+				return false;
+			}
+		})//검색 클릭 end
 	})
 	
 </script>
 </head>
 <body>
 	<div class="container">
-		
 		<c:if test="${listcount > 0 }">
+			<form action="noticeAdmin" method="post">
+				<div class="input-group">
+					<input type="submit" value="SEARCH" class="Sbtn">&nbsp;
+					<input name="search_word" type="text" class="search"
+						placeholder="  Search..." value="${search_word}">
+				</div>
+			</form>
+			
 			<table class="table">
 				<caption>공지사항 관리</caption>
 				<thead>

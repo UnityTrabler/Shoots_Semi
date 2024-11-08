@@ -14,10 +14,54 @@ table caption {
 
 .noticeDetail {text-decoration: none; color : black; }
 .noticeDetail:hover {text-decoration: none; font-weight : bold; color : #059669}
-	
+
+.noticeUpdate {text-decoration: none; font-size : 15px; border-radius : 10px; border : none; width : 50px; height : 23px; text-align: center; color : white ; background : #1d4ed8; transition: background 0.3s, color 0.3s; }
+.noticeUpdate:hover {text-decoration: none; font-size : 15px; border : 1px solid #1d4ed8; border-radius : 10px; width : 50px; height : 23px; text-align: center; color : #1d4ed8 ; background : white}
+
+.noticeDelete {text-decoration: none; font-size : 15px; border-radius : 10px; border : none; width : 50px; height : 23px; text-align: center; color : white ; background : #be123c; transition: background 0.3s, color 0.3s; }
+.noticeDelete:hover {text-decoration: none; font-size : 15px; border : 1px solid #be123c; border-radius : 10px; width : 50px; height : 23px; text-align: center; color : #be123c ; background : white}
+
+.btnWrite{text-decoration: none; font-size : 15px; border-radius : 10px; border : none; width : 80px; height : 23px; text-align: center; color : white ; background : #be123c; transition: background 0.3s, color 0.3s;}
+.btnWrite:hover {text-decoration: none; font-size : 15px; border : 1px solid #be123c; border-radius : 10px; width : 80px; height : 23px; text-align: center; color : #be123c ; background : white}
+
 th:nth-child(2), th:nth-child(3), th:nth-child(4){
 	text-align:center;
 	}
 td:nth-child(2), td:nth-child(3), td:nth-child(4){
 	text-align:center;
 	}
+
+.input-group {
+    display: flex;
+    justify-content: flex-end;  /* 요소들을 오른쪽 끝으로 정렬 */
+    width: 90%;  /* 부모 컨테이너 전체 너비에 맞게 */
+}
+
+.Sbtn {
+    margin-left: 10px;  /* 버튼과 입력 필드 사이에 간격을 추가 */
+}
+
+.search {
+    width: 200px;  /* 검색 입력 필드의 너비 설정 */
+}
+
+.search{
+	border:1px solid #059669;
+	border-radius:20px;
+	outline: none;
+}
+
+.Sbtn {
+	border : none;
+	border-radius:20px;
+	background-color: #059669;
+	color:white;
+	font-size:10px;
+	
+}
+
+
+
+
+
+

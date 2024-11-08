@@ -35,16 +35,30 @@ public class NoticeListAction implements Action{
 		
 		System.out.println("넘어온 페이지 = " + page);
 		
+		
+		
 		if (req.getParameter("limit") != null) {
 			limit = Integer.parseInt(req.getParameter("limit"));
 		}
 		System.out.println("넘어온 limit = " + limit);
 		
-		//총 리스트 수를 받아옵니다.
-		int listcount = dao.getListCount();
 		
-		//리스트를 받아옵니다 - 여기서부터 수정 list = dao.getList();
-		list = dao.getNoticeList(page, limit);
+		//검색어 입력에 따른 listcount, list 변화
+		int listcount = 0;
+		String search_word="";
+		
+		if(req.getParameter("search_word") == null || req.getParameter("search_word").equals("")) {
+			//총 리스트 수를 받아옵니다.
+			listcount = dao.getListCount();
+			
+			//리스트를 받아옵니다 - 여기서부터 수정 list = dao.getList();
+			list = dao.getNoticeList(page, limit);
+		}else {
+			search_word = req.getParameter("search_word");
+			listcount = dao.getListCount(search_word);
+			list = dao.getNoticeList(page, limit, search_word);
+		}
+		
 		
 		int maxpage = (listcount + limit - 1) / limit;
 		System.out.println("총 페이지수 = " + maxpage);
@@ -69,6 +83,7 @@ public class NoticeListAction implements Action{
 			req.setAttribute("listcount", listcount); // 총 글의 수
 			req.setAttribute("totallist", list); // 해당 페이지의 글 목록을 갖는 리스트
 			req.setAttribute("limit", limit);
+			req.setAttribute("search_word", search_word);
 			
 			forward.setRedirect(false);
 			forward.setPath("/WEB-INF/views/notice/noticeList.jsp");
@@ -99,17 +114,6 @@ public class NoticeListAction implements Action{
 			System.out.println(object.toString());
 			return null;
 		}
-		
-		/*
-		req.setAttribute("listcount", listcount);
-		req.setAttribute("totallist", list);
-		forward.setPath("/WEB-INF/views/notice/noticeList.jsp");
-		forward.setRedirect(false);
-		return forward;
-		*/
-		
 	}
 	
-	
-
 }

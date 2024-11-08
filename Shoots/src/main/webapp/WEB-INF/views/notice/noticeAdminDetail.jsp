@@ -12,7 +12,7 @@
 <head>
 	<title>공지사항 관리 더 보기</title>
 	<jsp:include page="../user/top.jsp"></jsp:include>
-	<link rel = "stylesheet" href = "${pageContext.request.contextPath}/css/noticeAdminDetail.css" type = "text/css">
+	<link rel = "stylesheet" href = "${pageContext.request.contextPath}/css/noticeDetail.css" type = "text/css">
 	<script>
 		$(function(){
 			$("table tr:last-child td a:nth-child(2)").click(function(event){
@@ -37,8 +37,7 @@
 			<tr>
 				<td><div>내용</div></td>
 				<td style="padding-right: 0px">
-					<textarea class="form-control"
-							rows="5" readOnly>${nb.content}</textarea></td>
+					<textarea rows="5" readOnly>${nb.content}</textarea></td>
 			</tr>
 			
 			<tr>
