@@ -27,7 +27,7 @@ public class ReportDAO {
 					insert into report
 					(report_id, report_type, report_ref_id, reporter,
 					target, title, content, register_date)
-					 values(report_seq.nextval, ?, ?, ?
+					 values(report_seq.nextval, ?, ?, ?,
 					 		 ?, ?, ?, current_timestamp)
 				""";
 		try(Connection con = ds.getConnection();
