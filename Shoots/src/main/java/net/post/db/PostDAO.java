@@ -3,15 +3,12 @@ package net.post.db;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
-
-import net.inquiry.db.InquiryBean;
 
 public class PostDAO {
 	
@@ -57,15 +54,25 @@ private DataSource ds;
 		// limit : 페이지 당 목록의 수
 			
 		String post_list_sql = """
-				select *
-				from post
-				where category = ?
-				order by register_date desc
-				limit ? offset ?
+				SELECT p.*, r.user_id
+				FROM post p
+				INNER JOIN regular_user r ON p.writer = r.idx
+				WHERE p.category = ?
+				ORDER BY p.register_date DESC
+				
 			""";
-//		 자유(A), 중고(B) << 카테고리 나누는거 해결하기
-//		 동휘씨가 자꾸 한줄만 추가하면 된다는데 
-//		 한줄은 좀 오바같고 진짜 모르겠음  >> 9억줄 정도 추가해서 성공 >> 인줄 알았는데 게시글이 안불러와짐 >> 불러오는거 성공하니까 글이 안써짐
+		//limit ? offset ?
+		
+		/*
+		  
+		  SELECT p.*, r.user_id
+				FROM post p
+				INNER JOIN regular_user r ON p.writer = r.idx
+				WHERE p.category = ?
+				ORDER BY p.register_date DESC
+		  
+		  
+		*/
 		
 		List<PostBean> list = new ArrayList<PostBean>();
 			
@@ -73,10 +80,10 @@ private DataSource ds;
 				 PreparedStatement pstmt = con.prepareStatement(post_list_sql);) {
 			
 			
-	        int startRow = (page - 1) * limit; // 시작 행 계산
+//	        int startRow = (page - 1) * limit; // 시작 행 계산
 			pstmt.setString(1, category); // 카테고리와 페이지, 한 페이지에 보여줄 게시글 수를 세팅
-	        pstmt.setInt(2, startRow);  // 시작 위치
-	        pstmt.setInt(3, limit);     // 페이지 당 보여줄 게시글 수
+//	        pstmt.setInt(2, startRow);  // 시작 위치
+//	        pstmt.setInt(3, limit);     // 페이지 당 보여줄 게시글 수
 	        
 			/*
 			 int startRow = (page - 1) * limit; // 시작 행 계산
@@ -123,8 +130,8 @@ private DataSource ds;
 				insert into post
 				(post_id, writer, category, title, content,
 				  post_file, price, register_date, readcount)
-				values(post_seq.nextval, ?, ?, ?, 
-						?, ?, current_timestamp, ?)
+				values(post_seq.nextval, ?, ?, ?, ?,
+						 ?, ?, current_timestamp, ?)
 				""";
 		
 		/*
@@ -149,13 +156,14 @@ private DataSource ds;
 			pstmt.setString(3,  postdata.getTitle());
 			pstmt.setString(4,  postdata.getContent());
 			pstmt.setString(5,  postdata.getPost_file());
+			pstmt.setInt(6, postdata.getPrice());
 			
 			// 중고게시판(B)일 경우 가격 설정, 아니면 0
-	        if ("B".equals(postdata.getCategory())) {
-	            pstmt.setInt(6, postdata.getPrice());
-	        } else {
-	            pstmt.setInt(6, 0);  // 자유게시판(A)은 가격이 0
-	        }
+//	        if ("B".equals(postdata.getCategory())) {
+//	            pstmt.setInt(6, postdata.getPrice());
+//	        } else {
+//	            pstmt.setInt(6, 0);  // 자유게시판(A)은 가격이 0
+//	        }
 
 	        // readcount는 0으로 초기화
 	        pstmt.setInt(7, 0);

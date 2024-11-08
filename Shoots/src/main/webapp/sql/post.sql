@@ -55,8 +55,12 @@ order by register_date desc;
 
 -- 게시글 없어서 postlist 페이지 확인하려고 넣어둔거
 insert into POST
-(post_id, writer, category, title, content)
-values (1, 2, 'A', 4, 5);
+(post_id, writer, category, title, content, price, readcount)
+values (post_seq.nextval, 1, 'A', 1, 1, 100, 0);
+
+insert into POST
+(post_id, writer, category, title, content, price, readcount)
+values (post_seq.nextval, 1, 'B', 2, 2, 200, 0);
 
 
 select *
@@ -65,3 +69,19 @@ where category = 'A'
 order by register_date desc;
 
 
+/* SELECT p.*, r.user_id
+FROM post p
+LEFT OUTER JOIN regular_user r ON p.writer = r.idx
+WHERE p.category = 'A'
+ORDER BY p.register_date DESC; */
+
+
+
+SELECT p.*, r.user_id
+FROM post p
+INNER JOIN regular_user r ON p.writer = r.idx
+WHERE p.category = 'B'
+ORDER BY p.register_date DESC;
+
+
+select * from post;
