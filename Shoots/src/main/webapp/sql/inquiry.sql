@@ -16,7 +16,7 @@ NOCACHE;
 Select * from inquiry;
 
 insert into INQUIRY
-values (inquiry_seq.nextval, 'A', 1, '참조용 제목', '그래서 이게 작동한다고?', null, sysdate);
+values (inquiry_seq.nextval, 'A', 1, '참조용 제목', '그래서 이게 작동한다고?', null, current_timestamp);
 
 select * from INQUIRY
 order by INQUIRY_id desc;
