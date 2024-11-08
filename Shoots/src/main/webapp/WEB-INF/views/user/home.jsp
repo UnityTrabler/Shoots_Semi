@@ -65,7 +65,7 @@
 	    
 	    $(function(){
 			$('.btn4_1').click(function(){
-				location.href = "inquiry/list";
+				location.href = "notice/noticeList";
 			});
 	    });
     </script>

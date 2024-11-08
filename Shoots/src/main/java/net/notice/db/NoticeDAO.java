@@ -242,5 +242,68 @@ private DataSource ds;
 		}
 		return x;
 	}//getId() end
+
+	public int getListCount(String search_word) {
+		int x = 0;
+		String sql = """
+				select count(*) 
+				from notice 
+				where title like ?
+				""";
+		try(Connection con = ds.getConnection();
+			PreparedStatement pstmt = con.prepareStatement(sql);){
+			pstmt.setString(1, "%" + search_word + "%");
+			
+			try(ResultSet rs = pstmt.executeQuery()){
+				if(rs.next()) {
+					x = rs.getInt(1);
+				}
+			}
+		}catch(Exception ex) {
+			ex.printStackTrace();
+			System.out.println("getListCount(search_word) 에러: " + ex);
+		}
+		return x;
+	}//getListCount(search_word) end
+
+	public List<NoticeBean> getNoticeList(int page, int limit, String search_word) {
+		List<NoticeBean> list = new ArrayList<NoticeBean>();
+		String sql = """
+				select * from (
+					select rownum rnum, n.notice_id, n.title, n.register_date,n.readcount, u.name
+					from notice n 
+					join regular_user u 
+					on n.writer = u.idx where title like ? 
+					order by n.notice_id  
+				) p where p.rnum >= ? and p.rnum <= ?
+				""";
+		int startrow = (page - 1) * limit + 1;
+		int endrow = startrow + limit - 1;
+		
+		try(Connection con = ds.getConnection();
+			PreparedStatement pstmt = con.prepareStatement(sql);){
+			pstmt.setString(1, "%" + search_word + "%");
+			pstmt.setInt(2, startrow);
+			pstmt.setInt(3, endrow);
+			
+			try (ResultSet rs = pstmt.executeQuery()){
+				while(rs.next()) {
+					NoticeBean nb = new NoticeBean();
+					nb.setNotice_id(rs.getInt("notice_id"));
+					nb.setTitle(rs.getString("title"));
+					nb.setRegister_date(rs.getString("register_date"));
+					nb.setReadcount(rs.getInt("readcount"));
+					nb.setName(rs.getString("name"));
+					
+					list.add(nb);
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("getMatchList(search_word) 에러 : " + e);
+		}
+		
+		return list;
+	}
 	
 }
