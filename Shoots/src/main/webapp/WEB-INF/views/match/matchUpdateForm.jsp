@@ -20,7 +20,9 @@
 						<span> 날짜 </span> <input type = "date" id = "match_date" name = "match_date" value = "${match.match_date.substring(0,10)}" required>
 					</div>
 					<div>
-						 <span> 시간 </span> <input type = "time" id = "match_time" name = "match_time" value = "${match.match_time}" required>
+						<span> 시간 </span> 
+						<select name="match_time" id="match_time" required>
+                        </select>
 					</div>
 				</div>
 				<hr>
@@ -64,12 +66,42 @@
 		</form>
 	</div>
 	<script>
-		$("input[name='player_gender'][value='${match.player_gender}']").prop('checked', true);
 		
+		function populateTimeOptions() {
+			var select = document.getElementById('match_time');
+			for (var hour = 9; hour < 24; hour++) {
+				for (var minute of [0, 30]) {
+					var hourFormatted = hour.toString().padStart(2, '0');
+					var minuteFormatted = minute.toString().padStart(2, '0');
+					var time = hourFormatted + ":" + minuteFormatted;
+	
+					var option = document.createElement('option');
+					option.value = time;
+					option.textContent = time;
+	
+					select.appendChild(option);
+	             }
+	         }
+	     }
+	
+		window.onload = function() {
+			populateTimeOptions();
+
+			var matchTime = "${match.match_time}";
+			var select = document.getElementById('match_time');
+			for (var option of select.options) {
+				if (option.value === matchTime) {
+					option.selected = true;
+					break;
+				}
+			}
+		};
+		
+		$("input[name='player_gender'][value='${match.player_gender}']").prop('checked', true);
+				
 		$('.backBtn').click(function(){
 			location.href = location.href = "../matchs/detail?match_id=${match.match_id}";
 		});
-		
 			
 		$(function(){
 		    $('#matchUpdateForm').submit(function(event){

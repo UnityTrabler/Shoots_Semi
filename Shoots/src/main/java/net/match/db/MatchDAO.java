@@ -46,12 +46,19 @@ public class MatchDAO {
 		return result;
 	}
 
-	public int getListCount() {
-		String sql = "select count(*) from match_post";
+	public int getListCount(int year, int month) {
+		String sql = """
+				select count(*) from match_post 
+				where extract(year from match_date) = ?
+				and extract(month from match_date) = ?
+				""";
 		int x = 0;
 		
 		try (Connection con = ds.getConnection();
 				PreparedStatement pstmt = con.prepareStatement(sql);) {
+			
+			pstmt.setInt(1, year);
+			pstmt.setInt(2, month);
 			
 			try (ResultSet rs = pstmt.executeQuery()) {
 				if (rs.next()) {
@@ -65,18 +72,19 @@ public class MatchDAO {
 		return x;
 	}
 
-	public List<MatchBean> getMatchList(int page, int limit) {
+	public List<MatchBean> getMatchList(int page, int limit, int year, int month) {
 		String sql = """
-				select * from (
-				    select rownum rnum, mp.match_id, mp.match_date, mp.match_time, 
-				    					mp.player_max, mp.player_gender, b.business_name
-				    from match_post mp
-				    join business_user b
-				    on mp.writer = b.business_idx
-				    order by mp.match_date desc
-				) p
-				where p.rnum >= ? and p.rnum <= ?
-				""";
+				select * from 
+					(select rownum rnum, j.*
+						from (SELECT mp.*, b.business_name
+			                	FROM match_post mp
+			                	JOIN business_user b ON mp.writer = b.business_idx
+								AND EXTRACT(YEAR FROM mp.match_date) = ?
+			                	AND EXTRACT(MONTH FROM mp.match_date) = ?
+								ORDER BY mp.match_date DESC) j 
+					where rownum <= ?)
+				where rnum >= ? and rnum <= ?
+	            """;
 		List<MatchBean> list = new ArrayList();
 		
 		int startrow = (page - 1) * limit + 1;
@@ -84,9 +92,11 @@ public class MatchDAO {
 		
 		try (Connection con = ds.getConnection();
 				PreparedStatement pstmt = con.prepareStatement(sql);) {
-			
-				pstmt.setInt(1, startrow);
-				pstmt.setInt(2, endrow);
+			 	pstmt.setInt(1, year);
+	            pstmt.setInt(2, month);
+	            pstmt.setInt(3, endrow);
+				pstmt.setInt(4, startrow);
+				pstmt.setInt(5, endrow);
 				
 			try (ResultSet rs = pstmt.executeQuery()) {
 				while (rs.next()) {
@@ -210,16 +220,17 @@ public class MatchDAO {
 
 	public List<MatchBean> getMatchListById(int page, int limit, int business_idx, int year, int month) {
 		String sql = """
-				SELECT * FROM (
-                SELECT ROWNUM rnum, mp.*, b.business_name
-                FROM match_post mp
-                JOIN business_user b ON mp.writer = b.business_idx
-                WHERE mp.writer = ?
-                AND EXTRACT(YEAR FROM mp.match_date) = ?
-                AND EXTRACT(MONTH FROM mp.match_date) = ?
-                ORDER BY mp.match_date DESC
-	            ) p
-	            WHERE p.rnum BETWEEN ? AND ?
+				select * from 
+					(select rownum rnum, j.*
+						from (SELECT mp.*, b.business_name
+			                	FROM match_post mp
+			                	JOIN business_user b ON mp.writer = b.business_idx
+			                	WHERE mp.writer = ?
+								AND EXTRACT(YEAR FROM mp.match_date) = ?
+			                	AND EXTRACT(MONTH FROM mp.match_date) = ?
+								ORDER BY mp.match_date DESC) j 
+					where rownum <= ?)
+				where rnum >= ? and rnum <= ?
 	            """;
 		List<MatchBean> list = new ArrayList<MatchBean>();
 		
@@ -232,8 +243,9 @@ public class MatchDAO {
 			pstmt.setInt(1, business_idx);
             pstmt.setInt(2, year);
             pstmt.setInt(3, month);
-            pstmt.setInt(4, startRow);
-            pstmt.setInt(5, endRow);
+            pstmt.setInt(4, endRow);
+            pstmt.setInt(5, startRow);
+            pstmt.setInt(6, endRow);
 			
 			try (ResultSet rs = pstmt.executeQuery()) {
 				while(rs.next()) {

@@ -1,6 +1,7 @@
 package net.match.action;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,6 +24,33 @@ public class MatchListAction implements Action {
 			throws ServletException, IOException {
 		
 		MatchDAO dao = new MatchDAO();
+		
+		LocalDate now = LocalDate.now();
+	    int year = now.getYear(); 
+	    int month = now.getMonthValue();
+	    
+	    int selectedYear = now.getYear();
+	    request.setAttribute("selectedYear", selectedYear);
+	    
+	    int selectedMonth = now.getMonthValue();
+	    request.setAttribute("selectedMonth", selectedMonth);
+	    
+	    if (request.getParameter("year") != null) {
+	        try {
+	            year = Integer.parseInt(request.getParameter("year"));
+	        } catch (NumberFormatException e) {
+	            year = now.getYear();
+	        }
+	    }
+
+	    if (request.getParameter("month") != null) {
+	        try {
+	            month = Integer.parseInt(request.getParameter("month"));
+	        } catch (NumberFormatException e) {
+	            month = now.getMonthValue();
+	        }
+	    }
+	    
 		List<MatchBean> list = new ArrayList<MatchBean>();
 		
 		request.getSession().setAttribute("referer", "list");
@@ -39,9 +67,10 @@ public class MatchListAction implements Action {
 		}
 		System.out.println("넘어온 limit = " + limit);
 		
-		int listcount = dao.getListCount();
+		int listcount = dao.getListCount(year, month);
+		System.out.println("글 갯수 = " + listcount);
 		
-		list = dao.getMatchList(page, limit);
+		list = dao.getMatchList(page, limit, year, month);
 		
 		int maxpage = (listcount + limit - 1) / limit;
 		System.out.println("총 페이지수 = " + maxpage);

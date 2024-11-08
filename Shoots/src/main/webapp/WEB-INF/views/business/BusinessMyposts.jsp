@@ -37,7 +37,7 @@
 					<option value="${m}" ${m == selectedMonth ? 'selected' : ''}>${m}</option>
 				</c:forEach>
 			</select>
-			<input type="button" class = "filterButton" id = "filterButton" value="SERACH" >
+			<input type="button" class = "filterButton" id = "filterButton" onclick = "applyFilter()" value="SERACH" >
 		</form>
 		
 		<c:if test = '${listcount > 0 }'>
@@ -52,14 +52,31 @@
 					</tr>
 				</thead>
 				<tbody>
+					<c:set var="previousDate" value="" />
+               		<c:set var="rowspanCount" value="1" />
 					<c:forEach var = "match" items= "${list}">
-					<tr>
-						<td> ${match.match_date.substring(0,10)} </td>
-						<td> ${match.match_time} </td>
-						<td> <a href = "detail?match_id=${match.match_id}" class = "locatinA"> ${match.business_name} </a> </td>
-						<td> ${match.player_max} </td>
-						<td> <input type = "button" class = "status" data-match-id="${match.match_id}" value = "신청가능"></td>
-					</tr>
+               		<c:set var="matchDate" value="${match.match_date.substring(0, 10)}" />
+               		<c:if test="${matchDate == previousDate}">
+               			<c:set var="rowspanCount" value="${rowspanCount + 1}" />
+               			<tr>
+							<td class = "empty-td"></td>
+							<td> ${match.match_time} </td>
+							<td> <a href = "detail?match_id=${match.match_id}" class = "locatinA"> ${match.business_name} </a> </td>
+							<td> ${match.player_max} </td>
+							<td> <input type = "button" class = "status" data-match-id="${match.match_id}" value = "신청가능"></td>
+						</tr>
+               		</c:if>
+               		<c:if test="${matchDate != previousDate}">
+               			<tr>
+							<td rowspan = "${rowspanCount}"> ${match.match_date.substring(0,10).replace('-','/')} </td>
+							<td> ${match.match_time} </td>
+							<td> <a href = "detail?match_id=${match.match_id}" class = "locatinA"> ${match.business_name} </a> </td>
+							<td> ${match.player_max} </td>
+							<td> <input type = "button" class = "status" data-match-id="${match.match_id}" value = "신청가능"></td>
+						</tr>
+               		</c:if>
+               		<c:set var="rowspanCount" value="1" />
+               		<c:set var="previousDate" value="${matchDate}" />
 					</c:forEach>
 				</tbody>
 			</table>		

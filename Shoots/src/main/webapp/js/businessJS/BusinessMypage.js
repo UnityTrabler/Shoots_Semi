@@ -1,6 +1,16 @@
+window.onload = function() {
+    var firstTab = document.querySelector('#tab-info'); // "우리구장" 탭을 선택
+    if (firstTab) {
+        loadBusinessInfo(); // 첫 번째 탭에 해당하는 AJAX 호출 (우리구장)
+    }
+};
+
 function toggleTab(tabId, element) {
 	var content = document.getElementById(tabId);
-
+	var activeTabs = document.querySelectorAll('.sub-tabs a, .cP0-1 a, .cP0-2 a');
+	activeTabs.forEach(function(item) {
+		item.classList.remove('active');
+	});
 	if (content.style.display === "none") {
 		content.style.display = "block";
 		element.classList.add("active"); 
@@ -12,14 +22,44 @@ function toggleTab(tabId, element) {
 }
 
 // tap 이동
+function loadBusinessInfo() {
+	var xhr = new XMLHttpRequest();
+    xhr.open('GET', '../business/info', true); 
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+			document.getElementById('content-container').innerHTML = xhr.responseText;
+        }
+        
+        var tab = document.querySelector('.cP0-1 a');
+        if (tab) {
+            var activeTabs = document.querySelectorAll('.sub-tabs a, .cP0-1 a, .cP0-2 a');
+            activeTabs.forEach(function(item) {
+                item.classList.remove('active');
+            });
+
+            tab.classList.add('active');
+        }
+    };
+    xhr.send(); 
+}
+
 function loadBusinessStatistics() {
 	var xhr = new XMLHttpRequest();
     xhr.open('GET', '../business/statistics', true); 
     xhr.onreadystatechange = function () {
-            if (xhr.readyState === 4 && xhr.status === 200) {
-				document.getElementById('content-container').innerHTML = xhr.responseText;
-            }
-        };
+        if (xhr.readyState === 4 && xhr.status === 200) {
+			document.getElementById('content-container').innerHTML = xhr.responseText;
+        }
+        var tab = document.querySelector('.cP0-t1 a');
+        if (tab) {
+            var activeTabs = document.querySelectorAll('.cP0-1 a, .cP0-2 a');
+            activeTabs.forEach(function(item) {
+                item.classList.remove('active');
+            });
+
+            tab.classList.add('active');
+        }
+    };
     xhr.send(); 
 }
 
@@ -27,10 +67,19 @@ function loadBusinessSales() {
 	var xhr = new XMLHttpRequest();
     xhr.open('GET', '../business/sales', true); 
     xhr.onreadystatechange = function () {
-            if (xhr.readyState === 4 && xhr.status === 200) {
-				document.getElementById('content-container').innerHTML = xhr.responseText;
-            }
-        };
+        if (xhr.readyState === 4 && xhr.status === 200) {
+			document.getElementById('content-container').innerHTML = xhr.responseText;
+        }
+         var tab = document.querySelector('.cP0-t2 a');
+        if (tab) {
+            var activeTabs = document.querySelectorAll('.cP0-t1 a, .cP0-1 a, .cP0-2 a');
+            activeTabs.forEach(function(item) {
+                item.classList.remove('active');
+            });
+
+            tab.classList.add('active');
+        }
+    };
     xhr.send(); 
 }
 
@@ -38,10 +87,19 @@ function loadBusinessMyposts() {
 	var xhr = new XMLHttpRequest();
     xhr.open('GET', '../business/myposts', true); 
     xhr.onreadystatechange = function () {
-            if (xhr.readyState === 4 && xhr.status === 200) {
-				document.getElementById('content-container').innerHTML = xhr.responseText;
-            }
-        };
+        if (xhr.readyState === 4 && xhr.status === 200) {
+			document.getElementById('content-container').innerHTML = xhr.responseText;
+        }
+         var tab = document.querySelector('.cP0-t3 a');
+        if (tab) {
+            var activeTabs = document.querySelectorAll('.cP0-t1 a, .cP0-t2 a, .cP0-1 a, .cP0-2 a');
+            activeTabs.forEach(function(item) {
+                item.classList.remove('active');
+            });
+
+            tab.classList.add('active');
+        }
+    };
     xhr.send(); 
 }
 
@@ -49,10 +107,20 @@ function loadBusinessCustomer() {
 	var xhr = new XMLHttpRequest();
     xhr.open('GET', '../business/customers', true); 
     xhr.onreadystatechange = function () {
-            if (xhr.readyState === 4 && xhr.status === 200) {
-				document.getElementById('content-container').innerHTML = xhr.responseText;
-            }
-        };
+        if (xhr.readyState === 4 && xhr.status === 200) {
+			document.getElementById('content-container').innerHTML = xhr.responseText;
+        }
+        
+        var tab = document.querySelector('.cP0-2 a'); 
+        if (tab) {
+            var activeTabs = document.querySelectorAll('.sub-tabs a, .cP0-2 a, .cP0-1 a');
+            activeTabs.forEach(function(item) {
+                item.classList.remove('active');
+            });
+
+            tab.classList.add('active');
+        }
+    };
     xhr.send(); 
 }
 
@@ -60,12 +128,10 @@ function loadBusinessCustomer() {
 // pagination
 let isRequestInProgress = false;
 
-function go(page) {
+function go(page, year, month) {
 	if (isRequestInProgress) return;
 	 
 	const limit = 7;
-	const year = document.getElementById('year').value;  // 선택된 연도
-    const month = document.getElementById('month').value;
 	const data = {limit : limit, state : "ajax", page : page,  year: year, month: month};
 	ajax(data);
 }
@@ -97,21 +163,44 @@ function generatePagination(data) {
 }
 
 function updateMatchList(data) {
+	
 	let num = data.listcount - (data.page - 1) * data.limit;
 	let output = "<tbody>";
-	
+	let previousDate = "";
+    let rowspan = 1;
+    
 	$(data.list).each(function(index, item){
 		
-		output += `
-			<tr>
-				<td> ${item.match_date.substring(0,10)} </td>
-				<td> ${item.match_time} </td>
-				<td> <a href = "detail?match_id=${item.match_id}" class = "locatinA"> ${item.business_name} </a> </td>
-				<td> ${item.player_max} </td>
-				<td> <input type = "button" class = "status" data-match-id="${item.match_id}" value = "신청가능"> </td>
-			</tr>
-		`;
+		const matchDate = item.match_date.substring(0, 10);
+		const formattedDate = matchDate.replace(/-/g, '/');
+		
+		if (matchDate === previousDate) {
+            rowspan++;
+            output += `
+                <tr>
+                    <td class="empty-td"></td>
+                    <td> ${item.match_time} </td>
+                    <td> <a href="detail?match_id=${item.match_id}" class="locatinA"> ${item.business_name} </a> </td>
+                    <td> ${item.player_max} </td>
+                    <td> <input type="button" class="status" data-match-id="${item.match_id}" value="신청가능"> </td>
+                </tr>
+            `;
+            
+        } else {
+			output += `
+				<tr>
+					<td rowspan="${rowspan}"> ${formattedDate} </td>
+					<td> ${item.match_time} </td>
+					<td> <a href = "detail?match_id=${item.match_id}" class = "locatinA"> ${item.business_name} </a> </td>
+					<td> ${item.player_max} </td>
+					<td> <input type = "button" class = "status" data-match-id="${item.match_id}" value = "신청가능"> </td>
+				</tr>
+			`;
+		 }
+		 rowspan = 1;
+		 previousDate = matchDate;
 	});
+	
 	output += "</tbody>";
 	$('table').append(output);
 	
@@ -125,17 +214,37 @@ function ajax(sdata) {
 		data : sdata,
 		url : "/Shoots/business/myposts",
 		dataType : "json",
-		cache : false,
+		cache : false, 
 		success : function(data){
 			console.log(data);
 			if (data.listcount > 0) {
+				$("thead").show();
 				$("tbody").remove();
 				updateMatchList(data);
 				generatePagination(data);
+			} else {
+				$("thead").hide();
+				$("tbody").remove();
+				$(".pagination").empty();
+				$("table").append("<tbody><tr><td colspan='5' style='text-align: center;'>등록된 매칭이 없습니다</td></tr></tbody>");
 			}
 		},
 		error : function() {
 			console.log("에러");
+			$("thead").hide();
+			$("tbody").remove();
+    		$(".pagination").empty();
+    		$("table").append("<tbody><tr><td colspan='5' style='text-align: center;'>데이터를 불러오는 중 오류가 발생했습니다. 다시 시도해주세요.</td></tr></tbody>");
 		}
 	});
 }
+
+function applyFilter() {
+    const year = document.getElementById('year').value;
+    const month = document.getElementById('month').value;
+    go(1, year, month); 
+}
+
+$(document).on('click', '.uploadBtn', function(){
+    location.href = "../matchs/write";
+});

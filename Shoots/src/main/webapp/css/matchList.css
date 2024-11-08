@@ -18,7 +18,7 @@
     top: 50%;
     left: 50%; 
     transform: translate(-215%, -50%); 
-    color: white; /* 글자 색상 */
+    color: white;
     background-color: rgba(0, 0, 0, 0);
     padding: 10px;
     border-radius: 5px; 
@@ -33,3 +33,11 @@
 .uploadBtn {font-size :  10px; border-radius : 20px; border : none; width : 80px; height : 23px; color : white ; background : #be123c; margin-left : 10px;  transition: background 0.3s, color 0.3s; }
 .uploadBtn:hover {font-size :  10px; border-radius : 20px; border : 1px solid #be123c; width : 80px; height : 23px; color : #be123c ; background : white; margin-left : 10px }
 
+.filterD {display : flex; gap : 3px}
+form {margin : 25px 0 0 10px; display : flex; gap : 3px}
+select {font-size : 10px; border-radius : 20px; border : 1px solid orange; width : 60px; height : 23px; text-align : center; outline: none;}
+
+.filterButton  {font-size : 9px; border-radius : 20px; border : none; width : 60px; height : 23px; color : white ; background : orange; margin-left : 10px;  transition: background 0.3s, color 0.3s; margin-bottom : 30px}
+.filterButton:hover  {font-size : 9px; border-radius : 20px; border : 1px solid orange; width : 60px; height : 23px; color : orange ; background : white; margin-left : 10px;  transition: background 0.3s, color 0.3s; }
+
+.empty-td {border : none!important}
