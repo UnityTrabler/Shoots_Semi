@@ -20,16 +20,9 @@ public class InquiryCommentFrontController extends jakarta.servlet.http.HttpServ
 		String Request = req.getRemoteHost();
 		System.out.println("접속 URI = " + Request);
 
-		/*
-		 * 요청된 전체 URL중에서 포트 번호 다음 부터 마지막 문자열까지 반환됩니다. 예)
-		 * http://localhost:8088/JSP_Template_JSTL/templatetest.net 인 경우
-		 * "/JSP_Template_JSTL/templatetest.net" 반환됩니다.
-		 */
 		String RequestURI = req.getRequestURI();
 		System.out.println("request uri : " + RequestURI);
 
-		// getContextPath() - 영어 그대로
-		// contextPath는 "/JSP_Template_JSTL"가 반환됨.
 		String contextPath = req.getContextPath();
 		System.out.println("contextPath : " + contextPath);
 
@@ -41,10 +34,15 @@ public class InquiryCommentFrontController extends jakarta.servlet.http.HttpServ
 		Action action = null;
 
 		switch (command) {
+		
 		case "/add":
 			action = new InquiryCommentAddAction();
 			break;
 		
+		case "/list":
+			action = new InquiryCommentListAction();
+			break;
+			
 
 		}//switch
 

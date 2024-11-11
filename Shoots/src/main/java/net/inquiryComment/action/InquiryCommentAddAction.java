@@ -16,6 +16,7 @@ public class InquiryCommentAddAction implements Action {
 	public ActionForward execute(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		
+		ActionForward forward = new ActionForward();
 		InquiryCommentDAO icdao = new InquiryCommentDAO();
 		InquiryCommentBean ic = new InquiryCommentBean();
 		
@@ -25,7 +26,10 @@ public class InquiryCommentAddAction implements Action {
 		
 		int ok = icdao.getCommentInsert(ic, Integer.parseInt(req.getParameter("inquiry_id")));
 		resp.getWriter().print(ok);
-		return null;
+		
+		forward.setRedirect(true);
+		forward.setPath("../inquiry/detail?inquiryid=" + Integer.parseInt(req.getParameter("inquiry_id")));
+		return forward;
 	}
 
 }

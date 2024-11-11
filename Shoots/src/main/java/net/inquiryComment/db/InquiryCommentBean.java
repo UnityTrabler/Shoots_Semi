@@ -5,7 +5,6 @@ public class InquiryCommentBean {
 	private int inquiry_id;
 	private int writer;
 	private String content;
-	private String comment_file;
 	private String register_date;
 	private String user_id;
 	private String business_name;
@@ -46,12 +45,6 @@ public class InquiryCommentBean {
 	}
 	public void setContent(String content) {
 		this.content = content;
-	}
-	public String getComment_file() {
-		return comment_file;
-	}
-	public void setComment_file(String comment_file) {
-		this.comment_file = comment_file;
 	}
 	public String getRegister_date() {
 		return register_date;
