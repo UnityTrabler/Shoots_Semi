@@ -4,7 +4,7 @@
 <html>
 <head>
 <jsp:include page="../user/top.jsp"></jsp:include>
-<script src="${pageContext.request.contextPath}/js/writeform.js"></script>
+
  <style>
   h1{font-size:1.5em; text-align:center; color:#1a92b9}
   .container{width:60%}
@@ -12,6 +12,7 @@
  </style>
 <meta charset="UTF-8">
 <title>게시판 글쓰기</title>
+<script src="${pageContext.request.contextPath}/js/writeform.js"></script>
 </head>
 <body>
 <div class="container">
@@ -38,17 +39,21 @@
   		<textarea name="content" id="content" rows="20" class="form-control" placeholder="내용을 입력하세요." ></textarea>
   	</div>
   	
+  	
+  	
+  	
   	<!-- 가격 입력 (중고게시판일 경우에만 보이게 설정) -->
   	<div class="form-group fade active show" id="price">
-  		<label for="price">가격</label>
+  		<label for="priceInput">가격</label>
   		<input name="price" id="priceInput" type="text" class="form-control" placeholder="가격을 입력해주세요"></input >
   	</div>
+  	
   
   	<div class="form-group">
   		<label>
   		파일첨부
   		 <img src="${pageContext.request.contextPath}/img/attach.png" alt="파일첨부">
-  		 <input type="file" id="upfile" name="post_file">
+  		 <input type="file" id="upfile" name="post_file" onchange="previewImage()">
   		</label>
   		<span id="filevalue"></span>
   	</div>
@@ -99,6 +104,38 @@
                 priceField.style.display = "none";
             }
         }
+        
+     // 이미지 미리보기 함수
+        function previewImage() {
+            const fileInput = document.getElementById("upfile");
+            const file = fileInput.files[0];
+            
+            // 이미지 파일이 아니면 처리하지 않음
+            if (file && file.type.startsWith("image")) {
+                const reader = new FileReader();
+
+                // 파일을 읽어서 이미지로 표시
+                reader.onload = function(e) {
+                    const img = document.createElement("img");
+                    img.src = e.target.result;
+                    img.id = "file-preview";  // 미리보기 이미지의 ID
+                    img.style.maxWidth = "100px"; // 이미지 크기 제한
+
+                    // 기존의 미리보기 이미지를 제거하고 새로 추가
+                    const previewContainer = document.getElementById("file-preview-container");
+                    previewContainer.innerHTML = ''; // 기존 내용을 지움
+                    previewContainer.appendChild(img);
+                };
+
+                reader.readAsDataURL(file); // 파일을 읽음
+            } else {
+                // 이미지가 아닐 경우, 파일명을 표시
+                const previewContainer = document.getElementById("file-preview-container");
+                previewContainer.innerHTML = "<span>" + file.name + "</span>";
+            }
+        }
+        
+        
     </script>
     
   

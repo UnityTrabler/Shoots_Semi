@@ -283,18 +283,35 @@ private DataSource ds;
 	public boolean postModify(PostBean postdata) {
 		String sql = """
 				update post
-				set writer=?, title=?, content=?, post_file=?, price=?
+				set title=?, content=?, price=?, post_file=?
 				where post_id = ?
 				""";
 		
+		/*
+		update post
+				set writer=?, title=?, content=?, price=?, post_file=?
+				where post_id = ?
+		*/
+		
+		/*
+		
+		insert into post
+				(post_id, writer, category, title, content,
+				  post_file, price, register_date, readcount)
+				values(post_seq.nextval, ?, ?, ?, ?,
+						 ?, ?, current_timestamp, ?)
+		
+		*/
+		
 		try (Connection con = ds.getConnection();
 				 PreparedStatement pstmt = con.prepareStatement(sql);) {
-			pstmt.setInt(1, postdata.getWriter());
-			pstmt.setString(2, postdata.getTitle());
-			pstmt.setString(3, postdata.getContent());
-			pstmt.setString(4, postdata.getPost_file());
-			pstmt.setInt(5, postdata.getPrice());
-			pstmt.setInt(6, postdata.getPost_id());
+				
+				pstmt.setString(1, postdata.getTitle());
+		        pstmt.setString(2, postdata.getContent());
+		        pstmt.setInt(3, postdata.getPrice());
+		        pstmt.setString(4, postdata.getPost_file());
+		        
+		        pstmt.setInt(5, postdata.getPost_id());
 			
 			int result = pstmt.executeUpdate();
 			if (result == 1) {
@@ -304,7 +321,7 @@ private DataSource ds;
 			} catch (Exception ex) {
 				ex.printStackTrace();
 				System.out.println("postModify() 에러: " + ex);
-			} 
+			}
 		return false;
 	}
 

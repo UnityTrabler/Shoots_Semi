@@ -4,7 +4,7 @@
 <html>
 <head>
 <jsp:include page="../user/top.jsp"></jsp:include>
-<meta charset="UTF-8">
+
 <title>수정</title>
 <script src="${pageContext.request.contextPath}/js/modifyform.js"></script>
  <style>
@@ -25,10 +25,23 @@
   	
   	
   	
+  	<%--
+  	
+  	<div class="form-group">
+  		<label for="category"></label>
+  		<input type="radio" name="category" id ="A" value="A" checked><span>자유게시판</span>
+		<input type="radio" name="category" id ="B" value="B"><span>중고게시판</span>
+  	</div>
+  	
+  	
+  	 --%>
+  	
+  	
   	<div class="form-group">
   		<label for="writer">작성자</label>
-  		<input type="text" class="form-control"
-  				value="${postdata.writer}" readOnly>
+  		<input type="text" class="form-control" name="writer" id ="writer"
+  				value="${id}" readOnly>
+  				<%-- postdata.writer --%>
   	</div>
   	
   	<div class="form-group">
@@ -44,11 +57,32 @@
   				class="form-control" rows="10" >${postdata.content}</textarea>
   	</div>
   	
-  	<div class="form-group">
+  	
+  	<%--
+  	
+  	<!-- 가격 입력 (중고게시판일 경우에만 보이게 설정) -->
+  	<div class="form-group fade active show" id="price">
   		<label for="price">가격</label>
-  		<textarea name="price" id="price" class="form-control" placeholder="중고게시글만 작성"></textarea>
+  		<input name="price" id="priceInput" type="text" class="form-control" placeholder="가격을 입력해주세요"></input >
   	</div>
   	
+  	<!-- 중고게시판일 경우 가격 입력란 보이기 -->
+            <div class="form-group" id="price" style="${postdata.category == 'B' ? '' : 'display: none;'}">
+                <label for="price">가격</label>
+                <input name="price" id="priceInput" type="text" class="form-control" value="${postdata.price}" placeholder="가격을 입력해주세요">
+            </div>
+  	
+  	 --%>
+  	
+  	
+  	<!-- 중고게시판일 경우 가격 입력란 보이기 -->
+            <div class="form-group" id="price" style="${postdata.category == 'B' ? '' : 'display: none;'}">
+                <label for="priceInput">가격</label>
+                <input name="price" id="priceInput" type="text" class="form-control" value="${postdata.price}" placeholder="가격을 입력해주세요">
+            </div>
+  	
+  
+  
   
 	<%-- 원문글인 경우에만 파일 첨부 수정 가능합니다. --%>
 	<%--  <c:if test="${postdata.board_re_lev==0}"> --%>
@@ -82,6 +116,7 @@
   	</div>
   	</form>
  </div> <%-- class="container" end --%>
+ 
  
  
  

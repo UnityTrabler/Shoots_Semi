@@ -1,7 +1,6 @@
 package net.post.action;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
@@ -26,7 +25,7 @@ public class PostModifyProcessAction implements Action {
 		
 		String saveFolder = "postupload";
 		
-		int fileSize = 20 * 1024 * 1024; // 업로드할 파일의 최대 사이즈 입니다. 5MB
+		int fileSize = 20 * 1024 * 1024; // 업로드할 파일의 최대 사이즈 입니다. 20MB
 		
 		// 실제 저장 경로를 지정합니다.
 		ServletContext sc = request.getServletContext();
@@ -37,7 +36,7 @@ public class PostModifyProcessAction implements Action {
 					new MultipartRequest(request, realFolder, fileSize, "utf-8",
 										 new DefaultFileRenamePolicy());
 			
-			int num = Integer.parseInt(multi.getParameter("num"));
+			int num = Integer.parseInt(multi.getParameter("post_id"));
 			
 			
 //			// 글쓴이 인지 확인하기 위해 저장된 비밀번호와 입력한 비밀번호를 비교합니다.
@@ -55,13 +54,24 @@ public class PostModifyProcessAction implements Action {
 //				return null;
 //			}
 			
-			// 비밀번호가 일치하는 경우 수정 내용을 설정합니다.
+			// 폼 데이터 처리
 			// BoardBean 객체에 글 등록 폼에서 입력 받은 정보들을 저장합니다.
 			postdata.setPost_id(num);
+            String category = multi.getParameter("category");  // 카테고리 값(A 또는 B)
+        	postdata.setCategory(category);
+            postdata.setCategory(multi.getParameter("category"));
 			postdata.setTitle(multi.getParameter("title"));
-			//postdata.setWriter(Integer.parseInt(multi.getParameter("writer")));
+			postdata.setWriter(Integer.parseInt(multi.getParameter("writer")));
 			postdata.setContent(multi.getParameter("content"));
-			postdata.setPrice(Integer.parseInt(multi.getParameter("price")));
+			 // 중고게시판(B)인 경우 가격 받기
+			 if ("B".equals(category)) {
+	              //price = Integer.parseInt(request.getParameter("price"));
+	              //postdata.setPrice(price);
+	              postdata.setPrice(Integer.parseInt(multi.getParameter("price")));
+	          } else {
+	          	postdata.setPrice(0);
+	          }
+			//postdata.setPrice(Integer.parseInt(multi.getParameter("price")));
 			String check = multi.getParameter("check");
 			System.out.println("check=" + check);
 			if (check != null) {
@@ -95,6 +105,6 @@ public class PostModifyProcessAction implements Action {
 			forward.setRedirect(false);
 		}
 		return forward;
-	}
+	} 
 
 }
