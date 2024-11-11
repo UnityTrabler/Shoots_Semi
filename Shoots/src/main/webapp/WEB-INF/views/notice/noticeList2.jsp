@@ -8,18 +8,31 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<jsp:include page="../user/top.jsp"></jsp:include>
 	<title>공지사항</title>
 	<script src="${pageContext.request.contextPath}/js/jquery-3.7.1.js"></script>
 	<link rel = "stylesheet" href = "${pageContext.request.contextPath}/css/noticeList.css" type = "text/css">
 	<link rel = "stylesheet" href = "${pageContext.request.contextPath}/css/pagination.css" type = "text/css">
-	
+	<script>
+		$(function(){
+			//검색 버튼 클릭한 경우
+			$(".Sbtn").click(function(){
+				//검색어 공백 유효성 검사합니다.
+				const word = $(".search").val();
+				if (word == ""){
+					alert("검색어를 입력하세요");
+					$(".search").focus();
+					return false;
+				}
+			})
+		})
+	</script>
 </head>
 <body>
-	
+	<div class="container">
 		<c:if test="${listcount > 0 }">	
-			<!--검색 form action="notice"를 submit을 통해 이동하는 것이 아닌 onclick으로 js에서 실행되게 합니다 
-			 -->
-			<form action="notice" method="post">
+		
+			<form action="noticeList" method="post">
 				<div class="input-group">
 					<input type="submit" value="SEARCH" class="Sbtn">&nbsp;
 					<input name="search_word" type="text" class="search"
@@ -83,7 +96,7 @@
 			</ul>
 		</div>
 			<%--페이징 끝 --%>
-	
+	</div>
 	
 	
 </body>

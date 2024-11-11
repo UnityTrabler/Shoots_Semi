@@ -1,0 +1,37 @@
+@charset "EUC-KR";
+
+.container {
+	border: 1.5px solid #059669; 
+	border-radius : 30px; width : 60%;   
+	margin : 0 auto; 
+	display: flex;
+    flex-direction: column; /* 자식 요소가 세로로 배치되도록 설정 */ }
+
+.tab{
+	display: flex; /* 버튼들이 가로로 배치되도록 설정 */
+   	justify-content: space-between; /* 버튼들 사이에 공간을 고르게 배치 */
+    width: 100%; /* .tab가 .container의 가로 크기를 완전히 채움 */
+    padding: 10px 0; /* 탭의 위아래 여백을 설정 */
+}
+
+.tablink {
+  background-color: #f0f0f0;
+  color: #787878;
+  float: left;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 14px 16px;
+  font-size: 17px;
+  width: 34%;
+}
+
+.tablink:hover {
+  background-color: #f9f9f9;
+}
+
+.tabcontent {
+  display: none;
+  padding: 100px 20px;
+  height: 100%;
+}

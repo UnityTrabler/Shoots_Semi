@@ -47,9 +47,10 @@
 			</tr>
 			
 			<tr>
-				<td colspan='3'><a href="noticeList" type="button" class="listBtn">목록</a></td>
+				<td colspan='3'><a href="../support" type="button" class="listBtn">목록</a></td>
 			</tr>
 		</table>
+		
 	</div>
 </body>
 </html>
