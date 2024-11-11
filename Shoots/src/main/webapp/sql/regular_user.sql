@@ -37,4 +37,5 @@ insert into regular_user
 values (user_seq.nextval, 'youngsoo3', '3', '삼수',  333333, 3, '01012345678', '3@3.com', null, null, current_timestamp, 'common');
 
 insert into regular_user
-values (user_seq.nextval, 'A111', '1234', '테스트',  000305, 4, '01012345678', 'GId@gmail.com', null, null, current_timestamp, 'common')
+values (user_seq.nextval, 'test', '1234', '강성현',  000305, 4, '01097117305', 'shk7357@naver.com', null, null, current_timestamp, 'common')
+

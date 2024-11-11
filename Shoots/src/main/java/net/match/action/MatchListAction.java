@@ -16,6 +16,7 @@ import net.core.Action;
 import net.core.ActionForward;
 import net.match.db.MatchBean;
 import net.match.db.MatchDAO;
+import net.pay.db.PaymentDAO;
 
 public class MatchListAction implements Action {
 
@@ -24,6 +25,8 @@ public class MatchListAction implements Action {
 			throws ServletException, IOException {
 		
 		MatchDAO dao = new MatchDAO();
+		
+		PaymentDAO pdao = new PaymentDAO();
 		
 		LocalDate now = LocalDate.now();
 	    int year = now.getYear(); 
@@ -71,6 +74,11 @@ public class MatchListAction implements Action {
 		System.out.println("글 갯수 = " + listcount);
 		
 		list = dao.getMatchList(page, limit, year, month);
+		
+		for (MatchBean match : list) {
+	        int playerCount = pdao.getPaymentCountById(match.getMatch_id());
+	        match.setPlayerCount(playerCount);
+	    }
 		
 		int maxpage = (listcount + limit - 1) / limit;
 		System.out.println("총 페이지수 = " + maxpage);

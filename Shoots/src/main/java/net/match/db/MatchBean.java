@@ -12,7 +12,14 @@ public class MatchBean {
 	private int register_date;
 	private String business_name;
 	private String address;
+	private int playerCount;
 	
+	public int getPlayerCount() {
+		return playerCount;
+	}
+	public void setPlayerCount(int playerCount) {
+		this.playerCount = playerCount;
+	}
 	public String getAddress() {
 		return address;
 	}

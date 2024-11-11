@@ -15,6 +15,7 @@
 </head>
 <body>
 	<input type = "hidden" id = "match_id" name = "match_id" value = ${match.match_id}>
+	<input type = "hidden" id = "writer" name = "writer" value = ${match.writer}>
 	<div class = "imgD">
 		<img class = "Mimg" src = "${pageContext.request.contextPath}/img/matchD.jpg">
 	</div>
@@ -22,9 +23,19 @@
 		<div class = "container1">
 			<p class = "mP"> 매치포인트 </p>
 			<div class = "mpDiv">
-				<c:forEach var="i" begin="0" end="${match.player_min - 1}">
-					<img class = "picon" src="${pageContext.request.contextPath}/img/player_icon1.png" />
-				</c:forEach>
+				<c:if test = "${playerCount > 0 }">
+					<c:forEach var = "i" begin = "0" end = "${playerCount - 1}">
+						<img class = "picon" src = "${pageContext.request.contextPath}/img/player_icon2.png" />
+					</c:forEach>
+					<c:forEach var = "i" begin = "${playerCount}" end = "${match.player_min - 1}">
+				        <img class = "picon" src = "${pageContext.request.contextPath}/img/player_icon1.png" />
+				    </c:forEach>
+			    </c:if>
+			    <c:if test = "${playerCount == 0 }">
+			    	<c:forEach var = "i" begin = "0" end = "${match.player_min - 1}">
+				        <img class = "picon" src = "${pageContext.request.contextPath}/img/player_icon1.png" />
+				    </c:forEach>
+			    </c:if>
 			    <p class = "mpP"> 최소 ${match.player_min}명 &nbsp; 최대 ${match.player_max}명 </p>
 				<c:choose>
 				<c:when test="${match.player_gender == 'm'}">
@@ -40,7 +51,8 @@
 			</div>
 			<hr class = "hr2">
 			<p class = "mP"> 구장설명 </p>
-			<pre class = "preP"> </pre>
+			<pre class = "preP">
+			</pre>
 		</div>
 		<div class = "container2">
 			<p class = "datetime"> ${match.match_date.substring(0,4)}년 ${match.match_date.substring(5,7)}월 ${match.match_date.substring(8,10)}일 ${match.match_time} </p>
@@ -49,7 +61,17 @@
 		 	<hr class = "hr1">
 		 	<p class = "price"> ${match.price}원 <span class = "time">  / 2시간 </span></p>
 		 	<div class = "btndiv">
-		 		<input type = "button" class = "btn1" id = "paymentBtn" value = "신청하기">
+		 		<c:choose>
+		 			<c:when test = "${isPaid}" >
+		 				<input type = "button" class = "btn1" id = "refundBtn" value = "신청취소">
+		 			</c:when>
+		 			<c:when test = "${empty idx}" >
+		 				<input type = "button" class = "btn1" id = "paymentBtnN" value = "신청하기">
+		 			</c:when>
+		 			<c:otherwise>
+		 				<input type = "button" class = "btn1" id = "paymentBtn" value = "신청하기">
+		 			</c:otherwise>
+		 		</c:choose>
 		 	</div>
 		</div>
 	</div>
@@ -61,12 +83,23 @@
 	<script>
 		 $(function() {
 			
+			 var idx = '${idx}';
+			 console.log("로그인된 사용자 ID: " + idx);
+			 console.log(${isPaid});
+			 
 			$('#paymentBtn').click(function(){
 				var matchId = $('#match_id').val();
 				var price = '${match.price}';
+				var buyer = '${idx}';
+				var seller = '${match.writer}';
 
-				location.href = "../payments/pay?match_id=" + matchId + "&price=" + price;
+				location.href = "../payments/pay?match_id=" + matchId + "&price=" + price + "&buyer=" + buyer + "&seller=" + seller;
 			});
+			
+			$('#paymentBtnN').click(function() {
+				alert("로그인 후 이용 가능합니다.")
+                location.href = "../user/login";
+            });
 			 
 			$('.listBtn').click(function(){
 				location.href = location.href = "../matchs/list";
