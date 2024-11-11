@@ -111,6 +111,11 @@
 				$('#filename').text('file upload...');
 			});
 			
+			$('input[name=gender]').keyup(function() {
+				if($('input[name=gender]').val().length > 0)
+					$('input[name=gender]').val().focus();
+			});
+			
 			
 		});//ready 
 	</script>

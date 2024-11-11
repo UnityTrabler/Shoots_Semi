@@ -6,10 +6,17 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"/>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
-        .container { margin: 3em auto; box-shadow: 3px 3px 30px gray; width: 500px; }
+        .container { margin: 3em auto; box-shadow: 3px 3px 30px gray; width: 500px;  border: 6px solid lightgreen;}
     </style>
     <script>
+    	function init() {
+			$('#id').focus();
+			$('button#btnRegular').addClass('btn-success');
+		}
+    
     	$(function() {
+    		init();
+    		
 			$('#signup').click(function() {
 				location.href = "${pageContext.request.contextPath}/user/signup";
 			});
@@ -25,6 +32,12 @@
 <body class="container">
     <jsp:include page="top.jsp"></jsp:include>
     <form action="${pageContext.request.contextPath}/user/loginProcess" method="post">
+    
+    	<div class="d-flex justify-content-center align-items-center">
+			<button id="btnRegular" class="btn btn-secondary mb-5 mr-5" style="width:100px; height:60px; border-radius: 40px">개인</button>
+			<button class="btn btn-secondary mb-5" style="width:100px; height:60px; border-radius: 40px">기업</button>
+		</div>
+    
         <h1 class="text-center">Login</h1>
 
         <div class="form-group mb-3">
