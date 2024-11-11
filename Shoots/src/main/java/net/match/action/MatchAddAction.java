@@ -37,7 +37,7 @@ public class MatchAddAction implements Action {
 		} else {
 			forward.setRedirect(false);
 			forward.setPath("/WEB-INF/views/error/error.jsp");
-			request.setAttribute("message", "매칭업로드 실패");
+			request.setAttribute("message", "결제 실패");
 			return forward;
 		}
 	}

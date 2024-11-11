@@ -132,6 +132,7 @@ public class MatchDAO {
 				if (rs.next()) {
 					match = new MatchBean();
 					match.setMatch_id(rs.getInt("match_id"));
+					match.setWriter(rs.getInt("writer"));
 					match.setMatch_date(rs.getString("match_date"));
 					match.setMatch_time(rs.getString("match_time"));
 					match.setPlayer_max(rs.getInt("player_max"));

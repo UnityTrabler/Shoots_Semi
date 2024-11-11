@@ -35,8 +35,8 @@ public class MatchUpdateProcessAction implements Action {
 		
 		if (result != 1) {
 			System.out.println("수정 실패");
-			forward.setRedirect(false);
 			req.setAttribute("message", "수정 오류");
+			forward.setRedirect(false);
 			forward.setPath("/WEB-INF/views/error/error.jsp");
 		} else {
 			System.out.println("수정 완료");
@@ -50,7 +50,7 @@ public class MatchUpdateProcessAction implements Action {
 			out.close();
 		}
 		
-		return forward;
+		return null;
 	}
 
 }

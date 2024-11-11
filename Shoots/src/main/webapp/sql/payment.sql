@@ -16,4 +16,6 @@ START WITH 1
 INCREMENT BY 1
 NOCACHE;
 
+alter table payment add merchant_uid varchar2(30) not null;
+
 select * from payment;

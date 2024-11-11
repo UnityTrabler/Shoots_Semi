@@ -49,8 +49,9 @@
 				</select>
 				<input type="button" class = "filterButton" id = "filterButton" onclick = "applyFilter()" value="SERACH" >
 			</form>
-			
-			<input class="form-control" id="searchTable" type="text" placeholder="날짜, 시간, 장소 검색">
+			<div class = "filterInputD">
+				<input class = "filterInput" id="searchTable" type="text" placeholder="  날짜, 시간, 장소 검색">
+			</div>
 		</div>
 		<c:if test = '${listcount > 0 }'>
 			<table class = "table text-center">
@@ -73,8 +74,16 @@
                			<tr>
 							<td class = "empty-td"></td>
 							<td> ${match.match_time} </td>
-							<td> <a href = "detail?match_id=${match.match_id}" class = "locatinA"> ${match.business_name} </a> </td>
-							<td> ${match.player_max} </td>
+							<td> <a href = "detail?match_id=${match.match_id}" class = "locatinA"> ${match.business_name} </a></td>
+							<td> 
+								<c:if test="${match.playerCount >= 1}">
+							        <span style="color: #1d4ed8;">${match.playerCount}</span>
+							    </c:if>
+							    <c:if test="${match.playerCount < 1}">
+							        ${match.playerCount}
+							    </c:if>
+									 / ${match.player_max} 
+							</td>
 							<td> <input type = "button" class = "status" data-match-id="${match.match_id}" value = "신청가능"></td>
 						</tr>
                		</c:if>
@@ -83,7 +92,11 @@
 							<td rowspan = "${rowspanCount}"> ${match.match_date.substring(0,10).replace('-','/')} </td>
 							<td> ${match.match_time} </td>
 							<td> <a href = "detail?match_id=${match.match_id}" class = "locatinA"> ${match.business_name} </a> </td>
-							<td> ${match.player_max} </td>
+							<td>
+							    <span style="color: ${match.playerCount >= 1 ? '#1d4ed8' : 'black'}">
+							        ${match.playerCount}
+							    </span> / ${match.player_max}
+							</td>
 							<td> <input type = "button" class = "status" data-match-id="${match.match_id}" value = "신청가능"></td>
 						</tr>
                		</c:if>
@@ -95,7 +108,7 @@
 		</c:if>
 		
 		<c:if test = "${listcount == 0}">
-			<h3 style = "text-align : center"> 등록된 매칭이 없습니다. </h3>
+			<p style = "text-align : center"> 등록된 매칭이 없습니다. </p>
 		</c:if>
 		
 		<div class = "center-block">

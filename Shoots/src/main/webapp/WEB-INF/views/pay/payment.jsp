@@ -16,31 +16,54 @@
 	         var IMP = window.IMP;
 	         IMP.init('imp35523152'); 
 	
+	         var merchant_uid = 'merchant_' + new Date().getTime();
+	         
 	         IMP.request_pay({
 	             pg: 'html5_inicis',
 	             pay_method: 'card', 
-	             merchant_uid: 'merchant_' + new Date().getTime(),
-	             name: ${matchId} + ' 번 매치 플레이어 신청', 
-	             amount: ${price}, 
-	             buyer_email: 'example@gmail.com',  
-	             buyer_name: '구매자 이름',  
-	             buyer_tel: '연락처', 
-	             buyer_addr: '주소',  
-	             buyer_postcode: '우편번호'  
+	             merchant_uid: merchant_uid,
+	             name: '${matchId}' + ' 번 매치 플레이어 신청', 
+	             amount: '${price}', 
+	             buyer_email: '${userEmail}',  
+	             buyer_name: '${userName}',  
+	             buyer_tel: '${userTel}' 
 	         }, function(rsp) {
 	             if (rsp.success) {
 	                 var msg = '결제가 완료되었습니다.';
 	                 msg += '고유ID : ' + rsp.imp_uid;
 	                 msg += '결제 금액 : ' + rsp.paid_amount;
 	                 msg += '카드 승인번호 : ' + rsp.apply_num;
-	
-	                 pay_info(rsp);
+
+	                 $.ajax({
+	                	type : "post",
+	                	url : "../payments/addPayment",
+	                	data : {
+	                		matchId : '${matchId}',
+	                		buyer : '${idx}',
+	                		seller : '${seller}',
+	                		paymentMethod : 'card',
+	                		amount : rsp.paid_amount,
+	                		status : 'SUCCESS',
+	                		applyNum : rsp.apply_num,
+	                		impUid : rsp.imp_uid,
+	                		merchantUid : merchant_uid
+	                	},
+	                	success : function(response) {
+	                		alert("결제가 완료되었습니다.");
+	                		location.href = '${pageContext.request.contextPath}/matchs/detail?match_id=' + ${matchId};
+	                	},
+	                	error : function (xhr, status, error) {
+	                		alert("결제 정보 저장에 실패하였습니다.");
+	                		location.href = '${pageContext.request.contextPath}/matchs/detail?match_id=' + ${matchId};
+	                	}
+	                	
+	                 });
+	                 
 	             } else {
 	                 var msg = '결제에 실패하였습니다.';
 	                 msg += '에러내용 : ' + rsp.error_msg;
-	                 location.href = "../matchs/detail?match_id=" + ${matchId};
-	                 
 	                 alert(msg);
+	                 location.href = "${pageContext.request.contextPath}/matchs/detail?match_id=" + ${matchId};	                 
 	             }
 	         });
 	     });

@@ -53,7 +53,11 @@ function updateMatchList(data) {
                     <td class="empty-td"></td>
                     <td> ${item.match_time} </td>
                     <td> <a href="detail?match_id=${item.match_id}" class="locatinA"> ${item.business_name} </a> </td>
-                    <td> ${item.player_max} </td>
+                    <td>
+					    <span style="color: ${item.playerCount >= 1 ? '#1d4ed8' : 'black'}">
+					        ${item.playerCount}
+					    </span> / ${item.player_max}
+					</td>
                     <td> <input type="button" class="status" data-match-id="${item.match_id}" value="신청가능"> </td>
                 </tr>
             `;
@@ -64,7 +68,11 @@ function updateMatchList(data) {
 					<td rowspan="${rowspan}"> ${formattedDate} </td>
 					<td> ${item.match_time} </td>
 					<td> <a href = "detail?match_id=${item.match_id}" class = "locatinA"> ${item.business_name} </a> </td>
-					<td> ${item.player_max} </td>
+					<td>
+					    <span style="color: ${item.playerCount >= 1 ? '#1d4ed8' : 'black'}">
+					        ${item.playerCount}
+					    </span> / ${item.player_max}
+					</td>
 					<td> <input type = "button" class = "status" data-match-id="${item.match_id}" value = "신청가능"> </td>
 				</tr>
 			`;
