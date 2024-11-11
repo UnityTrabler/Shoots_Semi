@@ -15,35 +15,10 @@
 <head>
 	<script src="${pageContext.request.contextPath}/js/jquery-3.7.1.js"></script>
 	<link rel = "stylesheet" href = "${pageContext.request.contextPath}/css/faqList.css" type = "text/css">
-	<jsp:include page="../user/top.jsp"></jsp:include>
+
 	<title>FAQ</title>
-
-	<script>
-		$(document).ready(function(){
-  			$(".accordion").on("click", function() {
-    			$(this).toggleClass("active");
-    			var panel = $(this).next(".panel");
-    
-    			if (panel.css("max-height") !== "0px") {
-     				panel.css("max-height", "0");
-    			} else {
-     				 panel.css("max-height", panel.prop("scrollHeight") + "px");
-    			}
-  			});
-		});
-</script>
-
 </head>
-<div class = "imgb">
-	<div class = "imgL">
-		<img  class = "Limg" src = "${pageContext.request.contextPath}/img/matchL.jpg">
-		<div class="overlay">
-			<p class = "p1"> 언제, 어디서나 빠르고 간편한 매칭을 원한다면? </p>
-			<p class = "imgP2 p1"> SHOOT MATCHING ! </p>
-			<p> 지금 가입해서 즐겨보세요 </p>
-		</div>
-	</div>
-</div>
+
 <body>
 	<p class="faq">FAQ</p>
 	 <c:forEach var="f" items="${totallist}">
@@ -55,7 +30,7 @@
   					<%--파일을 첨부한 경우 --%>
 					<c:if test="${!empty f.faq_file}">
 						<p><img src="${pageContext.request.contextPath}/img/down.png" id="downImg">
-							<a href="down?filename=${f.faq_file}">${f.faq_file}</a></p>
+							<a href="faq/down?filename=${f.faq_file}">${f.faq_file}</a></p>
 					</c:if>
 					
 					<%--파일을 첨부하지 않은 경우 --%>
