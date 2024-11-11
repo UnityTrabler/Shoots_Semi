@@ -19,7 +19,7 @@ public class UserUpdateAction implements Action {
 		UserDAO userDAO = new UserDAO();
 		HttpSession session = req.getSession();
 		String id = (String)session.getAttribute("id");
-		
+
 		req.setAttribute("userBean", userDAO.getUser(id));
 		forward.setPath("/WEB-INF/views/user/update.jsp");
 		forward.setRedirect(false);
