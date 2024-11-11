@@ -5,11 +5,12 @@
 <html>
 <head>
 <title>문의 게시판</title>
+<%--<script src="${pageContext.request.contextPath}/css/inquiry.css"></script> --%>
 <jsp:include page = "/WEB-INF/views/user/top.jsp"/>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/inquiry.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
 
 <script src="${pageContext.request.contextPath }/js/jquery-3.7.1.js"></script>
+<script src="${pageContext.request.contextPath}/js/inquiryJs/inquirycomment.js"></script>
 
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath }/css/view.css" type="text/css">
@@ -77,33 +78,34 @@
 	<%--<div class="container"> end --%>
 	
 	
-<!-- 댓글 폼 시작 -->
-<form action="../iqcomments/add" method ="post" name = "iqcommentform" id="iqcommentform">
+	<%--댓글창 시작 --%>
+   <div class="container">
+	<div class="comment-area">
 	<div class="comment-head">
-	<h2>댓글</h2>
-	</div>
-	
-	<!-- 댓글 내용 부분 -->
-	<div class="comment-body">
-		<input type="hidden" name="inquiry_id" value="${inquirydata.inquiry_id}">
-		<img src ="${pageContext.request.contextPath}/img/profile.png" alt="프로필" width="24" height="24">
-		
-		<div class="nickname">
-		<input type="hidden" class ="nickname" name="writer" value="${id}"> <!-- 댓글 작성자의 로그인id :int형 -->
-		<span class="nickname">${inquirydata.user_id}</span>  <!-- 댓글 작성자의 닉네임 : 유저 닉네임 -->
+		<h3 class="comment-count">
+			댓글 <sup id="count" style="font-family: arial, sans-serif;"></sup>
+		</h3>
+		<div class="comment-order">
+			<ul class="comment-order-list">
+			</ul>
 		</div>
-		
-		
-		<textarea placeholder = "문의글에 대한 댓글을 남겨보세요" width="1200" class="iqcomment-content" name="content" maxlength="300" required></textarea>		
-		
-		<div class="register-box">
-			<button class="btn-primary" id="register-comment">등록</button>
-			<button class="btn-danger" id="cancel-comment" style="display:none">취소</button>
+	</div><!-- comment-head end-->
+	<ul class="comment-list">
+	</ul>
+	 <div class="comment-write">
+			<div class="comment-write-area">
+				<b class="comment-write-area-name">${id}</b> 
+				<span class="comment-write-area-count">0/200</span>
+				<textarea placeholder="댓글을 남겨보세요" rows="3" class="comment-write-area-text" maxlength="200"></textarea>
+					
+			</div>
+			<div class="register-box">
+				<div class="button btn-cancel">취소</div>
+				<div class="button btn-register">등록</div>
+			</div>
 		</div>
-		
 	</div>
-
-</form>
+	</div>
 	
 	
 <script>

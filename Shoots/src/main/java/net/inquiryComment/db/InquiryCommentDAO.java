@@ -2,6 +2,7 @@ package net.inquiryComment.db;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -21,13 +22,13 @@ public class InquiryCommentDAO {
 	}
 	
 	
-	public int getCommentInsert(InquiryCommentBean ic, int inquiry_id) {
+	public int getCommentInsert(InquiryCommentBean ic, int inquiry_id) { //댓글을 등록하면 DB에 댓글 넣는 메서드
 		int result = 0;
 		
 		String sql = """
 				insert into inquiry_comment
 				values (inquiry_comment_seq.nextval, ? , ? ,
-						? , ? , current_timestamp) 
+						? , current_timestamp) 
 				""";
 		
 		try(Connection con = ds.getConnection();
@@ -35,7 +36,6 @@ public class InquiryCommentDAO {
 				pstmt.setInt(1, inquiry_id);
 				pstmt.setInt(2, ic.getWriter());
 				pstmt.setString(3, ic.getContent());
-				pstmt.setString(4, ic.getComment_file());
 				result = pstmt.executeUpdate();
 				
 				if(result == 1)
@@ -47,4 +47,31 @@ public class InquiryCommentDAO {
 		
 		return result;
 	}
+
+
+	public int getListCount(int inquiry_id) {
+		
+		int x = 0;
+		
+		String sql = """
+				select count(*)
+				from inquiry_comment
+				where inquiry_id = ?
+				""";
+		
+		try(Connection con = ds.getConnection(); 
+			PreparedStatement pstmt = con.prepareStatement(sql);){
+			try(ResultSet rs = pstmt.executeQuery()){
+				if(rs.next()) {
+					x = rs.getInt(1);
+				}
+			}
+		} catch(Exception ex) {
+			ex.printStackTrace();
+			System.out.println("getListCount() 에러" + ex);
+		}
+		
+		
+		return x;
+	} //getListCount() 끝
 }
