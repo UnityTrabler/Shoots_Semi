@@ -26,6 +26,15 @@
 				$("#id").val(id);
 				$("#remember").prop('checked', true);
 			}
+			
+			$('#btnRegular').click(function() {
+				$(this).addClass('btn-success');
+				$(this).siblings().removeClass('btn-success');
+			});
+			$('#btnBusiness').click(function() {
+				$(this).addClass('btn-success');
+				$(this).siblings().removeClass('btn-success');
+			});
 		});
     </script>
 </head>
@@ -35,7 +44,7 @@
     
     	<div class="d-flex justify-content-center align-items-center">
 			<button id="btnRegular" class="btn btn-secondary mb-5 mr-5" style="width:100px; height:60px; border-radius: 40px">개인</button>
-			<button class="btn btn-secondary mb-5" style="width:100px; height:60px; border-radius: 40px">기업</button>
+			<button id="btnBusiness" class="btn btn-secondary mb-5" style="width:100px; height:60px; border-radius: 40px">기업</button>
 		</div>
     
         <h1 class="text-center">Login</h1>
