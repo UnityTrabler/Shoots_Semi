@@ -77,6 +77,28 @@
 	<%--<div class="container"> end --%>
 	
 	
+	 <!-- 댓글 리스트 출력 -->
+    <div class="comments-section">
+        <h2>댓글 목록</h2>
+        
+        <c:if test="${!empty iqlist}">
+            <c:forEach var="ic" items="${iqlist}">
+                <div class="ic">
+                	<img src ="${pageContext.request.contextPath}/img/profile.png" alt="프로필" width="60" height="48">
+                    <p><strong>작성자:</strong> ${ic.writer} <strong>등록일:</strong> ${ic.register_date.substring(0,16)}</p>
+                    <input type = "text" value="${ic.content}" readonly maxlength="300">
+                </div>
+                <hr>
+            </c:forEach>
+        </c:if>
+        
+        <c:if test="${empty iqlist}">
+            <p>댓글이 없습니다.</p>
+        </c:if>
+    </div>
+	
+	
+	
 <!-- 댓글 폼 시작 -->
 <form action="../iqcomments/add" method ="post" name = "iqcommentform" id="iqcommentform">
 	<div class="comment-head">
@@ -86,7 +108,7 @@
 	<!-- 댓글 내용 부분 -->
 	<div class="comment-body">
 		<input type="hidden" name="inquiry_id" value="${inquirydata.inquiry_id}">
-		<img src ="${pageContext.request.contextPath}/img/profile.png" alt="프로필" width="24" height="24">
+		<img src ="${pageContext.request.contextPath}/img/profile.png" alt="프로필" width="60" height="48">
 		
 		<div class="nickname">
 		<input type="hidden" class ="nickname" name="writer" value="${id}"> <!-- 댓글 작성자의 로그인id :int형 -->
@@ -102,7 +124,6 @@
 		</div>
 		
 	</div>
-
 </form>
 	
 	

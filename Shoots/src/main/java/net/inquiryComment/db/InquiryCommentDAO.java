@@ -3,6 +3,8 @@ package net.inquiryComment.db;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -74,4 +76,40 @@ public class InquiryCommentDAO {
 		
 		return x;
 	} //getListCount() 끝
+
+
+	public List<InquiryCommentBean> getIqList(int inquiry_id) { //댓글들 리스트 쭉 뽑아내는 메서드
+		List<InquiryCommentBean> list = new ArrayList<InquiryCommentBean>();
+		
+		String sql = """
+				select * from inquiry_comment
+				where inquiry_id = ?
+				""";
+
+		try (Connection con = ds.getConnection(); 
+			PreparedStatement pstmt = con.prepareStatement(sql)){
+			pstmt.setInt(1, inquiry_id);
+			
+			try(ResultSet rs = pstmt.executeQuery()){
+				while (rs.next()) {
+					InquiryCommentBean ic = new InquiryCommentBean();
+					ic.setI_comment_id(rs.getInt("i_comment_id"));
+					ic.setInquiry_id(rs.getInt("inquiry_id"));
+					ic.setWriter(rs.getInt("writer"));
+					ic.setContent(rs.getString("content"));
+					ic.setRegister_date(rs.getString("register_date"));
+					list.add(ic);
+				}
+			}
+		} catch(Exception ex) {
+			ex.printStackTrace();
+			System.out.println("getIqList() 에러" + ex);
+		}
+		
+		return list;
+	} //getIqList() 끝
+	
+	
+	
+	
 }
