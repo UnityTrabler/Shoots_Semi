@@ -145,5 +145,28 @@ public class UserDAO {
 		
 		return result;
 	}
+	public int getBusinessUserIdx(String id) {
+		String sql = """
+				select business_idx
+				from business_user
+				where business_id = ?
+				""";
+		int result = 0;
+		
+		try(Connection con = ds.getConnection(); 
+				PreparedStatement pstmt = con.prepareStatement(sql);) {
+			pstmt.setString(1, id);
+			try(ResultSet rs = pstmt.executeQuery();){
+				if(rs.next()) 
+					result = rs.getInt(1);
+				else 
+					System.err.println("ID not found in the database.");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return result;
+	}
 
 }

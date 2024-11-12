@@ -26,16 +26,50 @@
 				$("#id").val(id);
 				$("#remember").prop('checked', true);
 			}
-		});
+			
+			$('#btnRegular').click(function() {
+				$(this).addClass('btn-success');
+				$(this).siblings().removeClass('btn-success');
+			});
+			$('#btnBusiness').click(function() {
+				$(this).addClass('btn-success');
+				$(this).siblings().removeClass('btn-success');
+			});
+			
+		/* 	$('form[name="loginform"]').submit(function(e) {
+				e.preventDefault();
+				const data = $(this).serialize();
+			 	$('#btnGroupRB').find('.btn-success').first().attr('id') == 'btnRegular'
+				ajax(`${data}`, `loginProcess`);
+			}); */
+			
+		});//ready
+		
+		function ajax(sdata, surl) {
+			$.ajax({
+				url : surl,
+				data : sdata,
+				type : 'POST',
+				dataType : "json",
+				success : function(data){
+					console.log('ajax success');
+					window.location.href = "${pageContext.request.contextPath}/home";
+				},
+				error:function(){
+					console.log('ajax error');
+				}
+			});
+		}
+		
     </script>
 </head>
 <body class="container">
     <jsp:include page="top.jsp"></jsp:include>
-    <form action="${pageContext.request.contextPath}/user/loginProcess" method="post">
+    <form action="${pageContext.request.contextPath}/user/loginProcess" method="post" name="loginform">
     
-    	<div class="d-flex justify-content-center align-items-center">
-			<button id="btnRegular" class="btn btn-secondary mb-5 mr-5" style="width:100px; height:60px; border-radius: 40px">개인</button>
-			<button class="btn btn-secondary mb-5" style="width:100px; height:60px; border-radius: 40px">기업</button>
+    	<div id="btnGroupRB" class="d-flex justify-content-center align-items-center">
+			<button type="button" id="btnRegular" class="btn btn-secondary mb-5 mr-5" style="width:100px; height:60px; border-radius: 40px">개인</button>
+			<button type="button" id="btnBusiness" class="btn btn-secondary mb-5" style="width:100px; height:60px; border-radius: 40px">기업</button>
 		</div>
     
         <h1 class="text-center">Login</h1>

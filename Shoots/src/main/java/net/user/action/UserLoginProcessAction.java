@@ -18,6 +18,7 @@ public class UserLoginProcessAction implements Action {
 		String id = req.getParameter("id");
 		String pwd = req.getParameter("pwd");
 		UserDAO userDAO = new UserDAO();
+		
 		int result = userDAO.isId(id, pwd);
 		
 		if(result == 1) {
