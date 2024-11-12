@@ -85,3 +85,17 @@ ORDER BY p.register_date DESC;
 
 
 select * from post;
+
+
+
+select * from (
+		SELECT ROWNUM rnum, post_id, writer, category, title, content, post_file, price, register_date, readcount, user_id
+		from(
+				SELECT p.*, r.user_id
+				FROM post p
+				INNER JOIN regular_user r ON p.writer = r.idx
+				WHERE p.category = 'A'
+				ORDER BY p.register_date DESC
+				)
+				where rownum <= 10
+			) where rnum >= 1;

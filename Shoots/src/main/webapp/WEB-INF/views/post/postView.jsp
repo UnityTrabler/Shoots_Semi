@@ -48,7 +48,7 @@
 					
 				<%-- 파일을 첨부한 경우 --%>
 			<c:if test="${!empty postdata.post_file}">
-				<td><img src="${pageContext.request.contextPath}/img/down.png" width="10px">
+				<td><img src="${pageContext.request.contextPath}/postupload/${postdata.post_file}" width="400px">
 				<a href="down?filename=${postdata.post_file}">${postdata.post_file}</a>
 			</c:if>
 			

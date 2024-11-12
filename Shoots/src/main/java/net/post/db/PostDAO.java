@@ -54,15 +54,23 @@ private DataSource ds;
 		// limit : 페이지 당 목록의 수
 			
 		String post_list_sql = """
+				select * from (
+		SELECT ROWNUM rnum, post_id, writer, category, title, content, post_file, price, register_date, readcount, user_id
+		from(
 				SELECT p.*, r.user_id
 				FROM post p
 				INNER JOIN regular_user r ON p.writer = r.idx
 				WHERE p.category = ?
 				ORDER BY p.register_date DESC
+				)
+				where rownum <= ?
+			) where rnum >= ?
 				
 			""";
 		//limit ? offset ?
-		
+		//페이지 1: LIMIT 10 OFFSET 0 → 0부터 10개 게시글을 가져옴
+		//페이지 2: LIMIT 10 OFFSET 10 → 10부터 10개 게시글을 가져옴
+
 		/*
 		  
 		  SELECT p.*, r.user_id
@@ -75,22 +83,26 @@ private DataSource ds;
 		*/
 		
 		List<PostBean> list = new ArrayList<PostBean>();
-			
+		
+		//한 페이지당 10개씩 목록인 경우 1페이지, 2, 3, 4페이지...
+				int startrow = (page - 1) * limit + 1; //읽기 시작할 row 번호 (1 11 1 31 ...
+				int endrow = startrow + limit - 1; // 읽을 마지막 row 번호 (10 20 30 40 ...
+				
+				
 		try (Connection con = ds.getConnection();
 				 PreparedStatement pstmt = con.prepareStatement(post_list_sql);) {
 			
 			
 //	        int startRow = (page - 1) * limit; // 시작 행 계산
-			pstmt.setString(1, category); // 카테고리와 페이지, 한 페이지에 보여줄 게시글 수를 세팅
+//			pstmt.setString(1, category); // 카테고리와 페이지, 한 페이지에 보여줄 게시글 수를 세팅
 //	        pstmt.setInt(2, startRow);  // 시작 위치
 //	        pstmt.setInt(3, limit);     // 페이지 당 보여줄 게시글 수
 	        
-			/*
-			 int startRow = (page - 1) * limit; // 시작 행 계산
+			
 		        pstmt.setString(1, category); 
-		        pstmt.setInt(2, page * limit);
-		        pstmt.setInt(3, startRow);
-			 */
+		        pstmt.setInt(2, endrow);
+				pstmt.setInt(3, startrow);
+			 
 			
 				try (ResultSet rs = pstmt.executeQuery()) {
 					
@@ -106,6 +118,7 @@ private DataSource ds;
 		                post.setPrice(rs.getInt("price"));
 						post.setRegister_date(rs.getString("REGISTER_DATE"));
 						post.setReadcount(rs.getInt("READCOUNT"));
+						post.setUser_id(rs.getString("user_id"));
 						
 						list.add(post); // 값을 담은 객체를 리스트에 저장합니다.
 					}

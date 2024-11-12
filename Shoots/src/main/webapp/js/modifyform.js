@@ -80,7 +80,8 @@
 	});
 		
         
-		
+		// 파일첨부를 변경하지 않으면 $('#filevalue').text()의 파일명을
+		// 파라미터 'check'라는 이름으로 form에 추가하여 전송합니다.
 		if(check == 0){
 			const value = $('#filevalue').text();
 			const html = `<input type='hidden' value='${value}' name='check'>`;

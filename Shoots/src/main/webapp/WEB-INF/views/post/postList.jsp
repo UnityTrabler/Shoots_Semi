@@ -9,7 +9,7 @@
     <title>게시판</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
     <script src="${pageContext.request.contextPath}/js/list.js"></script>
-    
+    <script src="${pageContext.request.contextPath}/js/jquery-3.7.1.js"></script>
     
     
     
@@ -19,10 +19,10 @@
         <!-- 카테고리 선택 탭 -->
         <ul class="nav nav-tabs" id="categoryTab" role="tablist">
             <li class="nav-item">
-                <a class="nav-link active" id="tabA" data-toggle="tab" href="#A" role="tab" onclick="switchCategory('A')">자유 게시판 (A)</a>
+                <a class="nav-link active" id="tabA" data-toggle="tab" href="#A" role="tab" onclick="switchCategory('A')">자유 게시판</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" id="tabB" data-toggle="tab" href="#B" role="tab" onclick="switchCategory('B')">중고 게시판 (B)</a>
+                <a class="nav-link" id="tabB" data-toggle="tab" href="#B" role="tab" onclick="switchCategory('B')">중고 게시판</a>
             </li>
         </ul>
 
@@ -59,6 +59,11 @@
                     </thead>
                     <tbody></tbody>
                 </table>
+                
+                
+               
+                
+                
             </div>
         </div>
 

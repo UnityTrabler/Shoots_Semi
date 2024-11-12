@@ -52,35 +52,37 @@
                 var row = $('<tr>');
                 row.append('<td>' + post.post_id + '</td>');
                 row.append('<td><a href="detail?num=' + post.post_id + '">' + (post.title.length > 20 ? post.title.substring(0, 20) + '...' : post.title) + '</a></td>');
-                row.append('<td>' + post.user_id + '</td>');
+                row.append('<td>' + post.writer + '</td>');
                 row.append('<td>' + post.register_date + '</td>');
                 row.append('<td>' + post.readcount + '</td>');
                 
                 // 중고게시판(카테고리B)의 경우 -> 파일첨부(미리보기),가격 추가
                 if (category === 'B') {
-		        	// 게시글에 첨부파일이 있을 경우 이미지 미리보기 표시
-			        if (post.post_file) {
-			            // 이미지를 미리보기로 표시 //uploads/
-		            	const pathname = "/" + window.location.pathname.split("/")[1] + "/";
-						const origin = window.location.origin;
-						const contextPath = origin + pathname;
-						
-			            var imageUrl = contextPath + 'postupload/' + post.post_file;  // 파일이 저장된 경로
-			            //console.log('이미지 경로:', imageUrl); //콘솔로 확인
-			            
-			            // 파일 경로에 특수문자가 포함되어 있을 경우 인코딩 처리
-	           		 	imageUrl = encodeURIComponent(imageUrl);
-			            
-			            // 이미지를 미리보기로 표시
-			            var imgPreview = $('<img>').attr('src', decodeURIComponent(imageUrl))
-										           .attr('alt', '.')
-										           .css({'max-width':'100px','max-height': '100px', 'object-fit': 'cover'});
-			            // 이미지 태그를 테이블 셀에 추가
-			            row.append('<td>' + imgPreview[0].outerHTML + '</td>');
-			        }
+		        
+		        // 게시글에 첨부파일이 있을 경우 이미지 미리보기 표시
+		        if (post.post_file) {
+		            // 이미지를 미리보기로 표시 //uploads/
+	            	const pathname = "/" + window.location.pathname.split("/")[1] + "/";
+					const origin = window.location.origin;
+					const contextPath = origin + pathname;
+					
+		            var imageUrl = contextPath + 'postupload/' + post.post_file;  // 파일이 저장된 경로
+		            //console.log('이미지 경로:', imageUrl); //콘솔로 확인
 		            
+		            // 파일 경로에 특수문자가 포함되어 있을 경우 인코딩 처리
+           		 	imageUrl = encodeURIComponent(imageUrl);
+		            
+		            // 이미지를 미리보기로 표시
+		            var imgPreview = $('<img>').attr('src', decodeURIComponent(imageUrl))
+									           .attr('alt', '.')
+									           .css({'max-width':'100px','max-height': '100px', 'object-fit': 'cover'});
+		            // 이미지 태그를 테이블 셀에 추가
+		            row.append('<td>' + imgPreview[0].outerHTML + '</td>');
+		        }
+		         
+		            // 첨부파일이 없으면 빈 칸
 		        else 
-		            row.append('<td></td>'); // 첨부파일이 없으면 빈 칸
+		            row.append('<td></td>');
 		         
 		        // 카테고리 B일 경우 추가로 가격 표시
                     row.append('<td>' + post.price + '</td>');

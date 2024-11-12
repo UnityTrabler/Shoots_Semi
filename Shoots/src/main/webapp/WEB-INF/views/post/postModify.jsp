@@ -19,7 +19,7 @@
   <form action="modifyProcess" method="post" name="modifyform"
   		enctype="multipart/form-data">
   		<input type="hidden" name="post_id" value="${postdata.post_id}">
-  		
+  		 <input type="hidden" name="existing_file" value="${postdata.post_file}"> <!-- 기존 첨부파일명 전달 -->
   		
   	<h1>게시판 - 수정</h1>
   	
@@ -35,8 +35,6 @@
   	
   	
   	 --%>
-  	
-  	
   	<div class="form-group">
   		<label for="writer">작성자</label>
   		<input type="text" class="form-control" name="writer" id ="writer"
@@ -91,7 +89,7 @@
   		 <img src="${pageContext.request.contextPath}/img/attach.png" alt="파일첨부" width="20px"> 
   		 <input type="file" id="upfile" name="post_file">
   		</label>
-  		<span id="filevalue">${postdata.post_file}</span>
+  		<span id="filevalue">${postdata.post_file}</span> <!-- 기존 파일명 출력 -->
   		<img src="${pageContext.request.contextPath}/img/remove.png"
   			 alt="파일삭제" width="10px" class="remove">
   	</div>
