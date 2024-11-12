@@ -31,19 +31,19 @@
 					<textarea rows="5" readOnly>${nb.content}</textarea></td>
 			</tr>
 			
-			<tr>
-				<td><div>첨부파일</div></td>
-					
+			<tr>	
 				<%--파일을 첨부한 경우 --%>
 				<c:if test="${!empty nb.notice_file}">
-					<td colspan='2'><img src="${pageContext.request.contextPath}/img/down.png" width="10px" id="downImg">
+					<td colspan='2'>첨부파일&nbsp;&nbsp;&nbsp;<img src="${pageContext.request.contextPath}/img/down.png" width="10px" id="downImg" >
 						<a href="down?filename=${nb.notice_file}">${nb.notice_file}</a></td>
 				</c:if>
 				
 				<%--파일을 첨부하지 않은 경우 --%>
 				<c:if test="${empty nb.notice_file}">
-					<td colspan='2'></td>
+					<td colspan='2'>첨부파일</td>
 				</c:if>
+				
+				<td></td>
 			</tr>
 			
 			<tr>

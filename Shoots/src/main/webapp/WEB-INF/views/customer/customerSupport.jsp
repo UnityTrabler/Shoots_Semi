@@ -28,7 +28,6 @@
 		<div id="tab3" class="tabcontent">
  			
 		</div>
-
 	</div>
 <script src="${pageContext.request.contextPath}/js/customerJS/CustomerSupport.js"></script>
 </body>
