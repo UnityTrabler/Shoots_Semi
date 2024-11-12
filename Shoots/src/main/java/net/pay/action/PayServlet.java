@@ -24,6 +24,8 @@ public class PayServlet implements Action {
 		String userEmail = (String) session.getAttribute("email");
 		String userTel = (String) session.getAttribute("tel");
 		
+		System.out.println(userName + userEmail + userTel);
+		
 	    req.setAttribute("matchId", matchId);
 	    req.setAttribute("price", price);
 	    req.setAttribute("seller", seller);

@@ -76,12 +76,12 @@ public class MatchDAO {
 		String sql = """
 				select * from 
 					(select rownum rnum, j.*
-						from (SELECT mp.*, b.business_name
-			                	FROM match_post mp
-			                	JOIN business_user b ON mp.writer = b.business_idx
-								AND EXTRACT(YEAR FROM mp.match_date) = ?
-			                	AND EXTRACT(MONTH FROM mp.match_date) = ?
-								ORDER BY mp.match_date DESC) j 
+						from (select mp.*, b.business_name
+			                	from match_post mp
+			                	join business_user b on mp.writer = b.business_idx
+								and EXTRACT(YEAR from mp.match_date) = ?
+			                	and EXTRACT(MONTH from mp.match_date) = ?
+								order by mp.match_date desc, mp.match_time desc) j 
 					where rownum <= ?)
 				where rnum >= ? and rnum <= ?
 	            """;
@@ -264,6 +264,39 @@ public class MatchDAO {
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println("getMatchListById() 에러 : " + e);
+		}
+		return list;
+	}
+
+	public List<MatchBean> getAfterMatchList() {
+		String sql = """
+				select * from match_post 
+				where match_date = TO_CHAR(SYSDATE, 'YYYY-MM-DD')
+				order by match_time ASC
+				""";
+		List<MatchBean> list = new ArrayList<>();
+		
+		try (Connection con = ds.getConnection();
+				PreparedStatement pstmt = con.prepareStatement(sql);) {
+			try (ResultSet rs = pstmt.executeQuery()) {
+				while (rs.next()) {
+					MatchBean match = new MatchBean();
+					
+					match.setMatch_id(rs.getInt("match_id"));
+					match.setWriter(rs.getInt("writer"));
+					match.setMatch_date(rs.getString("match_date"));
+					match.setMatch_time(rs.getString("match_time"));
+					match.setPlayer_max(rs.getInt("player_max"));
+					match.setPlayer_min(rs.getInt("player_min"));
+					match.setPlayer_gender(rs.getString("player_gender"));
+					match.setPrice(rs.getInt("price"));
+					
+					list.add(match);
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("getAfterMatchList() 에러 : " + e);
 		}
 		return list;
 	}

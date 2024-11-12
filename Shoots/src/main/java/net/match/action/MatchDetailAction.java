@@ -9,6 +9,7 @@ import net.core.Action;
 import net.core.ActionForward;
 import net.match.db.MatchBean;
 import net.match.db.MatchDAO;
+import net.pay.db.PaymentBean;
 import net.pay.db.PaymentDAO;
 
 public class MatchDetailAction implements Action {
@@ -23,13 +24,15 @@ public class MatchDetailAction implements Action {
 		int matchId = Integer.parseInt(request.getParameter("match_id"));
 		Integer idx = (Integer) request.getSession().getAttribute("idx"); 
 		
-		boolean isLogIn = (idx != null);
-		
 		MatchBean match = dao.getDetail(matchId);
+		
+		boolean isLogIn = (idx != null);
 		boolean isPaid = false;
 		
 		int playerCount = pdao.getPaymentCountById(match.getMatch_id());
 		
+		PaymentBean payment = pdao.getPaymentInfoById(idx, matchId);
+	
 		if (isLogIn) {
 			isPaid = pdao.checkPayment(matchId, idx);
 		}
@@ -46,6 +49,7 @@ public class MatchDetailAction implements Action {
 			request.setAttribute("match", match);
 			request.setAttribute("isPaid", isPaid);
 			request.setAttribute("playerCount", playerCount);
+			request.setAttribute("payment", payment);
 			forward.setPath("/WEB-INF/views/match/matchDetail.jsp");
 		}
 		forward.setRedirect(false);

@@ -45,6 +45,9 @@ private static final long serialVersionUID = 1L;
 			case "/addPayment" :
 				action = new PayAddPaymentServlet();
 				break;
+			case "/refund" :
+				action = new PayRefundServlet();
+				break;
 			
 			default:
 					RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB_INF/views/error/error404.jsp");
