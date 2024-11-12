@@ -47,6 +47,13 @@ public class PostDetailAction implements Action {
 			forward.setPath("/WEB-INF/views/error/error.jsp");
 		} else {
 			System.out.println("상세보기 성공");
+			
+			// 첨부파일 경로 추가 (중고 게시판일 경우)
+            if (postdata.getCategory().equals("B") && postdata.getPost_file() != null) {
+                String filePath = "/postupload/" + postdata.getPost_file();  // 파일 경로
+                request.setAttribute("filePath", filePath);  // JSP로 전달
+            }
+			
 			//boarddata 객체를 request 객체에 저장합니다.
 			request.setAttribute("postdata", postdata);
 			//글 내용 보기 페이지로 이동하기 위해 경로

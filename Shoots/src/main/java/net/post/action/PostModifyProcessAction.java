@@ -38,50 +38,37 @@ public class PostModifyProcessAction implements Action {
 			
 			int num = Integer.parseInt(multi.getParameter("post_id"));
 			
-			
-//			// 글쓴이 인지 확인하기 위해 저장된 비밀번호와 입력한 비밀번호를 비교합니다.
-//			boolean usercheck = postdao.isPostWriter(num, pass);
-//			
-//			// 비밀번호가 다른 경우
-//			if (!usercheck) {
-//				response.setContentType("text/html;charset=utf-8");
-//				PrintWriter out = response.getWriter();
-//				out.print("<script>");
-//				out.print("alert('비밀번호가 다릅니다.');");
-//				out.print("history.back();");
-//				out.print("</script>");
-//				out.close();
-//				return null;
-//			}
-			
 			// 폼 데이터 처리
 			// BoardBean 객체에 글 등록 폼에서 입력 받은 정보들을 저장합니다.
 			postdata.setPost_id(num);
             String category = multi.getParameter("category");  // 카테고리 값(A 또는 B)
-        	postdata.setCategory(category);
+        	//postdata.setCategory(category);
             postdata.setCategory(multi.getParameter("category"));
 			postdata.setTitle(multi.getParameter("title"));
 			postdata.setWriter(Integer.parseInt(multi.getParameter("writer")));
 			postdata.setContent(multi.getParameter("content"));
-			 // 중고게시판(B)인 경우 가격 받기
-			 if ("B".equals(category)) {
-	              //price = Integer.parseInt(request.getParameter("price"));
-	              //postdata.setPrice(price);
-	              postdata.setPrice(Integer.parseInt(multi.getParameter("price")));
-	          } else {
-	          	postdata.setPrice(0);
-	          }
-			//postdata.setPrice(Integer.parseInt(multi.getParameter("price")));
-			String check = multi.getParameter("check");
-			System.out.println("check=" + check);
-			if (check != null) {
-				postdata.setPost_file(check);
-			} else {
-				// 업로드된 파일의 시스템 상에 업로드된 실제 파일명을 얻어 옵니다.
-				String fillename = multi.getFilesystemName("post_file");
-				postdata.setPost_file(fillename);
-			}
 			
+			 // 중고게시판(B)인 경우 가격 받기
+            String priceParam = multi.getParameter("price");
+            if (priceParam != null && !priceParam.trim().isEmpty()) {
+                postdata.setPrice(Integer.parseInt(priceParam));
+            } else {
+                postdata.setPrice(0); // 가격이 없으면 0으로 처리
+            }
+			 
+			 
+            // 기존 첨부파일 처리: 새 파일이 업로드되지 않으면 기존 파일을 유지
+            String newFileName = multi.getFilesystemName("post_file");  // 새로 업로드된 파일명
+            if (newFileName != null) {
+                postdata.setPost_file(newFileName);  // 새 파일이 있으면 새 파일명을 설정
+            } else {
+                String existingFile = multi.getParameter("existing_file");  // 기존 파일명
+                if (existingFile != null && !existingFile.isEmpty()) {
+                    postdata.setPost_file(existingFile);  // 기존 파일이 있으면 그대로 사용
+                }
+            }
+         			
+         			
 			//DAO에서 수정 메서드 호출하여 수정합니다.
 			boolean result = postdao.postModify(postdata);
 			
