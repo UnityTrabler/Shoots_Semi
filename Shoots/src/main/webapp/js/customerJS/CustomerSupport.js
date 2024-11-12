@@ -46,7 +46,7 @@ function loadfaq(pageName, elmnt){
 
 function loadnotice(pageName, elmnt){
   var xhr = new XMLHttpRequest();
-  xhr.open('GET', '../notice/noticeList', true);
+  xhr.open('GET', '../customer/notice', true);
   // Hide all elements with class="tabcontent" by default */
   var i, tabcontent, tablinks;
   tabcontent = document.getElementsByClassName("tabcontent");
@@ -125,7 +125,112 @@ function loadinquiry(pageName, elmnt){
   
 }
 
-
-
 // Get the element with id="defaultOpen" and click on it
 document.getElementById("defaultOpen").click();
+
+
+//pagination
+let isRequestInProgress = false;
+
+function go(page) {
+	if(isRequestInProgress) return;
+	
+	const searchWord = $("input[name='search_word']").val();
+	const limit = 10;
+	const data = {limit : limit, state : "ajax", page : page, search_word: searchWord};
+	ajax(data);
+}
+
+function setPaging (href, digit, isActive = false) {
+	const gray = (href === "" && isNaN(digit)) ? "gray" : "";
+	const active = isActive ? "active" : "";
+	const anchor = `<a class = "page-link ${gray}" ${href}>${digit}</a>`;
+	return `<li class = "page-item ${active}">${anchor}</li>`;
+}
+
+function generatePagination(data) {
+	let output = "";
+	
+	let prevHref = data.page > 1 ? `href=javascript:go(${data.page - 1})` : "";
+	output += setPaging(prevHref, '&lt;&lt;');
+	
+	for (let i = data.startpage; i <= data.endpage; i++) {
+		const isActive = (i === data.page);
+		let pageHref = !isActive ? `href=javascript:go(${i})` : "";
+		  
+		output += setPaging(pageHref, i, isActive); 
+	}
+	
+	let nextHref = (data.page < data.maxpage) ? `href=javascript:go(${data.page + 1})` : "";
+	output += setPaging(nextHref, '&gt;&gt;' );
+	
+	$(".pagination").empty().append(output);
+}
+
+//검색했을 때 나타나는 정보 추가해야 함
+function updateNoticeList(data) {
+	let output = "<tbody>";
+	
+	$(data.totallist).each(function(index, item){
+				output += `
+                	<tr>
+						<td>${item.name}</td>
+						<td>
+						<a href="notice/detail?id=${item.notice_id}" class="noticeDetail">${item.title}</a>
+						</td>
+						<td>${item.register_date }</td>
+						<td>${item.readcount }</td>
+					</tr>
+            	`;
+	});
+	output += "</tbody>";
+	
+	$('table').append(output);
+	
+	 generatePagination(data);
+}
+
+function ajax(sdata) {
+	console.log(sdata);
+	
+	$.ajax({
+		data : sdata,
+		url : "/Shoots/customer/notice",
+		dataType : "json",
+		cache : false, 
+		success : function(data){
+			console.log(data);
+			if (data.listcount > 0) {
+				$("thead").show();
+				$("tbody").remove();
+				updateNoticeList(data);
+				generatePagination(data);
+			} else {
+				$("thead").hide();
+				$("tbody").remove();
+				$(".pagination").empty();
+				$("table").append("<tbody><tr><td colspan='5' style='text-align: center;'>등록된 공지가 없습니다</td></tr></tbody>");
+			}
+		},
+		error : function() {
+			console.log("에러");
+			$("thead").hide();
+			$("tbody").remove();
+    		$(".pagination").empty();
+    		$("table").append("<tbody><tr><td colspan='5' style='text-align: center;'>데이터를 불러오는 중 오류가 발생했습니다. 다시 시도해주세요.</td></tr></tbody>");
+		}
+	});
+}
+
+$("form[action='support']").submit(function(e) {
+    e.preventDefault(); // Prevent default form submission
+    const searchWord = $("input[name='search_word']").val();
+    const data = { 
+        limit: 10, 
+        state: "ajax", 
+        page: 1, // Reset to page 1 for new search
+        search_word: searchWord 
+    };
+    ajax(data); // Fetch the updated list based on search
+});
+

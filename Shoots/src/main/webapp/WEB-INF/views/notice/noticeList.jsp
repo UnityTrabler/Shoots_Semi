@@ -12,79 +12,74 @@
 	<script src="${pageContext.request.contextPath}/js/jquery-3.7.1.js"></script>
 	<link rel = "stylesheet" href = "${pageContext.request.contextPath}/css/noticeList.css" type = "text/css">
 	<link rel = "stylesheet" href = "${pageContext.request.contextPath}/css/pagination.css" type = "text/css">
-	
+
 </head>
 <body>
-	
-		<c:if test="${listcount > 0 }">	
-			<!--검색 form action="notice"를 submit을 통해 이동하는 것이 아닌 onclick으로 js에서 실행되게 합니다 
-			 -->
-			<form action="notice" method="post">
-				<div class="input-group">
-					<input type="submit" value="SEARCH" class="Sbtn">&nbsp;
-					<input name="search_word" type="text" class="search"
-						placeholder="  Search..." value="${search_word}">
-				</div>
-			</form>
-			
-			<table class="table">
-				<caption>공지사항</caption>
-				<thead>
+	<c:if test="${listcount > 0 }">	
+		<!-- 함수로 받아 js문에 넘긴다 -->
+		<form action="support" method="post">
+			<div class="input-group">
+				<input type="submit" value="SEARCH" class="Sbtn">&nbsp;
+				<input name="search_word" type="text" class="search"
+					placeholder="  Search..." value="${search_word}">
+			</div>
+		</form>
+		
+		<table class="table">
+			<caption>공지사항</caption>
+			<thead>
+				<tr>
+					<th>작성자</th>
+					<th>제목</th>
+					<th>작성일</th>
+					<th>조회수</th>
+				</tr>
+			</thead>
+				
+			<tbody>
+				<c:forEach var="notice" items="${totallist}">
 					<tr>
-						<th>작성자</th>
-						<th>제목</th>
-						<th>작성일</th>
-						<th>조회수</th>
-					</tr>
-				</thead>
-				
-				<tbody>
-					<c:forEach var="notice" items="${totallist}">
-						<tr>
-							<td>${notice.name}</td>
-							<td>
+						<td>${notice.name}</td>
+						<td>
 							<a href="notice/detail?id=${notice.notice_id}" class="noticeDetail">${notice.title}</a>
-							</td>
-							<td>${notice.register_date }</td>
-							<td>${notice.readcount }</td>
-						</tr>
-					</c:forEach>
-				</tbody>
-				
-			</table>
-		</c:if>
-		
-		<%-- 게시글이 없는 경우 --%>
-		<c:if test="${listcount == 0 }">
-			<h3 style="text-align:center">등록된 글이 없습니다.</h3>
-		</c:if>
-		
-		<%--페이징 --%>
-		<div class = "center-block">
-			<ul class = "pagination justify-content-center">
-				<li class = "page-item">
-					<a ${page > 1 ? 'href = noticeList?page=' += (page - 1) : '' }
-						class = "page-link ${page <= 1 ? 'gray' : '' }">
-						&lt;&lt;
-					</a>
-				</li>
-				<c:forEach var = "a" begin = "${startpage}" end = "${endpage}">
-					<li class = "page-item ${a == page ? 'active' : '' }">
-						<a ${a == page ? '' : 'href = noticeList?page=' += a }
-							class = "page-link">${a}</a>
-					</li>
+						</td>
+						<td>${notice.register_date }</td>
+						<td>${notice.readcount }</td>
+					</tr>
 				</c:forEach>
-				<li class = "page-item">
-					<a ${page < maxpage ? 'href = noticeList?page=' += (page + 1) : '' }
-						class = "page-link" ${page >= maxpage ? 'gray' : '' }">
-						&gt;&gt;
-					</a>
+			</tbody>
+				
+		</table>
+	</c:if>
+		
+	<%-- 게시글이 없는 경우 --%>
+	<c:if test="${listcount == 0 }">
+		<h3 style="text-align:center">등록된 글이 없습니다.</h3>
+	</c:if>
+		
+	<%--페이징 --%>
+	<div class = "center-block">
+		<ul class = "pagination justify-content-center">
+			<li class = "page-item">
+				<a ${page > 1 ? 'href = notice?page=' += (page - 1) : '' }
+					class = "page-link ${page <= 1 ? 'gray' : '' }">
+					&lt;&lt;
+				</a>
+			</li>
+			<c:forEach var = "a" begin = "${startpage}" end = "${endpage}">
+				<li class = "page-item ${a == page ? 'active' : '' }">
+					<a ${a == page ? '' : 'href = notice?page=' += a }
+						class = "page-link">${a}</a>
 				</li>
-			</ul>
-		</div>
-			<%--페이징 끝 --%>
-	
-	
-	
+			</c:forEach>
+			<li class = "page-item">
+				<a ${page < maxpage ? 'href = notice?page=' += (page + 1) : '' }
+					class = "page-link ${page >= maxpage ? 'gray' : '' }">
+					&gt;&gt;
+				</a>
+			</li>
+		</ul>
+	</div>
+	<%--페이징 끝 --%>
 </body>
 </html>

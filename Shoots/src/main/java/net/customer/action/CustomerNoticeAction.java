@@ -25,7 +25,7 @@ public class CustomerNoticeAction implements Action {
 		NoticeDAO dao = new NoticeDAO();
 		
 		List<NoticeBean> list = new ArrayList<NoticeBean>();
-		req.getSession().setAttribute("referer", "noticelist");
+		req.getSession().setAttribute("referer", "notice");
 		
 		int page = 1;
 		int limit = 10;
@@ -86,7 +86,7 @@ public class CustomerNoticeAction implements Action {
 			req.setAttribute("search_word", search_word);
 			
 			forward.setRedirect(false);
-			forward.setPath("/WEB-INF/views/notice/noticeList2.jsp");
+			forward.setPath("/WEB-INF/views/customer/noticeList.jsp");
 			return forward;
 		} else {
 			System.out.println("state = ajax");
@@ -99,6 +99,7 @@ public class CustomerNoticeAction implements Action {
 			object.addProperty("endpage", endpage);
 			object.addProperty("listcount", listcount);
 			object.addProperty("limit", limit);
+			object.addProperty("search_word", search_word);
 			
 			// JsonObject에 List 형식을 담을 수 있는 addProperty() 는 존재하지 않음
 			/* void com.google.gson.JsonObject.add(String property, JsonElement value) 메서드
@@ -106,8 +107,8 @@ public class CustomerNoticeAction implements Action {
 			
 			// List -> JsonElement
 			JsonElement je = new Gson().toJsonTree(list);
-			System.out.println("noticeList = " + je.toString());
-			object.add("noticeList", je);
+			System.out.println("totallist = " + je.toString());
+			object.add("totallist", je);
 			
 			resp.setContentType("application/json;charset=utf-8");
 			resp.getWriter().print(object);

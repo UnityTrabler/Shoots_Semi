@@ -16,8 +16,8 @@ public class CustomerFrontController extends HttpServlet{
 
 	private static final long serialVersionUID = 1L;
 	
-	protected void doProcess(HttpServletRequest request, 
-			HttpServletResponse response) throws ServletException, IOException{
+	protected void doProcess(HttpServletRequest request, HttpServletResponse response) 
+			throws ServletException, IOException{
 		
 		String RequestURI = request.getRequestURI();
 		System.out.println("RequestURI = " + RequestURI );
@@ -34,9 +34,6 @@ public class CustomerFrontController extends HttpServlet{
 		switch (command) {
 			case "/support":
 				action = new CustomerSupportAction();
-				break;
-			case "/faq":
-				action = new CustomerFaqAction();
 				break;
 			case "/notice":
 				action = new CustomerNoticeAction();
