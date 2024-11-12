@@ -25,7 +25,7 @@
 			<h1>1:1 문의글 수정</h1>		
 			<div class="form-group">
 				<label for ="inquiry_ref_idx">문의자</label>
-				<input value="${inquirydata.inquiry_ref_idx}" type="text" 
+				<input value="${inquirydata.user_id}" type="text" 
 				class="form-control" readOnly>
 			</div>
 			

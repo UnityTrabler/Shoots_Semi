@@ -20,10 +20,10 @@ public class InquiryModifyAction implements Action {
 		InquiryDAO inquirydao = new InquiryDAO();
 		
 		//파라미터로 전달받은 수정할 글 번호를 num변수에 저장함.
-		int num = Integer.parseInt(req.getParameter("num"));
+		int inquiryid = Integer.parseInt(req.getParameter("inquiryid"));
 		
 		//글 내용을 불러와서 boarddata 객체에 저장함.
-		InquiryBean inquirydata = inquirydao.getDetail(num);
+		InquiryBean inquirydata = inquirydao.getDetail(inquiryid);
 		
 		//글 내용 불러오기 실패한 경우.
 		if (inquirydata == null) {

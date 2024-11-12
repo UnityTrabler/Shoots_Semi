@@ -8,15 +8,15 @@
 <jsp:include page = "/WEB-INF/views/user/top.jsp"/>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/inquiry.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath }/css/view.css" type="text/css">
 
 <script src="${pageContext.request.contextPath }/js/jquery-3.7.1.js"></script>
+<script src="${pageContext.request.contextPath }/js/inquiryJs/inquirycommentM.js"></script>
 
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath }/css/view.css" type="text/css">
 </head>
 <body>
 
-	<input type="hidden" id="loginid" value="${inquiry_ref_idx}" name="loginid">
+<input type="hidden" value="${id}" id="loginid">  <!-- 수정 삭제 버튼 보이게 하려고 현재 로그인 한 유저의 id값을 받아놓음 -->
 	<%--view.js에서 사용하기 위해 추가 --%>
 	<div class="container">
 		<table class="table">
@@ -57,8 +57,9 @@
 			
 			<tr>
 				<td colspan="2" class="center">
-					<%--수정 삭제 완료시 원복 <c:if test="${inquirydata.inquiry_ref_idx ==id || id == 'admin' }"> --%>
-						<a href="modify?num=${inquirydata.inquiry_id}">
+					<%--수정, 삭제 버튼은 로그인 한 유저의 아이디 = 문의글 작성자 일때 혹은 id가 관리자 일때만 보이게 함 --%>
+					<c:if test="${inquirydata.inquiry_ref_idx == idx || id == 'admin' }">
+						<a href="modify?inquiryid=${inquirydata.inquiry_id}">
 							<button class="btn btn-info">수정</button>
 						</a>
 						<%--href의 주소를 #으로 설정함. --%>
@@ -66,7 +67,7 @@
 							<button class="btn btn-danger" data-toggle="modal"
 								data-target="#myModal" id="inquiryDelete">삭제</button>
 						</a>
-					<%--수정 삭제 완료시 원복 </c:if>   --%>
+					</c:if>
 						<a href="list">
 							<button class="btn btn-warning">목록</button>
 						</a>
@@ -84,9 +85,14 @@
         <c:if test="${!empty iqlist}">
             <c:forEach var="ic" items="${iqlist}">
                 <div class="ic">
+                	<input type="hidden" value="${ic.i_comment_id}" class="ic-num">
                 	<img src ="${pageContext.request.contextPath}/img/profile.png" alt="프로필" width="60" height="48">
-                    <p><strong>작성자:</strong> ${ic.writer} <strong>등록일:</strong> ${ic.register_date.substring(0,16)}</p>
-                    <input type = "text" value="${ic.content}" readonly maxlength="300">
+                	<input type="hidden" value="${ic.user_id}" class="iqcomment-writer">
+                    <p><strong>작성자:</strong> ${ic.user_id} <strong>등록일:</strong> ${ic.register_date.substring(0,16)}
+                    <button type="button" class="btn btn-primary ic-modify" style="display:none">수정</button>
+                    <button type="button" class="btn btn-danger ic-delete" style="display:none">삭제</button>
+                    </p>
+                    <span>${ic.content}</span>
                 </div>
                 <hr>
             </c:forEach>
@@ -111,8 +117,8 @@
 		<img src ="${pageContext.request.contextPath}/img/profile.png" alt="프로필" width="60" height="48">
 		
 		<div class="nickname">
-		<input type="hidden" class ="nickname" name="writer" value="${id}"> <!-- 댓글 작성자의 로그인id :int형 -->
-		<span class="nickname">${inquirydata.user_id}</span>  <!-- 댓글 작성자의 닉네임 : 유저 닉네임 -->
+		<input type="hidden" class ="nickname" name="writer" value="${idx}"> <!-- 댓글 작성자의 로그인id :int형, idx 가져옴. -->
+		<span class="nickname">${id}</span>  <!-- 댓글 작성자의 닉네임 : 로그인 한 유저 닉네임 -->
 		</div>
 		
 		
