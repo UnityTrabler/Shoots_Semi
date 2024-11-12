@@ -37,7 +37,7 @@ public class InquiryDeleteAction implements Action {
 		
 		
 		//비밀번호 일치 시 삭제 처리함.
-		boolean result = inquirydao.boardDelete(num);
+		boolean result = inquirydao.inquiryDelete(num);
 		
 		//삭제 처리 실패한 경우
 		if (!result) {

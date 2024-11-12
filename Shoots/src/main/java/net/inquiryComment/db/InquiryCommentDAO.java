@@ -114,8 +114,37 @@ public class InquiryCommentDAO {
 		
 		return list;
 	} //getIqList() 끝
+
+
+	public boolean inquiryCommentDelete(int i_comment_id) {
+		
+		String delete_sql = """
+							delete from inquiry_comment
+							where i_comment_id = ?
+							""";
+		try(Connection con = ds.getConnection();
+				PreparedStatement pstmt = con.prepareStatement(delete_sql);){
+				pstmt.setInt(1, i_comment_id);
+				int result = pstmt.executeUpdate();
+				
+				if(result ==1) {
+					System.out.println("데이터가 삭제되었습니다.");
+					return true;
+				}
+				
+			} catch(Exception ex) {
+				System.out.println("inquiryCommentDelete()에러: " + ex);
+				ex.printStackTrace();
+		}
+			
+			return false;
+	}
+		
 	
 	
-	
-	
+		
 }
+	
+	
+	
+	
