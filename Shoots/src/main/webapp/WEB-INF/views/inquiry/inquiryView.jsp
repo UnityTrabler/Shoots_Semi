@@ -85,12 +85,16 @@
         <c:if test="${!empty iqlist}">
             <c:forEach var="ic" items="${iqlist}">
                 <div class="ic">
-                	<input type="hidden" value="${ic.i_comment_id}" class="ic-num">
+                
+                	<input type="hidden" value="${ic.i_comment_id}" name = "i_comment_id" class="ic-num">  <!-- 문의댓글의 고유번호값 받아두기 -->
+                	
+                	<!-- 프로필 사진 -->
                 	<img src ="${pageContext.request.contextPath}/img/profile.png" alt="프로필" width="60" height="48">
-                	<input type="hidden" value="${ic.user_id}" class="iqcomment-writer">
+                	
+                	<input type="hidden" value="${ic.user_id}" class="iqcomment-writer"> <!-- 각 문의댓글을 남긴 댓글 작성자 값 -->
                     <p><strong>작성자:</strong> ${ic.user_id} <strong>등록일:</strong> ${ic.register_date.substring(0,16)}
-                    <button type="button" class="btn btn-primary ic-modify" style="display:none">수정</button>
-                    <button type="button" class="btn btn-danger ic-delete" style="display:none">삭제</button>
+                    <button type="button" class="btn btn-primary ic-modify" style="display:none" value="${ic.i_comment_id}">수정</button>
+                    <button type="button" class="btn btn-danger ic-delete" style="display:none" value="${ic.i_comment_id}">삭제</button>
                     </p>
                     <span>${ic.content}</span>
                 </div>

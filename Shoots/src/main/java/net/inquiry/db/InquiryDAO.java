@@ -329,7 +329,7 @@ public class InquiryDAO {
 	} //reply_update() 끝 
 
 	
-	public boolean boardDelete(int num) { //문의글 삭제하는 메서드
+	public boolean inquiryDelete(int num) { //문의글 삭제하는 메서드
 		String inquiry_delete_sql = """
 				delete from inquiry
 			where inquiry_id = ?
@@ -351,6 +351,6 @@ public class InquiryDAO {
 		}
 		
 		return false;
-	} //boardDelete()메서드 끝
+	} //inquiryDelete()메서드 끝
 
 }
