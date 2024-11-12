@@ -82,8 +82,13 @@ public class InquiryCommentDAO {
 		List<InquiryCommentBean> list = new ArrayList<InquiryCommentBean>();
 		
 		String sql = """
-				select * from inquiry_comment
+				select * from (
+						select ic.*, r.user_id
+						from inquiry_comment ic
+						join regular_user r
+						on ic.writer = r.idx)
 				where inquiry_id = ?
+				order by i_comment_id asc
 				""";
 
 		try (Connection con = ds.getConnection(); 
@@ -98,6 +103,7 @@ public class InquiryCommentDAO {
 					ic.setWriter(rs.getInt("writer"));
 					ic.setContent(rs.getString("content"));
 					ic.setRegister_date(rs.getString("register_date"));
+					ic.setUser_id(rs.getString("user_id"));
 					list.add(ic);
 				}
 			}

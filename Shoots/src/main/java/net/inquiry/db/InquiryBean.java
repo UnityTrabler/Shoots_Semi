@@ -11,8 +11,15 @@ public class InquiryBean {
 	private int cnt;
 	private String user_id;
 	private String business_name;
+	private int idx;
 	
 	
+	public int getIdx() {
+		return idx;
+	}
+	public void setIdx(int idx) {
+		this.idx = idx;
+	}
 	public String getUser_id() {
 		return user_id;
 	}

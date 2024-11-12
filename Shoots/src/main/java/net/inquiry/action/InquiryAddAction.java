@@ -33,7 +33,6 @@ public class InquiryAddAction implements Action {
 		try {
 			MultipartRequest multi = new MultipartRequest(req, realFolder, fileSize, "utf-8", new DefaultFileRenamePolicy());
 			inquiryBean.setInquiry_ref_idx(Integer.parseInt(multi.getParameter("inquiry_ref_idx")));
-			//boardBean.setBoard_pass(multi.getParameter("board_pass")); 문의 게시판은 글쓴이의 비번 필요 x
 			inquiryBean.setTitle(multi.getParameter("title"));
 			inquiryBean.setContent(multi.getParameter("content"));
 			inquiryBean.setInquiry_type(multi.getParameter("inquiry_type"));

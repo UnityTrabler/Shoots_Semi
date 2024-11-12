@@ -147,7 +147,7 @@ public class InquiryDAO {
 		InquiryBean ib = new InquiryBean();
 		String sql = """
 				select * from(
-							select i.*, r.user_id 
+							select i.*, r.user_id, r.idx
 							from inquiry i 
 							join regular_user r 
 							on i.inquiry_ref_idx = r.idx
@@ -170,6 +170,7 @@ public class InquiryDAO {
 							ib.setInquiry_file(rs.getString("inquiry_file"));
 							ib.setRegister_date(rs.getString("register_date"));
 							ib.setUser_id(rs.getString("user_id"));
+							ib.setIdx(rs.getInt("idx"));;
 						}
 					}
 				}catch (Exception ex) {

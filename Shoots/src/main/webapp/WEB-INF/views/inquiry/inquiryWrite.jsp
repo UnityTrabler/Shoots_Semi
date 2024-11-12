@@ -20,7 +20,7 @@
 			<h1>1:1 문의하기</h1>		
 			<div class="form-group">
 				<%--문의자, hidden --%>
-				<input name="inquiry_ref_idx" id ="inquiry_ref_idx" value="${id}" 
+				<input name="inquiry_ref_idx" id ="inquiry_ref_idx" value="${idx}" 
 				type="hidden" class="form-control" readOnly> 
 				
 				<%--문의자 유형, hidden --%>

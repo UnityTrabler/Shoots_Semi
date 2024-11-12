@@ -7,9 +7,9 @@
 <head>
 <meta charset="EUC-KR">
 <link rel="stylesheet"	href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/inquiry.css">
 <script src="${pageContext.request.contextPath}/js/jquery-3.7.1.js"></script>
 <script src="${pageContext.request.contextPath}/js/inquiryJs/inquirylist.js"></script>
-<script src="${pageContext.request.contextPath}/css/inquiry.css"></script>
 <jsp:include page = "/WEB-INF/views/user/top.jsp"/>
 
 <title>문의 게시판</title>

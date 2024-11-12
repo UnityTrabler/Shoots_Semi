@@ -88,7 +88,7 @@ public class InquiryModifyProcessAction implements Action {
 			System.out.println("문의글 수정이 완료되었습니다.");
 			forward.setRedirect(true);
 			//수정한 글 내용을 보여주기 위해 글 내용 보기 페이지로 이동하기 위해 경로를 설정함.
-			forward.setPath("detail?num=" + inquirydata.getInquiry_id());
+			forward.setPath("detail?inquiryid=" + inquirydata.getInquiry_id());
 		}
 	} catch (IOException e) {
 		e.printStackTrace();
