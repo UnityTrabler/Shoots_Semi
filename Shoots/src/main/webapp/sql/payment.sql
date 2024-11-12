@@ -18,4 +18,13 @@ NOCACHE;
 
 alter table payment add merchant_uid varchar2(30) not null;
 
-select * from payment;
+select * from payment order by payment_id desc;
+
+delete from payment;
+
+SELECT *
+FROM USER_CONSTRAINTS
+WHERE TABLE_NAME = 'PAYMENT';
+
+alter table payment drop constraint SYS_C007220;
+alter table payment drop constraint SYS_C007222;

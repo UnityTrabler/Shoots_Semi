@@ -124,6 +124,35 @@
 					});
 				}
 			});
+			
+			$('#refundBtn').click(function() {
+			    if (confirm("신청을 취소하시겠습니까?")) {
+			        var matchId = $('#match_id').val();
+			        var paymentId = '${payment.payment_id}';
+			        var buyerId = '${idx}';
+
+			        $.ajax({
+			            type: "POST",
+			            url: "../payments/refund",
+			            data: {
+			                paymentId: paymentId,
+			                buyerId: buyerId,
+			                matchId: matchId
+			            },
+			            success: function(response) {
+			                if (response.status === "SUCCESS") {
+			                    alert("환불이 완료되었습니다.");
+			                    location.reload();
+			                } else {
+			                    alert("환불 실패: " + response.message);
+			                }
+			            },
+			            error: function(xhr, status, error) {
+			                alert("환불 처리 중 오류가 발생했습니다. 다시 시도해주세요.");
+			            }
+			        });
+			    }
+			});
 		});
 	</script>
 </body>
