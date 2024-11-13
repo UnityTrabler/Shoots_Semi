@@ -64,7 +64,7 @@ public class FaqAddAction implements Action{
 				//글 등록이 완료되면 글 목록을 보여주기 위해 "faq/faqList"로 이동합니다.
 				//Redirect 여부를 true로 설정합니다.
 				forward.setRedirect(true);
-				forward.setPath("faqAdmin");//faq가 추가되고 이동할 경로는 faq/faqList입니다.
+				forward.setPath("../admin/mypage");//faq가 추가되고 이동할 경로는 faq/faqList입니다.
 			}
 			return forward;
 			

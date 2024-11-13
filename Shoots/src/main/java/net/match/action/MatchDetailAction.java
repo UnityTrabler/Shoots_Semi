@@ -1,6 +1,9 @@
 package net.match.action;
 
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -20,6 +23,7 @@ public class MatchDetailAction implements Action {
 		
 		MatchDAO dao = new MatchDAO();
 		PaymentDAO pdao = new PaymentDAO();
+		PaymentBean payment = new PaymentBean();
 		
 		int matchId = Integer.parseInt(request.getParameter("match_id"));
 		Integer idx = (Integer) request.getSession().getAttribute("idx"); 
@@ -30,13 +34,30 @@ public class MatchDetailAction implements Action {
 		boolean isPaid = false;
 		
 		int playerCount = pdao.getPaymentCountById(match.getMatch_id());
-		
-		PaymentBean payment = pdao.getPaymentInfoById(idx, matchId);
 	
 		if (isLogIn) {
 			isPaid = pdao.checkPayment(matchId, idx);
+			payment = pdao.getPaymentInfoById(idx, matchId);
 		}
 		
+		String matchTime = match.getMatch_date().substring(0,10) + ' ' + match.getMatch_time();
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        Date currentTime = new Date();
+   
+        Date matchStartTime = new Date();
+        
+		try {
+			matchStartTime = sdf.parse(matchTime);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		
+        long twoHoursBefore = matchStartTime.getTime() - (2 * 60 * 60 * 1000);
+        
+        boolean isMatchClosed = currentTime.getTime() >= twoHoursBefore;
+        		
+        
 		ActionForward forward = new ActionForward();
 		
 		if (match == null) {
@@ -50,6 +71,7 @@ public class MatchDetailAction implements Action {
 			request.setAttribute("isPaid", isPaid);
 			request.setAttribute("playerCount", playerCount);
 			request.setAttribute("payment", payment);
+	        request.setAttribute("isMatchClosed", isMatchClosed);
 			forward.setPath("/WEB-INF/views/match/matchDetail.jsp");
 		}
 		forward.setRedirect(false);

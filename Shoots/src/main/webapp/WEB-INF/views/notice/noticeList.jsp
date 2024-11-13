@@ -10,6 +10,7 @@
 <head>
 	<title>공지사항</title>
 	<script src="${pageContext.request.contextPath}/js/jquery-3.7.1.js"></script>
+	<script src = "${pageContext.request.contextPath}/js/customerJS/CustomerSupport.js"></script>
 	<link rel = "stylesheet" href = "${pageContext.request.contextPath}/css/noticeList.css" type = "text/css">
 	<link rel = "stylesheet" href = "${pageContext.request.contextPath}/css/pagination.css" type = "text/css">
 
@@ -17,9 +18,9 @@
 <body>
 	<c:if test="${listcount > 0 }">	
 		<!-- 함수로 받아 js문에 넘긴다 -->
-		<form action="support" method="post">
+		<form id="filterForm" method="post">
 			<div class="input-group">
-				<input type="submit" value="SEARCH" class="Sbtn">&nbsp;
+				<input type="button" class = "filterButton" id = "filterButton" onclick = "applyFilter()" value="SERACH" >&nbsp;
 				<input name="search_word" type="text" class="search"
 					placeholder="  Search..." value="${search_word}">
 			</div>

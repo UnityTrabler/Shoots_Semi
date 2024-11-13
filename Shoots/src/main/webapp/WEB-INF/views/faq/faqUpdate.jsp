@@ -7,7 +7,7 @@
 <html>
 <head>
 	<script src="${pageContext.request.contextPath}/js/jquery-3.7.1.js"></script>
-	<script src = "${pageContext.request.contextPath}/js/modifyform.js"></script>
+	<script src = "${pageContext.request.contextPath}/js/updateform.js"></script>
 	<link rel = "stylesheet" href = "${pageContext.request.contextPath}/css/faqUpdate.css" type = "text/css">
 	<title>FAQ 수정</title>
 	<jsp:include page="../user/top.jsp"></jsp:include>

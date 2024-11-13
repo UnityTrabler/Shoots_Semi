@@ -36,6 +36,23 @@ values (user_seq.nextval, 'youngsoo2', '2', '이수',  222222, 2, '01012345678',
 insert into regular_user
 values (user_seq.nextval, 'youngsoo3', '3', '삼수',  333333, 3, '01012345678', '3@3.com', null, null, current_timestamp, 'common');
 
+-- 결제 테스트 위함
 insert into regular_user
-values (user_seq.nextval, 'test', '1234', '강성현',  000305, 4, '01097117305', 'shk7357@naver.com', null, null, current_timestamp, 'common')
+values (user_seq.nextval, 'test', '1234', '강성현',  000305, 4, '01097117305', 'shk7357@naver.com', null, null, current_timestamp, 'common');
+
+insert into regular_user
+values (user_seq.nextval, 'test2', '1234', '강성현',  000305, 4, '01097117305', 'shk7357@naver.com', null, null, current_timestamp, 'common');
+
+insert into regular_user
+values (user_seq.nextval, 'test3', '1234', '강성현',  000305, 4, '01097117305', 'shk7357@naver.com', null, null, current_timestamp, 'common');
+
+insert into regular_user
+values (user_seq.nextval, 'test4', '1234', '강성현',  000305, 4, '01097117305', 'shk7357@naver.com', null, null, current_timestamp, 'common');
+
+insert into regular_user
+values (user_seq.nextval, 'test5', '1234', '강성현',  000305, 4, '01097117305', 'shk7357@naver.com', null, null, current_timestamp, 'common');
+
+insert into regular_user
+values (user_seq.nextval, 'test6', '1234', '강성현',  000305, 4, '01097117305', 'shk7357@naver.com', null, null, current_timestamp, 'common');
+
 

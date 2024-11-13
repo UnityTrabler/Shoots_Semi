@@ -4,15 +4,19 @@
 <!DOCTYPE html>
 <html>
 <head>
+<jsp:include page="../user/top.jsp"></jsp:include>
 <meta charset="UTF-8">
 <title>post - view</title>
+<script src="${pageContext.request.contextPath}/js/view.js"></script>
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 	<script src = "https://code.jquery.com/jquery-3.7.1.js"></script>
 </head>
 <body>
 <input type="hidden" id="loginid" value="${id}" name="loginid"> <%-- view.js에서 사용하기 위해 추가합니다 --%>
 	<div class="container">
+		<!-- 게시글 정보 -->
 		<table class="table">
+			<!-- 게시글 정보 표시 -->
 			<tr>
 				<th colspan="2">view페이지</th>
 			</tr>
@@ -32,7 +36,7 @@
 					</textarea>
 				</td>
 			</tr>
-			
+			<!-- 중고게시판은 가격 -->
 			<c:if test="${postdata.category=='B'}">
 			<tr>
 			<td><div>가격</div></td>
@@ -61,7 +65,7 @@
 			
 			<tr>
 				<td colspan="2" class="center">
-					<%-- <c:if test="${postdata.writer == id || id == 'admin' }"> --%>
+					 <c:if test="${postdata.writer == idx || id == 'admin' }"> 
 						<a href="modify?num=${postdata.post_id}">
 							<button class="btn btn-info">수정</button>
 						</a>
@@ -69,7 +73,7 @@
 						<a href="#">
 							<button class="btn btn-danger" data-toggle="modal" data-target="#myModal" id="post_id">삭제</button>
 						</a>
-					<%-- </c:if> --%>
+					 </c:if> 
 					<a href="list">
 						<button class="btn btn-warning">목록</button>
 					</a>
@@ -96,10 +100,12 @@
 					<ul class="comment-order-list">
 					</ul>
 				</div>
-			</div><%-- comment-head end --%>
+			</div>	<%-- comment-head end --%>
 			
 			<ul class="comment-list">
+			<!-- 댓글 목록은 여기에 동적으로 추가됩니다. -->
 			</ul>
+			
 			<div class="comment-write">
 				<div class="comment-write-area">
 					<b class="comment-write-area-name" >${id}</b>
@@ -109,8 +115,8 @@
 				
 				</div>
 				<div class="register-box">
-					<div class="button btn-cancel">취소</div> <%-- 댓글의 취소는 display:none, 등록만 보이도록 --%>
-					<div class="button btn-register">등록</div>
+					<div class="button btn-cancel" id="cancelComment">취소</div> <%-- 댓글의 취소는 display:none, 등록만 보이도록 --%>
+					<div class="button btn-register" id="registerComment">등록</div>
 				</div>
 			</div> <%-- comment-write end --%>
 	</div>	<%-- comment-area end --%>
@@ -118,6 +124,8 @@
 </body>
 
 <script>
+		
+		
 		$(function(){
 			$('#post_id').click(function(){
 				if (confirm("게시글을 삭제하시겠습니까?")) {
@@ -134,7 +142,6 @@
 					});
 				}
 			});
-			
 		})
 	</script>
 </html>
