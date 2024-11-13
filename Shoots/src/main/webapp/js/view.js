@@ -42,6 +42,8 @@
 	    rdata.commentlist.forEach(comment => {
 	        //댓글의 내용, 작성자, 날짜 등 다양한 정보가 comment-list 요소 내에 동적으로 추가됩니다.
 	        
+	        
+	        
 	    });
 	}
 	$('.comment-list').html(output);

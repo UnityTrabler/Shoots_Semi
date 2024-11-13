@@ -65,7 +65,7 @@
 			
 			<tr>
 				<td colspan="2" class="center">
-					 <c:if test="${postdata.writer == id || id == 'admin' }"> 
+					 <c:if test="${postdata.writer == idx || id == 'admin' }"> 
 						<a href="modify?num=${postdata.post_id}">
 							<button class="btn btn-info">수정</button>
 						</a>
