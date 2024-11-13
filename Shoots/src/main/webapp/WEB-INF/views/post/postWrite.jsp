@@ -26,7 +26,7 @@
   	</div>
   	
   	<!-- 작성자 -->
-  	<input name="writer" id ="writer" value="${id}" 
+  	<input name="writer" id ="writer" value="${idx}" 
 				type="hidden" class="form-control" readOnly>
   
   	<div class="form-group">
