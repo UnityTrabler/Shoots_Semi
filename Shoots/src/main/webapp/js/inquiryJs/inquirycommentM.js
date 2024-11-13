@@ -49,13 +49,16 @@ $(function() {
 		
 		//새 댓글 내용창을 textarea로 만들고 기존 댓글내용 뒤에 갖다 붙임 (기존 내용은 숨겨서 기존 자리에 대체된거로 보임)
 		const newContent = $('<textarea>', {
-			placeholder: $(originalContent).text()
+			text: $(originalContent).text(),
+			class : "new-iqcomment-content",
+			name : "new-iqcomment-content"
 		})
 		
 		originalContent.after(newContent);
 		
 		//수정, 삭제버튼 숨긴 뒤 만들어둔 수정완료, 수정취소 버튼을 div(buttonfront) 부분 뒤에 갖다 붙임.
-		$(".buttonfront").append(modifyCompleteButton, modifyCancelButton);
+		//선택자가 긴 이유는, 그냥 buttonfront.append 로 붙이면 모든 댓글에 다 수정완료 버튼이 생겨버림.
+		$modifybutton.closest(".ic").find(".buttonfront").append(modifyCompleteButton, modifyCancelButton);
 		
 		
 		$(".ic-modifyCancel").click(function(){ //수정취소 버튼 누르면 숨겼던 수정, 삭제 버튼 다시 나오게 하고 수정완료, 수정취소버튼 삭제함
@@ -72,7 +75,35 @@ $(function() {
 			
 		})
 		
+		$(".ic-modifyComplete").click(function() {  //수정완료 버튼을 누를시 실행하는 ajax.
+		    const modifyButton = $(this);
+		    const commentId = modifyButton.closest(".ic").find(".ic-num").val(); // 댓글 ID
+		    const newContent = modifyButton.closest(".ic").find(".new-iqcomment-content").val(); // 새 댓글 내용
+		    const inquiryId = $("#inquiryid").val(); // 문의글 ID
 		
+		    $.ajax({
+		        url: `${contextPath}/iqcomments/modify`,
+		        type: "POST",
+		        data: {
+		            "i_comment_id": commentId,
+		            "new-iqcomment-content": newContent,
+		            "inquiryid": inquiryId
+		        },
+		        success: function(response) {
+		            // 서버로부터 성공적인 응답을 받은 경우 처리
+		            alert("문의댓글을 성공적으로 수정했습니다.");
+		            location.href = `${contextPath}/inquiry/detail?inquiryid=${inquiryId}`;
+		        },
+		        error: function(xhr, status, error) {
+		            // 오류 처리
+		            console.log("수정 실패:", error);
+		            alert("문의댓글을 수정하지 못했습니다.");
+		        }
+		    }); //ajax 끝
+		    
+		    
+		}); //수정완료 메서드 끝
+
 		
 	}) //'수정' 버튼 누르면 작동하는 메서드 끝
     
