@@ -17,8 +17,13 @@ public class InquiryCommentDeleteAction implements Action {
 			throws ServletException, IOException {
 		
 		int i_comment_id = Integer.parseInt(req.getParameter("i_comment_id"));
+		int inquiryid = Integer.parseInt(req.getParameter("inquiryid"));
+		
 		InquiryCommentDAO ic = new InquiryCommentDAO();
 
+		
+		//댓글 삭제 후 다시 해당 문의글로 돌아가기 위해 문의글 번호의 값을 받아서 저장해둠
+		
 		boolean result = ic.inquiryCommentDelete(i_comment_id);
 		
 		//삭제 처리 실패한 경우
@@ -36,7 +41,7 @@ public class InquiryCommentDeleteAction implements Action {
 			PrintWriter out = resp.getWriter();
 			out.print("<script>");
 			out.print("alert('문의댓글을 성공적으로 삭제했습니다.');");
-			out.print("location.href='list';");
+			out.print("location.href='../inquiry/detail?inquiryid=" +inquiryid+ "';");
 			out.print("</script>");
 			out.close();
 			return null;
