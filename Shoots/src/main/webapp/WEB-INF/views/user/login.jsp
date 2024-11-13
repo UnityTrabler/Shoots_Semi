@@ -11,6 +11,7 @@
     <script>
     	function init() {
 			$('#id').focus();
+			$('button#btnRegular').addClass('btn-success');
 		}
     
     	$(function() {
