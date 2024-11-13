@@ -13,7 +13,6 @@
 		$('#btnBusiness').click(function() {
 			$(this).addClass('btn-success');
 			$(this).siblings().removeClass('btn-success');
-			$('#switchingContext').html(`<jsp:include page="signupBusiness.jsp"></jsp:include>`);
 			//init
 			$('#verify-block').css('display', 'none');
 			$("#verify-toggle-text").hide();
