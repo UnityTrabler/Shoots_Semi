@@ -38,7 +38,7 @@
   	<div class="form-group">
   		<label for="writer">작성자</label>
   		<input type="text" class="form-control" name="writer" id ="writer"
-  				value="${id}" readOnly>
+  				value="${postdata.writer}" readOnly>
   				<%-- postdata.writer --%>
   	</div>
   	
