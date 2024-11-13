@@ -97,7 +97,16 @@
 							        ${match.playerCount}
 							    </span> / ${match.player_max}
 							</td>
-							<td> <input type = "button" class = "status" data-match-id="${match.match_id}" value = "신청가능"></td>
+							<td>
+								<c:choose>
+									<c:when test = "${playerCount == match.player_max}">
+						 				<input type = "button" class = "status2" value = "마감">
+						 			</c:when>
+						 			<c:otherwise>
+						 				<input type = "button" class = "status" data-match-id="${match.match_id}" value = "신청가능">
+						 			</c:otherwise>
+								</c:choose> 
+							</td>
 						</tr>
                		</c:if>
                		<c:set var="rowspanCount" value="1" />
@@ -142,6 +151,7 @@
 	<jsp:include page="../user/bottom.jsp"></jsp:include>
 	<script>
 		$(function(){
+			
 			$('.uploadBtn').click(function(){
 				location.href = "write";
 			});

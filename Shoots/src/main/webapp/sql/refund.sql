@@ -19,3 +19,11 @@ INCREMENT BY 1
 NOCACHE;
 
 select * from REFUND order by refund_id desc ;
+
+select * from REFUND where buyer = 6 ;
+
+SELECT *
+FROM USER_CONSTRAINTS
+WHERE TABLE_NAME = 'REFUND';
+
+alter table refund drop constraint SYS_C007282;
