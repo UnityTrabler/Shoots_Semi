@@ -11,7 +11,6 @@
     <script>
     	function init() {
 			$('#id').focus();
-			$('button#btnRegular').addClass('btn-success');
 		}
     
     	$(function() {
@@ -22,7 +21,7 @@
 			});
 			
 			const id = '${cookieId}';
-			if(id){
+			if(id) {
 				$("#id").val(id);
 				$("#remember").prop('checked', true);
 			}
@@ -36,12 +35,19 @@
 				$(this).siblings().removeClass('btn-success');
 			});
 			
-		/* 	$('form[name="loginform"]').submit(function(e) {
+		 	$('form[name="loginform"]').submit(function(e) {
 				e.preventDefault();
 				const data = $(this).serialize();
-			 	$('#btnGroupRB').find('.btn-success').first().attr('id') == 'btnRegular'
-				ajax(`${data}`, `loginProcess`);
-			}); */
+				let state;
+				if ($('#btnGroupRB').find('.btn-success').first().attr('id') == 'btnRegular')
+					state = {'state' : 'regular'};
+				
+				else if ($('#btnGroupRB').find('.btn-success').first().attr('id') == 'btnBusiness')
+					state = {'state' : 'business'};
+				
+				alert(`\${data + "&" + $.param(state)}`);
+				ajax(`\${data + "&" + $.param(state)}`, `loginProcess`);
+			}); 
 			
 		});//ready
 		
@@ -53,7 +59,7 @@
 				dataType : "json",
 				success : function(data){
 					console.log('ajax success');
-					window.location.href = "${pageContext.request.contextPath}/home";
+					window.location.href = "${pageContext.request.contextPath}/index.jsp";
 				},
 				error:function(){
 					console.log('ajax error');
@@ -65,14 +71,9 @@
 </head>
 <body class="container">
     <jsp:include page="top.jsp"></jsp:include>
+    <jsp:include page="topUserSwitching.jsp"></jsp:include>
     <form action="${pageContext.request.contextPath}/user/loginProcess" method="post" name="loginform">
-    
-    	<div id="btnGroupRB" class="d-flex justify-content-center align-items-center">
-			<button type="button" id="btnRegular" class="btn btn-secondary mb-5 mr-5" style="width:100px; height:60px; border-radius: 40px">개인</button>
-			<button type="button" id="btnBusiness" class="btn btn-secondary mb-5" style="width:100px; height:60px; border-radius: 40px">기업</button>
-		</div>
-    
-        <h1 class="text-center">Login</h1>
+        <h1 class="text-center">Login</h1>      
 
         <div class="form-group mb-3">
             <label for="id">ID</label>
