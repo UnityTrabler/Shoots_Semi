@@ -2,7 +2,7 @@
 
 
 .container {min-width : 1200px;}
-.table {width : 70%; margin : 0 auto}
+.table {width : 100%; margin : 0 auto}
 
 table caption {
 	caption-side: top;
@@ -37,28 +37,24 @@ td:nth-child(2), td:nth-child(3), td:nth-child(4){
     width: 90%;  /* 부모 컨테이너 전체 너비에 맞게 */
 }
 
-.Sbtn {
+.filterButton {
     margin-left: 10px;  /* 버튼과 입력 필드 사이에 간격을 추가 */
-}
-
-.search {
-    width: 200px;  /* 검색 입력 필드의 너비 설정 */
-}
-
-.search{
-	border:1px solid #059669;
-	border-radius:20px;
-	outline: none;
-}
-
-.Sbtn {
-	border : none;
+    border : none;
 	border-radius:20px;
 	background-color: #059669;
 	color:white;
 	font-size:10px;
 	
 }
+
+.search{
+	width: 200px;  /* 검색 입력 필드의 너비 설정 */
+	border:1px solid #059669;
+	border-radius:20px;
+	outline: none;
+}
+
+
 
 
 

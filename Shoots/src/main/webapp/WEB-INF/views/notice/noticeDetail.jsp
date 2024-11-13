@@ -10,6 +10,7 @@
 <html>
 <head>
 	<title>공지사항</title>
+	<script src="${pageContext.request.contextPath}/js/jquery-3.7.1.js"></script>
 	<jsp:include page="../user/top.jsp"></jsp:include>
 	<link rel = "stylesheet" href = "${pageContext.request.contextPath}/css/noticeDetail.css" type = "text/css">
 </head>

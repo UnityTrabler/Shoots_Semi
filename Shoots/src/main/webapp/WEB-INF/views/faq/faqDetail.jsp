@@ -7,6 +7,7 @@
 	<title>FAQ 더 보기</title>
 	<jsp:include page="../user/top.jsp"></jsp:include>
 	<link rel = "stylesheet" href = "${pageContext.request.contextPath}/css/faqDetail.css" type = "text/css">
+	<script src="${pageContext.request.contextPath}/js/adminJS/AdminMypage.js"></script>
 	<script>
 		$(function(){
 			$("table tr:last-child td a:nth-child(2)").click(function(event){
@@ -57,7 +58,7 @@
 				<td>
 					<a href="update?id=${fb.faq_id}" type="button" class="updateBtn">수정</a>
 					<a href="delete?id=${fb.faq_id}" type="button" class="deleteBtn">삭제</a>
-					<a href="faqAdmin" type="button" class="listBtn">목록</a>
+					<a href="../admin/mypage" type="button" class="listBtn">목록</a>
 				</td>
 			</tr>
 		</table>

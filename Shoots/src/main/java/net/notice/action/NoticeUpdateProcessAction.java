@@ -64,7 +64,7 @@ public class NoticeUpdateProcessAction implements Action{
 				System.out.println("공지사항 수정 완료");
 				forward.setRedirect(true);
 				//수정한 글 내용을 보여주기 위해 글 내용 보기 페이지로 이동하기 위해 경로를 설정합니다.
-				forward.setPath("noticeAdmin");
+				forward.setPath("../admin/mypage");
 			}
 			
 		}catch(IOException ex) {

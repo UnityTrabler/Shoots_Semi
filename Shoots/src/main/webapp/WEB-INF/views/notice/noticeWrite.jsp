@@ -10,7 +10,7 @@
 <head>
 	<title>공지사항 작성</title>
 	<jsp:include page="../user/top.jsp"></jsp:include>
-	<script src = "${pageContext.request.contextPath}/js/writeform.js"></script>
+	<script src = "${pageContext.request.contextPath}/js/nf_writeform.js"></script>
 	<link rel = "stylesheet" href = "${pageContext.request.contextPath}/css/noticeWrite.css" type = "text/css"> 
 </head>
 <body>
@@ -48,13 +48,9 @@
 			<div class="form-group">
 				<input type = "submit" value = "UPLOAD" class = "btn btn-danger uploadbBtn">
 				<input type = "reset" value = "RESET" class = "resetBtn">
-				<input type = "button" value = "BACK" class = "backBtn">
+				<input type = "button" class = "backBtn" onClick="history.go(-1)" value = "BACK">
 			</div>
-			<script>
-				$('.backBtn').click(function(){
-					location.href  = "../notice/noticeAdmin";
-				});
-			</script>
+			
 		</div>
 	</form>
 </body>

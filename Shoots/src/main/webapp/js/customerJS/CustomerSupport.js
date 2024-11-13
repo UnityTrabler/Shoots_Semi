@@ -74,7 +74,7 @@ function loadnotice(pageName, elmnt){
     	
     	$(function(){
 			//검색 버튼 클릭한 경우
-			$(".Sbtn").click(function(){
+			$(".filterButton").click(function(){
 				//검색어 공백 유효성 검사합니다.
 				const word = $(".search").val();
 				if (word == ""){
@@ -132,13 +132,12 @@ document.getElementById("defaultOpen").click();
 //pagination
 let isRequestInProgress = false;
 
-function go(page) {
+function go_notice(page, searchWord='') {
 	if(isRequestInProgress) return;
 	
-	const searchWord = $("input[name='search_word']").val();
 	const limit = 10;
 	const data = {limit : limit, state : "ajax", page : page, search_word: searchWord};
-	ajax(data);
+	ajax_notice(data);
 }
 
 function setPaging (href, digit, isActive = false) {
@@ -148,27 +147,27 @@ function setPaging (href, digit, isActive = false) {
 	return `<li class = "page-item ${active}">${anchor}</li>`;
 }
 
-function generatePagination(data) {
+function generatePagination_notice(data) {
 	let output = "";
 	
-	let prevHref = data.page > 1 ? `href=javascript:go(${data.page - 1})` : "";
+	let prevHref = data.page > 1 ? `href=javascript:go_notice(${data.page - 1})` : "";
 	output += setPaging(prevHref, '&lt;&lt;');
 	
 	for (let i = data.startpage; i <= data.endpage; i++) {
 		const isActive = (i === data.page);
-		let pageHref = !isActive ? `href=javascript:go(${i})` : "";
+		let pageHref = !isActive ? `href=javascript:go_notice(${i})` : "";
 		  
 		output += setPaging(pageHref, i, isActive); 
 	}
 	
-	let nextHref = (data.page < data.maxpage) ? `href=javascript:go(${data.page + 1})` : "";
+	let nextHref = (data.page < data.maxpage) ? `href=javascript:go_notice(${data.page + 1})` : "";
 	output += setPaging(nextHref, '&gt;&gt;' );
 	
 	$(".pagination").empty().append(output);
 }
 
 //검색했을 때 나타나는 정보 추가해야 함
-function updateNoticeList(data) {
+function updateNoticeList_notice(data) {
 	let output = "<tbody>";
 	
 	$(data.totallist).each(function(index, item){
@@ -187,10 +186,10 @@ function updateNoticeList(data) {
 	
 	$('table').append(output);
 	
-	 generatePagination(data);
+	 generatePagination_notice(data);
 }
 
-function ajax(sdata) {
+function ajax_notice(sdata) {
 	console.log(sdata);
 	
 	$.ajax({
@@ -203,8 +202,7 @@ function ajax(sdata) {
 			if (data.listcount > 0) {
 				$("thead").show();
 				$("tbody").remove();
-				updateNoticeList(data);
-				generatePagination(data);
+				updateNoticeList_notice(data);
 			} else {
 				$("thead").hide();
 				$("tbody").remove();
@@ -222,15 +220,8 @@ function ajax(sdata) {
 	});
 }
 
-$("form[action='support']").submit(function(e) {
-    e.preventDefault(); // Prevent default form submission
+function applyFilter() {
     const searchWord = $("input[name='search_word']").val();
-    const data = { 
-        limit: 10, 
-        state: "ajax", 
-        page: 1, // Reset to page 1 for new search
-        search_word: searchWord 
-    };
-    ajax(data); // Fetch the updated list based on search
-});
+    go_notice(1, searchWord);  // Start from page 1 when a new search is applied
+}
 

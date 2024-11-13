@@ -12,15 +12,12 @@
 	<script src="${pageContext.request.contextPath}/js/jquery-3.7.1.js"></script>
 	<link rel = "stylesheet" href = "${pageContext.request.contextPath}/css/noticeList.css" type = "text/css">
 	<link rel = "stylesheet" href = "${pageContext.request.contextPath}/css/pagination.css" type = "text/css">
-
 </head>
 <body>
-
 		<c:if test="${listcount > 0 }">	
-		
-			<form action="notice" method="post">
+			<form id="filterForm" method="post">
 				<div class="input-group">
-					<input type="submit" value="SEARCH" class="Sbtn">&nbsp;
+					<input type="button" class = "filterButton" id = "filterButton" onclick = "applyFilter()" value="SERACH" >&nbsp;
 					<input name="search_word" type="text" class="search"
 						placeholder="  Search..." value="${search_word}">
 				</div>
@@ -62,19 +59,19 @@
 		<div class = "center-block">
 				<ul class = "pagination justify-content-center">
 					<li class = "page-item">
-						<a href="javascript:go(${page - 1})"
+						<a href="javascript:go_notice(${page - 1})"
 							class = "page-link ${page <= 1 ? 'gray' : '' }">
 							&lt;&lt;
 						</a>
 					</li>
 					<c:forEach var = "a" begin = "${startpage}" end = "${endpage}">
 						<li class = "page-item ${a == page ? 'active' : '' }">
-							<a href="javascript:go(${a})"
+							<a href="javascript:go_notice(${a})"
 								class = "page-link">${a}</a>
 						</li>
 					</c:forEach>
 					<li class = "page-item">
-						<a href="javascript:go(${page + 1})"
+						<a href="javascript:go_notice(${page + 1})"
 							class = "page-link ${page >= maxpage ? 'gray' : '' }">
 							&gt;&gt;
 						</a>
@@ -82,7 +79,5 @@
 				</ul>
 			</div>
 			<%--페이징 끝 --%>
-
-	
 </body>
 </html>
