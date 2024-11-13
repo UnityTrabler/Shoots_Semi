@@ -28,3 +28,10 @@ WHERE TABLE_NAME = 'PAYMENT';
 
 alter table payment drop constraint SYS_C007220;
 alter table payment drop constraint SYS_C007222;
+
+update payment set status = 'SUCCESS' where buyer = 6 and payment_id = 55;
+update payment set status = 'SUCCESS' where buyer = 6 and payment_id = 69;
+
+select * from payment where buyer = 6 and status = 'SUCCESS';
+
+delete from payment where buyer = 6 and match_id = 31;
