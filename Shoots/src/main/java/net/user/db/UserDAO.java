@@ -44,6 +44,28 @@ public class UserDAO {
 		
 		return result;
 	}
+	
+	public int isIdBusiness(String id, String pwd) { //=getMemberById()
+		String sql = """
+				select  business_id, password
+				from business_user
+				where business_id = ?
+				""";
+		int result = 0;
+		
+		try(Connection con = ds.getConnection(); 
+				PreparedStatement pstmt = con.prepareStatement(sql);) {
+			pstmt.setString(1, id);
+			try(ResultSet rs = pstmt.executeQuery();){
+				if(rs.next()) 
+					result = pwd.equals(rs.getString("password")) ? 1 : 0;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return result;
+	}
 
 	public int insertUser(UserBean userBean) {
 		//nickname, user_file 빠짐

@@ -1,3 +1,4 @@
+DROP TABLE business_user CASCADE CONSTRAINTS PURGE;
 CREATE TABLE business_user (
     business_idx NUMBER(10) PRIMARY KEY,
     business_id VARCHAR2(30) NOT NULL,
@@ -10,7 +11,7 @@ CREATE TABLE business_user (
     address VARCHAR2(100) NOT NULL,
     description clob,
     business_file varchar2(50),
-   	register_date timestamp DEFAULT current_timestamp,
+   	register_date timestamp DEFAULT current_timestamp
 );
 
 CREATE SEQUENCE business_seq
