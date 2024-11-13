@@ -45,6 +45,10 @@ public class InquiryCommentFrontController extends jakarta.servlet.http.HttpServ
 		case "/delete":
 			action = new InquiryCommentDeleteAction();
 			break;
+			
+		case "/modify":
+			action = new InquiryCommentModifyAction();
+			break;
 
 		}//switch
 

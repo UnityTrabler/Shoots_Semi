@@ -180,35 +180,6 @@ public class InquiryDAO {
 		return ib;
 	} //getDetail()메서드
 
-//	글 수정하기 전에 작성자의 비번과 수정시도자의 입력비번을 검증하는 메서드.
-//	public boolean isBoardWriter(int listnum, int id) {
-//		boolean result = false;
-//		String board_sql = """
-//				select inquiry_ref_idx
-//				from inquiry
-//				where inquiry_id =?
-//				""";
-//		
-//		try(Connection con = ds.getConnection();
-//				PreparedStatement pstmt = con.prepareStatement(board_sql);){
-//					pstmt.setInt(1, listnum);
-//					
-//					try(ResultSet rs = pstmt.executeQuery()){
-//						if(rs.next()) {
-//							if(id == rs.getInt("inquiry_ref_idx")) {
-//								result = true;
-//							}
-//						}
-//					}
-//					
-//				} catch (SQLException ex) {
-//					ex.printStackTrace();
-//					System.out.println("isBoardWriter() 에러: " + ex);
-//				}
-//			return result;
-//		
-//	} //isBoardWriter 끝
-
 	
 	public boolean inquiryModify(InquiryBean inquirydata) {
 		String sql = """
@@ -235,105 +206,15 @@ public class InquiryDAO {
 				}
 		
 		return false;
-	} //boardModify () 메서드 끝
+	} //inquiryModify () 끝
 
-//	public int boardReply(InquiryBean board) {
-//		int num = 0;
-//		
-//		try(Connection con = ds.getConnection();){
-//			//트랜잭션을 이용하기 위해 setAutoCommit을 false로 설정함
-//			con.setAutoCommit(false);
-//			
-//			try {
-//				reply_update(con, board.getBoard_re_ref(), board.getBoard_re_seq());
-//				num = reply_insert(con, board);
-//				con.commit();
-//			}
-//			catch(SQLException e){
-//				e.printStackTrace();
-//				
-//				if(con != null) {
-//					try {
-//						con.rollback();
-//					} catch(SQLException ex) {
-//						ex.printStackTrace();
-//					}
-//				}
-//			}
-//			con.setAutoCommit(true);
-//		} catch(Exception ex) {
-//			ex.printStackTrace();
-//			System.out.println("boardReply() 에러: " + ex);
-//		}
-//		return num;
-//	}//boardReply() 끝
-
-	
-	
-	private int reply_insert(Connection con, InquiryBean board) throws SQLException{
-		int num = 0;
-		String board_max_sql = "select max(board_num) +1 from board";
-		try(PreparedStatement pstmt = con.prepareStatement(board_max_sql);){
-			try(ResultSet rs = pstmt.executeQuery()){
-				if(rs.next()) {
-					num=rs.getInt(1);
-				}
-			}
-		}
-		
-		String sql = """
-				insert into board
-				(BOARD_NUM, BOARD_NAME, BOARD_PASS, BOARD_SUBJECT,
-				BOARD_CONTENT, BOARD_FILE, BOARD_RE_REF, 
-				BOARD_RE_LEV, BOARD_RE_SEQ, BOARD_READCOUNT)
-				values(?, ?, ?, ?,
-					?, ?, ?,
-					?, ?, ?)
-				""";
-		try(PreparedStatement pstmt = con.prepareStatement(sql);){
-//			pstmt.setInt(1, num);
-//			pstmt.setString(2, board.getBoard_name());
-//			pstmt.setString(3, board.getBoard_pass());
-//			pstmt.setString(4, board.getBoard_subject());
-//			pstmt.setString(5, board.getBoard_content());
-//			pstmt.setString(6, ""); //답변에는 파일 업로드 안함.
-//			pstmt.setInt(7, board.getBoard_re_ref()); //원문의 글번호
-//			pstmt.setInt(8, board.getBoard_re_lev() + 1);
-//			pstmt.setInt(9, board.getBoard_re_seq() + 1);
-//			pstmt.setInt(10, 0); //BOARD_READCOUNT(조회수)는 0
-//			pstmt.executeUpdate();
-		}
-		
-		return num;
-	} //reply_insert() 끝
-
-	private void reply_update(Connection con, int board_re_ref, int board_re_seq) throws SQLException{
-		/*BOARD_RE_REF, BOARD_RE_SEQ 값을 확인하여 원문 글에 답글이 달렸으면
-		달린 답글들의 BOARD_RE_SEQ값을 1씩 증가시킴.
-		현재 글을 이미 달린 답글보다 앞에 출력되게 하기 위함.
-		*/
-		
-		String sql = """
-				update board
-				set BOARD_RE_SEQ = BOARD_RE_SEQ + 1
-				where BOARD_RE_REF = ?
-				and BOARD_RE_SEQ > ?
-				""";
-		
-		try(PreparedStatement pstmt = con.prepareStatement(sql);){
-			pstmt.setInt(1, board_re_ref);
-			pstmt.setInt(2, board_re_seq);
-			pstmt.executeUpdate();
-		}
-		
-	} //reply_update() 끝 
 
 	
 	public boolean inquiryDelete(int num) { //문의글 삭제하는 메서드
 		String inquiry_delete_sql = """
 				delete from inquiry
-			where inquiry_id = ?
-				""";
+				where inquiry_id = ?
+					""";
 		
 		try(Connection con = ds.getConnection();
 			PreparedStatement pstmt = con.prepareStatement(inquiry_delete_sql);){
