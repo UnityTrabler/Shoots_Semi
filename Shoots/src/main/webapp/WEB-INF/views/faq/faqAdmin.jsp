@@ -15,24 +15,11 @@
 <head>	
 	<script src="${pageContext.request.contextPath}/js/jquery-3.7.1.js"></script>
 	<link rel = "stylesheet" href = "${pageContext.request.contextPath}/css/faqAdmin.css" type = "text/css">
-	<jsp:include page="../user/top.jsp"></jsp:include>
+	
 	<title>FAQ 관리(관리자모드)</title>
-
-	<script>
-		$(function(){
-			$("tr > td:nth-child(4) > a").click(function(event){
-				const answer = confirm("정말 삭제하시겠습니까?");
-				console.log(answer);//취소를 클릭한 경우-false
-				if (!answer){//취소를 클릭한 경우
-					event.preventDefault(); //이동하지 않습니다.	
-				}
-			})//삭제 클릭 end
-		})
-	</script>
 </head>
 
 <body>
-	<div class="container">
 		<table class="table">
 			<caption>FAQ 관리</caption>
 			<thead>
@@ -47,20 +34,20 @@
 				<c:forEach var="f" items="${totallist}">
 					<tr>
 						<td>
-							<a href="detail?id=${f.faq_id}" class="faqDetail">${f.title}</a>
+							<a href="../faq/detail?id=${f.faq_id}" class="faqDetail">${f.title}</a>
 						</td>
 						<td>${f.register_date}</td>
-						<td><a href="update?id=${f.faq_id}" type="button" class="faqUpdate">수정</a></td>
-						<td><a href="delete?id=${f.faq_id}"  type="button" class="faqDelete">삭제</a></td>
+						<td><a href="../faq/update?id=${f.faq_id}" type="button" class="faqUpdate">수정</a></td>
+						<td><a href="../faq/delete?id=${f.faq_id}"  type="button" class="faqDelete">삭제</a></td>
 					</tr>
 				</c:forEach>
 				<tr>
 					<td colspan="5" style="text-align:center;">
-						<a href="write" type="button" class="btnWrite">글 쓰 기</a>
+						<a href="../faq/write" type="button" class="btnWrite">글 쓰 기</a>
 					</td>
 				</tr>
 			</tbody>
 		</table>
-	</div>
+	
 </body>
 </html>
