@@ -77,11 +77,11 @@
 				        <input type="button" class="btn1" id="refundBtn" value="신청취소">
 				    </c:when>
 				    <c:when test="${!empty idx and isPaid and isMatchClosed}">
-				        <input type="button" class="PdeadlineBtn" value="취소불가">
-				        <p class = "deadlineP"> ※ 신청이 확정되었습니다. 이후 취소는 불가능합니다. ※ </p>
+				        <input type="button" class="PdeadlineBtn2" value="매칭확정">
+				        <p class = "deadlineP3"> ※ 신청이 확정되었습니다. 이후 <span class = "deadlinePS">취소는 <b>불가능</b></span>합니다. ※ </p>
 				    </c:when>
 				    <c:when test="${playerCount == match.player_max}">
-				        <input type="button" class="PdeadlineBtn" value="마감">
+				        <input type="button" class="IdeadlineBtn" value="마감">
 				        <p class = "deadlineP"> ※ 인원이 가득 찼습니다. 더 이상 신청할 수 없습니다. ※ </p>
 				    </c:when>
 		 			<c:when test = "${isMatchClosed}">

@@ -271,7 +271,13 @@ public class MatchDAO {
 
 	public List<MatchBean> getAfterMatchList() {
 		String sql = """
-				select * from match_post 
+				select mp.*, COALESCE(p.playerCount, 0) AS playerCount 
+				from match_post mp
+				left join (SELECT match_id, COUNT(*) AS playerCount
+						     FROM payment 
+						     WHERE status = 'SUCCESS'
+						     GROUP BY match_id) p 
+				on mp.match_id = p.match_id
 				where match_date = TO_CHAR(SYSDATE, 'YYYY-MM-DD')
 				order by match_time ASC
 				""";
@@ -291,6 +297,7 @@ public class MatchDAO {
 					match.setPlayer_min(rs.getInt("player_min"));
 					match.setPlayer_gender(rs.getString("player_gender"));
 					match.setPrice(rs.getInt("price"));
+					match.setPlayerCount(rs.getInt("playerCount"));
 					
 					list.add(match);
 				}

@@ -1,7 +1,7 @@
 window.onload = function() {
-    var firstTab = document.querySelector('#tab-info'); // "우리구장" 탭을 선택
+    var firstTab = document.querySelector('#tab-info');
     if (firstTab) {
-        loadBusinessInfo(); // 첫 번째 탭에 해당하는 AJAX 호출 (우리구장)
+        loadBusinessInfo();
     }
 };
 
