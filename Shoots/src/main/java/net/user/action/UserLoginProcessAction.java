@@ -30,6 +30,8 @@ public class UserLoginProcessAction implements Action {
 				HttpSession session = req.getSession();
 				session.setAttribute("id", id);
 				session.setAttribute("idx", userDAO.getUserIdx(id));
+				session.setAttribute("role", new UserDAO().getUser(id).getRole());
+				session.setAttribute("userClassification", "regular");
 				
 				//store cookie
 				Cookie cookie = new Cookie("id", id);
@@ -64,6 +66,7 @@ public class UserLoginProcessAction implements Action {
 				HttpSession session = req.getSession();
 				session.setAttribute("id", id);
 				session.setAttribute("idx", userDAO.getBusinessUserIdx(id));
+				session.setAttribute("userClassification", "business");
 				
 				//store cookie
 				Cookie cookie = new Cookie("id", id);

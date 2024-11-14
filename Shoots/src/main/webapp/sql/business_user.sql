@@ -5,7 +5,7 @@ CREATE TABLE business_user (
     password VARCHAR2(20) NOT NULL,
     business_name VARCHAR2(20) NOT NULL,
     business_number NUMBER(13) NOT NULL,
-    req NUMBER(15) NOT NULL,
+    tel NUMBER(15) NOT NULL,
     email VARCHAR2(30) NOT NULL,
     post number(6) NOT NULL,
     address VARCHAR2(100) NOT NULL,
@@ -14,6 +14,7 @@ CREATE TABLE business_user (
    	register_date timestamp DEFAULT current_timestamp
 );
 
+DROP SEQUENCE business_seq;
 CREATE SEQUENCE business_seq
 START WITH 1
 INCREMENT BY 1
