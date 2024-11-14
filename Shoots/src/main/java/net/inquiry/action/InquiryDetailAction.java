@@ -39,6 +39,7 @@ public class InquiryDetailAction implements Action {
 			}
 			session.removeAttribute("referer");
 		}
+		
 				
 		
 		//글의 내용을 DAO에서 읽은 후 얻은 결과를 inquirydata 객체에 저장하고 iqlist에다가 댓글들의 정보를 가져와서 저장함.

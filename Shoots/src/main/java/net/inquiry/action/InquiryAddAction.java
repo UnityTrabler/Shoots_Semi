@@ -24,7 +24,7 @@ public class InquiryAddAction implements Action {
 		
 		String realFolder = "";
 		String saveFolder = "inquiryupload";
-		int fileSize = 5 * 1024 * 1024; //file upload maximum size 5MB
+		int fileSize = 10 * 1024 * 1024; //파일 업로드 최대 사이즈는 10mb
 		
 		//실제 저장 경로 지정
 		ServletContext sc = req.getServletContext();

@@ -53,3 +53,14 @@ select * from(
 			order by inquiry_id desc
 			)
 where inquiry_id = 32;  --DAO 메서드에서 ? 부분. 특정 문의글 번호.
+
+
+
+--2. 댓글이 달린 문의글들을 찾고 그 문의글들에 달린 댓글이 몇개인지 세는 커리문
+select i.inquiry_id, count(ic.i_comment_id)
+from INQUIRY i
+inner join INQUIRY_COMMENT ic
+on i.inquiry_id = ic.inquiry_id
+group by i.inquiry_id;
+
+

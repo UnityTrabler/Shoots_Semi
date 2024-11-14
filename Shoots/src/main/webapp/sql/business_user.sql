@@ -3,7 +3,7 @@ CREATE TABLE business_user (
     business_idx NUMBER(10) PRIMARY KEY,
     business_id VARCHAR2(30) NOT NULL,
     password VARCHAR2(20) NOT NULL,
-    business_name VARCHAR2(20) NOT NULL,
+    business_name VARCHAR2(100) NOT NULL,
     business_number NUMBER(13) NOT NULL,
     tel NUMBER(15) NOT NULL,
     email VARCHAR2(30) NOT NULL,
