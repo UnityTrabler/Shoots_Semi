@@ -57,10 +57,10 @@
 			
 		 	$('form[name="signupform"]').submit(function(e) {
 				e.preventDefault();
+				
 				const data = $(this).serialize();
 				let state;
-				
-				if ($('#btnGroupRB').find('.btn-success').first().attr('id') == 'btnRegular')
+				if ($('#btnGroupRB').find('.btn-success').first().attr('id') != null)
 					state = $('#btnGroupRB').find('.btn-success').first().attr('id') == 'btnRegular' ? {'state' : 'regular'} : {'state' : 'business'};
 					
 				alert(`\${data + "&" + $.param(state)}`);
@@ -75,7 +75,7 @@
 					dataType : "json",
 					success : function(data){
 						console.log('ajax success');
-						window.location.href = "${pageContext.request.contextPath}/index.jsp";
+						window.location.href = "${pageContext.request.contextPath}/user/login";
 					},
 					error:function(){
 						console.log('ajax error');
@@ -97,33 +97,28 @@
 				<font color='red'>*</font>표시는 필수 입력 사항입니다.
 				<hr>
 
-				<!-- name : id, pwd, name, RRN1, RRN2, gender, tel, email, nickname, profile? -->
+				<!-- id pwd business-name business-number tel email postcode address+adressDetail description business_file -->
 				아이디(id)<font color='red'>*</font>
-				<input type="text" name="id" id="id" class="form-control" placeholder="id...">
+				<input type="text" name="id" id="id" class="form-control" placeholder="id..." required>
 
 				비밀번호(password)<font color='red'>*</font> 
-				<input type="text" name="pwd" id="pwd" class="form-control" placeholder="pwd...">
+				<input type="text" name="pwd" id="pwd" class="form-control" placeholder="pwd..." required>
 
 				기업명(business-name)<font color='red'>*</font> 
-				<input type="text" name="name" id="name" class="form-control" placeholder="name...">
+				<input type="text" name="business-name" id="business-name" class="form-control" placeholder="name..." required>
 				
 				사업자 번호(business-number)<font color='red'>*</font> 
-				<input type="text" name="name" id="name" class="form-control" placeholder="name...">
+				<input type="text" name="business-number" id="business-number" class="form-control" placeholder="name..." required>
 
-				대표 전화번호(tel)<font color='red'>*</font> <input type="text" name="tel" id="tel" class="form-control" placeholder="tel...">
+				대표 전화번호(tel)<font color='red'>*</font> <input type="text" name="tel" id="tel" class="form-control" placeholder="tel..." required>
 
-				이메일(Email)<font color='red'>*</font> <input type="email"
-					name="email" id="email" class="form-control" placeholder="받는 주소"
-					value="<%="kdhmm0325"%>@naver.com" required> <input
-					type="button" class="btn btn-primary" id="send-email"
-					value="확인메일 전송(send verifycode)"><br>
-				<div id="verify-block" class="p-3"
-					style="background-color: #d4edda;">
-					Enter Verification code<font color='red'>*</font> <input
-						type="text" class="form-control" id="email-verify-text"> <input
-						type="button" class="btn btn-primary" id="check-email-verify"
-						value="check"> <b id="verify-toggle-text"></b>
-				</div><br>
+				이메일(Email)<font color='red'>*</font> <input type="email" name="email" id="email" class="form-control" placeholder="받는 주소" value="<%=" kdhmm0325"%>@naver.com" required> 
+				<input type="button" class="btn btn-primary" id="send-email" value="확인메일 전송(send verifycode)"><br>
+		        <div id="verify-block" class="p-3" style="background-color: #d4edda;">
+		          Enter Verification code<font color='red'>*</font> <input type="text" class="form-control"
+		            id="email-verify-text"> <input type="button" class="btn btn-primary" id="check-email-verify" value="check">
+		          <b id="verify-toggle-text"></b>
+		        </div><br>
 				
 				<!-- 우편번호 block  -->
 				<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
@@ -179,24 +174,23 @@
 				우편번호, 주소(Post)<font color='red'>*</font><br>
 				<label for='postcodeBtn'> 
 		        <input type="button" value="우편번호 검색하기(Postcode search)" id="postcodeBtn" style="visibility: hidden; display: none;">
-				<input type="text" name="postcode" id="postcode" class="form-control" placeholder="search..." readonly>
-				<input type="text" name="address" id="address" class="form-control" placeholder="search..." readonly>
+				<input type="text" name="postcode" id="postcode" class="form-control" placeholder="search..." readonly required>
+				<input type="text" name="address" id="address" class="form-control" placeholder="search..." readonly required>
 				</label><br>
 				
 				상세주소(Address)<font color='red'>*</font> 
-				<input type="text" name="addressDetail" id="addressDetail" class="form-control" placeholder="name...">
+				<input type="text" name="addressDetail" id="addressDetail" class="form-control" placeholder="name..." required>
 				<!-- 우편번호 block end -->
 				
 				<br><br><hr>
 					선택 사항입니다.
 				<hr>
 					설명(Description) 
-					<input type="text" name="nickname" id="name" class="form-control" placeholder="name..."> 
-					<input type="submit" class="submit btn btn-submit">
+					<input type="text" name="description" id="description" class="form-control" placeholder="name..."> 
 					
 					프로필 사진(Description) 
-					<input type="text" name="nickname" id="name" class="form-control" placeholder="name..."> 
-					<input type="submit" class="submit btn btn-submit">
+					<input type="text" name="business_file" id="business_file" class="form-control" placeholder="name..."> 
+					<input type="submit" class="submit btn btn-primary">
 			</form>
 
 		</div><!--  	<div id="regularContext">   -->

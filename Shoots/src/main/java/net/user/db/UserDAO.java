@@ -68,6 +68,10 @@ public class UserDAO {
 	}
 
 	public int insertUser(UserBean userBean) {
+		if(getUserIdx(userBean.getId()) > 0) {
+			System.out.println("duplicated regular user ID");
+			return 0;
+		}
 		//nickname, user_file 빠짐
 		String sql = """
 				INSERT INTO regular_user
@@ -115,7 +119,7 @@ public class UserDAO {
 
 	public UserBean getUser(String id) {
 		String sql = """
-				select name, jumin, gender, tel, email, nickname, user_file
+				select *
 				from regular_user
 				where user_id = ?
 				""";
@@ -126,14 +130,18 @@ public class UserDAO {
 				pstmt.setString(1, id);
 			try(ResultSet rs = pstmt.executeQuery();){
 				if(rs.next()) {
+					userBean.setIdx(rs.getString("idx"));
 					userBean.setId(id);
-					userBean.setName(rs.getString(1));
-					userBean.setRRN(rs.getInt(2));
-					userBean.setGender(rs.getInt(3));
-					userBean.setTel(rs.getString(4));
-					userBean.setEmail(rs.getString(5));
-					userBean.setNickname(rs.getString(6));
-					userBean.setUserfile(rs.getString(7));
+					userBean.setPassword(rs.getString("password"));
+					userBean.setIdx(rs.getString("name"));
+					userBean.setRRN(Integer.parseInt(rs.getString("jumin")));
+					userBean.setGender(Integer.parseInt(rs.getString("gender")));
+					userBean.setTel(rs.getString("tel"));
+					userBean.setEmail(rs.getString("email"));
+					userBean.setNickname(rs.getString("nickname"));
+					userBean.setUserfile(rs.getString("user_file"));
+					userBean.setRegister_date(rs.getString("register_date"));
+					userBean.setRole(rs.getString("role"));
 				}
 				else {System.err.println("ID not found in the database.");return null;}
 			}
@@ -167,6 +175,7 @@ public class UserDAO {
 		
 		return result;
 	}
+	
 	public int getBusinessUserIdx(String id) {
 		String sql = """
 				select business_idx
@@ -192,7 +201,11 @@ public class UserDAO {
 	}
 
 	public int insertUser(BusinessUserBean userBean) {
-		//nickname, user_file 빠짐
+		if(getBusinessUserIdx(userBean.getBusiness_id()) > 0) {
+			System.out.println("duplicated business ID");
+			return 0;
+		}
+		
 		String sql = """
 				INSERT INTO business_user
 				(business_idx, business_id, password, 

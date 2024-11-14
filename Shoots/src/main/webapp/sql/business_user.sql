@@ -14,6 +14,7 @@ CREATE TABLE business_user (
    	register_date timestamp DEFAULT current_timestamp
 );
 
+DROP SEQUENCE business_seq;
 CREATE SEQUENCE business_seq
 START WITH 1
 INCREMENT BY 1

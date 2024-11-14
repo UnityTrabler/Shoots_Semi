@@ -62,32 +62,29 @@ public class UserSignupProcessAction extends HttpServlet implements Action {
 				System.out.println(result);
 				resp.setContentType("application/json; charset=UTF-8");
 				if(result == 1) {
-					System.out.println("user insert successed");
-					ActionForward forward = new ActionForward();
-					forward.setPath("/user/login");
-					forward.setRedirect(false);
+					System.out.println("r user insert successed");
 					resp.setStatus(HttpServletResponse.SC_OK);
-					resp.getWriter().println("{\"message\":\"sign up successed\"}");
-					return forward;
+					resp.getWriter().println("{\"message\":\"r sign up successed\"}");
+					return null;
 				}
 				else {
-					System.out.println("user insert failed");
+					System.out.println("r user insert failed");
 					resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-					resp.getWriter().println("{\"message\":\"sign up failed\"}");
+					resp.getWriter().println("{\"message\":\"r sign up failed\"}");
 					return null;
 				}
 			}
 			
 			else if(req.getParameter("state").equals("business")) {
 				BusinessUserBean userBean = new BusinessUserBean();
-				//idx
+				//id pwd business-name business-number tel email post address+adressDetail description business_file
 				userBean.setBusiness_id(req.getParameter("id"));
 				userBean.setPassword(req.getParameter("pwd"));
-				userBean.setBusiness_name(req.getParameter("name"));
-				userBean.setBusiness_number(Integer.parseInt(req.getParameter("number")));
+				userBean.setBusiness_name(req.getParameter("business-name"));
+				userBean.setBusiness_number(Integer.parseInt(req.getParameter("business-number")));
 				userBean.setTel(Integer.parseInt(req.getParameter("tel")));
 				userBean.setEmail(req.getParameter("email"));
-				userBean.setPost(Integer.parseInt(req.getParameter("post")));
+				userBean.setPost(Integer.parseInt(req.getParameter("postcode")));
 				userBean.setAddress(req.getParameter("address") + " " +req.getParameter("addressDetail"));
 				userBean.setDescription(req.getParameter("description"));
 				userBean.setBusiness_file(req.getParameter("business_file"));
@@ -96,16 +93,13 @@ public class UserSignupProcessAction extends HttpServlet implements Action {
 				System.out.println(result);
 				resp.setContentType("application/json; charset=UTF-8");
 				if(result == 1) {
-					System.out.println("user insert successed");
-					ActionForward forward = new ActionForward();
-					forward.setPath("/user/login");
-					forward.setRedirect(false);
+					System.out.println("b user insert successed");
 					resp.setStatus(HttpServletResponse.SC_OK);
 					resp.getWriter().println("{\"message\":\"b sign up successed\"}");
-					return forward;
+					return null;
 				}
 				else {
-					System.out.println("user insert failed");
+					System.out.println("b user insert failed");
 					resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 					resp.getWriter().println("{\"message\":\"b sign up failed\"}");
 					return null;

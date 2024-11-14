@@ -56,13 +56,20 @@
 			
 			$('#signupform').on('submit',function(e) {
 				e.preventDefault();
+				
+				const data = $(this).serialize();
+				let state;
+				if ($('#btnGroupRB').find('.btn-success').first().attr('id') != null)
+					state = $('#btnGroupRB').find('.btn-success').first().attr('id') == 'btnRegular' ? {'state' : 'regular'} : {'state' : 'business'};
+				
+				alert(`\${data + "&" + $.param(state)}`);
 				$.ajax({
 					url: $(this).attr('action'),
 					method:$(this).attr('method'),
-					data:$(this).serialize(),
+					data:`\${data + "&" + $.param(state)}`,
 					success: function(resp) {
 						alert('회원가입에 성공하셨습니다.');
-						window.location.href = "${pageContext.request.contextPath}/user/login"; //이동
+						window.location.href = "${pageContext.request.contextPath}/user/login";
 					},
 					error: function(error) {
 						console.error("서버 오류:", error);
@@ -79,8 +86,7 @@
     <jsp:include page="topUserSwitching.jsp"></jsp:include>
 	<div id="switchingContext">
 		<div id="regularContext">
-			<form class="form-horizontal" method="post" action="signupProcess"
-				id="signupform">
+			<form class="form-horizontal" method="post" action="signupProcess" id="signupform">
 				<h2 style="text-align: center; color:green;">개인 회원가입(sign up)</h2>
 
 				<font color='red'>*</font>표시는 필수 입력 사항입니다.
@@ -134,7 +140,7 @@
 				<hr>
 					닉네임(nickname) <input type="text" name="nickname" id="name"
 					class="form-control" placeholder="name..."> <input
-					type="submit" class="submit btn btn-submit">
+					type="submit" class="submit btn btn-primary">
 			</form>
 
 		</div><!--  	<div id="regularContext">   -->
