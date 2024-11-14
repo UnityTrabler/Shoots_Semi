@@ -83,7 +83,7 @@
 		            row.append('<td></td>'); // 첨부파일이 없으면 빈 칸
 		         
 		        // 카테고리 B일 경우 추가로 가격 표시
-                    row.append('<td>' + post.price + '</td>');
+                    row.append('<td>' + post.price + '원</td>');
                 }
                 row.append('</tr>');
                 tableBody.append(row);

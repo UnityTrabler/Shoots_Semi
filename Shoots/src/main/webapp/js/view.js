@@ -1,56 +1,111 @@
-	//선택한 등록순과 최신순을 수정, 삭제, 추가 후에도 유지되도록 하기위한 변수로 사용됩니다.
-	let option=1; // 선택한 정렬 순서를 저장하는 변수 (기본값 1)
-	
-	function getList(state) {
+$(function() {
+    const loginid = $("#loginid").val();  // 로그인한 유저의 id
+
+    $(".co").each(function() { //문의댓글을 c:foreach 반복문으로 뽑아내서 여러개가 나오기 때문에 각 댓글들마다 코드 실행시키기 위해 each 함수 사용
+        const commentwriter = $(this).find(".comment-writer").val();  // 각 댓글의 작성자 id
+
+        if (loginid === commentwriter) {
+            $(this).find(".co-modify").css('display', 'inline-block');  // 수정 버튼 보이기
+            $(this).find(".co-delete").css('display', 'inline-block');  // 삭제 버튼 보이기
+        }
+    }); //each 함수 끝
     
-    console.log(state); 
-    //사용자가 선택한 정렬 순서를 option 변수에 저장
-	  option = state; // state 1이면 등록순, 2면 최신순
     
-    $.ajax({
-		type: "get",
-    url: "../comments/list",
-    data: {
-        "post_id": $("#post_id").val(),
-        state: state
-    },
-		dataType: "json",
-    success: function(rdata) {
-		//서버에서 받은 댓글 목록의 개수 표시
-		$('#count').text(rdata.listcount).css('font-family', 'arial,sans-serif');
+    $(".co-delete").click(function(){ //삭제 버튼 누르면 해당 i_commoent_id 값에 해당하는 문의댓글 삭제
+		const deletenum = $(this).val();
+		const postid = $("#postid").val();  //삭제 후 다시 문의글로 돌아갈때 글의 번호값을 저장
+		console.log(postid);
 		
-		// 등록순과 최신순 버튼의 색상 설정
-		let red1 = (state == 1) ? 'red': 'gray';
-		let red2 = (state == 2) ? 'red': 'gray';
+		location.href= `${contextPath}/comments/delete?comment_id=${deletenum}&postid=${postid}`;
+	}) //문의댓글 삭제 click() 끝
+    
+    
+    $(".co-modify").click(function(){ //수정 버튼 누르면 해당 수정,삭제 버튼 사라지고 수정완료 , 취소 버튼이 생기게
 		
-		//정렬 순서를 선택할 수 있는 버튼을 출력합니다.
-		//사용자가 클릭하면 getList 함수가 호출되어 댓글 목록이 재정렬됩니다.
-		let output = `
-	    <li class='comment-order-item ${red1}'>
-	        <a href='javascript:getList(1)' class='comment-order-button'>등록순</a>
-	    </li>
-	    <li class='comment-order-item ${red2}'>
-	        <a href='javascript:getList(2)' class='comment-order-button'>최신순</a>
-	    </li>`;
-	$('.comment-order-list').html(output)
-	
-	//댓글 목록을 생성하여 화면에 출력합니다. 
-	//rdata.commentlist 배열에 있는 각 댓글을 처리하고, 
-	//이를 HTML 형식으로 변환하여 output 변수에 저장
-	output = ''; 
-	if (rdata.commentlist.length) { 
-	    rdata.commentlist.forEach(comment => {
-	        //댓글의 내용, 작성자, 날짜 등 다양한 정보가 comment-list 요소 내에 동적으로 추가됩니다.
-	        
-	        
-	        
-	    });
-	}
-	$('.comment-list').html(output);
-	
-	
+		const $modifybutton = $(this);
+		const $deletebutton = $(this).closest(".co").find(".co-delete")
 		
-	}
+		 const modifyCompleteButton = $('<button>', {
+            type: "button",
+            class: "btn btn-success co-modifyComplete",
+            text: "수정완료"
+        });
+        
+        //수정취소 버튼 생성
+        const modifyCancelButton = $('<button>', {
+            type: "button",
+            class: "btn btn-danger co-modifyCancel",
+            text: "취소"
+        });
 		
-	})
-}//function getList()
+		
+		//수정, 삭제 버튼 숨기기
+		$modifybutton.hide();
+		$deletebutton.hide();
+		
+		//기존 댓글의 내용을 originalContent 라고 선언. 후에 숨김 (수정 버튼 누르면 기존 내용 숨기고 텍스트 박스 나오게)
+		const originalContent = $(this).closest(".co").find(".comment-content")
+		originalContent.hide();
+		
+		//새 댓글 내용창을 textarea로 만들고 기존 댓글내용 뒤에 갖다 붙임 (기존 내용은 숨겨서 기존 자리에 대체된거로 보임)
+		const newContent = $('<textarea>', {
+			text: $(originalContent).text(),
+			class : "new-comment-content",
+			name : "new-comment-content"
+		})
+		
+		originalContent.after(newContent);
+		
+		//수정, 삭제버튼 숨긴 뒤 만들어둔 수정완료, 수정취소 버튼을 div(buttonfront) 부분 뒤에 갖다 붙임.
+		//선택자가 긴 이유는, 그냥 buttonfront.append 로 붙이면 모든 댓글에 다 수정완료 버튼이 생겨버림.
+		$modifybutton.closest(".co").find(".buttonfront").append(modifyCompleteButton, modifyCancelButton);
+		
+		
+		$(".co-modifyCancel").click(function(){ //수정취소 버튼 누르면 숨겼던 수정, 삭제 버튼 다시 나오게 하고 수정완료, 수정취소버튼 삭제함
+			const $modifyComplete = $(this).closest(".co").find(".co-modifyComplete")
+			const $modifyCancel = $(this);
+			$modifyComplete.remove();
+			$modifyCancel.remove();
+			
+			$modifybutton.show();
+			$deletebutton.show();
+			
+			newContent.remove();
+			originalContent.show();
+			
+		})
+		
+		$(".co-modifyComplete").click(function() {  //수정완료 버튼을 누를시 실행하는 ajax.
+		    const modifyButton = $(this);
+		    const commentId = modifyButton.closest(".co").find(".co-num").val(); // 댓글 ID
+		    const newContent = modifyButton.closest(".co").find(".new-comment-content").val(); // 새 댓글 내용
+		    const postId = $("#postid").val(); // 문의글 ID
+		
+		    $.ajax({
+		        url: `${contextPath}/comments/modify`,
+		        type: "POST",
+		        data: {
+		            "comment_id": commentId,
+		            "new-comment-content": newContent,
+		            "postid": postId
+		        },
+		        success: function(response) {
+		            // 서버로부터 성공적인 응답을 받은 경우 처리
+		            alert("문의댓글을 성공적으로 수정했습니다.");
+		            location.href = `${contextPath}/post/detail?postid=${postId}`;
+		        },
+		        error: function(xhr, status, error) {
+		            // 오류 처리
+		            console.log("수정 실패:", error);
+		            alert("문의댓글을 수정하지 못했습니다.");
+		        }
+		    }); //ajax 끝
+		    
+		    
+		}); //수정완료 메서드 끝
+
+		
+	}) //'수정' 버튼 누르면 작동하는 메서드 끝
+    
+    
+}); //ready() 끝

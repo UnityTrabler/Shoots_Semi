@@ -12,6 +12,8 @@ public class PostBean {
 	private int readcount;
 	private String user_id;
 	private int idx;
+	private int comment_id;
+	private int comment_ref_id;
 	
 	
 	public int getPost_id() {
@@ -79,6 +81,18 @@ public class PostBean {
 	}
 	public void setIdx(int idx) {
 		this.idx = idx;
+	}
+	public int getComment_id() {
+		return comment_id;
+	}
+	public void setComment_id(int comment_id) {
+		this.comment_id = comment_id;
+	}
+	public int getComment_ref_id() {
+		return comment_ref_id;
+	}
+	public void setComment_ref_id(int comment_ref_id) {
+		this.comment_ref_id = comment_ref_id;
 	}
 	
 	
