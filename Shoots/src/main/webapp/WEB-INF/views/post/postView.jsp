@@ -52,7 +52,7 @@
 					
 				<%-- 파일을 첨부한 경우 --%>
 			<c:if test="${!empty postdata.post_file}">
-				<td><img src="${pageContext.request.contextPath}/postupload/${postdata.post_file}" width="400px">
+				<td><img src="${pageContext.request.contextPath}/postupload/${postdata.post_file}" style= "width : 300px;"}>
 				<a href="down?filename=${postdata.post_file}">${postdata.post_file}</a>
 			</c:if>
 			
@@ -144,7 +144,7 @@
 		</div>
 		
 		
-		<textarea placeholder = "댓글을 남겨보세요" width="1200" class="comment-content" name="content" maxlength="300" required></textarea>		
+		<textarea placeholder = "댓글을 남겨보세요" style = "width : 1200px;" class="comment-content" name="content" maxlength="300" required></textarea>		
 		
 		<div class="register-box">
 			<button class="btn-primary" id="register-comment">등록</button>
