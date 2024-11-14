@@ -14,6 +14,7 @@ CREATE TABLE regular_user (
     role VARCHAR2(10) DEFAULT 'common' not null
 );
 
+DROP SEQUENCE user_seq;
 CREATE SEQUENCE user_seq
 START WITH 1
 INCREMENT BY 1

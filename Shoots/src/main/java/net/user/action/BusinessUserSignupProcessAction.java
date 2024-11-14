@@ -7,6 +7,6 @@ package net.user.action;
  * @author jhta
  *
  */
-public class BusinessUserJoinAction {
+public class BusinessUserSignupProcessAction {
 
 }

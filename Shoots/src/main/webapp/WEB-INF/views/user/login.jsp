@@ -11,6 +11,7 @@
     <script>
     	function init() {
 			$('#id').focus();
+			$('button#btnRegular').addClass('btn-success');
 		}
     
     	$(function() {
@@ -46,7 +47,7 @@
 					state = {'state' : 'business'};
 				
 				alert(`\${data + "&" + $.param(state)}`);
-				ajax(`\${data + "&" + $.param(state)}`, `loginProcess`);
+				ajax(`\${data + "&" + $.param(state)}`, `\${$(this).attr('action')}`);
 			}); 
 			
 		});//ready

@@ -23,7 +23,9 @@ public class BusinessUserDAO {
 
 	public BusinessUserBean getUserInfoById(int business_idx) {
 		String sql = """
-				select * from business_user where business_idx = ?
+				select * 
+				from business_user
+				where business_idx = ?
 				""";
 		BusinessUserBean businessUser = null;
 		try (Connection con = ds.getConnection();
@@ -39,7 +41,7 @@ public class BusinessUserDAO {
 					businessUser.setPassword(rs.getString("password"));
 					businessUser.setBusiness_name(rs.getString("business_name"));
 					businessUser.setBusiness_number(rs.getInt("business_number"));
-					businessUser.setReq(rs.getInt("req"));
+					businessUser.setTel(rs.getInt("tel"));
 					businessUser.setEmail(rs.getString("email"));
 					businessUser.setPost(rs.getInt("post"));
 					businessUser.setAddress(rs.getString("address"));
