@@ -47,7 +47,7 @@
 					state = {'state' : 'business'};
 				
 				alert(`\${data + "&" + $.param(state)}`);
-				ajax(`\${data + "&" + $.param(state)}`, `loginProcess`);
+				ajax(`\${data + "&" + $.param(state)}`, `signupProcess`);
 			}); 
 			
 		});//ready

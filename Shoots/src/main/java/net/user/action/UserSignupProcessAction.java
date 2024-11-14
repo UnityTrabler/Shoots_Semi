@@ -22,6 +22,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import net.core.Action;
 import net.core.ActionForward;
+import net.user.db.BusinessUserBean;
 import net.user.db.UserBean;
 import net.user.db.UserDAO;
 
@@ -41,39 +42,76 @@ public class UserSignupProcessAction extends HttpServlet implements Action {
 		
 		//유효성 검증 및 회원가입 처리. id가 null 이 아닐때만 검증.
 		String id = req.getParameter("id");
+		System.out.println("state :    -    "+req.getParameter("state") + "//////"+id);
 		if(id != null) {
+			if(req.getParameter("state").equals("regular")) {
+				UserBean userBean = new UserBean();
+				//idx
+				userBean.setId(req.getParameter("id"));
+				userBean.setPassword(req.getParameter("pwd"));
+				userBean.setName(req.getParameter("name"));
+				userBean.setRRN(Integer.parseInt(req.getParameter("RRN")));
+				userBean.setGender(Integer.parseInt(req.getParameter("gender")));
+				userBean.setTel(req.getParameter("tel"));
+				userBean.setEmail(req.getParameter("email"));
+				userBean.setNickname(req.getParameter("nickname"));
+				//userBean.setUserfile(req.getParameter("profile"));
+				//registerDate
+				int result = 0;
+				result = new UserDAO().insertUser(userBean);
+				System.out.println(result);
+				resp.setContentType("application/json; charset=UTF-8");
+				if(result == 1) {
+					System.out.println("user insert successed");
+					ActionForward forward = new ActionForward();
+					forward.setPath("/user/login");
+					forward.setRedirect(false);
+					resp.setStatus(HttpServletResponse.SC_OK);
+					resp.getWriter().println("{\"message\":\"sign up successed\"}");
+					return forward;
+				}
+				else {
+					System.out.println("user insert failed");
+					resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+					resp.getWriter().println("{\"message\":\"sign up failed\"}");
+					return null;
+				}
+			}
 			
-			UserBean userBean = new UserBean();
-			//idx
-			userBean.setId(req.getParameter("id"));
-			userBean.setPassword(req.getParameter("pwd"));
-			userBean.setName(req.getParameter("name"));
-			userBean.setRRN(Integer.parseInt(req.getParameter("RRN")));
-			userBean.setGender(Integer.parseInt(req.getParameter("gender")));
-			userBean.setTel(req.getParameter("tel"));
-			userBean.setEmail(req.getParameter("email"));
-			userBean.setNickname(req.getParameter("nickname"));
-			//userBean.setUserfile(req.getParameter("profile"));
-			//registerDate
-			int result = 0;
-			result = new UserDAO().insertUser(userBean);
-			System.out.println(result);
-			resp.setContentType("application/json; charset=UTF-8");
-			if(result == 1) {
-				System.out.println("user insert successed");
-				ActionForward forward = new ActionForward();
-				forward.setPath("/user/login");
-				forward.setRedirect(false);
-				resp.setStatus(HttpServletResponse.SC_OK);
-				resp.getWriter().println("{\"message\":\"sign up successed\"}");
-				return forward;
+			else if(req.getParameter("state").equals("business")) {
+				BusinessUserBean userBean = new BusinessUserBean();
+				//idx
+				userBean.setBusiness_id(req.getParameter("id"));
+				userBean.setPassword(req.getParameter("pwd"));
+				userBean.setBusiness_name(req.getParameter("name"));
+				userBean.setBusiness_number(Integer.parseInt(req.getParameter("number")));
+				userBean.setTel(Integer.parseInt(req.getParameter("tel")));
+				userBean.setEmail(req.getParameter("email"));
+				userBean.setPost(Integer.parseInt(req.getParameter("post")));
+				userBean.setAddress(req.getParameter("address") + " " +req.getParameter("addressDetail"));
+				userBean.setDescription(req.getParameter("description"));
+				userBean.setBusiness_file(req.getParameter("business_file"));
+				int result = 0;
+				result = new UserDAO().insertUser(userBean);
+				System.out.println(result);
+				resp.setContentType("application/json; charset=UTF-8");
+				if(result == 1) {
+					System.out.println("user insert successed");
+					ActionForward forward = new ActionForward();
+					forward.setPath("/user/login");
+					forward.setRedirect(false);
+					resp.setStatus(HttpServletResponse.SC_OK);
+					resp.getWriter().println("{\"message\":\"b sign up successed\"}");
+					return forward;
+				}
+				else {
+					System.out.println("user insert failed");
+					resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+					resp.getWriter().println("{\"message\":\"b sign up failed\"}");
+					return null;
+				}
 			}
-			else {
-				System.out.println("user insert failed");
-				resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-				resp.getWriter().println("{\"message\":\"sign up failed\"}");
-				return null;
-			}
+			
 			
 		}//if id!=null
 

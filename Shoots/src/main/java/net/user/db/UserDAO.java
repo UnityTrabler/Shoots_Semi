@@ -191,4 +191,36 @@ public class UserDAO {
 		return result;
 	}
 
+	public int insertUser(BusinessUserBean userBean) {
+		//nickname, user_file 빠짐
+		String sql = """
+				INSERT INTO business_user
+				(business_idx, business_id, password, 
+				business_name, business_number, tel,
+				email, post, address,
+				description, business_file)
+				VALUES (business_seq.nextval,?,?, ?,?,?, ?,?,?, ?,?)
+				""";
+		int result = 0;
+		
+		try(Connection con = ds.getConnection(); 
+				PreparedStatement pstmt = con.prepareStatement(sql);) {
+				pstmt.setString(1, userBean.getBusiness_id());
+				pstmt.setString(2, userBean.getPassword());
+				pstmt.setString(3, userBean.getBusiness_name());
+				pstmt.setInt(4, userBean.getBusiness_number());
+				pstmt.setInt(5, userBean.getTel());
+				pstmt.setString(6, userBean.getEmail());
+				pstmt.setInt(7, userBean.getPost());
+				pstmt.setString(8, userBean.getAddress());
+				pstmt.setString(9, userBean.getDescription());
+				pstmt.setString(10, userBean.getBusiness_file());
+				result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return result;
+	}
+
 }
