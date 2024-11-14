@@ -208,9 +208,13 @@
 			</ul>
 		</div>
 		
-		<div class = "btnD">
-			<input type = "button" class = "uploadBtn" value = "매칭 글 작성">
-		</div>
+		<c:if test="${empty sessionScope.id or userClassification == 'regular'}">
+		</c:if>
+		<c:if test="${not empty sessionScope.id and userClassification == 'business'}">
+			<div class = "btnD">
+				<input type = "button" class = "uploadBtn" value = "매칭 글 작성">
+			</div>
+		</c:if>
 		
 	</div>
 	<jsp:include page="../user/bottom.jsp"></jsp:include>

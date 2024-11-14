@@ -257,6 +257,7 @@ public class MatchDAO {
 					match.setMatch_time(rs.getString("match_time"));
 					match.setBusiness_name(rs.getString("business_name"));
 					match.setPlayer_max(rs.getInt("player_max"));
+					match.setPlayer_min(rs.getInt("player_min"));
 					match.setPlayer_gender(rs.getString("player_gender"));
 					
 					list.add(match);
