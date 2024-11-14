@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -11,6 +13,8 @@ import javax.sql.DataSource;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+
+import net.inquiryComment.db.InquiryCommentBean;
 
 public class CommentDAO {
 	
@@ -43,7 +47,7 @@ public class CommentDAO {
 	
 
 
-	public int commentsInsert(Comment co) {
+	public int commentsInsert(CommentBean co) {
 		int result = 0;
 		String sql = """
 					insert into post_comment
@@ -57,14 +61,15 @@ public class CommentDAO {
 			pstmt.setInt(2, co.getComment_ref_id());
 			pstmt.setInt(3, co.getWriter());
 			pstmt.setString(4, co.getContent());
-			
 			//sql 실행
 			result=pstmt.executeUpdate();
+			
 			if (result == 1)
-				System.out.println("데이터 삽입 완료되었습니다.");
+				System.out.println("댓글이 등록되었습니다.");
 			
 		} catch (Exception e) {
 			e.printStackTrace();
+			System.out.println("commentsInsert() 에러입니다." + e);
 		}
 		return result;
 	}
@@ -99,13 +104,16 @@ public class CommentDAO {
 	
 	
 	public JsonArray getCommentList(int post_id, int state) {
+		
 		String sql = """
-				select co.*, r.user_id
-            from post_comment co
-            join regular_user r on co.writer = r.idx
-            where post_id = ?
-            order by comment_id 
-            """ + (state == 1 ? "asc" : "desc"); // 등록순, 최신순 정렬 조건
+				select * from (
+						select co.*, r.user_id
+			            from post_comment co
+			            join regular_user r 
+			            on co.writer = r.idx)
+	            where post_id = ?
+	            order by comment_id
+	            """.formatted(state == 1 ? "asc" : "desc"); // 등록순, 최신순 정렬 조건
 					
 		
 		JsonArray array = new JsonArray();
@@ -119,14 +127,14 @@ public class CommentDAO {
 					
 					while(rs.next()) {
 						JsonObject object = new JsonObject();
-						object.addProperty("comment_id ", rs.getInt("comment_id"));
-						object.addProperty("post_id ", rs.getInt("post_id"));
-						object.addProperty("comment_ref_id ", rs.getInt("comment_ref_id"));
-						object.addProperty("writer ", rs.getInt("writer"));
-						object.addProperty("content ", rs.getString("content"));
-						object.addProperty("register_date ", rs.getString("register_date"));
-						object.addProperty("user_id", rs.getString("user_id"));
-						//object.addProperty("user_file", rs.getString("user_file"));
+						object.addProperty("comment_id", rs.getInt(1));
+						object.addProperty("post_id", rs.getInt(2));
+						object.addProperty("comment_ref_id", rs.getInt(3));
+						object.addProperty("writer", rs.getInt(4));
+						object.addProperty("content", rs.getString(5));
+						object.addProperty("register_date", rs.getString(6));
+						object.addProperty("user_id", rs.getString(7));
+						object.addProperty("user_file", rs.getString("user_file"));
 						array.add(object);
 					}
 				}

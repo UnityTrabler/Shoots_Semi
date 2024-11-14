@@ -1,12 +1,15 @@
 package net.comment.db;
 
-public class Comment {
+public class CommentBean {
 	private int comment_id;
 	private int post_id;
 	private int comment_ref_id;
 	private int writer;
 	private String content;
 	private String register_date;
+	private String user_id;
+	private int idx;
+	
 	public int getComment_id() {
 		return comment_id;
 	}
@@ -42,6 +45,18 @@ public class Comment {
 	}
 	public void setRegister_date(String register_date) {
 		this.register_date = register_date;
+	}
+	public String getUser_id() {
+		return user_id;
+	}
+	public void setUser_id(String user_id) {
+		this.user_id = user_id;
+	}
+	public int getIdx() {
+		return idx;
+	}
+	public void setIdx(int idx) {
+		this.idx = idx;
 	}
 	
 	
