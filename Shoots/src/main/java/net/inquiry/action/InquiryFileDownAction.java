@@ -32,7 +32,7 @@ public class InquiryFileDownAction implements Action {
 		String sFilePath = sDownloadPath + File.separator + fileName;
 		System.out.println(sFilePath);
 		
-		byte b[] = new byte[5 *1024 *1024];
+		byte b[] = new byte[10 *1024 *1024];
 		
 		//sFilePath에 있는 파일의 MimeType를 구해옴.
 		String sMimeType = context.getMimeType(sFilePath);

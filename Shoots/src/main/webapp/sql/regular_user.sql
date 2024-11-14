@@ -27,6 +27,11 @@ alter table regular_user
 add role varchar2(10) default 'common' not null;
 
 
+--아이디가 admin 일 경우 role을 admin으로 업데이트
+update REGULAR_USER
+set role = 'admin'
+where user_id = 'admin';
+
 --임의의 데이터 3개 삽입 (로그인 전 테스트 위함)
 insert into regular_user
 values (user_seq.nextval, 'youngsoo1', '1', '일수',  111111, 1, '01012345678', '1@1.com', null, null, current_timestamp, 'common');
