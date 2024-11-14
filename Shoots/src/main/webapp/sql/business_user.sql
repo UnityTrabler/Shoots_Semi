@@ -20,6 +20,9 @@ START WITH 1
 INCREMENT BY 1
 NOCACHE;
 
+ALTER TABLE business_user RENAME COLUMN req TO tel;
+
+
 INSERT INTO BUSINESS_USER 
 VALUES (
     business_seq.nextval, 
@@ -50,6 +53,38 @@ VALUES (
     'JongRsc@gmail.com',
     '10882', 
     '서울시 종로구 종로3가', 
+    null,  
+    null,  
+    SYSDATE
+);
+
+INSERT INTO BUSINESS_USER 
+VALUES (
+    business_seq.nextval, 
+    'qwerty2', 
+    '1234', 
+    '강남구 풋살장 B', 
+    '1234567891', 
+    '354345', 
+    '222@gmail.com',
+    '06090', 
+    '서울특별시 강남구 학동로 426 (삼성동, 강남구청)', 
+    null,  
+    null,  
+    SYSDATE
+);
+
+INSERT INTO BUSINESS_USER 
+VALUES (
+    business_seq.nextval, 
+    'qwerty3', 
+    '1234', 
+    '강남구 풋살장 C', 
+    '1234567891', 
+    '354345', 
+    '222@gmail.com',
+    '06090', 
+    '서울특별시 강남구 학동로 426 (삼성동, 강남구청)', 
     null,  
     null,  
     SYSDATE

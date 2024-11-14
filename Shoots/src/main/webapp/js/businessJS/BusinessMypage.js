@@ -1,7 +1,7 @@
 window.onload = function() {
-    var firstTab = document.querySelector('#tab-info'); // "우리구장" 탭을 선택
+    var firstTab = document.querySelector('#tab-info');
     if (firstTab) {
-        loadBusinessInfo(); // 첫 번째 탭에 해당하는 AJAX 호출 (우리구장)
+        loadBusinessInfo();
     }
 };
 
@@ -165,14 +165,33 @@ function generatePagination(data) {
 function updateMatchList(data) {
 	
 	let num = data.listcount - (data.page - 1) * data.limit;
-	let output = "<tbody>";
+	let output = "<tbody id = 'searchResults'>";
 	let previousDate = "";
     let rowspan = 1;
+    
+    const currentDate = new Date();
+    const currentDateTime = currentDate.getFullYear() + '-' +
+							(currentDate.getMonth() + 1).toString().padStart(2,'0') + '-' +
+							 currentDate.getDate().toString().padStart(2, '0') + ' ' +
+							 currentDate.getHours().toString().padStart(2, '0') + ':' +
+                             currentDate.getMinutes().toString().padStart(2, '0');
+    
+    console.log(currentDateTime);
     
 	$(data.list).each(function(index, item){
 		
 		const matchDate = item.match_date.substring(0, 10);
 		const formattedDate = matchDate.replace(/-/g, '/');
+		
+		const matchTime = item.match_time;
+		const matchDateTime = matchDate + ' ' + matchTime;
+		
+		const twoHoursInMilliseconds = 2 * 60 * 60 * 1000;
+		
+		const a = new Date(matchDateTime);
+		const b = new Date(a.getTime() - twoHoursInMilliseconds);
+			
+		const isMatchPast = b < new Date(currentDateTime);
 		
 		if (matchDate === previousDate) {
             rowspan++;
@@ -180,9 +199,25 @@ function updateMatchList(data) {
                 <tr>
                     <td class="empty-td"></td>
                     <td> ${item.match_time} </td>
-                    <td> <a href="detail?match_id=${item.match_id}" class="locatinA"> ${item.business_name} </a> </td>
+                    <td> <a href="../matchs/detail?match_id=${item.match_id}" class="locatinA"> ${item.business_name} </a> </td>
                     <td> ${item.player_max} </td>
-                    <td> <input type="button" class="status" data-match-id="${item.match_id}" value="신청가능"> </td>
+                    <td>
+                    	${isMatchPast && item.playerCount >= item.player_min
+                    	? `<input type="button" class="status5" value="매칭확정">` 
+                    	: (isMatchPast
+                    		? `<input type="button" class="status4" value="마감">`
+              				:(item.playerCount == item.player_max 
+	                    		? `<input type="button" class="status2" value="마감">`
+							    : (item.playerCount >= item.player_min && item.playerCount < item.player_max
+							        ? `<input type="button" class="status3" data-match-id="${item.match_id}" value="마감임박">`
+							        : (item.playerCount >= 0 && item.playerCount <= item.player_min
+							            ? `<input type="button" class="status" data-match-id="${item.match_id}" value="신청가능">`
+							            : '')
+							        )
+							    )
+							)
+						}
+					</td>
                 </tr>
             `;
             
@@ -191,9 +226,25 @@ function updateMatchList(data) {
 				<tr>
 					<td rowspan="${rowspan}"> ${formattedDate} </td>
 					<td> ${item.match_time} </td>
-					<td> <a href = "detail?match_id=${item.match_id}" class = "locatinA"> ${item.business_name} </a> </td>
+                    <td> <a href="../matchs/detail?match_id=${item.match_id}" class="locatinA"> ${item.business_name} </a> </td>
 					<td> ${item.player_max} </td>
-					<td> <input type = "button" class = "status" data-match-id="${item.match_id}" value = "신청가능"> </td>
+					<td>
+                    	${isMatchPast && item.playerCount >= item.player_min
+                    	? `<input type="button" class="status5" value="매칭확정">` 
+                    	: (isMatchPast
+                    		? `<input type="button" class="status4" value="마감">`
+              				:(item.playerCount == item.player_max 
+	                    		? `<input type="button" class="status2" value="마감">`
+							    : (item.playerCount >= item.player_min && item.playerCount < item.player_max
+							        ? `<input type="button" class="status3" data-match-id="${item.match_id}" value="마감임박">`
+							        : (item.playerCount >= 0 && item.playerCount <= item.player_min
+							            ? `<input type="button" class="status" data-match-id="${item.match_id}" value="신청가능">`
+							            : '')
+							        )
+							    )
+							)
+						}
+					</td>
 				</tr>
 			`;
 		 }
