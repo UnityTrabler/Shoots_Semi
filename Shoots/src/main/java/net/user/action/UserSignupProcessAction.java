@@ -121,7 +121,7 @@ public class UserSignupProcessAction extends HttpServlet implements Action {
 			String domain = "naver.com";
 			String host = "smtp."+domain;
 			final String username = "kdhmm0325@"+domain; // 실제 아이디
-			final String password = "won08980898A"; // 실제 비밀번호
+			final String password = ""; // 실제 비밀번호
 			String sender = username;
 			sendEmail(req, resp, host, username, password, sender, receiver, subject, imgPath, verifyNum);
 			session.setAttribute("verifyNum", verifyNum);

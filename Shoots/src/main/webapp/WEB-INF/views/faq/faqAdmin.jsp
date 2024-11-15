@@ -20,6 +20,7 @@
 </head>
 
 <body>
+	<c:if test="${listcount > 0 }">
 		<table class="table">
 			<caption>FAQ 관리</caption>
 			<thead>
@@ -48,6 +49,10 @@
 				</tr>
 			</tbody>
 		</table>
-	
+	</c:if>
+	<c:if test="${listcount == 0 }">
+		<h3 style="text-align:center">등록된 글이 없습니다.</h3>
+		<a href="../faq/write" type="button" class="btnWrite">글 쓰 기</a>
+	</c:if>
 </body>
 </html>

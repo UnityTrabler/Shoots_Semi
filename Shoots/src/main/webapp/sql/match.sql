@@ -1,4 +1,3 @@
-
 CREATE TABLE match_post(
     match_id NUMBER(10) PRIMARY KEY,
     writer NUMBER(10) references business_user(business_idx) on delete cascade,

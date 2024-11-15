@@ -47,20 +47,22 @@ public class CommentDAO {
 	
 
 
-	public int commentsInsert(CommentBean co) {
+	public int commentsInsert(CommentBean co, int post_id) {
 		int result = 0;
 		String sql = """
 					insert into post_comment
-					values (comment_seq.nextval, ?, ?, ?, ?, current_timestamp)
+					(comment_id, post_id, comment_ref_id, writer, content, register_date)
+					values (post_comment_seq.nextval, ?, ?, ?, ?, current_timestamp)
 					""";
 		try (Connection con = ds.getConnection();
 			 PreparedStatement pstmt = con.prepareStatement(sql);) {
 			
-			// 파라미터 설정 - 새로운 글을 등록하는 부분입니다.
-			pstmt.setInt(1, co.getPost_id());
-			pstmt.setInt(2, co.getComment_ref_id());
-			pstmt.setInt(3, co.getWriter());
-			pstmt.setString(4, co.getContent());
+			// 파라미터 설정 - 새로운 글을 등록하는 부분
+			pstmt.setInt(1, post_id);  // post_id는 파라미터로 받아서 사용
+			pstmt.setInt(2, co.getComment_ref_id()); // 부모 댓글 ID (답글인 경우)
+			pstmt.setInt(3, co.getWriter()); // 작성자 ID
+			pstmt.setString(4, co.getContent()); // 댓글 내용
+			
 			//sql 실행
 			result=pstmt.executeUpdate();
 			
@@ -103,20 +105,29 @@ public class CommentDAO {
 	
 	
 	
-	public JsonArray getCommentList(int post_id, int state) {
+	
+	
+	public List<CommentBean> getCommentList(int post_id) {
+		List<CommentBean> list = new ArrayList<>();
 		
 		String sql = """
-				select * from (
 						select co.*, r.user_id
 			            from post_comment co
-			            join regular_user r 
-			            on co.writer = r.idx)
+			            join regular_user r on co.writer = r.idx
 	            where post_id = ?
-	            order by comment_id
-	            """.formatted(state == 1 ? "asc" : "desc"); // 등록순, 최신순 정렬 조건
+	            order by comment_id asc
+	            """; //.formatted(state == 1 ? "asc" : "desc"); // 등록순, 최신순 정렬 조건
 					
+		/*
 		
-		JsonArray array = new JsonArray();
+		SELECT co.*, r.user_id
+		FROM post_comment co
+		JOIN regular_user r ON co.writer = r.idx
+		WHERE co.post_id = 65
+		ORDER BY co.comment_id ASC;
+		
+		*/
+		
 		
 		try (Connection con = ds.getConnection();
 				 PreparedStatement pstmt = con.prepareStatement(sql);) {
@@ -126,23 +137,35 @@ public class CommentDAO {
 				try (ResultSet rs = pstmt.executeQuery()) {
 					
 					while(rs.next()) {
-						JsonObject object = new JsonObject();
-						object.addProperty("comment_id", rs.getInt(1));
-						object.addProperty("post_id", rs.getInt(2));
-						object.addProperty("comment_ref_id", rs.getInt(3));
-						object.addProperty("writer", rs.getInt(4));
-						object.addProperty("content", rs.getString(5));
-						object.addProperty("register_date", rs.getString(6));
-						object.addProperty("user_id", rs.getString(7));
-						object.addProperty("user_file", rs.getString("user_file"));
-						array.add(object);
+						CommentBean co = new CommentBean();
+						co.setComment_id(rs.getInt("comment_id"));
+						co.setPost_id(rs.getInt("post_id"));
+						co.setComment_ref_id(rs.getInt("comment_ref_id"));
+						co.setWriter(rs.getInt("writer"));
+						co.setContent(rs.getString("content"));
+						co.setRegister_date(rs.getString("register_date"));
+						co.setUser_id(rs.getString("user_id"));
+						//co.setUser_file(rs.getString("user_file"));
+						list.add(co);
+						
+						
+//						JsonObject object = new JsonObject();
+//						object.addProperty("comment_id", rs.getInt(1));
+//						object.addProperty("post_id", rs.getInt(2));
+//						object.addProperty("comment_ref_id", rs.getInt(3));
+//						object.addProperty("writer", rs.getInt(4));
+//						object.addProperty("content", rs.getString(5));
+//						object.addProperty("register_date", rs.getString(6));
+//						object.addProperty("user_id", rs.getString(7));
+//						object.addProperty("user_file", rs.getString("user_file"));
+//						array.add(object);
 					}
 				}
 			} catch (Exception ex) {
 				ex.printStackTrace();
 				System.out.println("getCommentList() 에러: " + ex);
 			}
-			return array;
+			return list;
 	}
 
 	

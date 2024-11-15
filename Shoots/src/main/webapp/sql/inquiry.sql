@@ -1,3 +1,4 @@
+
 CREATE TABLE inquiry(
     inquiry_id NUMBER(10) PRIMARY KEY, --문의글 번호 : primary 키
     inquiry_type char(1) CHECK (inquiry_type IN ('A', 'B')), -- A : 회원, B : 기업
