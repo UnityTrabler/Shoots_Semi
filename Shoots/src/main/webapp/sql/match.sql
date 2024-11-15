@@ -1,4 +1,4 @@
-
+DROP TABLE regular_user CASCADE CONSTRAINTS PURGE;
 CREATE TABLE match_post(
     match_id NUMBER(10) PRIMARY KEY,
     writer NUMBER(10) references business_user(business_idx) on delete cascade,
@@ -15,7 +15,6 @@ CREATE SEQUENCE match_seq
 START WITH 1
 INCREMENT BY 1
 NOCACHE;
-
 
 select * from match_post order by match_id desc;
 

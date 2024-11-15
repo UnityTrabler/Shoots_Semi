@@ -12,15 +12,8 @@ START WITH 1
 INCREMENT BY 1
 NOCACHE;
 
-
-
-
 insert into POST_COMMENT
 (comment_id, post_id, comment_ref_id, writer, content)
 values(1,65,1,1,'ㅎㅇ');
-
-
-
-
 
 select * from post_comment;

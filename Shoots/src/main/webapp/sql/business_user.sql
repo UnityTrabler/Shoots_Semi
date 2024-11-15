@@ -11,7 +11,8 @@ CREATE TABLE business_user (
     address VARCHAR2(100) NOT NULL,
     description clob,
     business_file varchar2(50),
-   	register_date timestamp DEFAULT current_timestamp
+   	register_date timestamp DEFAULT current_timestamp,
+   	login_status varchar2(9) DEFAULT 'pending'
 );
 
 DROP SEQUENCE business_seq;
@@ -19,6 +20,8 @@ CREATE SEQUENCE business_seq
 START WITH 1
 INCREMENT BY 1
 NOCACHE;
+
+SELECT * FROM business_user;
 
 ALTER TABLE business_user RENAME COLUMN req TO tel;
 
@@ -91,4 +94,3 @@ VALUES (
 );
 
 
-SELECT * FROM business_user;
