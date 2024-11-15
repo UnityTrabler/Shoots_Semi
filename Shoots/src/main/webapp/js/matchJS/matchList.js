@@ -73,22 +73,38 @@ function updateMatchList(data) {
                     <td> ${item.match_time} </td>
                     <td> <a href="detail?match_id=${item.match_id}" class="locatinA"> ${item.business_name} </a> </td>
                     <td>
-					    <span style="color: ${item.playerCount >= 1 ? '#1d4ed8' : 'black'}">
-					        ${item.playerCount}
-					    </span> / ${item.player_max}
+                    	${isMatchPast && item.playerCount >= item.player_min
+                    	? `<span style="color: gray}">
+					       	${item.playerCount}
+					       </span> / ${item.player_max} <span  style="color : #be123c; font-size : 10px"> 인원확정 </span>`
+                    	: (isMatchPast
+                    		? `<span> — </span>`
+                    		: (item.playerCount == item.player_max
+	                    		? `<span style="color : #be123c">
+								   	${item.playerCount}
+							       </span> / ${item.player_max}`
+	                    		: `<span style="color: ${item.playerCount >= 1 ? '#1d4ed8' : 'black'}">
+								   	${item.playerCount}
+							       </span> / ${item.player_max}`
+	                    		)
+	                    	)
+						}
 					</td>
                     <td>
-                    	${isMatchPast 
-                    	? `<input type="button" class="status4" value="마감">` 
-                    	: (item.playerCount == item.player_max 
-                    		? `<input type="button" class="status2" value="마감">`
-						    : (item.playerCount >= item.player_min && item.playerCount < item.player_max
-						        ? `<input type="button" class="status3" data-match-id="${item.match_id}" value="마감임박">`
-						        : (item.playerCount >= 0 && item.playerCount <= item.player_min
-						            ? `<input type="button" class="status" data-match-id="${item.match_id}" value="신청가능">`
-						            : '')
-						        )
-						    )
+                    	${isMatchPast && item.playerCount >= item.player_min
+                    	? `<input type="button" class="status5" value="매칭확정">` 
+                    	: (isMatchPast
+                    		? `<input type="button" class="status4" value="마감">`
+              				:(item.playerCount == item.player_max 
+	                    		? `<input type="button" class="status2" value="마감">`
+							    : (item.playerCount >= item.player_min && item.playerCount < item.player_max
+							        ? `<input type="button" class="status3" data-match-id="${item.match_id}" value="마감임박">`
+							        : (item.playerCount >= 0 && item.playerCount <= item.player_min
+							            ? `<input type="button" class="status" data-match-id="${item.match_id}" value="신청가능">`
+							            : '')
+							        )
+							    )
+							)
 						}
 					</td>
                 </tr>
@@ -101,22 +117,38 @@ function updateMatchList(data) {
 					<td> ${item.match_time} </td>
 					<td> <a href = "detail?match_id=${item.match_id}" class = "locatinA"> ${item.business_name} </a> </td>
 					<td>
-					    <span style="color: ${item.playerCount >= 1 ? '#1d4ed8' : 'black'}">
-					        ${item.playerCount}
-					    </span> / ${item.player_max}
+                    	${isMatchPast && item.playerCount >= item.player_min
+                    	? `<span style="color: gray}">
+					       	${item.playerCount}
+					       </span> / ${item.player_max} <span  style="color : #be123c; font-size : 10px"> 인원확정 </span>`
+                    	: (isMatchPast
+                    		? `<span> — </span>`
+                    		: (item.playerCount == item.player_max
+	                    		? `<span style="color : #be123c">
+								   	${item.playerCount}
+							       </span> / ${item.player_max}`
+	                    		: `<span style="color: ${item.playerCount >= 1 ? '#1d4ed8' : 'black'}">
+								   	${item.playerCount}
+							       </span> / ${item.player_max}`
+	                    		)
+	                    	)
+						}
 					</td>
 					<td>
-                    	${isMatchPast 
-                    	? `<input type="button" class="status4" value="마감">` 
-                    	: (item.playerCount == item.player_max 
-                    		? `<input type="button" class="status2" value="마감">`
-						    : (item.playerCount >= item.player_min && item.playerCount < item.player_max
-						        ? `<input type="button" class="status3" data-match-id="${item.match_id}" value="마감임박">`
-						        : (item.playerCount >= 0 && item.playerCount <= item.player_min
-						            ? `<input type="button" class="status" data-match-id="${item.match_id}" value="신청가능">`
-						            : '')
-						        )
-						    )
+                    	${isMatchPast && item.playerCount >= item.player_min
+                    	? `<input type="button" class="status5" value="매칭확정">` 
+                    	: (isMatchPast
+                    		? `<input type="button" class="status4" value="마감">`
+              				:(item.playerCount == item.player_max 
+	                    		? `<input type="button" class="status2" value="마감">`
+							    : (item.playerCount >= item.player_min && item.playerCount < item.player_max
+							        ? `<input type="button" class="status3" data-match-id="${item.match_id}" value="마감임박">`
+							        : (item.playerCount >= 0 && item.playerCount <= item.player_min
+							            ? `<input type="button" class="status" data-match-id="${item.match_id}" value="신청가능">`
+							            : '')
+							        )
+							    )
+							)
 						}
 					</td>
 				</tr>

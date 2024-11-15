@@ -5,6 +5,7 @@ import java.io.IOException;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import net.core.Action;
 import net.core.ActionForward;
 import net.user.db.BusinessUserBean;
@@ -18,8 +19,11 @@ public class BusinessInfoAction implements Action {
 		
 		BusinessUserDAO dao = new BusinessUserDAO();
 		
-		int business_idx = 5; // 임시
-		BusinessUserBean businessUser = dao.getUserInfoById(business_idx);
+		HttpSession session = req.getSession();
+		int idx = (int) session.getAttribute("idx");
+		System.out.println("로그인 = " + idx);
+		
+		BusinessUserBean businessUser = dao.getUserInfoById(idx);
 		
 		ActionForward forward = new ActionForward();
 		req.setAttribute("businessUser", businessUser);
@@ -30,3 +34,4 @@ public class BusinessInfoAction implements Action {
 	}
 
 }
+

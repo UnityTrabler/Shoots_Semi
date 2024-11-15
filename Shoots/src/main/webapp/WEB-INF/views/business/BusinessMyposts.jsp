@@ -12,7 +12,7 @@
 </head>
 <body>
 	<p class = "cP1"> 매칭 글 조회 </p>
-	
+	<input type = "hidden" id = "idx" name =  "idx" value = "${idx}">		
 		<form id="filterForm" method="post">
 			<label for="year"></label>
 			<select name="year" id="year">
@@ -61,18 +61,60 @@
                			<tr>
 							<td class = "empty-td"></td>
 							<td> ${match.match_time} </td>
-							<td> <a href = "detail?match_id=${match.match_id}" class = "locatinA"> ${match.business_name} </a> </td>
+							<td> <a href = "../matchs/detail?match_id=${match.match_id}" class = "locatinA"> ${match.business_name} </a> </td>
 							<td> ${match.player_max} </td>
-							<td> <input type = "button" class = "status" data-match-id="${match.match_id}" value = "신청가능"></td>
+							<td>
+								<c:choose>
+									<c:when test="${isMatchPast && match.playerCount >= match.player_min}">
+							            <input type="button" class="status5" value="매칭확정">
+							        </c:when>
+									 <c:when test="${isMatchPast}">
+								        <input type="button" class="status4" value="마감">
+								    </c:when>
+								    <c:when test="${match.playerCount == match.player_max}">
+						                <input type="button" class="status2" value="마감">
+						            </c:when>
+								    <c:when test="${match.playerCount >= match.player_min && match.playerCount < match.player_max}">
+							        	<input type="button" class="status3" data-match-id="${match.match_id}" value="마감임박">
+							        </c:when>
+									<c:when test="${match.playerCount >= 0 && match.playerCount <= player_min}">
+						                <input type="button" class="status" data-match-id="${match.match_id}" value="신청가능">
+						            </c:when>
+						 			<c:otherwise>
+						 				<input type = "button" class = "status" data-match-id="${match.match_id}" value = "신청가능">
+						 			</c:otherwise>
+								</c:choose> 
+							</td>
 						</tr>
                		</c:if>
                		<c:if test="${matchDate != previousDate}">
                			<tr>
 							<td rowspan = "${rowspanCount}"> ${match.match_date.substring(0,10).replace('-','/')} </td>
 							<td> ${match.match_time} </td>
-							<td> <a href = "detail?match_id=${match.match_id}" class = "locatinA"> ${match.business_name} </a> </td>
+							<td> <a href = "../matchs/detail?match_id=${match.match_id}" class = "locatinA"> ${match.business_name} </a> </td>
 							<td> ${match.player_max} </td>
-							<td> <input type = "button" class = "status" data-match-id="${match.match_id}" value = "신청가능"></td>
+							<td>
+								<c:choose>
+									<c:when test="${isMatchPast && match.playerCount >= match.player_min}">
+							            <input type="button" class="status5" value="매칭확정">
+							        </c:when>
+									 <c:when test="${isMatchPast}">
+								        <input type="button" class="status4" value="마감">
+								    </c:when>
+								    <c:when test="${match.playerCount == match.player_max}">
+						                <input type="button" class="status2" value="마감">
+						            </c:when>
+								    <c:when test="${match.playerCount >= match.player_min && match.playerCount < match.player_max}">
+							        	<input type="button" class="status3" data-match-id="${match.match_id}" value="마감임박">
+							        </c:when>
+									<c:when test="${match.playerCount >= 0 && match.playerCount <= player_min}">
+						                <input type="button" class="status" data-match-id="${match.match_id}" value="신청가능">
+						            </c:when>
+						 			<c:otherwise>
+						 				<input type = "button" class = "status" data-match-id="${match.match_id}" value = "신청가능">
+						 			</c:otherwise>
+								</c:choose> 
+							</td>
 						</tr>
                		</c:if>
                		<c:set var="rowspanCount" value="1" />

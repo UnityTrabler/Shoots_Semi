@@ -21,7 +21,7 @@
 			<div class="form-group">
 				<%--문의자, hidden --%>
 				<input name="inquiry_ref_idx" id ="inquiry_ref_idx" value="${idx}" 
-				type="hidden" class="form-control" readOnly> 
+				type="text" class="form-control" readOnly> 
 				
 				<%--문의자 유형, hidden --%>
 				<input name="inquiry_type" id ="inquiry_type" value="A" 

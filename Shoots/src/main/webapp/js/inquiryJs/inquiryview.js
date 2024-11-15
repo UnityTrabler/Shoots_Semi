@@ -1,5 +1,23 @@
 $(function() {
     const loginid = $("#loginid").val();  // 로그인한 유저의 id
+    const inquiryid = $("#inquiryid").val(); // 문의글 번호.
+    
+	$('#inquiryDelete').click(function(){ //문의글 삭제 버튼 누르면 삭제하는 메서드
+		if (confirm("문의글을 삭제하시겠습니까?")) {
+			$.ajax({
+				type: "POST", 
+				url: "delete?num=" + inquiryid, 
+				success: function(response) {
+					alert("삭제되었습니다."); 
+					location.href = "../inquiry/list"; 
+				},
+				error: function() {
+					alert("삭제 실패. 다시 시도해주세요.");
+				}
+			});
+		}
+	}); //문의글 삭제 메서드 끝
+    
 
     $(".ic").each(function() { //문의댓글을 c:foreach 반복문으로 뽑아내서 여러개가 나오기 때문에 각 댓글들마다 코드 실행시키기 위해 each 함수 사용
         const commentwriter = $(this).find(".iqcomment-writer").val();  // 각 댓글의 작성자 id
@@ -11,11 +29,11 @@ $(function() {
     }); //each 함수 끝
     
     
-    $(".ic-delete").click(function(){ //삭제 버튼 누르면 해당 i_commoent_id 값에 해당하는 문의댓글 삭제
+    $(".ic-delete").click(function(){ //댓글 삭제 버튼 누르면 해당 i_commoent_id 값에 해당하는 문의댓글 삭제
 		const deletenum = $(this).val();
 		const inquiryid = $("#inquiryid").val();  //삭제 후 다시 문의글로 돌아갈때 글의 번호값을 저장
-		console.log(inquiryid);
 		
+		if(confirm("정말 문의댓글을 삭제하시겠습니까?"))
 		location.href= `${contextPath}/iqcomments/delete?i_comment_id=${deletenum}&inquiryid=${inquiryid}`;
 	}) //문의댓글 삭제 click() 끝
     
@@ -79,7 +97,6 @@ $(function() {
 		    const modifyButton = $(this);
 		    const commentId = modifyButton.closest(".ic").find(".ic-num").val(); // 댓글 ID
 		    const newContent = modifyButton.closest(".ic").find(".new-iqcomment-content").val(); // 새 댓글 내용
-		    const inquiryId = $("#inquiryid").val(); // 문의글 ID
 		
 		    $.ajax({
 		        url: `${contextPath}/iqcomments/modify`,
@@ -87,12 +104,12 @@ $(function() {
 		        data: {
 		            "i_comment_id": commentId,
 		            "new-iqcomment-content": newContent,
-		            "inquiryid": inquiryId
+		            "inquiryid": inquiryid
 		        },
 		        success: function(response) {
 		            // 서버로부터 성공적인 응답을 받은 경우 처리
 		            alert("문의댓글을 성공적으로 수정했습니다.");
-		            location.href = `${contextPath}/inquiry/detail?inquiryid=${inquiryId}`;
+		            location.href = `${contextPath}/inquiry/detail?inquiryid=${inquiryid}`;
 		        },
 		        error: function(xhr, status, error) {
 		            // 오류 처리

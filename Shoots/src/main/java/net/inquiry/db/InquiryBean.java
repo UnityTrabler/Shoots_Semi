@@ -12,8 +12,14 @@ public class InquiryBean {
 	private String user_id;
 	private String business_name;
 	private int idx;
+	private int commentcount;
 	
-	
+	public int getCommentcount() {
+		return commentcount;
+	}
+	public void setCommentcount(int commentcount) {
+		this.commentcount = commentcount;
+	}
 	public int getIdx() {
 		return idx;
 	}

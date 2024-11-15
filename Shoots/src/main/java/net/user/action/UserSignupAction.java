@@ -16,7 +16,7 @@ public class UserSignupAction extends HttpServlet implements Action {
 			throws ServletException, IOException {
 		ActionForward forward = new ActionForward();
 		forward.setRedirect(false);
-		forward.setPath("/WEB-INF/views/user/signup.jsp");
+		forward.setPath("/WEB-INF/views/user/signupRegular.jsp");
 		System.out.println("signup action");
 		return forward;
 	}
