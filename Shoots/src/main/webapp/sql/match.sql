@@ -73,3 +73,8 @@ select mp.*, COALESCE(p.playerCount, 0) AS playerCount
 				on mp.match_id = p.match_id
 				where match_date = TO_CHAR(SYSDATE, 'YYYY-MM-DD')
 				order by match_time ASC;
+				
+SELECT * FROM match_post 
+WHERE writer = 5
+AND EXTRACT(YEAR FROM match_date) = 2024
+AND EXTRACT(MONTH FROM match_date) = 11;
