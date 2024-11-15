@@ -1,5 +1,7 @@
 $(function(){
 	
+	let check = 0;
+	
 	//첨부파일이 있을(없을)경우 remove 이미지가 보이도록(안보이도록) 하는 함수
 	function show(){ 
 	$('.remove').css('display' , $('#filevalue').text() ? 'inline-block' : 'none')
@@ -23,7 +25,6 @@ $(function(){
 		$('#filevalue').text(inputfile[inputfile.length-1]);
 	});
 	
-	let check = 0;
 	
 	
 	// '수정'버튼 눌렀을때 유효성 검사
@@ -42,24 +43,26 @@ $(function(){
 			return false;
 		}
 		
-		//파일명을 숨긴 뒤에 폼 전송시에 서버로 전송해주는 코드
+		//파일첨부 미변경시 $('#filevalue').text()의 파일명을 파라미터 check 란 이름으로 form에 추가해서 전송
 		if(check == 0){
 			const value = $('#filevalue').text();
-			const html = `<input type='hidden' value='${value}' name='check'>`;
+			const html = `<span text='${value}' name = 'check'>`;
 			console.log(html);
 			$(this).append(html);
 		}
 		
 	});//submit click event
 	
-	//첨부파일 용량이 5mb 이상이면 경고창 띄우고 첨부 취소
+	//첨부파일 용량이 10mb 이상이면 경고창 띄우고 첨부 취소
 	$("#upfile").change(function(){
 		check++;
-		const maxSizeInBytes = 5 * 1024 * 1024;
+		const maxSizeInBytes = 10 * 1024 * 1024;
 		const file = this.files[0];
+		
 		if(file.size > maxSizeInBytes){
-			alert("첨부할 파일의 용량은 5MB 이하여야 합니다.");
+			alert("첨부할 파일의 용량은 10MB 이하여야 합니다.");
 			$(this).val('');
+			$('#filevalue').text('');
 		}else
 			$('#filevalue').text(file.name);
 		
