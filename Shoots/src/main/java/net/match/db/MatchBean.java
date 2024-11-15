@@ -13,7 +13,14 @@ public class MatchBean {
 	private String business_name;
 	private String address;
 	private int playerCount;
+	private int total;
 	
+	public int getTotal() {
+		return total;
+	}
+	public void setTotal(int total) {
+		this.total = total;
+	}
 	public int getPlayerCount() {
 		return playerCount;
 	}
@@ -86,4 +93,13 @@ public class MatchBean {
 	public void setRegister_date(int register_date) {
 		this.register_date = register_date;
 	}
+	@Override
+	public String toString() {
+		return "MatchBean [match_id=" + match_id + ", writer=" + writer + ", match_date=" + match_date + ", match_time="
+				+ match_time + ", player_max=" + player_max + ", player_min=" + player_min + ", player_gender="
+				+ player_gender + ", price=" + price + ", register_date=" + register_date + ", business_name="
+				+ business_name + ", address=" + address + ", playerCount=" + playerCount + ", total=" + total + "]";
+	}
+	
+	
 }
