@@ -11,7 +11,7 @@ public class UserLogoutAction implements Action {
 	public ActionForward execute(HttpServletRequest req, HttpServletResponse resp) {
 		
 		HttpSession session = req.getSession();
-		session.removeAttribute("id");
+		session.invalidate();
 		
 		ActionForward forward = new ActionForward();
 		forward.setRedirect(true);
