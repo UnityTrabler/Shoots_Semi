@@ -1,4 +1,3 @@
-
 package net.user.db;
 
 public class BusinessUserBean {

@@ -1,9 +1,11 @@
 window.onload = function() {
-    var firstTab = document.querySelector('#tab-info'); // "우리구장" 탭을 선택
+    var firstTab = document.querySelector('#tab-info'); 
     if (firstTab) {
-        loadfaq(); // 첫 번째 탭에 해당하는 AJAX 호출 (우리구장)
+        firstTab.click();
     }
 };
+
+
 
 
 // tap 이동
@@ -178,3 +180,16 @@ function applyFilter() {
     const searchWord = $("input[name='search_word']").val();
     go_notice(1, searchWord);  // Start from page 1 when a new search is applied
 }
+
+function backBtn(){
+	var tab1 = document.querySelector('#tab-info'); 
+	var tab2 = document.querySelector('#tab');
+	
+	 
+	
+	
+   window.location.href = 'http://localhost:8088/Shoots/admin/mypage'; // 원하는 페이지로 이동
+ 
+}
+
+
