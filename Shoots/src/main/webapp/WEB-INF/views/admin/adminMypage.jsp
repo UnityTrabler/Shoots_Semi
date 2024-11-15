@@ -15,7 +15,7 @@
 	
 		<div class = "container0-1">
 			<p class = "cP0-1"><a type="button" class = "cA0" id="tab-info" onclick="loadfaq()" > FAQ관리 </a></p>
-			<p class = "cP0-2"><a type="button" class = "cA0" onclick="loadnotice()"> 공지사항 관리 </a></p>
+			<p class = "cP0-2"><a type="button" class = "cA0" id= "tab" onclick="loadnotice()"> 공지사항 관리 </a></p>
 		</div>
 		
 		<div class = "container" id = "content-container"></div>

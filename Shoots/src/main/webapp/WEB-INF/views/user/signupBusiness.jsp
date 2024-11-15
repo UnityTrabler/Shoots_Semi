@@ -21,11 +21,10 @@
 			init();
 			
 			$('#send-email').click(function() {
-				$('#verify-block').css('display', 'block');
-				
 				 $.post("${pageContext.request.contextPath}/user/signupProcess", {email: $('#email').val()},
 					function(response) {
 			            alert("이메일이 전송되었습니다.");
+						$('#verify-block').css('display', 'block');
 			            console.log(response);
 			        }, "json").fail(function(response) {
 			            alert("이메일 전송에 실패했습니다.");

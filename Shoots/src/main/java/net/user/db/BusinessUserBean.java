@@ -1,4 +1,3 @@
-
 package net.user.db;
 
 public class BusinessUserBean {
@@ -87,5 +86,4 @@ public class BusinessUserBean {
 	public void setTel(int tel) {
 		this.tel = tel;
 	}
-	
 }

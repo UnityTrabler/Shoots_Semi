@@ -60,7 +60,7 @@
 	<%-- 게시글이 없는 경우 --%>
 	<c:if test="${listcount == 0 }">
 		<h3 style="text-align:center">등록된 글이 없습니다.</h3>
-		<a href="write" type="button" class="btnWrite">글 쓰 기</a>
+		<a href="../notice/write" type="button" class="btnWrite">글 쓰 기</a>
 	</c:if>
 	
 	<%--페이징 --%>

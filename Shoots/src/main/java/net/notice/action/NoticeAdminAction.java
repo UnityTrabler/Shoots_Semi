@@ -109,13 +109,6 @@ public class NoticeAdminAction implements Action {
 			return null;
 		}
 		
-		/*
-		req.setAttribute("listcount", listcount);
-		req.setAttribute("totallist", list);
-		forward.setPath("/WEB-INF/views/notice/noticeAdmin.jsp");
-		forward.setRedirect(false);
-		return forward;
-		*/
 	}
 
 }

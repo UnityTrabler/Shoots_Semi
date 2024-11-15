@@ -1,0 +1,25 @@
+@charset "EUC-KR";
+
+#stable {width : 80% !important; margin-top : 0px; margin-bottom : 0px}
+.table-wrapper {width : 100% ;max-height: 550px; overflow-y: auto; margin-top : 15px}
+.tablehd {position : sticky; background-color: white; top : 0; z-index : 1;}
+
+th:nth-child(1) {width : 24.73%}
+th:nth-child(2) {width : 14.54%}
+th:nth-child(3) {width : 15.74%}
+th:nth-child(4) {width : 31.27%}
+th:nth-child(5) {width : 13.73%}
+
+.totalD {text-align : center; margin-top : 30px};
+
+.d {background : red}
+.d:hover {background : blue}
+
+.c  {font-size : 9px; border-radius : 20px; border : none; width : 60px; height : 18px; color : white ; background : orange; margin-left : 10px;  transition: background 0.3s, color 0.3s; }
+.c:hover  {font-size : 9px; border-radius : 20px; border : 1px solid orange; width : 60px; height : 18px; color : orange ; background : white; margin-left : 10px;  transition: background 0.3s, color 0.3s; }
+
+form {margin : 25px 0 0 10px;}
+select {font-size : 10px; border-radius : 20px; border : 1px solid orange; width : 60px; height : 18px; text-align : center; outline: none;}
+
+.empty-td {border : none!important}
+

@@ -19,9 +19,12 @@ public class FaqAdmin implements Action {
 		ActionForward forward = new ActionForward();
 		FaqDAO dao = new FaqDAO();
 		
+		int listcount = 0;
 		List<FaqBean> list = null;
 		list = dao.getList();
+		listcount = dao.getListCount();
 		req.setAttribute("totallist", list);
+		req.setAttribute("listcount", listcount);
 		forward.setPath("/WEB-INF/views/faq/faqAdmin.jsp");
 		forward.setRedirect(false);
 		return forward;
