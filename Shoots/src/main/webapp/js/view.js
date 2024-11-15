@@ -24,6 +24,7 @@ $(function() {
                 postid: postId,
                 loginid: loginId
             },
+            
             success: function(response) {
                 if (response.status === "success") {
                     // 댓글이 성공적으로 추가되면 댓글 목록을 갱신
