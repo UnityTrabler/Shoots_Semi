@@ -1,4 +1,3 @@
-
 package net.user.db;
 
 public class BusinessUserBean {
@@ -7,7 +6,7 @@ public class BusinessUserBean {
 	private String password;
 	private String business_name;
 	private int business_number;
-	private int req;
+	private int tel;
 	private String email;
 	private int post;
 	private String address;
@@ -45,12 +44,6 @@ public class BusinessUserBean {
 	public void setBusiness_number(int business_number) {
 		this.business_number = business_number;
 	}
-	public int getReq() {
-		return req;
-	}
-	public void setReq(int req) {
-		this.req = req;
-	}
 	public String getEmail() {
 		return email;
 	}
@@ -86,6 +79,12 @@ public class BusinessUserBean {
 	}
 	public void setRegister_date(String register_date) {
 		this.register_date = register_date;
+	}
+	public int getTel() {
+		return tel;
+	}
+	public void setTel(int tel) {
+		this.tel = tel;
 	}
 	
 }

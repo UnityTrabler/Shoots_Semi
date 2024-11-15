@@ -44,8 +44,34 @@ public class UserDAO {
 		
 		return result;
 	}
+	
+	public int isIdBusiness(String id, String pwd) { //=getMemberById()
+		String sql = """
+				select  business_id, password
+				from business_user
+				where business_id = ?
+				""";
+		int result = 0;
+		
+		try(Connection con = ds.getConnection(); 
+				PreparedStatement pstmt = con.prepareStatement(sql);) {
+			pstmt.setString(1, id);
+			try(ResultSet rs = pstmt.executeQuery();){
+				if(rs.next()) 
+					result = pwd.equals(rs.getString("password")) ? 1 : 0;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return result;
+	}
 
 	public int insertUser(UserBean userBean) {
+		if(getUserIdx(userBean.getId()) > 0) {
+			System.out.println("duplicated regular user ID");
+			return 0;
+		}
 		//nickname, user_file 빠짐
 		String sql = """
 				INSERT INTO regular_user
@@ -93,7 +119,7 @@ public class UserDAO {
 
 	public UserBean getUser(String id) {
 		String sql = """
-				select name, jumin, gender, tel, email, nickname, user_file
+				select *
 				from regular_user
 				where user_id = ?
 				""";
@@ -104,14 +130,18 @@ public class UserDAO {
 				pstmt.setString(1, id);
 			try(ResultSet rs = pstmt.executeQuery();){
 				if(rs.next()) {
+					userBean.setIdx(rs.getString("idx"));
 					userBean.setId(id);
-					userBean.setName(rs.getString(1));
-					userBean.setRRN(rs.getInt(2));
-					userBean.setGender(rs.getInt(3));
-					userBean.setTel(rs.getString(4));
-					userBean.setEmail(rs.getString(5));
-					userBean.setNickname(rs.getString(6));
-					userBean.setUserfile(rs.getString(7));
+					userBean.setPassword(rs.getString("password"));
+					userBean.setIdx(rs.getString("name"));
+					userBean.setRRN(Integer.parseInt(rs.getString("jumin")));
+					userBean.setGender(Integer.parseInt(rs.getString("gender")));
+					userBean.setTel(rs.getString("tel"));
+					userBean.setEmail(rs.getString("email"));
+					userBean.setNickname(rs.getString("nickname"));
+					userBean.setUserfile(rs.getString("user_file"));
+					userBean.setRegister_date(rs.getString("register_date"));
+					userBean.setRole(rs.getString("role"));
 				}
 				else {System.err.println("ID not found in the database.");return null;}
 			}
@@ -145,6 +175,7 @@ public class UserDAO {
 		
 		return result;
 	}
+	
 	public int getBusinessUserIdx(String id) {
 		String sql = """
 				select business_idx
@@ -162,6 +193,42 @@ public class UserDAO {
 				else 
 					System.err.println("ID not found in the database.");
 			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return result;
+	}
+
+	public int insertUser(BusinessUserBean userBean) {
+		if(getBusinessUserIdx(userBean.getBusiness_id()) > 0) {
+			System.out.println("duplicated business ID");
+			return 0;
+		}
+		
+		String sql = """
+				INSERT INTO business_user
+				(business_idx, business_id, password, 
+				business_name, business_number, tel,
+				email, post, address,
+				description, business_file)
+				VALUES (business_seq.nextval,?,?, ?,?,?, ?,?,?, ?,?)
+				""";
+		int result = 0;
+		
+		try(Connection con = ds.getConnection(); 
+				PreparedStatement pstmt = con.prepareStatement(sql);) {
+				pstmt.setString(1, userBean.getBusiness_id());
+				pstmt.setString(2, userBean.getPassword());
+				pstmt.setString(3, userBean.getBusiness_name());
+				pstmt.setInt(4, userBean.getBusiness_number());
+				pstmt.setInt(5, userBean.getTel());
+				pstmt.setString(6, userBean.getEmail());
+				pstmt.setInt(7, userBean.getPost());
+				pstmt.setString(8, userBean.getAddress());
+				pstmt.setString(9, userBean.getDescription());
+				pstmt.setString(10, userBean.getBusiness_file());
+				result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

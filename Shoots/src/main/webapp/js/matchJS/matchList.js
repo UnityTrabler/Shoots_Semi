@@ -41,10 +41,29 @@ function updateMatchList(data) {
 	let previousDate = "";
     let rowspan = 1;
     
+    const currentDate = new Date();
+    const currentDateTime = currentDate.getFullYear() + '-' +
+							(currentDate.getMonth() + 1).toString().padStart(2,'0') + '-' +
+							 currentDate.getDate().toString().padStart(2, '0') + ' ' +
+							 currentDate.getHours().toString().padStart(2, '0') + ':' +
+                             currentDate.getMinutes().toString().padStart(2, '0');
+    
+    console.log(currentDateTime);
+    
 	$(data.list).each(function(index, item){
 		
 		const matchDate = item.match_date.substring(0, 10);
 		const formattedDate = matchDate.replace(/-/g, '/');
+		
+		const matchTime = item.match_time;
+		const matchDateTime = matchDate + ' ' + matchTime;
+		
+		const twoHoursInMilliseconds = 2 * 60 * 60 * 1000;
+		
+		const a = new Date(matchDateTime);
+		const b = new Date(a.getTime() - twoHoursInMilliseconds);
+			
+		const isMatchPast = b < new Date(currentDateTime);
 		
 		if (matchDate === previousDate) {
             rowspan++;
@@ -54,11 +73,40 @@ function updateMatchList(data) {
                     <td> ${item.match_time} </td>
                     <td> <a href="detail?match_id=${item.match_id}" class="locatinA"> ${item.business_name} </a> </td>
                     <td>
-					    <span style="color: ${item.playerCount >= 1 ? '#1d4ed8' : 'black'}">
-					        ${item.playerCount}
-					    </span> / ${item.player_max}
+                    	${isMatchPast && item.playerCount >= item.player_min
+                    	? `<span style="color: gray}">
+					       	${item.playerCount}
+					       </span> / ${item.player_max} <span  style="color : #be123c; font-size : 10px"> 인원확정 </span>`
+                    	: (isMatchPast
+                    		? `<span> — </span>`
+                    		: (item.playerCount == item.player_max
+	                    		? `<span style="color : #be123c">
+								   	${item.playerCount}
+							       </span> / ${item.player_max}`
+	                    		: `<span style="color: ${item.playerCount >= 1 ? '#1d4ed8' : 'black'}">
+								   	${item.playerCount}
+							       </span> / ${item.player_max}`
+	                    		)
+	                    	)
+						}
 					</td>
-                    <td> <input type="button" class="status" data-match-id="${item.match_id}" value="신청가능"> </td>
+                    <td>
+                    	${isMatchPast && item.playerCount >= item.player_min
+                    	? `<input type="button" class="status5" value="매칭확정">` 
+                    	: (isMatchPast
+                    		? `<input type="button" class="status4" value="마감">`
+              				:(item.playerCount == item.player_max 
+	                    		? `<input type="button" class="status2" value="마감">`
+							    : (item.playerCount >= item.player_min && item.playerCount < item.player_max
+							        ? `<input type="button" class="status3" data-match-id="${item.match_id}" value="마감임박">`
+							        : (item.playerCount >= 0 && item.playerCount <= item.player_min
+							            ? `<input type="button" class="status" data-match-id="${item.match_id}" value="신청가능">`
+							            : '')
+							        )
+							    )
+							)
+						}
+					</td>
                 </tr>
             `;
             
@@ -69,11 +117,40 @@ function updateMatchList(data) {
 					<td> ${item.match_time} </td>
 					<td> <a href = "detail?match_id=${item.match_id}" class = "locatinA"> ${item.business_name} </a> </td>
 					<td>
-					    <span style="color: ${item.playerCount >= 1 ? '#1d4ed8' : 'black'}">
-					        ${item.playerCount}
-					    </span> / ${item.player_max}
+                    	${isMatchPast && item.playerCount >= item.player_min
+                    	? `<span style="color: gray}">
+					       	${item.playerCount}
+					       </span> / ${item.player_max} <span  style="color : #be123c; font-size : 10px"> 인원확정 </span>`
+                    	: (isMatchPast
+                    		? `<span> — </span>`
+                    		: (item.playerCount == item.player_max
+	                    		? `<span style="color : #be123c">
+								   	${item.playerCount}
+							       </span> / ${item.player_max}`
+	                    		: `<span style="color: ${item.playerCount >= 1 ? '#1d4ed8' : 'black'}">
+								   	${item.playerCount}
+							       </span> / ${item.player_max}`
+	                    		)
+	                    	)
+						}
 					</td>
-					<td> <input type = "button" class = "status" data-match-id="${item.match_id}" value = "신청가능"> </td>
+					<td>
+                    	${isMatchPast && item.playerCount >= item.player_min
+                    	? `<input type="button" class="status5" value="매칭확정">` 
+                    	: (isMatchPast
+                    		? `<input type="button" class="status4" value="마감">`
+              				:(item.playerCount == item.player_max 
+	                    		? `<input type="button" class="status2" value="마감">`
+							    : (item.playerCount >= item.player_min && item.playerCount < item.player_max
+							        ? `<input type="button" class="status3" data-match-id="${item.match_id}" value="마감임박">`
+							        : (item.playerCount >= 0 && item.playerCount <= item.player_min
+							            ? `<input type="button" class="status" data-match-id="${item.match_id}" value="신청가능">`
+							            : '')
+							        )
+							    )
+							)
+						}
+					</td>
 				</tr>
 			`;
 		 }
@@ -132,4 +209,11 @@ $(document).ready(function(){
       $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
     });
   });
+});
+
+$(document).on("click", ".status, .status3", function() {
+	const matchId = $(this).data("match-id");
+    if (matchId) {
+		window.location.href = `detail?match_id=${matchId}`;
+    }
 });

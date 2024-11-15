@@ -27,7 +27,7 @@ public class InquiryModifyProcessAction implements Action {
 		
 		String saveFolder = "inquiryupload";
 		
-		int fileSize = 5* 1024 * 1024; //업로드 할 파일의 최대 사이즈입니다. 5MB;
+		int fileSize = 10 * 1024 * 1024; //업로드 할 파일의 최대 사이즈 10MB;
 		
 		//실제 저장 경로를 지정합니다.
 		ServletContext sc = req.getServletContext();

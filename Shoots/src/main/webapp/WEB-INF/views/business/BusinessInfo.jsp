@@ -8,6 +8,7 @@
 </head>
 <body>
 	<p class = "cP1"> 구장정보 </p>
+	<input type = "hidden" id = "idx" name =  "idx" value = "${idx}">
 	<table class = "table">
 		<tr>
 			<th> 기업명 </th> <td> ${businessUser.business_name} </td>
@@ -19,7 +20,7 @@
 			<th> 위치 </th> <td> ${businessUser.address} </td>
 		</tr>
 		<tr>
-			<th> 대표 번호 </th> <td> ${businessUser.req} </td>
+			<th> 대표 번호 </th> <td> ${businessUser.tel} </td>
 		</tr>
 		<tr>
 			<th> 기업 이메일 </th> <td> ${businessUser.email} </td>

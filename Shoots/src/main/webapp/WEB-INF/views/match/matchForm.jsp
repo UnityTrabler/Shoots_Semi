@@ -14,7 +14,7 @@
 		<form action = "add" method = "post" name = "matchForm">
 			<div class = "container"> 
 				<h1> MATCH UPLOAD </h1>
-				<input type = "hidden" id = "writer" name = "writer" value = "5">
+				<input type = "hidden" id = "writer" name = "writer" value = "${idx}">
 				<div class = "d1">
 					<div class = "d2"> 
 						<span> ³¯Â¥ </span> <input type = "date" id = "match_date" name = "match_date" required>

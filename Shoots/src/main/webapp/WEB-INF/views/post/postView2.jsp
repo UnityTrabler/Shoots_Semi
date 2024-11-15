@@ -52,7 +52,7 @@
 					
 				<%-- 파일을 첨부한 경우 --%>
 			<c:if test="${!empty postdata.post_file}">
-				<td><img src="${pageContext.request.contextPath}/postupload/${postdata.post_file}" style= "width : 300px;"}>
+				<td><img src="${pageContext.request.contextPath}/postupload/${postdata.post_file}" width="400px">
 				<a href="down?filename=${postdata.post_file}">${postdata.post_file}</a>
 			</c:if>
 			
@@ -71,8 +71,7 @@
 						</a>
 						<%-- href의 주소를 #으로 설정합니다. --%>
 						<a href="#">
-							<button class="btn btn-danger" data-toggle="modal" 
-									data-target="#myModal" id="post_id">삭제</button>
+							<button class="btn btn-danger" data-toggle="modal" data-target="#myModal" id="post_id">삭제</button>
 						</a>
 					 </c:if> 
 					<a href="list">
@@ -91,75 +90,40 @@
 		
 		
 		
-		
-		
-		
-		 <!-- 댓글 리스트 출력 -->
-    <div class="comments-section">
-        <h2>댓글 목록</h2>
-        
-        <c:if test="${!empty commentlist}">
-            <c:forEach var="co" items="${commentlist}">
-                <div class="co">
-                
-                	<input type="hidden" value="${co.comment_id}" name = "comment_id" class="co-num">  <!-- 댓글의 고유번호값 받아두기 -->
-                	
-                	<!-- 프로필 사진 -->
-                	<img src ="${pageContext.request.contextPath}/img/profile.png" alt="프로필" width="60" height="48">
-                	
-                	<input type="hidden" value="${co.user_id}" class="comment-writer"> <!-- 각 문의댓글을 남긴 댓글 작성자 값 -->
-                	<div class="buttonfront">
-                    <p><strong>작성자:</strong> ${co.user_id} <strong>등록일:</strong> ${co.register_date.substring(0,16)}
-                    </div>
-                    <button type="button" class="btn btn-primary co-modify" style="display:none" value="${co.comment_id}">수정</button>
-                    <button type="button" class="btn btn-danger co-delete" style="display:none" value="${co.comment_id}">삭제</button>
-                    </p>
-                    <span class="comment-content">${co.content}</span>
-                </div>
-                <hr>
-            </c:forEach>
-        </c:if>
-        
-        <c:if test="${empty commentlist}">
-            <p>댓글이 없습니다.</p>
-        </c:if>
-    </div>
-	
-	
-	
-<!-- 댓글 폼 시작 -->
-<form action="../comments/add" method ="post" name = "commentform" id="commentform">
-	<div class="comment-head">
-	<h2>댓글</h2>
-	</div>
-	
-	<!-- 댓글 내용 부분 -->
-	<div class="comment-body">
-		<input type="hidden" name="comment_id" value="${postdata.comment_id}">
-		<img src ="${pageContext.request.contextPath}/img/profile.png" alt="프로필" width="60" height="48">
-		
-		<div class="nickname">
-		<input type="hidden" class ="nickname" name="writer" value="${idx}"> <!-- 댓글 작성자의 로그인id :int형, idx 가져옴. -->
-		<span class="nickname">${id}</span>  <!-- 댓글 작성자의 닉네임 : 로그인 한 유저 닉네임 -->
-		</div>
-		
-		
-		<textarea placeholder = "댓글을 남겨보세요" style = "width : 1200px;" class="comment-content" name="content" maxlength="300" required></textarea>		
-		
-		<div class="register-box">
-			<button class="btn-primary" id="register-comment">등록</button>
-			<button class="btn-danger" id="cancel-comment" style="display:none">취소</button>
-		</div>
-		
-	</div>
-</form>
-	
-	
-	
-	
-	
-	
-	<script>
+		<%-- 댓글 리스트 출력 --%>
+		<div class="comment-area">
+			<div class="comment-head">
+				<h3 class="comment-count">
+					댓글 <sup id="count"></sup><%--superscript(윗첨자) --%>
+				</h3>
+				<div class="comment-order">
+					<ul class="comment-order-list">
+					</ul>
+				</div>
+			</div>	<%-- comment-head end --%>
+			
+			<ul class="comment-list">
+			<!-- 댓글 목록은 여기에 동적으로 추가됩니다. -->
+			</ul>
+			
+			<div class="comment-write">
+				<div class="comment-write-area">
+					<b class="comment-write-area-name" >${id}</b>
+						<span class="comment-write-area-count">0/200</span>
+					<textarea placeholder="댓글을 남겨보세요" rows="1"
+				class="comment-write-area-text" maxLength="200"></textarea>
+				
+				</div>
+				<div class="register-box">
+					<div class="button btn-cancel" id="cancelComment">취소</div> <%-- 댓글의 취소는 display:none, 등록만 보이도록 --%>
+					<div class="button btn-register" id="registerComment">등록</div>
+				</div>
+			</div> <%-- comment-write end --%>
+	</div>	<%-- comment-area end --%>
+	</div> <%-- class="container" end --%>
+</body>
+
+<script>
 		
 		
 		$(function(){
@@ -179,12 +143,5 @@
 				}
 			});
 		})
-		
-	<%--js에서 contextPath를 직접 선언할 수 없기에 jsp에서 선언하기 위해 있는 부분 --%>
-	const contextPath = "${pageContext.request.contextPath}";
-		
 	</script>
-</body>
-
-
 </html>

@@ -75,16 +75,51 @@
 							<td class = "empty-td"></td>
 							<td> ${match.match_time} </td>
 							<td> <a href = "detail?match_id=${match.match_id}" class = "locatinA"> ${match.business_name} </a></td>
-							<td> 
-								<c:if test="${match.playerCount >= 1}">
-							        <span style="color: #1d4ed8;">${match.playerCount}</span>
-							    </c:if>
-							    <c:if test="${match.playerCount < 1}">
-							        ${match.playerCount}
-							    </c:if>
-									 / ${match.player_max} 
+							<td>
+							    <c:choose>
+							        <c:when test="${isMatchPast && match.playerCount >= match.player_min}">
+							            <span style="color: gray">
+							                ${match.playerCount}
+							            </span> / ${match.player_max}
+							            <span style="color: #be123c; font-size: 10px"> 인원확정 </span>
+							        </c:when>
+							        <c:when test="${isMatchPast}">
+							            <span> — </span>
+							        </c:when>
+							        <c:when test="${match.playerCount == match.player_max}">
+							            <span style = "color : #be123c">
+							                ${match.playerCount}
+							            </span> / ${match.player_max}
+							        </c:when>
+							        <c:otherwise>
+							            <span style = "color : ${match.playerCount >= 1 ? '#1d4ed8' : 'black'}">
+							                ${match.playerCount}
+							            </span> / ${match.player_max}
+							        </c:otherwise>
+							    </c:choose>
 							</td>
-							<td> <input type = "button" class = "status" data-match-id="${match.match_id}" value = "신청가능"></td>
+							<td>
+								<c:choose>
+									<c:when test="${isMatchPast && match.playerCount >= match.player_min}">
+							            <input type="button" class="status5" value="매칭확정">
+							        </c:when>
+									 <c:when test="${isMatchPast}">
+								        <input type="button" class="status4" value="마감">
+								    </c:when>
+								    <c:when test="${match.playerCount == match.player_max}">
+						                <input type="button" class="status2" value="마감">
+						            </c:when>
+								    <c:when test="${match.playerCount >= match.player_min && match.playerCount < match.player_max}">
+							        	<input type="button" class="status3" data-match-id="${match.match_id}" value="마감임박">
+							        </c:when>
+									<c:when test="${match.playerCount >= 0 && match.playerCount <= player_min}">
+						                <input type="button" class="status" data-match-id="${match.match_id}" value="신청가능">
+						            </c:when>
+						 			<c:otherwise>
+						 				<input type = "button" class = "status" data-match-id="${match.match_id}" value = "신청가능">
+						 			</c:otherwise>
+								</c:choose> 
+							</td>
 						</tr>
                		</c:if>
                		<c:if test="${matchDate != previousDate}">
@@ -93,11 +128,50 @@
 							<td> ${match.match_time} </td>
 							<td> <a href = "detail?match_id=${match.match_id}" class = "locatinA"> ${match.business_name} </a> </td>
 							<td>
-							    <span style="color: ${match.playerCount >= 1 ? '#1d4ed8' : 'black'}">
-							        ${match.playerCount}
-							    </span> / ${match.player_max}
+							    <c:choose>
+							        <c:when test="${isMatchPast && match.playerCount >= match.player_min}">
+							            <span style="color: gray">
+							                ${match.playerCount}
+							            </span> / ${match.player_max}
+							            <span style="color: #be123c; font-size: 10px"> 인원확정 </span>
+							        </c:when>
+							        <c:when test="${isMatchPast}">
+							            <span> — </span>
+							        </c:when>
+							        <c:when test="${match.playerCount == match.player_max}">
+							            <span style = "color : #be123c">
+							                ${match.playerCount}
+							            </span> / ${match.player_max}
+							        </c:when>
+							        <c:otherwise>
+							            <span style="color: ${match.playerCount >= 1 ? '#1d4ed8' : 'black'}">
+							                ${match.playerCount}
+							            </span> / ${match.player_max}
+							        </c:otherwise>
+							    </c:choose>
 							</td>
-							<td> <input type = "button" class = "status" data-match-id="${match.match_id}" value = "신청가능"></td>
+							<td>
+								<c:choose>
+									<c:when test="${isMatchPast && match.playerCount >= match.player_min}">
+							            <input type="button" class="status5" value="매칭확정">
+							        </c:when>
+									 <c:when test="${isMatchPast}">
+								        <input type="button" class="status4" value="마감">
+								    </c:when>
+								    <c:when test="${match.playerCount == match.player_max}">
+						                <input type="button" class="status2" value="마감">
+						            </c:when>
+								    <c:when test="${match.playerCount >= match.player_min && match.playerCount < match.player_max}">
+							        	<input type="button" class="status3" data-match-id="${match.match_id}" value="마감임박">
+							        </c:when>
+									<c:when test="${match.playerCount >= 0 && match.playerCount <= player_min}">
+						                <input type="button" class="status" data-match-id="${match.match_id}" value="신청가능">
+						            </c:when>
+						 			<c:otherwise>
+						 				<input type = "button" class = "status" data-match-id="${match.match_id}" value = "신청가능">
+						 			</c:otherwise>
+								</c:choose> 
+							</td>
 						</tr>
                		</c:if>
                		<c:set var="rowspanCount" value="1" />
@@ -134,14 +208,19 @@
 			</ul>
 		</div>
 		
-		<div class = "btnD">
-			<input type = "button" class = "uploadBtn" value = "매칭 글 작성">
-		</div>
+		<c:if test="${empty sessionScope.id or userClassification == 'regular'}">
+		</c:if>
+		<c:if test="${not empty sessionScope.id and userClassification == 'business'}">
+			<div class = "btnD">
+				<input type = "button" class = "uploadBtn" value = "매칭 글 작성">
+			</div>
+		</c:if>
 		
 	</div>
 	<jsp:include page="../user/bottom.jsp"></jsp:include>
 	<script>
 		$(function(){
+			
 			$('.uploadBtn').click(function(){
 				location.href = "write";
 			});

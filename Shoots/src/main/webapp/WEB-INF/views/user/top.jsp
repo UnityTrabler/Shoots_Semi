@@ -28,7 +28,12 @@
 	<div class="collapse navbar-collapse flex-row-reverse" id="collapsibleNavbar">
 		<ul class="navbar-nav">
 			<c:if test="${!empty sessionScope.id}">
-				<li class="nav-item"><a class="loginA">${id}님이 로그인 되었습니다.</a></li>
+				<c:if test="${userClassification == 'business'}">
+					<li class="nav-item"><a class="loginA" href="${pageContext.request.contextPath}/business/mypage">${id}님이 로그인 되었습니다.</a></li>
+				</c:if>
+				<c:if test="${userClassification == 'regular'}">
+					<li class="nav-item"><a class="loginA" href="${pageContext.request.contextPath}/user/mypage">${id}님이 로그인 되었습니다.</a></li>
+				</c:if>
 				<li class="nav-item"><a class="loginA" href="${pageContext.request.contextPath}/user/logout" id="logout"> 로그아웃 </a></li>
 				<li class="nav-item"><a class="loginA" href="${pageContext.request.contextPath}/user/update">정보수정</a></li>
 			</c:if>
@@ -39,3 +44,6 @@
 		</ul>
 	</div>  
 </nav>
+<script>
+	
+</script>

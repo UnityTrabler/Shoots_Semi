@@ -11,12 +11,13 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath }/css/view.css" type="text/css">
 
 <script src="${pageContext.request.contextPath }/js/jquery-3.7.1.js"></script>
-<script src="${pageContext.request.contextPath }/js/inquiryJs/inquirycommentM.js"></script>
+<script src="${pageContext.request.contextPath }/js/inquiryJs/inquiryview.js"></script>
 
 </head>
 <body>
 
 <input type="hidden" value="${id}" id="loginid">  <!-- 수정 삭제 버튼 보이게 하려고 현재 로그인 한 유저의 id값을 받아놓음 -->
+<input type="hidden" value="${inquirydata.inquiry_id}" id="inquiryid">  <!-- 댓글 삭제한 뒤 다시 문의글로 돌아오게 하기 위해 문의글 번호값을 받아둠 -->
 	<%--view.js에서 사용하기 위해 추가 --%>
 	<div class="container">
 		<table class="table">
@@ -58,7 +59,7 @@
 			<tr>
 				<td colspan="2" class="center">
 					<%--수정, 삭제 버튼은 로그인 한 유저의 아이디 = 문의글 작성자 일때 혹은 id가 관리자 일때만 보이게 함 --%>
-					<c:if test="${inquirydata.inquiry_ref_idx == idx || id == 'admin' }">
+					<c:if test="${inquirydata.inquiry_ref_idx == idx || role == 'admin' }">
 						<a href="modify?inquiryid=${inquirydata.inquiry_id}">
 							<button class="btn btn-info">수정</button>
 						</a>
@@ -80,7 +81,7 @@
 	
 	 <!-- 댓글 리스트 출력 -->
     <div class="comments-section">
-        <h2>댓글 목록</h2>
+        <h2>문의답변 목록</h2>
         
         <c:if test="${!empty iqlist}">
             <c:forEach var="ic" items="${iqlist}">
@@ -92,24 +93,25 @@
                 	<img src ="${pageContext.request.contextPath}/img/profile.png" alt="프로필" width="60" height="48">
                 	
                 	<input type="hidden" value="${ic.user_id}" class="iqcomment-writer"> <!-- 각 문의댓글을 남긴 댓글 작성자 값 -->
+                	<div class="buttonfront">
                     <p><strong>작성자:</strong> ${ic.user_id} <strong>등록일:</strong> ${ic.register_date.substring(0,16)}
+                    </div>
                     <button type="button" class="btn btn-primary ic-modify" style="display:none" value="${ic.i_comment_id}">수정</button>
                     <button type="button" class="btn btn-danger ic-delete" style="display:none" value="${ic.i_comment_id}">삭제</button>
                     </p>
-                    <span>${ic.content}</span>
+                    <span class="iqcomment-content">${ic.content}</span>
                 </div>
                 <hr>
             </c:forEach>
         </c:if>
         
         <c:if test="${empty iqlist}">
-            <p>댓글이 없습니다.</p>
+            <p>아직 관리자의 답변이 없습니다.</p>
         </c:if>
     </div>
 	
-	
-	
-<!-- 댓글 폼 시작 -->
+<!-- 댓글 폼 시작. 댓글 작성은 관리자만 가능 (role == admin) -->
+<c:if test="${role == 'admin'}">
 <form action="../iqcomments/add" method ="post" name = "iqcommentform" id="iqcommentform">
 	<div class="comment-head">
 	<h2>댓글</h2>
@@ -135,26 +137,12 @@
 		
 	</div>
 </form>
-	
+</c:if>
 	
 <script>
-$(function(){
-	$('#inquiryDelete').click(function(){
-		if (confirm("문의글을 삭제하시겠습니까?")) {
-			$.ajax({
-				type: "POST", 
-				url: "delete?num=${inquirydata.inquiry_id}", 
-				success: function(response) {
-					alert("삭제되었습니다."); 
-					location.href = "../inquiry/list"; 
-				},
-				error: function() {
-					alert("삭제 실패. 다시 시도해주세요.");
-				}
-			});
-		}
-	});
-})
+
+<%--js에서 contextPath를 직접 선언할 수 없기에 jsp에서 선언하기 위해 있는 부분 --%>
+const contextPath = "${pageContext.request.contextPath}";
 </script>
 </body>
 </html>

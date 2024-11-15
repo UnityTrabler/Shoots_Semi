@@ -12,10 +12,12 @@ import com.google.gson.JsonObject;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import net.core.Action;
 import net.core.ActionForward;
 import net.match.db.MatchBean;
 import net.match.db.MatchDAO;
+import net.pay.db.PaymentDAO;
 
 public class BusinessMypostsAction implements Action {
 
@@ -25,7 +27,11 @@ public class BusinessMypostsAction implements Action {
 		
 		MatchDAO dao = new MatchDAO();
 		
-		int business_idx = 5;
+		PaymentDAO pdao = new PaymentDAO();
+
+		HttpSession session = req.getSession();
+		int idx = (int) session.getAttribute("idx");
+		System.out.println("로그인 = " + idx);
 		
 		LocalDate now = LocalDate.now();
 	    int year = now.getYear(); 
@@ -69,9 +75,14 @@ public class BusinessMypostsAction implements Action {
 		}
 		System.out.println("넘어온 limit = " + limit);
 		
-		int listcount = dao.getListCount(business_idx, year, month);
+		int listcount = dao.getListCount(idx, year, month);
 		
-		list = dao.getMatchListById(page, limit, business_idx, year, month);
+		list = dao.getMatchListById(page, limit, idx, year, month);
+		
+		for (MatchBean match : list) {
+	        int playerCount = pdao.getPaymentCountById(match.getMatch_id());
+	        match.setPlayerCount(playerCount);
+	    }
 		
 		int maxpage = (listcount + limit - 1) / limit;
 		System.out.println("총 페이지수 = " + maxpage);

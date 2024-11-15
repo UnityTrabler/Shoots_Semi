@@ -61,9 +61,18 @@ public class AutoRefundScheduler {
 			System.out.println("timeBeforeMatch = " + timeBeforeMatch);
 			System.out.println("-------------------------------------------------");
 			
+			int playerCount = match.getPlayerCount();
+			int playerMin = match.getPlayer_min();
+			System.out.println("playerCount = " + playerCount);
+			System.out.println("playerMin = " + playerMin);
+			System.out.println("-------------------------------------------------");
+
+			
 			if (timeBeforeMatch < currentTime && currentTime < matchTime ) { 
-				int playerCount = match.getPlayerCount();
-				int playerMin = match.getPlayer_min();
+
+				System.out.println("playerCount = " + playerCount);
+				System.out.println("playerMin = " + playerMin);
+				System.out.println("-------------------------------------------------");
 
 				if (playerCount < playerMin) {
 					PaymentDAO paymentDao = new PaymentDAO();

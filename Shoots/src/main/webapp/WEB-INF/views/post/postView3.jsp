@@ -52,7 +52,7 @@
 					
 				<%-- 파일을 첨부한 경우 --%>
 			<c:if test="${!empty postdata.post_file}">
-				<td><img src="${pageContext.request.contextPath}/postupload/${postdata.post_file}" style= "width : 300px;"}>
+				<td><img src="${pageContext.request.contextPath}/postupload/${postdata.post_file}" width="400px">
 				<a href="down?filename=${postdata.post_file}">${postdata.post_file}</a>
 			</c:if>
 			
@@ -71,8 +71,7 @@
 						</a>
 						<%-- href의 주소를 #으로 설정합니다. --%>
 						<a href="#">
-							<button class="btn btn-danger" data-toggle="modal" 
-									data-target="#myModal" id="post_id">삭제</button>
+							<button class="btn btn-danger" data-toggle="modal" data-target="#myModal" id="post_id">삭제</button>
 						</a>
 					 </c:if> 
 					<a href="list">
@@ -98,9 +97,9 @@
     <div class="comments-section">
         <h2>댓글 목록</h2>
         
-        <c:if test="${!empty commentlist}">
-            <c:forEach var="co" items="${commentlist}">
-                <div class="co">
+        <c:if test="${!empty list}">
+            <c:forEach var="ic" items="${list}">
+                <div class="ic">
                 
                 	<input type="hidden" value="${co.comment_id}" name = "comment_id" class="co-num">  <!-- 댓글의 고유번호값 받아두기 -->
                 	
@@ -111,16 +110,16 @@
                 	<div class="buttonfront">
                     <p><strong>작성자:</strong> ${co.user_id} <strong>등록일:</strong> ${co.register_date.substring(0,16)}
                     </div>
-                    <button type="button" class="btn btn-primary co-modify" style="display:none" value="${co.comment_id}">수정</button>
-                    <button type="button" class="btn btn-danger co-delete" style="display:none" value="${co.comment_id}">삭제</button>
+                    <button type="button" class="btn btn-primary ic-modify" style="display:none" value="${co.comment_id}">수정</button>
+                    <button type="button" class="btn btn-danger ic-delete" style="display:none" value="${co.comment_id}">삭제</button>
                     </p>
-                    <span class="comment-content">${co.content}</span>
+                    <span class="cocomment-content">${co.content}</span>
                 </div>
                 <hr>
             </c:forEach>
         </c:if>
         
-        <c:if test="${empty commentlist}">
+        <c:if test="${empty list}">
             <p>댓글이 없습니다.</p>
         </c:if>
     </div>
@@ -144,7 +143,7 @@
 		</div>
 		
 		
-		<textarea placeholder = "댓글을 남겨보세요" style = "width : 1200px;" class="comment-content" name="content" maxlength="300" required></textarea>		
+		<textarea placeholder = "댓글을 남겨보세요" width="1200" class="comment-content" name="content" maxlength="300" required></textarea>		
 		
 		<div class="register-box">
 			<button class="btn-primary" id="register-comment">등록</button>

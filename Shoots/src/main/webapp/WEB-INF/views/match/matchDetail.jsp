@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ page import="net.match.db.*" %>
+<%@ page import="java.text.SimpleDateFormat" %>
+<%@ page import="java.util.Date" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -24,15 +27,23 @@
 			<p class = "mP"> 매치포인트 </p>
 			<div class = "mpDiv">
 				<c:if test = "${playerCount > 0 }">
-					<c:forEach var = "i" begin = "0" end = "${playerCount - 1}">
-						<img class = "picon" src = "${pageContext.request.contextPath}/img/player_icon2.png" />
-					</c:forEach>
-					<c:forEach var = "i" begin = "${playerCount}" end = "${match.player_min - 1}">
+					<c:if test = "${playerCount < match.player_min}">
+						<c:forEach var = "i" begin = "0" end = "${playerCount - 1}">
+							<img class = "picon" src = "${pageContext.request.contextPath}/img/player_icon2.png" />
+						</c:forEach>
+					</c:if>
+					
+					<c:if test = "${playerCount >= match.player_min}">
+				    	<c:forEach var = "i" begin = "0" end = "${playerCount - 1}">
+							<img class = "picon" src = "${pageContext.request.contextPath}/img/player_icon3.png" />
+						</c:forEach>
+					</c:if>
+					<c:forEach var = "i" begin = "${playerCount}" end = "${match.player_max - 1}">
 				        <img class = "picon" src = "${pageContext.request.contextPath}/img/player_icon1.png" />
 				    </c:forEach>
 			    </c:if>
-			    <c:if test = "${playerCount == 0 }">
-			    	<c:forEach var = "i" begin = "0" end = "${match.player_min - 1}">
+			    <c:if test = "${playerCount == 0}">
+			    	<c:forEach var = "i" begin = "0" end = "${match.player_max - 1}">
 				        <img class = "picon" src = "${pageContext.request.contextPath}/img/player_icon1.png" />
 				    </c:forEach>
 			    </c:if>
@@ -60,29 +71,59 @@
 		 	<p class  = "address"> ${match.address} </p>
 		 	<hr class = "hr1">
 		 	<p class = "price"> ${match.price}원 <span class = "time">  / 2시간 </span></p>
-		 	<div class = "btndiv">
-		 		<c:choose>
-		 			<c:when test = "${isPaid}" >
-		 				<input type = "button" class = "btn1" id = "refundBtn" value = "신청취소">
-		 			</c:when>
-		 			<c:when test = "${empty idx}" >
-		 				<input type = "button" class = "btn1" id = "paymentBtnN" value = "신청하기">
-		 			</c:when>
-		 			<c:otherwise>
-		 				<input type = "button" class = "btn1" id = "paymentBtn" value = "신청하기">
-		 			</c:otherwise>
-		 		</c:choose>
-		 	</div>
+		 	<c:if test="${empty sessionScope.id or userClassification == 'regular'}"> 
+			 	<div class = "btndiv">		 	
+			 		<c:choose>
+			 			<c:when test = "${!empty idx and isPaid and !isMatchClosed}">
+					        <input type="button" class="btn1" id="refundBtn" value="신청취소">
+					    </c:when>
+					    <c:when test="${!empty idx and isPaid and isMatchClosed}">
+					        <input type="button" class="PdeadlineBtn2" value="매칭확정">
+					        <p class = "deadlineP3"> ※ 신청이 확정되었습니다. 이후 <span class = "deadlinePS">취소는 <b>불가능</b></span>합니다. ※ </p>
+					    </c:when>
+					    <c:when test="${playerCount == match.player_max}">
+					        <input type="button" class="IdeadlineBtn" value="마감">
+					        <p class = "deadlineP"> ※ 인원이 가득 찼습니다. 더 이상 신청할 수 없습니다. ※ </p>
+					    </c:when>
+			 			<c:when test = "${isMatchClosed}">
+			 				<input type = "button" class = "IdeadlineBtn" value = "마감">
+			 				<p class = "deadlineP2"> ※ 신청기간이 지난 매치입니다. ※ </p>
+			 			</c:when>
+			 			<c:when test = "${empty idx}" >
+			 				<input type = "button" class = "btn1" id = "paymentBtnN" value = "신청하기">
+			 				<p class = "deadlineP3"> ※ 현재 <b class = "deadlineP3p">${match.player_max * 1 - playerCount * 1}</b> 자리 남았습니다. ※ </p>
+			 			</c:when>
+			 			<c:otherwise>
+			 				<input type = "button" class = "btn1" id = "paymentBtn" value = "신청하기">
+			 				<p class = "deadlineP3"> ※ 현재 <b class = "deadlineP3p">${match.player_max * 1 - playerCount * 1}</b> 자리 남았습니다. ※ </p>
+			 			</c:otherwise>
+			 		</c:choose>
+			 	</div>
+			 </c:if>
+			 <c:if test="${not empty sessionScope.id and userClassification == 'business'}">
+				<div class = "btndiv">		 	
+				 	<input type = "button" class = "IdeadlineBtn" value = "신청불가">
+				 	<p class = "deadlineP2"> ※ 신청 가능한 대상이 아닙니다. ※ </p>
+			 	</div>
+			 </c:if>
 		</div>
 	</div>
-	<div class = "btnC">
-		<input type = "button" class = "listBtn" value = "목록보기">
-		<input type = "button" class = "updateBtn" value = "수정하기">
-		<input type = "button" class = "deleteBtn" value = "삭제하기">
-	</div>
+	
+	<c:if test="${empty sessionScope.id or userClassification == 'regular' or idx != match.writer}">
+		<div class = "btnC">
+			<input type = "button" class = "listBtn" value = "목록보기">
+		</div>
+	</c:if>
+	<c:if test="${not empty sessionScope.id and userClassification == 'business' and idx == match.writer}">
+		<div class = "btnC">
+			<input type = "button" class = "listBtn" value = "목록보기">
+			<input type = "button" class = "updateBtn" value = "수정하기">
+			<input type = "button" class = "deleteBtn" value = "삭제하기">
+		</div>
+	</c:if>
 	<script>
 		 $(function() {
-			
+			 
 			 var idx = '${idx}';
 			 console.log("로그인된 사용자 ID: " + idx);
 			 console.log(${isPaid});
@@ -92,7 +133,7 @@
 				var price = '${match.price}';
 				var buyer = '${idx}';
 				var seller = '${match.writer}';
-
+				
 				location.href = "../payments/pay?match_id=" + matchId + "&price=" + price + "&buyer=" + buyer + "&seller=" + seller;
 			});
 			
@@ -100,9 +141,9 @@
 				alert("로그인 후 이용 가능합니다.")
                 location.href = "../user/login";
             });
-			 
+			
 			$('.listBtn').click(function(){
-				location.href = location.href = "../matchs/list";
+				history.back();
 			});
 			
 			$('.updateBtn').click(function(){

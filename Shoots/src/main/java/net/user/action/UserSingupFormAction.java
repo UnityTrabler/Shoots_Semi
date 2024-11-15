@@ -10,7 +10,7 @@ import net.core.Action;
 import net.core.ActionForward;
 import net.user.db.UserDAO;
 
-public class UserLoginProcessAction implements Action {
+public class UserSingupFormAction implements Action {
 
 	public ActionForward execute(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
@@ -30,8 +30,6 @@ public class UserLoginProcessAction implements Action {
 				HttpSession session = req.getSession();
 				session.setAttribute("id", id);
 				session.setAttribute("idx", userDAO.getUserIdx(id));
-				session.setAttribute("role", new UserDAO().getUser(id).getRole());
-				session.setAttribute("userClassification", "regular");
 				
 				//store cookie
 				Cookie cookie = new Cookie("id", id);
@@ -46,12 +44,10 @@ public class UserLoginProcessAction implements Action {
 				resp.getWriter().println("{\"message\":\"login successed\"}");
 				return null;
 			}
-			System.out.println("business login 불일치");
-			resp.setContentType("application/json; charset=UTF-8");
 			resp.getWriter().print("""
-					{message : <script>
+					<script>
 						alert('business login 불일치');
-					</script>}
+					</script>
 				""");
 
 		}
@@ -66,7 +62,6 @@ public class UserLoginProcessAction implements Action {
 				HttpSession session = req.getSession();
 				session.setAttribute("id", id);
 				session.setAttribute("idx", userDAO.getBusinessUserIdx(id));
-				session.setAttribute("userClassification", "business");
 				
 				//store cookie
 				Cookie cookie = new Cookie("id", id);
@@ -82,12 +77,11 @@ public class UserLoginProcessAction implements Action {
 				return null;
 			}
 			System.out.println("business login 불일치");
-			resp.setContentType("application/json; charset=UTF-8");
 			resp.getWriter().print("""
-					{message : <script>
-						alert('business login 불일치');
-					</script>}
-				""");
+						<script>
+							alert('business login 불일치');
+						</script>
+					""");
 		}
 		
 		return null;

@@ -7,7 +7,6 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import net.comment.action.CommentAddAction;
 import net.core.Action;
 import net.core.ActionForward;
 
@@ -45,6 +44,10 @@ public class InquiryCommentFrontController extends jakarta.servlet.http.HttpServ
 			
 		case "/delete":
 			action = new InquiryCommentDeleteAction();
+			break;
+			
+		case "/modify":
+			action = new InquiryCommentModifyAction();
 			break;
 
 		}//switch

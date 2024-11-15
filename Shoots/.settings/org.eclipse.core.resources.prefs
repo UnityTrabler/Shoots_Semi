@@ -1,3 +1,11 @@
+<<<<<<< HEAD
 eclipse.preferences.version=1
 encoding//src/main/webapp/css/inquiry.css=UTF-8
 encoding/<project>=UTF-8
+=======
+eclipse.preferences.version=1
+encoding//src/main/webapp/WEB-INF/views/user/signupBusiness.jsp=UTF-8
+encoding//src/main/webapp/WEB-INF/views/user/signupRegular.jsp=UTF-8
+encoding//src/main/webapp/css/inquiry.css=UTF-8
+encoding/<project>=UTF-8
+>>>>>>> branch 'main' of https://github.com/JhtaSemi3team/Shoots_semi3.git
