@@ -1,7 +1,73 @@
 $(function() {
     const loginid = $("#loginid").val();  // 로그인한 유저의 id
+    const postid = $("#postid").val(); // 게시글 번호.
+    
+    $('#register-comment').click(function(e) {
+        e.preventDefault();  // 기본 폼 제출 막기
 
-    $(".co").each(function() { //문의댓글을 c:foreach 반복문으로 뽑아내서 여러개가 나오기 때문에 각 댓글들마다 코드 실행시키기 위해 each 함수 사용
+        var content = $('textarea[name="content"]').val();
+        var postId = $('input[name="postid"]').val();
+        var loginId = $('input[name="loginid"]').val();
+
+        // 유효성 검사
+        if (content.trim() === "") {
+            alert("댓글 내용을 입력해주세요.");
+            return;
+        }
+
+        // AJAX 요청
+        $.ajax({
+            type: "POST",
+            url: "../comments/add",  // 댓글 추가를 처리할 URL
+            data: {
+                content: content,
+                postid: postId,
+                loginid: loginId
+            },
+            success: function(response) {
+                if (response.status === "success") {
+                    // 댓글이 성공적으로 추가되면 댓글 목록을 갱신
+                    var newComment = response.newComment;  // 서버에서 새 댓글 데이터를 받아옴
+                    var commentHTML = `
+                        <div class="co">
+                            <input type="hidden" value="${newComment.comment_id}" class="co-num">
+                            <img src="${pageContext.request.contextPath}/img/profile.png" alt="프로필" width="60" height="48">
+                            <div class="buttonfront">
+                                <p><strong>작성자:</strong> ${newComment.user_id} <strong>등록일:</strong> ${newComment.register_date}</p>
+                                <button type="button" class="btn btn-primary co-modify" style="display:none" value="${newComment.comment_id}">수정</button>
+                                <button type="button" class="btn btn-danger co-delete" style="display:none" value="${newComment.comment_id}">삭제</button>
+                            </div>
+                            <span class="comment-content">${newComment.content}</span>
+                        </div>
+                        <hr>
+                    `;
+                    // 댓글 목록에 새로운 댓글 추가
+                    $('.comments-section').append(commentHTML);
+                    
+                    // 폼 초기화
+                    $('textarea[name="content"]').val('');
+                } else {
+                    alert("댓글 작성 실패. 다시 시도해주세요.");
+                }
+            },
+            error: function() {
+                alert("서버 오류가 발생했습니다.");
+            }
+        });
+    });
+
+    // 취소 버튼 클릭 시 폼 초기화
+    $('#cancel-comment').click(function() {
+        $('#commentform')[0].reset();
+        $('#cancel-comment').hide();
+        $('#register-comment').show();
+    });
+    
+    
+    
+    
+
+    $(".co").each(function() { //댓글을 c:foreach 반복문으로 뽑아내서 여러개가 나오기 때문에 각 댓글들마다 코드 실행시키기 위해 each 함수 사용
         const commentwriter = $(this).find(".comment-writer").val();  // 각 댓글의 작성자 id
 
         if (loginid === commentwriter) {
@@ -11,10 +77,33 @@ $(function() {
     }); //each 함수 끝
     
     
-    $(".co-delete").click(function(){ //삭제 버튼 누르면 해당 i_commoent_id 값에 해당하는 문의댓글 삭제
+    
+    
+    //댓글 등록
+	    $(function() {
+	    $('#register-comment').click(function(e) {
+	        e.preventDefault();  // 기본 폼 제출을 막음
+	        if ($("#commentform")[0].checkValidity()) {
+	            $("#commentform").submit();  // 폼을 전송
+	        }
+	    });
+	
+	    $('#cancel-comment').click(function() {
+	        $('#commentform')[0].reset();  // 댓글 폼 초기화
+	        $('#cancel-comment').hide();
+	        $('#register-comment').show();
+	    });
+	});
+    
+    
+    
+    
+    
+    $(".co-delete").click(function(){ //삭제 버튼 누르면 해당 comment_id 값에 해당하는 댓글 삭제
 		const deletenum = $(this).val();
-		const postid = $("#postid").val();  //삭제 후 다시 문의글로 돌아갈때 글의 번호값을 저장
+		const postid = $("#postid").val();  //삭제 후 다시 글로 돌아갈때 글의 번호값을 저장
 		console.log(postid);
+		
 		
 		location.href= `${contextPath}/comments/delete?comment_id=${deletenum}&postid=${postid}`;
 	}) //문의댓글 삭제 click() 끝
@@ -79,7 +168,7 @@ $(function() {
 		    const modifyButton = $(this);
 		    const commentId = modifyButton.closest(".co").find(".co-num").val(); // 댓글 ID
 		    const newContent = modifyButton.closest(".co").find(".new-comment-content").val(); // 새 댓글 내용
-		    const postId = $("#postid").val(); // 문의글 ID
+		    //const postId = $("#postid").val(); // 글 ID
 		
 		    $.ajax({
 		        url: `${contextPath}/comments/modify`,
@@ -87,12 +176,12 @@ $(function() {
 		        data: {
 		            "comment_id": commentId,
 		            "new-comment-content": newContent,
-		            "postid": postId
+		            "postid": postid
 		        },
 		        success: function(response) {
 		            // 서버로부터 성공적인 응답을 받은 경우 처리
-		            alert("문의댓글을 성공적으로 수정했습니다.");
-		            location.href = `${contextPath}/post/detail?postid=${postId}`;
+		            alert("댓글을 성공적으로 수정했습니다.");
+		            location.href = `${contextPath}/post/detail?postid=${postid}`;
 		        },
 		        error: function(xhr, status, error) {
 		            // 오류 처리
