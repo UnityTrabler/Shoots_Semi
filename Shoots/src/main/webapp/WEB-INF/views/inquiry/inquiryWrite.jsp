@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,6 +14,7 @@
 	img{width:20px;}
 	</style>	
 <jsp:include page = "/WEB-INF/views/user/top.jsp"/>
+<title>1:1 문의글 쓰기</title>
 </head>
 <body>
 	<div class="container">
@@ -21,12 +23,22 @@
 			<div class="form-group">
 				<%--문의자, hidden --%>
 				<input name="inquiry_ref_idx" id ="inquiry_ref_idx" value="${idx}" 
-				type="text" class="form-control" readOnly> 
+				type="hidden" class="form-control" readOnly> 
 				
-				<%--문의자 유형, hidden --%>
-				<input name="inquiry_type" id ="inquiry_type" value="A" 
-				type="hidden" class="form-control" style="width:20px" readOnly>
+				<%--문의자 유형. 로그인했을때 유형이 regular 면 값을 A로, business면 값을 B로 바꿔서 전달해줌 : inquiry 테이블은 A,B로만 구분하기 때문 --%>
+				<c:choose>
+					<c:when test="${userClassification eq 'regular'}">
+						<input name="inquiry_type" id ="inquiry_type" value="A" 
+						type="hidden" class="form-control" style="width:20px" readOnly>
+					</c:when>
+					
+					<c:when test="${userClassification eq 'business'}">
+						<input name="inquiry_type" id ="inquiry_type" value="B" 
+						type="hidden" class="form-control" style="width:20px" readOnly>
+					</c:when>
+				</c:choose>
 			</div>
+			
 			<br>
 			<div class="form-group">
 				<label for ="board_subject">문의 제목</label>
@@ -46,7 +58,7 @@
 					<img src="${pageContext.request.contextPath }/img/attach.png" alt="파일첨부">
 					<input type="file" id="upfile" name="inquiry_file">
 				</label>
-				<span id="filevalue">${inquirydata.inquiry_file}</span>
+				<span id="filevalue" name="check">${inquirydata.inquiry_file}</span>
 				<img src="${pageContext.request.contextPath}/img/remove.png"
 				alt="파일삭제" width="10px" class="remove">
 			 </div>

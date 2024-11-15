@@ -11,6 +11,7 @@ import com.google.gson.JsonObject;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import net.core.Action;
 import net.core.ActionForward;
 import net.inquiry.db.InquiryBean;
@@ -23,6 +24,21 @@ public class InquiryListAction implements Action {
 			throws ServletException, IOException {
 		InquiryDAO inquirydao = new InquiryDAO();
 		List<InquiryBean> inquirylist = new ArrayList<InquiryBean>();
+		HttpSession session = req.getSession(); //세션 설정
+		
+		//세션에서 idx, usertype (개인/기업) 값 받아옴
+		int idx = (int) session.getAttribute("idx");
+		System.out.println("idx = " + idx);
+		String usertype = (String) session.getAttribute("userClassification");
+		System.out.println("usertype  = " + usertype );
+		
+		//세션에서 받아온 회원의 유형이 regular 면 A, business면 B로 파타미터를 바꿔서 전달해줌. Inquiry 테이블에선 유형이 A랑 B로만 구별하기 때문.
+			if (usertype.equals("regular")) {
+				usertype = "A";
+				}
+			if (usertype.equals("business")) {
+				usertype = "B";
+			}
 		
 		// /boards/list 에서 /boards/detail로 접속하는 경우에만 카운트 되도록 하기 위해 세션에 저장함.
 		req.getSession().setAttribute("referer", "list");
@@ -42,10 +58,10 @@ public class InquiryListAction implements Action {
 		System.out.println("넘어온 limit = " + limit);
 		
 		//총 리스트 수를 받아옴
-		int listcount = inquirydao.getListCount();
+		int listcount = inquirydao.getListCount(usertype, idx);
 		
 		//리스트를 받아옴
-		inquirylist = inquirydao.getInquiryList(page, limit);
+		inquirylist = inquirydao.getInquiryList(page, limit, idx, usertype);
 		
 		/*
 		 총 페이지 수 = (DB에 저장된총 리스트 수 + 한 페이지에서 보여주는 리스트의 수 - 1) / 한 페이지에서 보여주는 리스트의 수

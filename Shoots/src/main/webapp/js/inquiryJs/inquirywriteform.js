@@ -1,5 +1,7 @@
 $(function() {
 	
+	let check = 0;
+	
 	//첨부파일이 있을(없을)경우 remove 이미지가 보이도록(안보이도록) 하는 함수
 	function show(){ 
 	$('.remove').css('display' , $('#filevalue').text() ? 'inline-block' : 'none')
@@ -25,7 +27,7 @@ $(function() {
 		show();
 	});
 	
-	//문의글쓰기에서 '등록' 눌렀을때 제목/내용이 공백일 경우 창 띄움 
+	//문의글쓰기에서 '등록' 눌렀을때 제목/내용이 공백일 경우 창 띄움. + 첨부파일에 check 란 이름 붙여서 form 에 같이 전송함 
 	$("form[name=inquiryform]").submit(function() {
 		
 		const $title = $("#title");
@@ -41,11 +43,21 @@ $(function() {
 			$content.focus();
 			return false;
 		}//if
+		
+		
+		//파일첨부 미변경시 $('#filevalue').text()의 파일명을 파라미터 check 란 이름으로 form에 추가해서 전송
+		if(check == 0){
+			const value = $('#filevalue').text();
+			const html = `<span text='${value}' name = 'check'>`;
+			console.log(html);
+			$(this).append(html);
+		}
+		
 	})//submit 
 	
 	
 	//글쓰기 중 취소 누르면 confirm 창 뜨고 확인 시 뒤로가기, 취소시 현상유지
-	$("div:nth-child(6) > button.btn.btn-danger").click(function(){
+	$("div:nth-child(7) > button.btn.btn-danger").click(function(){
 		const $title = $("#title");
 		const $content = $("#content");
 		
@@ -56,14 +68,16 @@ $(function() {
 		} else (history.back())
 	}) //click 끝
 	
-	//첨부파일 용량이 5mb 이상이면 경고창 띄우고 첨부 취소
+	//첨부파일 용량이 10mb 이상이면 경고창 띄우고 첨부 취소
 	$("#upfile").change(function(){
 		check++;
-		const maxSizeInBytes = 5 * 1024 * 1024;
+		const maxSizeInBytes = 10 * 1024 * 1024;
 		const file = this.files[0];
+		
 		if(file.size > maxSizeInBytes){
-			alert("첨부할 파일의 용량은 5MB 이하여야 합니다.");
+			alert("첨부할 파일의 용량은 10MB 이하여야 합니다.");
 			$(this).val('');
+			$('#filevalue').text('');
 		}else
 			$('#filevalue').text(file.name);
 		

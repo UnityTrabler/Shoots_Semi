@@ -18,15 +18,7 @@
 	<div class="container">
 		<%--게시글이 있는 경우 --%>
 		<c:if test="${listcount > 0 }">
-			<div class="rows">
-				<span>줄보기</span> <select class="form-control" id="viewcount">
-					<option value="1">1</option>
-					<option value="3">3</option>
-					<option value="5">5</option>
-					<option value="7">7</option>
-					<option value="10" selected>10</option>
-				</select>
-			</div>
+			
 			<table class="table table-striped">
 				<thead>
 					<tr>
@@ -77,9 +69,15 @@
 							    </div>
 							</td>
 
-							<%--문의자의 ID. 초기 버전은 문의자의 식별번호였음. 
-							(문의글 식별번호 & 문의글 쓴 사람의 idx 번호  2개를 조인 한 뒤 user_id를 뽑아옴) --%>
-							<td><div>${i.user_id}</div></td>
+							<%--문의자의 ID. 로그인해서 받아온 회원 유형이 A면  --%>
+							   <c:choose>
+						            <c:when test="${userClassification == 'regular'}">
+						               <td><div>${i.user_id}</div></td>
+						            </c:when>
+						            <c:when test="${userClassification == 'business'}">
+						                <td><div>${i.business_id}</div></td>
+						            </c:when>
+						        </c:choose>
 							
 							<%--문의 등록일--%>
 							<td><div>${i.register_date}</div></td>
@@ -111,10 +109,10 @@
             </ul>
          </div>
 		</c:if>
-		<%--<c:if test"${listcounbt > 0}"> end --%>
+		<%--<c:if test"${listcount > 0}"> end --%>
 		<%--게시글이 없는 경우 --%>
 		<c:if test="${listcount == 0 }">
-			<h3 style="text-align: center">등록된 글이 없습니다.</h3>
+			<h3 style="text-align: center">아직 문의주신 사항이 없습니다.</h3>
 		</c:if>
 
 		<button type="button" class="btn btn-info float-right">문의하기</button>
