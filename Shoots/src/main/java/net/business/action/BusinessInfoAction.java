@@ -34,3 +34,4 @@ public class BusinessInfoAction implements Action {
 	}
 
 }
+

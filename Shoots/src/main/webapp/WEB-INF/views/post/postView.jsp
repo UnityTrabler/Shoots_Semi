@@ -12,7 +12,9 @@
 	<script src = "https://code.jquery.com/jquery-3.7.1.js"></script>
 </head>
 <body>
-<input type="hidden" id="loginid" value="${id}" name="loginid"> <%-- view.js에서 사용하기 위해 추가합니다 --%>
+<input type="hidden" id="loginid" value="${id}" name="loginid"> <!-- 수정 삭제 버튼 보이게 하려고 현재 로그인 한 유저의 id값을 받아놓음 -->
+<input type="hidden" value="${postdata.post_id}" id="postid">  <!-- 댓글 삭제한 뒤 다시 글로 돌아오게 하기 위해 글 번호값을 받아둠 -->
+	<%-- view.js에서 사용하기 위해 추가 --%>
 	<div class="container">
 		<!-- 게시글 정보 -->
 		<table class="table">
@@ -22,7 +24,7 @@
 			</tr>
 			<tr>
 				<td><div>작성자</div></td>
-				<td><div>${postdata.writer}</div></td>
+				<td><div>${id}</div></td> <!-- post.writer >> id -->
 			</tr>
 			<tr>
 				<td><div>제목</div></td>
@@ -72,21 +74,17 @@
 						<%-- href의 주소를 #으로 설정합니다. --%>
 						<a href="#">
 							<button class="btn btn-danger" data-toggle="modal" 
-									data-target="#myModal" id="post_id">삭제</button>
+									data-target="#myModal" id="delete-post-btn">삭제</button>
 						</a>
 					 </c:if> 
 					<a href="list">
 						<button class="btn btn-warning">목록</button>
 					</a>
-					<%-- 
-					<a href="reply?num=${boarddata.board_num}">
-						<button class="btn btn-success">답변</button>
-					</a>
-					--%>
 				</td>
 			</tr>
 		</table>
-		<%-- 게시판 view end --%>
+		</div>
+		<%-- <div class="container"> 게시판 view end --%>
 		
 		
 		
@@ -107,7 +105,7 @@
                 	<!-- 프로필 사진 -->
                 	<img src ="${pageContext.request.contextPath}/img/profile.png" alt="프로필" width="60" height="48">
                 	
-                	<input type="hidden" value="${co.user_id}" class="comment-writer"> <!-- 각 문의댓글을 남긴 댓글 작성자 값 -->
+                	<input type="hidden" value="${co.user_id}" class="comment-writer"> <!-- 각 댓글을 남긴 댓글 작성자 값 -->
                 	<div class="buttonfront">
                     <p><strong>작성자:</strong> ${co.user_id} <strong>등록일:</strong> ${co.register_date.substring(0,16)}
                     </div>
@@ -127,7 +125,43 @@
 	
 	
 	
+	
+	
+	
+	<!-- 댓글 폼 시작 -->
+<form name="commentform" id="commentform">
+    <div class="comment-head">
+        <h2>댓글</h2>
+    </div>
+    
+    <!-- 댓글 내용 부분 -->
+    <div class="comment-body">
+        <input type="hidden" name="postid" value="${postdata.post_id}">
+        <input type="hidden" name="loginid" value="${id}"> <!-- 로그인한 사용자 id -->
+
+        <img src="${pageContext.request.contextPath}/img/profile.png" alt="프로필" width="60" height="48">
+        
+        <div class="nickname">
+            <span class="nickname">${id}</span> <!-- 댓글 작성자의 닉네임 -->
+        </div>
+        
+        <textarea placeholder="댓글을 남겨보세요" style="width: 1200px;" class="comment-content" name="content" maxlength="300" required></textarea>        
+        
+        <div class="register-box">
+            <button type="button" id="register-comment" class="btn-primary">등록</button>
+            <button type="button" id="cancel-comment" class="btn-danger" style="display:none">취소</button>
+        </div>
+    </div>
+</form>
+	
+	
+	
+	
+	
 <!-- 댓글 폼 시작 -->
+
+<%--
+
 <form action="../comments/add" method ="post" name = "commentform" id="commentform">
 	<div class="comment-head">
 	<h2>댓글</h2>
@@ -153,6 +187,12 @@
 		
 	</div>
 </form>
+
+
+ --%>
+
+
+
 	
 	
 	
@@ -163,7 +203,7 @@
 		
 		
 		$(function(){
-			$('#post_id').click(function(){
+			$('#delete-post-btn').click(function(){
 				if (confirm("게시글을 삭제하시겠습니까?")) {
 					$.ajax({
 						type: "POST", 

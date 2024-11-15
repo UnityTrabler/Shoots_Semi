@@ -19,10 +19,10 @@
 				
 				 $.post("${pageContext.request.contextPath}/user/signupProcess", {email: $('#email').val()},
 					function(response) {
-			            alert("ÀÌ¸ŞÀÏÀÌ Àü¼ÛµÇ¾ú½À´Ï´Ù.");
+			            alert("ì´ë©”ì¼ì´ ì „ì†¡ë˜ì—ˆìŠµë‹ˆë‹¤.");
 			            console.log(response);
 			        }, "json").fail(function(response) {
-			            alert("ÀÌ¸ŞÀÏ Àü¼Û¿¡ ½ÇÆĞÇß½À´Ï´Ù.");
+			            alert("ì´ë©”ì¼ ì „ì†¡ì— ì‹¤íŒ¨í–ˆìŠµë‹ˆë‹¤.");
 			            console.log(response);
 			            console.log(response.message);
 			        }); //$.post
@@ -36,13 +36,13 @@
 					data : { key : $('#email-verify-text').val().trim() 
 							},
 					success : function(response){
-						$('#verify-toggle-text').show().text("ÀÏÄ¡ÇÕ´Ï´Ù!").css('color', 'green');
+						$('#verify-toggle-text').show().text("ì¼ì¹˜í•©ë‹ˆë‹¤!").css('color', 'green');
 						$('#check-email-verify').prop('disabled', true);
 						$('#email-verify-text').prop('readonly', true);
 						${session.removeAttribute()}
 					},
 					error : function() {
-						$('#verify-toggle-text').show().text("ºÒÀÏÄ¡ ÇÕ´Ï´Ù.").css('color', 'red');
+						$('#verify-toggle-text').show().text("ë¶ˆì¼ì¹˜ í•©ë‹ˆë‹¤.").css('color', 'red');
 					},
 					dataType : "json"
 				}); //$.ajax
@@ -56,12 +56,12 @@
 					method:$(this).attr('method'),
 					data:$(this).serialize(),
 					success: function(resp) {
-						alert('È¸¿ø°¡ÀÔ¿¡ ¼º°øÇÏ¼Ì½À´Ï´Ù.');
-						window.location.href = "${pageContext.request.contextPath}/user/login"; //ÀÌµ¿
+						alert('íšŒì›ê°€ì…ì— ì„±ê³µí•˜ì…¨ìŠµë‹ˆë‹¤.');
+						window.location.href = "${pageContext.request.contextPath}/user/login"; //ì´ë™
 					},
 					error: function(error) {
-						console.error("¼­¹ö ¿À·ù:", error);
-						alert('È¸¿ø°¡ÀÔ¿¡ ½ÇÆĞÇÏ¼Ì½À´Ï´Ù.');
+						console.error("ì„œë²„ ì˜¤ë¥˜:", error);
+						alert('íšŒì›ê°€ì…ì— ì‹¤íŒ¨í•˜ì…¨ìŠµë‹ˆë‹¤.');
 					}
 				});//$.ajax
 			});//$('#signupform').submit
@@ -71,26 +71,27 @@
 </head>
 <body class="container">
 	<jsp:include page="top.jsp"></jsp:include>
+
 	<%-- action="/JSP/mailSend" --%>
 	<form class="form-horizontal" method="post" action="signupProcess" id="signupform" >
-		<h2 style="text-align: center;">È¸¿ø°¡ÀÔ(sign up)</h2>
+		<h2 style="text-align: center;">íšŒì›ê°€ì…(sign up)</h2>
 		
-		<font color='red'>*</font>Ç¥½Ã´Â ÇÊ¼ö ÀÔ·Â »çÇ×ÀÔ´Ï´Ù.<hr>
+		<font color='red'>*</font>í‘œì‹œëŠ” í•„ìˆ˜ ì…ë ¥ ì‚¬í•­ì…ë‹ˆë‹¤.<hr>
 		
 		<!-- name : id, pwd, name, RRN1, RRN2, gender, tel, email, nickname, profile? -->
-		¾ÆÀÌµğ(id)<font color='red'>*</font>
+		ì•„ì´ë””(id)<font color='red'>*</font>
 		<input type="text" name="id" id="id" class="form-control" placeholder="id..." >
 		
-		ºñ¹Ğ¹øÈ£(password)<font color='red'>*</font>
+		ë¹„ë°€ë²ˆí˜¸(password)<font color='red'>*</font>
 		<input type="text" name="pwd" id="pwd" class="form-control" placeholder="pwd..." >
 		
-		¼ºÇÔ(name)<font color='red'>*</font>
+		ì„±í•¨(name)<font color='red'>*</font>
 		<input type="text" name="name" id="name" class="form-control" placeholder="name..." >
 		
-		ÁÖ¹Îµî·Ï¹øÈ£(RRN)<font color='red'>*</font>
+		ì£¼ë¯¼ë“±ë¡ë²ˆí˜¸(RRN)<font color='red'>*</font>
         <div class="row mb-3">
             <div class="col">
-                <input type="text" name="RRN" class="form-control" placeholder="¾ÕÀÚ¸®(frontpart)" maxlength="6">
+                <input type="text" name="RRN" class="form-control" placeholder="ì•ìë¦¬(frontpart)" maxlength="6">
             </div>
             <div class="col-auto">
                 <span>-</span>
@@ -101,12 +102,12 @@
             </div>
         </div>
 		
-		ÀüÈ­¹øÈ£(tel)<font color='red'>*</font>
+		ì „í™”ë²ˆí˜¸(tel)<font color='red'>*</font>
 		<input type="text" name="tel" id="tel" class="form-control" placeholder="tel..." >
 
-		ÀÌ¸ŞÀÏ(Email)<font color='red'>*</font>
-		<input type="email" name="email" id="email" class="form-control" placeholder="¹Ş´Â ÁÖ¼Ò" value = "<%="kdhmm0325"%>@naver.com" required>
-		<input type="button" class="btn btn-primary" id="send-email" value="È®ÀÎ¸ŞÀÏ Àü¼Û(send verifycode)">
+		ì´ë©”ì¼(Email)<font color='red'>*</font>
+		<input type="email" name="email" id="email" class="form-control" placeholder="ë°›ëŠ” ì£¼ì†Œ" value = "<%="kdhmm0325"%>@naver.com" required>
+		<input type="button" class="btn btn-primary" id="send-email" value="í™•ì¸ë©”ì¼ ì „ì†¡(send verifycode)">
 		
 		<div id="verify-block" class="p-3"  style="background-color: #d4edda;">
 			Enter Verification code<font color='red'>*</font>
@@ -114,14 +115,14 @@
 			<input type="button" class="btn btn-primary" id="check-email-verify" value="check">
 			<b id="verify-toggle-text"></b>
 		</div><br><br>
-		<hr>¼±ÅÃ »çÇ×ÀÔ´Ï´Ù.<hr>
-		´Ğ³×ÀÓ(nickname)
+		<hr>ì„ íƒ ì‚¬í•­ì…ë‹ˆë‹¤.<hr>
+		ë‹‰ë„¤ì„(nickname)
 		<input type="text" name="nickname" id="name" class="form-control" placeholder="name..." >
 		
-		ÇÁ·ÎÇÊ »çÁø(profile image)<br>
+		í”„ë¡œí•„ ì‚¬ì§„(profile image)<br>
 		<label style="display: flex; flex-direction: column; position: relative; width:200px; height: 200px; border: 1px solid black; text-align: center" class="d-flex justify-content-center align-items-center">
 			<span>
-				ÆÄÀÏ Ã·ºÎ
+				íŒŒì¼ ì²¨ë¶€
 				<input type="file" id="upfile" name="board_file" style="display: none;">
 				<img src="${pageContext.request.contextPath}/img/attach.png" style="width: 20px; height: 20px;"><br>
 				file upload
@@ -134,7 +135,7 @@
 				<c:if test="${empty member.memberfile}">
 					<%-- <c:set var='src' value='${"memberupload/"}${member.memberfile}'/> --%>
 					<c:set var='src' value='${"memberupload/"}${member.memberfile}'/>
-					<input type="hidden" name="check" value="${member.memberfile}"> <%-- ÆÄÀÏÀÌ ÀÖ´Âµ¥ --%>
+					<input type="hidden" name="check" value="${member.memberfile}"> <%-- íŒŒì¼ì´ ìˆëŠ”ë° --%>
 				</c:if>
 				<img src="${pageContext.request.contextPath}/${src}" width="20px" alt="profile">
 			</span>
