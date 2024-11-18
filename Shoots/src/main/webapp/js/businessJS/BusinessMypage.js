@@ -344,6 +344,11 @@ function supdateMatchList(data) {
 	output += "</tbody>";
 	$('.tabletd').append(output);
 	
+	 $(".totalD").html(`
+        <strong> 이번달 총 참여인원 &nbsp; ${totalPlayerCount}명 </strong> &nbsp;&nbsp;&nbsp; 
+        <strong> 이번달 총 매출 &nbsp; ${totalSales}원 </strong>
+    `);
+	
 }
 
 function ajax(sdata) {
@@ -419,4 +424,8 @@ function sapplyFilter() {
 
 $(document).on('click', '.uploadBtn', function(){
     location.href = "../matchs/write";
+});
+
+$(document).on('click', '.excelB', function(){
+    location.href = "../business/downloadExcel";
 });
