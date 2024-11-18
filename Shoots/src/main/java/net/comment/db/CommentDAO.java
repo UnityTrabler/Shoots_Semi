@@ -47,18 +47,19 @@ public class CommentDAO {
 	
 
 
-	public int commentsInsert(CommentBean co, int post_id) {
+	public int commentsInsert(CommentBean co) {
 		int result = 0;
 		String sql = """
 					insert into post_comment
-					(comment_id, post_id, comment_ref_id, writer, content, register_date)
-					values (post_comment_seq.nextval, ?, ?, ?, ?, current_timestamp)
+					values (comment_seq.nextval, ?, ?, ?, ?, current_timestamp)
 					""";
+		//(comment_id, post_id, comment_ref_id, writer, content, register_date)
+		
 		try (Connection con = ds.getConnection();
 			 PreparedStatement pstmt = con.prepareStatement(sql);) {
 			
 			// 파라미터 설정 - 새로운 글을 등록하는 부분
-			pstmt.setInt(1, post_id);  // post_id는 파라미터로 받아서 사용
+			pstmt.setInt(1, co.getPost_id());  
 			pstmt.setInt(2, co.getComment_ref_id()); // 부모 댓글 ID (답글인 경우)
 			pstmt.setInt(3, co.getWriter()); // 작성자 ID
 			pstmt.setString(4, co.getContent()); // 댓글 내용
@@ -107,16 +108,16 @@ public class CommentDAO {
 	
 	
 	
-	public List<CommentBean> getCommentList(int post_id) {
-		List<CommentBean> list = new ArrayList<>();
+	public JsonArray getCommentList(int post_id, int state) {
 		
 		String sql = """
-						select co.*, r.user_id
-			            from post_comment co
-			            join regular_user r on co.writer = r.idx
+				select co.*, r.user_id, user_file
+			    from post_comment co join regular_user r 
+			    on co.writer = r.idx
 	            where post_id = ?
-	            order by comment_id asc
-	            """; //.formatted(state == 1 ? "asc" : "desc"); // 등록순, 최신순 정렬 조건
+	            order by comment_ref_id %s, comment_id asc
+	            """.formatted(state == 1 ? "asc" : "desc");
+		//.formatted(state == 1 ? "asc" : "desc"); // 등록순, 최신순 정렬 조건
 					
 		/*
 		
@@ -128,6 +129,7 @@ public class CommentDAO {
 		
 		*/
 		
+		JsonArray array = new JsonArray();
 		
 		try (Connection con = ds.getConnection();
 				 PreparedStatement pstmt = con.prepareStatement(sql);) {
@@ -137,38 +139,190 @@ public class CommentDAO {
 				try (ResultSet rs = pstmt.executeQuery()) {
 					
 					while(rs.next()) {
-						CommentBean co = new CommentBean();
-						co.setComment_id(rs.getInt("comment_id"));
-						co.setPost_id(rs.getInt("post_id"));
-						co.setComment_ref_id(rs.getInt("comment_ref_id"));
-						co.setWriter(rs.getInt("writer"));
-						co.setContent(rs.getString("content"));
-						co.setRegister_date(rs.getString("register_date"));
-						co.setUser_id(rs.getString("user_id"));
-						//co.setUser_file(rs.getString("user_file"));
-						list.add(co);
+						
+						JsonObject object = new JsonObject();
+						object.addProperty("comment_id", rs.getInt(1));
+						object.addProperty("post_id", rs.getInt(2));
+						object.addProperty("comment_ref_id", rs.getInt(3));
+						object.addProperty("writer", rs.getInt(4));
+						object.addProperty("content", rs.getString(5));
+						object.addProperty("register_date", rs.getString(6));
+						object.addProperty("user_id", rs.getString(7));
+						object.addProperty("user_file", rs.getString(8));
+						array.add(object);
 						
 						
-//						JsonObject object = new JsonObject();
-//						object.addProperty("comment_id", rs.getInt(1));
-//						object.addProperty("post_id", rs.getInt(2));
-//						object.addProperty("comment_ref_id", rs.getInt(3));
-//						object.addProperty("writer", rs.getInt(4));
-//						object.addProperty("content", rs.getString(5));
-//						object.addProperty("register_date", rs.getString(6));
-//						object.addProperty("user_id", rs.getString(7));
-//						object.addProperty("user_file", rs.getString("user_file"));
-//						array.add(object);
+//						CommentBean co = new CommentBean();
+//						co.setComment_id(rs.getInt("comment_id"));
+//						co.setPost_id(rs.getInt("post_id"));
+//						co.setComment_ref_id(rs.getInt("comment_ref_id"));
+//						co.setWriter(rs.getInt("writer"));
+//						co.setContent(rs.getString("content"));
+//						co.setRegister_date(rs.getString("register_date"));
+//						co.setUser_id(rs.getString("user_id"));
+//						//co.setUser_file(rs.getString("user_file"));
+//						list.add(co);
+						
 					}
 				}
 			} catch (Exception ex) {
 				ex.printStackTrace();
 				System.out.println("getCommentList() 에러: " + ex);
 			}
-			return list;
+			return array;
 	}
 
+
+
+	public int commentDelete(int comment_id) {
+		
+		int result = 0;
+		String sql = """
+				delete from post_comment
+				where comment_id = ?
+				""";
+		try (Connection con = ds.getConnection();
+				 PreparedStatement pstmt = con.prepareStatement(sql);) {
+			
+					pstmt.setInt(1, comment_id);
+					result = pstmt.executeUpdate();
+					if (result == 1) 
+						System.out.println("데이터 삭제 되었습니다.");
+			} catch (Exception e) {
+				e.printStackTrace();
+			} 
+		return result;
+		
+	}
 	
+	
+	
+	public int commentsUpdate(CommentBean co) {
+		int result = 0;
+		String sql = """
+				update post_comment
+				set content=?
+				where comment_id = ?
+				""";
+		try (Connection con = ds.getConnection();
+				 PreparedStatement pstmt = con.prepareStatement(sql);) {
+			pstmt.setString(1, co.getContent());
+			pstmt.setInt(2, co.getComment_id());
+			
+			result = pstmt.executeUpdate();
+			if (result == 1) 
+				System.out.println("데이터 수정 되었습니다.");
+			} catch (Exception e) {
+				e.printStackTrace();
+			} 
+		return result;
+	} //commentsUpdate()메서드 end
+	
+	
+	
+	
+	
+	
+	public CommentBean getDetail(int comment_id) { //댓글의 고유번호에 해당하는 데이터값을 뽑아오는 메서드
+		CommentBean co = new CommentBean();
+		
+		String sql = """
+				select * from post_comment
+				where comment_id = ?
+				""";
+		
+		try (Connection con = ds.getConnection();
+				PreparedStatement pstmt = con.prepareStatement(sql);){
+				pstmt.setInt(1, comment_id);
+					
+					try (ResultSet rs = pstmt.executeQuery()){
+						if (rs.next()) {
+							co.setComment_id(rs.getInt("comment_id"));
+							co.setPost_id(rs.getInt("post_id"));
+							co.setComment_ref_id(rs.getInt("comment_ref_id"));
+							co.setWriter(rs.getInt("writer"));
+							co.setContent(rs.getString("content"));
+							co.setRegister_date(rs.getString("register_date"));
+						}
+					}
+				}catch (Exception ex) {
+						System.out.println("getDetail() 에러:" + ex);
+				}
+		
+		return co;
+	}
+	
+	
+	
+	
+	
+
+	public int commentsReply(CommentBean co) {
+		int result = 0;
+		
+		try (Connection con = ds.getConnection(); ) {
+			con.setAutoCommit(false);
+		
+			
+			try {
+				reply_update(con, co.getComment_ref_id());
+				result=reply_insert(con,co);
+				con.commit();
+			}
+				catch (Exception e) {
+					e.printStackTrace(); //오류 확인용
+					if (con!=null) {
+						try {
+							con.rollback(); // rollback 합니다.
+						} catch (SQLException ex) {
+							ex.printStackTrace();
+						}
+					}
+			}
+			con.setAutoCommit(true);
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+	
+	
+	
+	
+	private void reply_update(Connection con, int comment_ref_id) throws SQLException {
+	    // comment_ref_id 기준으로 해당 답글들의 순서를 증가시키는 로직
+	    String update_sql = """
+	            update post_comment
+	            set comment_ref_id = comment_ref_id + 1
+	            where comment_ref_id = ?
+	            """;
+
+	    try (PreparedStatement pstmt = con.prepareStatement(update_sql)) {
+	        pstmt.setInt(1, comment_ref_id); // 부모 댓글 ID
+	        pstmt.executeUpdate(); // 해당 부모 댓글 ID의 모든 답글 순서 증가
+	    }
+	}
+	
+
+	
+	private int reply_insert(Connection con, CommentBean co) throws SQLException {
+	    int result = 0;
+	    String sql = """
+	            insert into post_comment
+	            (comment_id, post_id, comment_ref_id, writer, content, register_date)
+	            values (post_comment_seq.nextval, ?, ?, ?, ?, current_timestamp)
+	            """;
+
+	    try (PreparedStatement pstmt = con.prepareStatement(sql)) {
+	        pstmt.setInt(1, co.getPost_id()); // 해당 게시글 ID
+	        pstmt.setInt(2, co.getComment_ref_id()); // 부모 댓글 ID (comment_ref_id)
+	        pstmt.setInt(3, co.getWriter()); // 작성자 ID
+	        pstmt.setString(4, co.getContent()); // 댓글 내용
+	        result = pstmt.executeUpdate(); // 댓글 삽입
+	    }
+	    return result;
+	}
 	
 	
 	
