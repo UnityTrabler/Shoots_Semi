@@ -60,7 +60,7 @@
 				<td>
                     <a href="update?id=${nb.notice_id}" type="button" class="updateBtn">수정</a>
                     <a href="delete?id=${nb.notice_id}" type="button" class="deleteBtn">삭제</a>
-                    <input type="button" class = "backBtn" id = "backBtn" onclick = "backBtn()" value="목록" >   
+                    <a href="../admin/mypage" type="button" class="listBtn">목록</a>  
                 </td>
 			</tr>
 		</table>
