@@ -33,7 +33,7 @@ public class NoticeDeleteAction implements Action{
 			PrintWriter out = resp.getWriter();
 			out.print("<script>");
 			out.print("alert('삭제되었습니다.');");
-			out.print("location.href='noticeAdmin';");
+			out.print("location.href='../admin/mypage';");
 			out.print("</script>");
 			out.close();
 			return null;

@@ -35,7 +35,15 @@
 				<c:forEach var="f" items="${totallist}">
 					<tr>
 						<td>
-							<a href="../faq/detail?id=${f.faq_id}" class="faqDetail">${f.title}</a>
+							<a href="../faq/detail?id=${f.faq_id}" class="faqDetail">
+							<c:if test="${f.title.length()>=20 }">
+									<c:out value="${f.title.substring(0,20 )}..." />
+								</c:if> 
+										
+								<c:if test="${f.title.length()<20 }">
+									<c:out value="${f.title}" />
+								</c:if>
+							</a>
 						</td>
 						<td>${f.register_date}</td>
 						<td><a href="../faq/update?id=${f.faq_id}" type="button" class="faqUpdate">수정</a></td>

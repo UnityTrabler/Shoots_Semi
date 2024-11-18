@@ -41,7 +41,15 @@
 				<c:forEach var="notice" items="${totallist}">
 					<tr>
 						<td>
-							<a href="../notice/adminDetail?id=${notice.notice_id}" class="noticeDetail">${notice.title}</a>
+							<a href="../notice/adminDetail?id=${notice.notice_id}" class="noticeDetail">
+								<c:if test="${notice.title.length()>=20 }">
+									<c:out value="${notice.title.substring(0,20 )}..." />
+								</c:if> 
+										
+								<c:if test="${notice.title.length()<20 }">
+									<c:out value="${notice.title}" />
+								</c:if>
+							</a>
 						</td>
 						<td>${notice.readcount }</td>
 						<td>${notice.register_date}</td>
