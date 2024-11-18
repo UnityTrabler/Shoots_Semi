@@ -1,6 +1,6 @@
 CREATE TABLE post (
     post_id NUMBER(10) PRIMARY KEY, --게시글 식별 번호 (글번호)
-    writer NUMBER(10) NOT NULL, --작성자
+    writer NUMBER(10) REFERENCES regular_user(idx) ON DELETE CASCADE, --작성자
     category char(1) CHECK (category IN ('A', 'B')) not null, --글 종류
     title VARCHAR2(100) NOT NULL, --제목
     content clob NOT NULL, --내용
@@ -9,6 +9,8 @@ CREATE TABLE post (
     register_date DATE DEFAULT SYSDATE, --등록일
     readcount number --조회수
 );
+
+
 
 CREATE SEQUENCE post_seq
 START WITH 1
@@ -33,6 +35,8 @@ CREATE TABLE post (
 );
 
 */
+
+DROP TABLE post CASCADE CONSTRAINTS;
 drop table post;
 drop sequence post_seq;
 
@@ -99,3 +103,6 @@ select * from (
 				)
 				where rownum <= 10
 			) where rnum >= 1;
+			
+			
+			

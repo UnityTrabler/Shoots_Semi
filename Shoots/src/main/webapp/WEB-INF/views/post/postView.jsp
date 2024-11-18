@@ -7,13 +7,16 @@
 <jsp:include page="../user/top.jsp"></jsp:include>
 <meta charset="UTF-8">
 <title>post - view</title>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/view.css" type="text/css">
 <script src="${pageContext.request.contextPath}/js/view.js"></script>
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 	<script src = "https://code.jquery.com/jquery-3.7.1.js"></script>
 </head>
 <body>
 <input type="hidden" id="loginid" value="${id}" name="loginid"> <!-- 수정 삭제 버튼 보이게 하려고 현재 로그인 한 유저의 id값을 받아놓음 -->
+
 <input type="hidden" value="${postdata.post_id}" id="postid">  <!-- 댓글 삭제한 뒤 다시 글로 돌아오게 하기 위해 글 번호값을 받아둠 -->
+
 	<%-- view.js에서 사용하기 위해 추가 --%>
 	<div class="container">
 		<!-- 게시글 정보 -->
@@ -24,7 +27,7 @@
 			</tr>
 			<tr>
 				<td><div>작성자</div></td>
-				<td><div>${id}</div></td> <!-- post.writer >> id -->
+				<td><div>${postdata.user_id}</div></td> <!-- postdata.writer >> id -->
 			</tr>
 			<tr>
 				<td><div>제목</div></td>
@@ -67,15 +70,14 @@
 			
 			<tr>
 				<td colspan="2" class="center">
+				<%--수정, 삭제 버튼은 로그인 한 유저의 아이디 = 글 작성자 일때 혹은 id가 관리자 일때만 보이게 함 --%>
 					 <c:if test="${postdata.writer == idx || id == 'admin' }"> 
 						<a href="modify?num=${postdata.post_id}">
 							<button class="btn btn-info">수정</button>
 						</a>
-						<%-- href의 주소를 #으로 설정합니다. --%>
-						<a href="#">
-							<button class="btn btn-danger" data-toggle="modal" 
-									data-target="#myModal" id="delete-post-btn">삭제</button>
-						</a>
+						<%-- href의 주소를 #으로 설정합니다.<a href="#">--%>
+							<button class="btn btn-danger" id="delete-post-btn">삭제</button>
+						<%--</a>--%>
 					 </c:if> 
 					<a href="list">
 						<button class="btn btn-warning">목록</button>
@@ -83,6 +85,41 @@
 				</td>
 			</tr>
 		</table>
+		
+		
+		
+		
+		<%-- 댓글창 --%>
+		<div class="comment-area">
+			<div class="comment-head">
+				<h3 class="comment-count">
+					댓글 <sup id="count"></sup><%--superscript(윗첨자) --%>
+				</h3>
+				<div class="comment-order">
+					<ul class="comment-order-list">
+					</ul>
+				</div>
+			</div><%-- comment-head end --%>
+			
+			<ul class="comment-list">
+			</ul>
+			<div class="comment-write">
+				<div class="comment-write-area">
+					<b class="comment-write-area-name" >${id}</b>
+						<span class="comment-write-area-count">0/200</span>
+					<textarea placeholder="댓글을 남겨보세요" rows="1"
+				class="comment-write-area-text" maxLength="200"></textarea>
+				
+				</div>
+				<div class="register-box">
+					<div class="button btn-cancel">취소</div> <%-- 댓글의 취소는 display:none, 등록만 보이도록 --%>
+					<div class="button btn-register">등록</div>
+				</div>
+			</div> <%-- comment-write end --%>
+	</div>	<%-- comment-area end --%>
+		
+		
+		
 		</div>
 		<%-- <div class="container"> 게시판 view end --%>
 		
@@ -90,116 +127,12 @@
 		
 		
 		
-		
-		
-		 <!-- 댓글 리스트 출력 -->
-    <div class="comments-section">
-        <h2>댓글 목록</h2>
-        
-        <c:if test="${!empty commentlist}">
-            <c:forEach var="co" items="${commentlist}">
-                <div class="co">
-                
-                	<input type="hidden" value="${co.comment_id}" name = "comment_id" class="co-num">  <!-- 댓글의 고유번호값 받아두기 -->
-                	
-                	<!-- 프로필 사진 -->
-                	<img src ="${pageContext.request.contextPath}/img/profile.png" alt="프로필" width="60" height="48">
-                	
-                	<input type="hidden" value="${co.user_id}" class="comment-writer"> <!-- 각 댓글을 남긴 댓글 작성자 값 -->
-                	<div class="buttonfront">
-                    <p><strong>작성자:</strong> ${co.user_id} <strong>등록일:</strong> ${co.register_date.substring(0,16)}
-                    </div>
-                    <button type="button" class="btn btn-primary co-modify" style="display:none" value="${co.comment_id}">수정</button>
-                    <button type="button" class="btn btn-danger co-delete" style="display:none" value="${co.comment_id}">삭제</button>
-                    </p>
-                    <span class="comment-content">${co.content}</span>
-                </div>
-                <hr>
-            </c:forEach>
-        </c:if>
-        
-        <c:if test="${empty commentlist}">
-            <p>댓글이 없습니다.</p>
-        </c:if>
-    </div>
 	
-	
-	
-	
-	
-	
-	<!-- 댓글 폼 시작 -->
-<form name="commentform" id="commentform">
-    <div class="comment-head">
-        <h2>댓글</h2>
-    </div>
-    
-    <!-- 댓글 내용 부분 -->
-    <div class="comment-body">
-        <input type="hidden" name="postid" value="${postdata.post_id}">
-        <input type="hidden" name="loginid" value="${id}"> <!-- 로그인한 사용자 id -->
 
-        <img src="${pageContext.request.contextPath}/img/profile.png" alt="프로필" width="60" height="48">
-        
-        <div class="nickname">
-            <span class="nickname">${id}</span> <!-- 댓글 작성자의 닉네임 -->
-        </div>
-        
-        <textarea placeholder="댓글을 남겨보세요" style="width: 1200px;" class="comment-content" name="content" maxlength="300" required></textarea>        
-        
-        <div class="register-box">
-            <button type="button" id="register-comment" class="btn-primary">등록</button>
-            <button type="button" id="cancel-comment" class="btn-danger" style="display:none">취소</button>
-        </div>
-    </div>
-</form>
-	
-	
-	
-	
-	
-<!-- 댓글 폼 시작 -->
-
-<%--
-
-<form action="../comments/add" method ="post" name = "commentform" id="commentform">
-	<div class="comment-head">
-	<h2>댓글</h2>
-	</div>
-	
-	<!-- 댓글 내용 부분 -->
-	<div class="comment-body">
-		<input type="hidden" name="comment_id" value="${postdata.comment_id}">
-		<img src ="${pageContext.request.contextPath}/img/profile.png" alt="프로필" width="60" height="48">
-		
-		<div class="nickname">
-		<input type="hidden" class ="nickname" name="writer" value="${idx}"> <!-- 댓글 작성자의 로그인id :int형, idx 가져옴. -->
-		<span class="nickname">${id}</span>  <!-- 댓글 작성자의 닉네임 : 로그인 한 유저 닉네임 -->
-		</div>
-		
-		
-		<textarea placeholder = "댓글을 남겨보세요" style = "width : 1200px;" class="comment-content" name="content" maxlength="300" required></textarea>		
-		
-		<div class="register-box">
-			<button class="btn-primary" id="register-comment">등록</button>
-			<button class="btn-danger" id="cancel-comment" style="display:none">취소</button>
-		</div>
-		
-	</div>
-</form>
-
-
- --%>
-
-
-
-	
-	
-	
-	
-	
 	
 	<script>
+	
+	
 		
 		
 		$(function(){

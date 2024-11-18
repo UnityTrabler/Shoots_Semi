@@ -50,7 +50,8 @@ public class CustomerFrontController extends HttpServlet{
 			case "/notice/down":
 				action = new CustomerNoticeDownAction();
 				break;
-				
+			
+			
 			default:
 				RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB_INF/views/error/error404.jsp");
 				dispatcher.forward(request, response);

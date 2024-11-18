@@ -16,10 +16,7 @@ NOCACHE;
 ALTER TABLE notice
 ADD readcount number;
 
-ALTER TABLE notice
-ADD cnt number;
 
-ALTER TABLE notice DROP COLUMN notice_num
 
 select * from regular_user
 select * from notice

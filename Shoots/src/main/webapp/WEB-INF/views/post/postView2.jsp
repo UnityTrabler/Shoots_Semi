@@ -7,12 +7,21 @@
 <jsp:include page="../user/top.jsp"></jsp:include>
 <meta charset="UTF-8">
 <title>post - view</title>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/view.css" type="text/css">
 <script src="${pageContext.request.contextPath}/js/view.js"></script>
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 	<script src = "https://code.jquery.com/jquery-3.7.1.js"></script>
 </head>
 <body>
-<input type="hidden" id="loginid" value="${id}" name="loginid"> <%-- view.js에서 사용하기 위해 추가합니다 --%>
+<input type="hidden" id="loginid" value="${id}" name="loginid"> <!-- 수정 삭제 버튼 보이게 하려고 현재 로그인 한 유저의 id값을 받아놓음 -->
+
+<%--
+
+<input type="hidden" value="${postdata.post_id}" id="postid">  <!-- 댓글 삭제한 뒤 다시 글로 돌아오게 하기 위해 글 번호값을 받아둠 -->
+
+
+ --%>
+	<%-- view.js에서 사용하기 위해 추가 --%>
 	<div class="container">
 		<!-- 게시글 정보 -->
 		<table class="table">
@@ -22,7 +31,7 @@
 			</tr>
 			<tr>
 				<td><div>작성자</div></td>
-				<td><div>${postdata.writer}</div></td>
+				<td><div>${id}</div></td> <!-- post.writer >> id -->
 			</tr>
 			<tr>
 				<td><div>제목</div></td>
@@ -52,7 +61,7 @@
 					
 				<%-- 파일을 첨부한 경우 --%>
 			<c:if test="${!empty postdata.post_file}">
-				<td><img src="${pageContext.request.contextPath}/postupload/${postdata.post_file}" width="400px">
+				<td><img src="${pageContext.request.contextPath}/postupload/${postdata.post_file}" style= "width : 300px;"}>
 				<a href="down?filename=${postdata.post_file}">${postdata.post_file}</a>
 			</c:if>
 			
@@ -65,32 +74,27 @@
 			
 			<tr>
 				<td colspan="2" class="center">
+				<%--수정, 삭제 버튼은 로그인 한 유저의 아이디 = 글 작성자 일때 혹은 id가 관리자 일때만 보이게 함 --%>
 					 <c:if test="${postdata.writer == idx || id == 'admin' }"> 
 						<a href="modify?num=${postdata.post_id}">
 							<button class="btn btn-info">수정</button>
 						</a>
 						<%-- href의 주소를 #으로 설정합니다. --%>
 						<a href="#">
-							<button class="btn btn-danger" data-toggle="modal" data-target="#myModal" id="post_id">삭제</button>
+							<button class="btn btn-danger" data-toggle="modal" 
+									data-target="#myModal" id="delete-post-btn">삭제</button>
 						</a>
 					 </c:if> 
 					<a href="list">
 						<button class="btn btn-warning">목록</button>
 					</a>
-					<%-- 
-					<a href="reply?num=${boarddata.board_num}">
-						<button class="btn btn-success">답변</button>
-					</a>
-					--%>
 				</td>
 			</tr>
 		</table>
-		<%-- 게시판 view end --%>
 		
 		
 		
-		
-		<%-- 댓글 리스트 출력 --%>
+		<%-- 댓글창 --%>
 		<div class="comment-area">
 			<div class="comment-head">
 				<h3 class="comment-count">
@@ -100,12 +104,10 @@
 					<ul class="comment-order-list">
 					</ul>
 				</div>
-			</div>	<%-- comment-head end --%>
+			</div><%-- comment-head end --%>
 			
 			<ul class="comment-list">
-			<!-- 댓글 목록은 여기에 동적으로 추가됩니다. -->
 			</ul>
-			
 			<div class="comment-write">
 				<div class="comment-write-area">
 					<b class="comment-write-area-name" >${id}</b>
@@ -115,19 +117,31 @@
 				
 				</div>
 				<div class="register-box">
-					<div class="button btn-cancel" id="cancelComment">취소</div> <%-- 댓글의 취소는 display:none, 등록만 보이도록 --%>
-					<div class="button btn-register" id="registerComment">등록</div>
+					<div class="button btn-cancel">취소</div> <%-- 댓글의 취소는 display:none, 등록만 보이도록 --%>
+					<div class="button btn-register">등록</div>
 				</div>
 			</div> <%-- comment-write end --%>
 	</div>	<%-- comment-area end --%>
-	</div> <%-- class="container" end --%>
-</body>
+		
+		
+		
+		</div>
+		<%-- <div class="container"> 게시판 view end --%>
+		
+		
+		
+		
+		
+	
 
-<script>
+	
+	<script>
+	
+	
 		
 		
 		$(function(){
-			$('#post_id').click(function(){
+			$('#delete-post-btn').click(function(){
 				if (confirm("게시글을 삭제하시겠습니까?")) {
 					$.ajax({
 						type: "POST", 
@@ -143,5 +157,12 @@
 				}
 			});
 		})
+		
+	<%--js에서 contextPath를 직접 선언할 수 없기에 jsp에서 선언하기 위해 있는 부분 --%>
+	const contextPath = "${pageContext.request.contextPath}";
+		
 	</script>
+</body>
+
+
 </html>

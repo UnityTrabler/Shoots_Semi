@@ -10,12 +10,12 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/inquiry.css">
 <script src="${pageContext.request.contextPath}/js/jquery-3.7.1.js"></script>
 <script src="${pageContext.request.contextPath}/js/inquiryJs/inquirylist.js"></script>
-<jsp:include page = "/WEB-INF/views/user/top.jsp"/>
+
 
 <title>문의 게시판</title>
 </head>
 <body>
-	<div class="container">
+	
 		<%--게시글이 있는 경우 --%>
 		<c:if test="${listcount > 0 }">
 			
@@ -88,28 +88,30 @@
 				</tbody>
 			</table>
 
-			<div class = "center-block">
-            <ul class = "pagination justify-content-center">
-               <li class = "page-item">
-                  <a ${page > 1 ? 'href = list?page=' += (page - 1) : '' }
-                     class = "page-link ${page <= 1 ? 'gray' : '' }">
-                     &lt;&lt;
-                  </a>
-               </li>
-               <c:forEach var = "a" begin = "${startpage}" end = "${endpage}">
-                  <li class = "page-item ${a == page ? 'active' : '' }">
-                     <a ${a == page ? '' : 'href = list?page=' += a }
-                        class = "page-link">${a}</a>
-                  </li>
-               </c:forEach>
-               <li class = "page-item">
-                  <a ${page < maxpage ? 'href = list?page=' += (page + 1) : '' }
-                     class = "page-link" ${page >= maxpage ? 'gray' : '' }">
-                     &gt;&gt;
-                  </a>
-               </li>
-            </ul>
-         </div>
+			<%--페이징 --%>
+		<div class = "center-block">
+				<ul class = "pagination justify-content-center">
+					<li class = "page-item">
+						<a href="javascript:go_inquiry(${page - 1})"
+							class = "page-link ${page <= 1 ? 'gray' : '' }">
+							&lt;&lt;
+						</a>
+					</li>
+					<c:forEach var = "a" begin = "${startpage}" end = "${endpage}">
+						<li class = "page-item ${a == page ? 'active' : '' }">
+							<a href="javascript:go_inquiry(${a})"
+								class = "page-link">${a}</a>
+						</li>
+					</c:forEach>
+					<li class = "page-item">
+						<a href="javascript:go_inquiry(${page + 1})"
+							class = "page-link ${page >= maxpage ? 'gray' : '' }">
+							&gt;&gt;
+						</a>
+					</li>
+				</ul>
+			</div>
+			<%--페이징 끝 --%>
 		</c:if>
 		<%--<c:if test"${listcount > 0}"> end --%>
 		<%--게시글이 없는 경우 --%>
@@ -118,7 +120,6 @@
 		</c:if>
 
 		<button type="button" class="btn btn-info float-right">문의하기</button>
-	</div>
-	<%--<div class="container"> end --%>
+
 </body>
 </html>

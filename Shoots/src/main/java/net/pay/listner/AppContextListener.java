@@ -5,7 +5,8 @@ import jakarta.servlet.ServletContextListener;
 import jakarta.servlet.annotation.WebListener;
 
 
-//@WebListener
+
+/*@WebListener*/
 public class AppContextListener implements ServletContextListener {
 
     private AutoRefundScheduler autoRefundScheduler;
