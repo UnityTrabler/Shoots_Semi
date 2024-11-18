@@ -118,5 +118,15 @@
 		<div class = "totalD">
 			<strong> 이번달 총 참여인원 &nbsp; ${totalPlayerCount}명 </strong> &nbsp;&nbsp;&nbsp; <strong> 이번달 총 매출 &nbsp; ${totalSales}원 </strong>
 		</div>
+		<div class = "excelD">
+			<form id="excelForm" action="downloadExcel" method="post">
+				<input type = "hidden" id = "idx" name =  "idx" value = "${idx}">
+				<input type="hidden" name="year" id="selectedYear" value="${selectedYear}">
+		        <input type="hidden" name="month" id="selectedMonth" value="${selectedMonth}">
+		        <button type="submit" class="excelB">
+		            <img src="${pageContext.request.contextPath}/img/excel.png" class="excel">
+		        </button>
+    		</form>
+		</div>
 </body>
 </html>

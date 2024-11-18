@@ -50,6 +50,9 @@ public class BusinessFrontController extends HttpServlet {
 			case "/customers" :
 				action = new BusinessCustomersAction();
 				break;
+			case "/downloadExcel" :
+				action = new ExcelDownloadAction();
+				break;
 			
 			default:
 					RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB_INF/views/error/error404.jsp");

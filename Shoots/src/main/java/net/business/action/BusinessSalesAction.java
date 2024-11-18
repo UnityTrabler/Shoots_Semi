@@ -73,9 +73,7 @@ public class BusinessSalesAction implements Action {
 		for (MatchBean match : list) {
 	        int playerCount = pdao.getPaymentCountById(match.getMatch_id());
 	        match.setPlayerCount(playerCount);
-	        
-	        System.out.println(match);
-	        
+	        	        
 	        int price = match.getPrice();
 	        
 	        total = price * playerCount;
@@ -98,7 +96,6 @@ public class BusinessSalesAction implements Action {
 			JsonObject object = new JsonObject();
 			
 			object.addProperty("listcount", listcount);
-	        System.out.println("============================ " + list);
 
 			JsonElement je = new Gson().toJsonTree(list);
 			System.out.println("list = " + je.toString());

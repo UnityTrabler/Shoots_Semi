@@ -1,10 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
-    pageEncoding="EUC-KR"%>
+    pageEncoding="utf-8"%>
 <!DOCTYPE html>
 <html>
 <head>
 	<jsp:include page="../user/top.jsp"></jsp:include>
-	<meta charset="EUC-KR">
+	<meta charset="utf-8">
 	<title>Insert title here</title>
 	<link rel = "stylesheet" href = "${pageContext.request.contextPath}/css/BusinessMypage.css" type = "text/css">
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/css/pagination.css" type="text/css">
@@ -15,16 +15,16 @@
 	<div class = "container0">
 	
 		<div class = "container0-1">
-			<p class = "cP0-1"><a class = "cA0" id="tab-info" onclick="loadBusinessInfo()" > ¿ì¸®±¸Àå </a></p>
+			<p class = "cP0-1"><a class = "cA0" id="tab-info" onclick="loadBusinessInfo()" > ìš°ë¦¬êµ¬ìž¥ </a></p>
 			<div class="sub-tabs">
-				<p class = "cP0-t"><a class = "cA0" onclick="toggleTab('stats-tab', this)"> ¸ÅÄª°ü¸® </a></p>
+				<p class = "cP0-t"><a class = "cA0" onclick="toggleTab('stats-tab', this)"> ë§¤ì¹­ê´€ë¦¬ </a></p>
 					<div id = "stats-tab" class = "tab-content" style = "display:none;">
-						<p class = "cP0-t1"><a class = "cA0" onclick="loadBusinessStatistics()"> Åë°è </a></p>
-						<p class = "cP0-t2"><a class = "cA0" onclick="loadBusinessSales()"> ¸ÅÃâ </a></p>
-						<p class = "cP0-t3"><a class = "cA0" onclick="loadBusinessMyposts()"> ¸ÅÄª ±Û Á¶È¸ </a></p>
+						<p class = "cP0-t1"><a class = "cA0" onclick="loadBusinessStatistics()"> í†µê³„ </a></p>
+						<p class = "cP0-t2"><a class = "cA0" onclick="loadBusinessSales()"> ë§¤ì¶œ </a></p>
+						<p class = "cP0-t3"><a class = "cA0" onclick="loadBusinessMyposts()"> ë§¤ì¹­ ê¸€ ì¡°íšŒ </a></p>
 					</div>
 			</div>
-			<p class = "cP0-2"><a class = "cA0" onclick="loadBusinessCustomer()"> °í°´°ü¸® </a></p>
+			<p class = "cP0-2"><a class = "cA0" onclick="loadBusinessCustomer()"> ê³ ê°ê´€ë¦¬ </a></p>
 		</div>
 		
 		<div class = "container" id = "content-container">
