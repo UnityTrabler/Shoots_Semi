@@ -1,4 +1,6 @@
+Select * from inquiry;
 
+delete table inquiry cascade;
 
 CREATE TABLE inquiry(
     inquiry_id NUMBER(10) PRIMARY KEY, --문의글 번호 : primary 키
@@ -15,7 +17,6 @@ START WITH 1
 INCREMENT BY 1
 NOCACHE;
 
-Select * from inquiry;
 
 insert into INQUIRY
 values (inquiry_seq.nextval, 'A', 1, '참조용 제목', '그래서 이게 작동한다고?', null, current_timestamp);
@@ -69,7 +70,6 @@ on i.inquiry_id = ic.inquiry_id
 group by i.inquiry_id;
 
 
-
 --3. 개인 회원, 기업회원 다 합쳐서 문의글을 쓴 적 있는 사람들의 문의글들의 정보와 그 개인회원의 user_id를 모두 조회하라는 커리문.
 --타입 a면 개인, b면 기업. 질문글 쓴 사람이 있는 사람(inquiry_ref_idx) = 각 회원의 식별번호 (idx / b.idx) 인 데이터의 inquiry 정보들을 조회하게 함.
 SELECT i.*, 
@@ -110,12 +110,3 @@ from (select rownum rnum, j.*
 				) j
 		where rownum <= 10) --한번에 볼 글의 개수
 where rnum >= 1 and rnum <= 10  --최소 페이지부터 최대 페이지까지. 1페이지~10페이지 까지 나오게 한단 소리.
-
-
-
-------------------------------
-select i.*, r.user_id, business_id
-								from inquiry i 
-								left join regular_user r on i.inquiry_ref_idx = r.idx
-								left join business_user b on i.inquiry_ref_idx = b.business_idx
-								order by inquiry_id desc

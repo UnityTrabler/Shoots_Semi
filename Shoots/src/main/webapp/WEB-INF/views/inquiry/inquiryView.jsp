@@ -45,8 +45,11 @@
 					
 					<%--파일 첨부한 경우 --%>
 					<c:if test="${!empty inquirydata.inquiry_file}">
-						<td><img src="${pageContext.request.contextPath}/img/down.png" width="10px">
-							<a href="down?filename=${inquirydata.inquiry_file}">${inquirydata.inquiry_file}</a></td>
+						<td>
+							<a href="down?filename=${inquirydata.inquiry_file}">
+							<img src="${pageContext.request.contextPath}/img/down.png" width="10px">
+							${inquirydata.inquiry_file}</a>
+						</td>
 					</c:if>
 					
 					
@@ -56,22 +59,34 @@
 					</c:if>
 				</tr>
 			
-			<tr>
-				<td colspan="2" class="center">
-					<%--수정, 삭제 버튼은 로그인 한 유저의 아이디 = 문의글 작성자 일때 혹은 id가 관리자 일때만 보이게 함 --%>
-					<c:if test="${inquirydata.inquiry_ref_idx == idx || role == 'admin' }">
-						<a href="modify?inquiryid=${inquirydata.inquiry_id}">
-							<button class="btn btn-info">수정</button>
-						</a>
-						<%--href의 주소를 #으로 설정함. --%>
-						<a href ="#">
-							<button class="btn btn-danger" data-toggle="modal"
-								data-target="#myModal" id="inquiryDelete">삭제</button>
-						</a>
-					</c:if>
-						<a href="list">
-							<button class="btn btn-warning">목록</button>
-						</a>
+				<tr>
+					<td colspan="2" class="center">
+						<%--수정, 삭제 버튼은 로그인 한 유저의 아이디 = 문의글 작성자 일때 혹은 id가 관리자 일때만 보이게 함 --%>
+						<c:if test="${inquirydata.inquiry_ref_idx == idx || role == 'admin' }">
+							<a href="modify?inquiryid=${inquirydata.inquiry_id}">
+								<button class="btn btn-info">수정</button>
+							</a>
+							<%--href의 주소를 #으로 설정함. --%>
+							<a href ="#">
+								<button class="btn btn-danger" data-toggle="modal"
+									data-target="#myModal" id="inquiryDelete">삭제</button>
+							</a>
+						</c:if>
+						
+							<%--관리자가 목록 버튼 누르면 관리자 전용 리스트로, 일반회원은 개인 문의글 리스트 경로로 이동 --%>
+							<c:choose>
+							    <c:when test="${role == 'admin'}">
+							        <a href="../admin/mypage">
+							            <button class="btn btn-warning">목록</button>
+							        </a>
+							    </c:when>
+							    <c:otherwise>
+							        <a href="list">
+							            <button class="btn btn-warning">목록</button>
+							        </a>
+							    </c:otherwise>
+							</c:choose>
+
 					</td>
 				</tr>
 			</table>
@@ -128,7 +143,7 @@
 		</div>
 		
 		
-		<textarea placeholder = "문의글에 대한 댓글을 남겨보세요" width="1200" class="iqcomment-content" name="content" maxlength="300" required></textarea>		
+		<textarea placeholder = "문의글에 대한 답변을 남겨보세요" width="1200" class="iqcomment-content" name="content" maxlength="300" required></textarea>		
 		
 		<div class="register-box">
 			<button class="btn-primary" id="register-comment">등록</button>
@@ -140,7 +155,23 @@
 </c:if>
 	
 <script>
+const inquiryid = $('#inquiryid').val(); 
 
+$('#inquiryDelete').click(function(){ //문의글 삭제 버튼 누르면 삭제하는 메서드
+	if (confirm("문의글을 삭제하시겠습니까?")) {
+		$.ajax({
+			type: "POST", 
+			url: "delete?num=" + inquiryid, 
+			success: function(response) {
+				alert("삭제되었습니다."); 
+				location.href = "../inquiry/list"; 
+			},
+			error: function() {
+				alert("삭제 실패. 다시 시도해주세요.");
+			}
+		});
+	}
+}); 
 <%--js에서 contextPath를 직접 선언할 수 없기에 jsp에서 선언하기 위해 있는 부분 --%>
 const contextPath = "${pageContext.request.contextPath}";
 </script>

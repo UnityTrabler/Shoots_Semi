@@ -49,7 +49,7 @@ public class InquiryDAO {
 							SELECT ROWNUM rnum, inquiry_id, inquiry_type, inquiry_ref_idx, title, content,
 									inquiry_file, register_date, user_id, business_id
 							FROM(
-								select i.*, r.user_id, business_id
+								select i.*, r.user_id, b.business_id
 								from inquiry i 
 								left join regular_user r on i.inquiry_ref_idx = r.idx
 								left join business_user b on i.inquiry_ref_idx = b.business_idx
@@ -149,11 +149,14 @@ public class InquiryDAO {
 		InquiryBean ib = new InquiryBean();
 		String sql = """
 				select * from(
-							select i.*, r.user_id, r.idx
-							from inquiry i 
-							join regular_user r 
-							on i.inquiry_ref_idx = r.idx
-							order by inquiry_id desc
+							SELECT i.*, 
+						       CASE WHEN i.inquiry_type = 'A' THEN r.user_id 
+						            WHEN i.inquiry_type = 'B' THEN b.business_id 
+					       	END AS user_id, business_id
+							FROM inquiry i 
+							LEFT JOIN regular_user r ON i.inquiry_type = 'A' AND i.inquiry_ref_idx = r.idx
+							LEFT JOIN business_user b ON i.inquiry_type = 'B' AND i.inquiry_ref_idx = b.business_idx
+							ORDER BY i.inquiry_id DESC
 							)
 				where inquiry_id = ?
 				""";
@@ -172,6 +175,7 @@ public class InquiryDAO {
 							ib.setInquiry_file(rs.getString("inquiry_file"));
 							ib.setRegister_date(rs.getString("register_date"));
 							ib.setUser_id(rs.getString("user_id"));
+							ib.setBusiness_id(rs.getString("business_id"));
 							ib.setIdx(rs.getInt("idx"));;
 						}
 					}
@@ -318,5 +322,32 @@ public class InquiryDAO {
 				System.out.println(list.size());
 					return list;
 		} //getInquiryList 끝
+
+	
+	public Boolean replyComplete(int inquiryid) {
+		boolean result = false;
+		
+		String sql = """
+				select *
+				from inquiry_comment
+				where inquiry_id = ?
+				""";
+		
+		try (Connection con = ds.getConnection();
+				PreparedStatement pstmt = con.prepareStatement(sql);){
+				pstmt.setInt(1, inquiryid);
+					
+					try (ResultSet rs = pstmt.executeQuery()){
+						if (rs.next()) {
+							result = true;
+						}
+					}
+				}catch (Exception ex) {
+						System.out.println("replyComplete() 에러:" + ex);
+				}
+		
+		
+		return result;
+	}
 
 }

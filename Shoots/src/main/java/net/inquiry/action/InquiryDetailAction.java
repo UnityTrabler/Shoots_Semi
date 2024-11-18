@@ -22,12 +22,17 @@ public class InquiryDetailAction implements Action {
 		InquiryDAO inquirydao = new InquiryDAO();
 		InquiryCommentDAO ic = new InquiryCommentDAO();
 		
+		
 		//글번호 파라미터값을 inquiryid 변수에 저장함
 		int inquiryid = Integer.parseInt(req.getParameter("inquiryid"));
 				
 		// inquiry/list 에서 inquiry/detail로 이동 후 sessionREferer 값 확인
 		HttpSession session = req.getSession();
 		String sessionReferer = (String) session.getAttribute("referer");
+		
+		//관리자인지 확인하기 위해 세션값 받아두려고 객체 생성
+		String role = (String) session.getAttribute("role");
+		
 		
 		if(sessionReferer != null && sessionReferer.equals("list")) {
 			//특정 주소로부터 이동을 확인하는데 사용할ㅇ 수 있는 정보는 request Header의 "referer"에 있다.

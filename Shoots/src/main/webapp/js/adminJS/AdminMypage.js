@@ -6,9 +6,7 @@ window.onload = function() {
 };
 
 
-
-
-// tap 이동
+// tap 이동 - FAQ관리
 function loadfaq() {
 	var xhr = new XMLHttpRequest();
     xhr.open('GET', '../faq/faqAdmin', true); 
@@ -26,9 +24,10 @@ function loadfaq() {
 			})
         }
         
+        // 관리자 페이지에서 좌측 탭 누르면 메뉴들 활성화 / 비활성화 시키는 부분 
         var tab = document.querySelector('.cP0-1 a');
         if (tab) {
-            var activeTabs = document.querySelectorAll('.cP0-1 a, .cP0-2 a');
+            var activeTabs = document.querySelectorAll('.cP0-1 a, .cP0-2 a, .cP0-3 a');
             activeTabs.forEach(function(item) {
                 item.classList.remove('active');
             });
@@ -39,7 +38,7 @@ function loadfaq() {
     xhr.send(); 
 }
 
-
+// tab 이동 - 공지사항
 function loadnotice() {
 	var xhr = new XMLHttpRequest();
     xhr.open('GET', '../notice/noticeAdmin', true); 
@@ -68,10 +67,12 @@ function loadnotice() {
 				})//검색 클릭 end
 			})
 		}
-        
+		
+		
+        // 관리자 페이지에서 좌측 탭 누르면 메뉴들 활성화 / 비활성화 시키는 부분 
 		var tab = document.querySelector('.cP0-2 a'); 
         if (tab) {
-            var activeTabs = document.querySelectorAll('.cP0-2 a, .cP0-1 a');
+            var activeTabs = document.querySelectorAll('.cP0-2 a, .cP0-1 a, .cP0-3 a');
             activeTabs.forEach(function(item) {
                 item.classList.remove('active');
             	});
@@ -80,6 +81,45 @@ function loadnotice() {
     };
     xhr.send(); 
 }
+
+	//tab 이동 - 1:1 문의글
+function loadinquiry() { //ajax로  관리자전용 1:1 문의글 리스트 뽑아오는곳
+	var xhr = new XMLHttpRequest();
+    xhr.open('GET', '../admin/inquirylist', true); 
+    xhr.onreadystatechange = function () {
+		// xhr.readyState === 4 : 4는 요청이 완료됐다는 뜻의 서버코드
+		// xhr.status === 200 : 2은 서버가 요청을 성공적으로 완료했을때 쓰는 서버코드
+        if (xhr.readyState === 4 && xhr.status === 200) {
+			document.getElementById('content-container').innerHTML = xhr.responseText; // 내용 뽑아오기 끝
+			
+			
+			$(function(){
+				//관리자 페이지 -  1:1 문의글 리스트 떴을때 삭제버튼 누르면 삭제 할지 말지 뜨는 팝업창
+				$("td:nth-child(7) > a").click(function(event){
+				const answer = confirm("정말 삭제하시겠습니까?");
+				console.log(answer);//취소를 클릭한 경우-false
+				if (!answer){//취소를 클릭한 경우
+					event.preventDefault(); //이동하지 않습니다.	
+					}
+				})//삭제 클릭 end
+		
+			})
+		}
+		
+		
+        // 관리자 페이지에서 좌측 탭 누르면 메뉴들 활성화 / 비활성화 시키는 부분 
+		var tab = document.querySelector('.cP0-3 a'); 
+        if (tab) {
+            var activeTabs = document.querySelectorAll('.cP0-1 a, .cP0-2 a, .cP0-3 a');
+            activeTabs.forEach(function(item) {
+                item.classList.remove('active');
+            	});
+            tab.classList.add('active');
+        }
+    };
+    xhr.send(); 
+} //loadinquiry() 끝
+
 
 
 //pagination

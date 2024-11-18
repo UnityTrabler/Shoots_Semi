@@ -10,6 +10,7 @@ import jakarta.servlet.ServletContext;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import net.core.Action;
 import net.core.ActionForward;
 import net.inquiry.db.InquiryBean;
@@ -41,25 +42,8 @@ public class InquiryModifyProcessAction implements Action {
 // 		원래 저장된 비밀번호와 입력한 비밀번호를 검색하는 코드. 일단 임시 주석처리
 //		현재 아래 코드는 비밀번호 유효성검사가 아닌 살짝 바뀐 코드이므로 첨부터 다시 ㄱ
 		int listnum = Integer.parseInt(multi.getParameter("inquiry_id"));
-//		int id = Integer.parseInt(multi.getParameter("inquiry_ref_idx"));
-//		
-//		//글쓴이 인지 확인하기 위해 저장된 문의자와 글번호를 비교함.
-//		boolean usercheck = boarddao.isBoardWriter(listnum, id);
-//		
-//		//비밀번호가 다른 경우
-//		if(!usercheck) {
-//			resp.setContentType("text/html;charset=utf-8");
-//			PrintWriter out = resp.getWriter();			
-//			out.print("<script>");
-//			out.print("alert('비밀번호가 다르다.');");
-//			out.print("history.back();");
-//			out.print("</script>");
-//			out.close();
-//			return null;
-//		}
 		
-		//비밀번호가 일치하는 경우 수정 내용을 설정함.
-		//BoardBean 객체에 글 등록 폼에서 입력받은 정보들을 저장함.
+		//InquiryBean 객체에 글 등록 폼에서 입력받은 정보들을 저장함.
 		inquirydata.setInquiry_id(listnum);
 		inquirydata.setTitle(multi.getParameter("title"));
 		inquirydata.setContent(multi.getParameter("content"));
