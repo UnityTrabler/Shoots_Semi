@@ -44,7 +44,7 @@
 							<td>
 								<%--제목 --%>
 								<div>
-									<a href="detail?inquiryid=${i.inquiry_id}"> 
+									<a href="../inquiry/detail?inquiryid=${i.inquiry_id}"> 
 										<c:if test="${i.title.length()>=20 }">
 											<c:out value="${i.title.substring(0,20 )}..." />
 										</c:if> 
@@ -52,7 +52,9 @@
 										<c:if test="${i.title.length()<20 }">
 											<c:out value="${i.title}" />
 										</c:if>
-									</a> [${i.cnt}]
+									</a>
+									
+									${replyComplete }
 								</div>
 							</td>
 							<%--문의자 유형 : A면 개인, B면 기업 --%>

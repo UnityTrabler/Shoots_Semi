@@ -10,19 +10,17 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/inquiry.css">
 <script src="${pageContext.request.contextPath}/js/jquery-3.7.1.js"></script>
 <script src="${pageContext.request.contextPath}/js/inquiryJs/inquirylist.js"></script>
-<jsp:include page = "/WEB-INF/views/user/top.jsp"/>
 
 <title>관리자 전용 문의 게시판</title>
 </head>
 <body>
-	<div class="container">
 		<%--게시글이 있는 경우 --%>
 		<c:if test="${listcount > 0 }">
 			<table class="table table-striped">
 				<thead>
 					<tr>
-						<th colspan="3">관리자 전용 1:1 문의 게시판</th>
-						<th colspan="2"><span>글 개수 : ${listcount}</span></th>
+						<th colspan="4">관리자 전용 1:1 문의 게시판</th>
+						<th colspan="3"><span>글 개수 : ${listcount}</span></th>
 					</tr>
 					<tr>
 						<th><div>번호</div></th>
@@ -30,6 +28,8 @@
 						<th><div>문의자 유형</div></th>
 						<th><div>문의자</div></th>
 						<th><div>날짜</div></th>
+						<th>수정</th>
+						<th>삭제</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -43,7 +43,7 @@
 							<td>
 								<%--제목 --%>
 								<div>
-									<a href="detail?inquiryid=${i.inquiry_id}"> 
+									<a href="inquirydetail?inquiryid=${i.inquiry_id}"> 
 										<c:if test="${i.title.length()>=20 }">
 											<c:out value="${i.title.substring(0,20 )}..." />
 										</c:if> 
@@ -71,16 +71,20 @@
 							<%--문의자의 ID. 초기 버전은 문의자의 식별번호였음. 
 							(문의글 식별번호 & 문의글 쓴 사람의 idx 번호  2개를 조인 한 뒤 user_id를 뽑아옴) --%>
 							<c:choose>
-						            <c:when test="${i.inquiry_type eq 'A'}">
-						               <td><div>${i.user_id}</div></td>
-						            </c:when>
-						            <c:when test="${i.inquiry_type eq 'B'}">
-						                <td><div>${i.business_id}</div></td>
-						            </c:when>
-						        </c:choose>
+					            <c:when test="${i.inquiry_type eq 'A'}">
+					               <td><div>${i.user_id}</div></td>
+					            </c:when>
+					            <c:when test="${i.inquiry_type eq 'B'}">
+					                <td><div>${i.business_id}</div></td>
+					            </c:when>
+					        </c:choose>
 							
 							<%--문의 등록일--%>
 							<td><div>${i.register_date}</div></td>
+							
+							<%--관리자 페이지에서의 수정/삭제 버튼 --%>
+							<td><a href="../inquiry/modify?inquiryid=${i.inquiry_id}" type="button" class="inquiryUpdate">수정</a></td>
+							<td><a href="../inquiry/delete?num=${i.inquiry_id}"  type="button" class="inquiryDelete">삭제</a></td>
 						</tr>
 					</c:forEach>
 				</tbody>
@@ -116,7 +120,6 @@
 		</c:if>
 
 		<button type="button" class="btn btn-info float-right">문의하기</button>
-	</div>
 	<%--<div class="container"> end --%>
 </body>
 </html>

@@ -24,7 +24,6 @@ public class AdminInquiryListAction implements Action {
 		InquiryDAO inquirydao = new InquiryDAO();
 		List<InquiryBean> inquirylist = new ArrayList<InquiryBean>();
 		
-		// /boards/list 에서 /boards/detail로 접속하는 경우에만 카운트 되도록 하기 위해 세션에 저장함.
 		req.getSession().setAttribute("referer", "list");
 		
 		//로그인 성공시 파라미터 page가 없어서 초기값이 필요함.
