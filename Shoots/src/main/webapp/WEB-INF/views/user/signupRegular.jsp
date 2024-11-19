@@ -67,12 +67,13 @@
 					method:$(this).attr('method'),
 					data:`\${data + "&" + $.param(state)}`,
 					success: function(resp) {
-						alert('회원가입에 성공하셨습니다.');
+						alert(data.message);
 						window.location.href = "${pageContext.request.contextPath}/user/login";
 					},
-					error: function(error) {
-						console.error("서버 오류:", error);
-						alert('회원가입에 실패하셨습니다.');
+					error: function(xhr, textStatus, errorThrown) {
+						console.log('ajax error');
+						var response = JSON.parse(xhr.responseText);
+						alert(response.message);
 					}
 				});//$.ajax
 			});//$('#signupform').submit
