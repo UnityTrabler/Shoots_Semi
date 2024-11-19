@@ -178,6 +178,11 @@ function updateNoticeList_notice(data) {
 					</tr>
             	`;
 	});
+	output += `<tr>
+					<td colspan="5" style="text-align:center;">
+						<a href="../notice/write" type="button" class="btnWrite">글 쓰 기</a>
+					</td>
+				</tr>`
 	output += "</tbody>";
 	
 	$('table').append(output);
@@ -220,6 +225,115 @@ function applyFilter() {
     const searchWord = $("input[name='search_word']").val();
     go_notice(1, searchWord);  // Start from page 1 when a new search is applied
 }
+
+//inquiry pagination
+isRequestInProgress = false
+function go_inquiry(page) {
+	if(isRequestInProgress) return;
+	
+	const limit = 10;
+	const data = {limit : limit, state : "ajax", page : page};
+	ajax_inquiry(data);
+}
+
+
+function generatePagination_inquiry(data) {
+	let output = "";
+	
+	let prevHref = data.page > 1 ? `href=javascript:go_inquiry(${data.page - 1})` : "";
+	output += setPaging(prevHref, '&lt;&lt;');
+	
+	for (let i = data.startpage; i <= data.endpage; i++) {
+		const isActive = (i === data.page);
+		let pageHref = !isActive ? `href=javascript:go_inquiry(${i})` : "";
+		  
+		output += setPaging(pageHref, i, isActive); 
+	}
+	
+	let nextHref = (data.page < data.maxpage) ? `href=javascript:go_inquiry(${data.page + 1})` : "";
+	output += setPaging(nextHref, '&gt;&gt;' );
+	
+	$(".pagination").empty().append(output);
+}
+
+//문의 tobody
+function updateNoticeList_inquiry(data) {
+	let output = "<tbody>";
+	var num = data.listcount - (data.page - 1) * data.limit + 1;
+	$(data.inquirylist).each(function(index, item){
+		num-=1;
+    	var shortenedTitle = item.title.length >= 20 ? item.title.substring(0, 20) + "..." : item.title;
+    	var userId = item.inquiry_type == 'A' ? item.user_id : item.business_id;
+    	var inquiryType = item.inquiry_type == 'A' ? "개인회원 문의" : "기업회원 문의";
+		output += `			
+			<tr>
+				<td>
+				${num}
+				</td>
+				<td>
+					
+					<div>
+						<a href="inquirydetail?inquiryid=${item.inquiry_id}">
+							${shortenedTitle}
+						</a> [${item.cnt}]
+					</div>
+				</td>
+				
+				<%--문의자 유형 : A면 개인, B면 기업 --%>
+				 <td>
+				    <div> ${inquiryType} </div>
+				</td>
+				
+				<%--문의자의 ID. 로그인해서 받아온 회원 유형이 A면  --%>
+				<td><div>${userId}</div></td>
+							
+				<%--문의 등록일--%>
+				<td><div>${item.register_date}</div></td>
+				
+				<%--관리자 페이지에서의 수정/삭제 버튼 --%>
+				<td><a href="../inquiry/modify?inquiryid=${item.inquiry_id}" type="button" class="inquiryUpdate">수정</a></td>
+				<td><a href="../inquiry/delete?num=${item.inquiry_id}"  type="button" class="inquiryDelete">삭제</a></td>
+			</tr>
+            	`;
+	});
+	output += "</tbody>";
+	
+	$('table').append(output);
+	
+	 generatePagination_inquiry(data);
+}
+
+function ajax_inquiry(sdata) {
+	console.log(sdata);
+	
+	$.ajax({
+		data : sdata,
+		url : "/Shoots/admin/inquirylist",
+		dataType : "json",
+		cache : false, 
+		success : function(data){
+			console.log(data);
+			if (data.listcount > 0) {
+				$("thead").show();
+				$("tbody").remove();
+				updateNoticeList_inquiry(data);
+			} else {
+				$("thead").hide();
+				$("tbody").remove();
+				$(".pagination").empty();
+				$("table").append("<tbody><tr><td colspan='5' style='text-align: center;'>아직 문의주신 사항이 없습니다.</td></tr></tbody>");
+			}
+		},
+		error : function() {
+			console.log("에러");
+			$("thead").hide();
+			$("tbody").remove();
+    		$(".pagination").empty();
+    		$("table").append("<tbody><tr><td colspan='5' style='text-align: center;'>데이터를 불러오는 중 오류가 발생했습니다. 다시 시도해주세요.</td></tr></tbody>");
+		}
+	});
+} //inquiry pagenation 끝
+
 
 function backBtn(){
 	var tab1 = document.querySelector('#tab-info'); 
