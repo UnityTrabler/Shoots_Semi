@@ -45,21 +45,22 @@ values (user_seq.nextval, 'youngsoo3', '3', '삼수',  333333, 3, '01012345678',
 
 -- 결제 테스트 위함
 insert into regular_user
-values (user_seq.nextval, 'test', '1234', '강성현',  000305, 4, '01097117305', 'shk7357@naver.com', null, null, current_timestamp, 'common');
+values (user_seq.nextval, 'test', '1', '강성현',  000305, 4, '01097117305', 'shk7357@naver.com', null, null, current_timestamp, 'common');
 
 insert into regular_user
-values (user_seq.nextval, 'test2', '1234', '강성현',  000305, 4, '01097117305', 'shk7357@naver.com', null, null, current_timestamp, 'common');
+values (user_seq.nextval, 'test1', '1', '강강강',  990101, 1, '01000001234', 'nid@naver.com', null, null, current_timestamp, 'common');
 
 insert into regular_user
-values (user_seq.nextval, 'test3', '1234', '강성현',  000305, 4, '01097117305', 'shk7357@naver.com', null, null, current_timestamp, 'common');
+values (user_seq.nextval, 'test2', '1', '김동휘',  020102, 3, '01099829384', 'gid@gmail.com', null, null, current_timestamp, 'common');
 
 insert into regular_user
-values (user_seq.nextval, 'test4', '1234', '강성현',  000305, 4, '01097117305', 'shk7357@naver.com', null, null, current_timestamp, 'common');
+values (user_seq.nextval, 'test3', '1', '임현빈',  880910, 2, '01026374637', 'did@daum.net', null, null, current_timestamp, 'common');
 
 insert into regular_user
-values (user_seq.nextval, 'test5', '1234', '강성현',  000305, 4, '01097117305', 'shk7357@naver.com', null, null, current_timestamp, 'common');
+values (user_seq.nextval, 'test4', '1', '최영수',  890207, 2, '01026737374', 'sidi@naver.com', null, null, current_timestamp, 'common');
 
 insert into regular_user
-values (user_seq.nextval, 'test6', '1234', '강성현',  000305, 4, '01097117305', 'shk7357@naver.com', null, null, current_timestamp, 'common');
+values (user_seq.nextval, 'test5', '1', '최주경',  981215, 1, '01092837465', 'lkjfd@naver.com', null, null, current_timestamp, 'common');
 
-
+insert into regular_user
+values (user_seq.nextval, 'test6', '1', '김임최',  840506, 4, '01083848384', 'iudhsf7@naver.com', null, null, current_timestamp, 'common');

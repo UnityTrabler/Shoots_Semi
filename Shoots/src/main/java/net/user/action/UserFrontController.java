@@ -65,7 +65,24 @@ public class UserFrontController extends jakarta.servlet.http.HttpServlet {
 			case "/signupform":
 				action = new UserSingupFormAction();
 				break;
-
+			case "/mypage":
+				action = new UserMypageAction();
+				break;
+			case "/info":
+				action = new UserInfoAction();
+				break;
+			case "/matchs":
+				action = new UserMatchsAction();
+				break;
+			case "/posts":
+				action = new UserPostsAction();
+				break;
+			case "/comments":
+				action = new UserCommentsAction();
+				break;
+			case "/inquiry":
+				action = new UserInquiryAction();
+				break;
 			default:
 				RequestDispatcher dispatcher = req.getRequestDispatcher("/error/error404.jsp");
 				dispatcher.forward(req, resp);
