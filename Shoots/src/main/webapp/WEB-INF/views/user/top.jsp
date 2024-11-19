@@ -38,7 +38,7 @@
 				<li class="nav-item"><a class="loginA" href="${pageContext.request.contextPath}/user/update">정보수정</a></li>
 			</c:if>
 			<c:if test="${empty sessionScope.id}">
-				<a href="${pageContext.request.contextPath}/user/login" class="loginA"><b>LOGIN</b></a>
+				<a href="${pageContext.request.contextPath}/user/login" class="loginA"><b>LOGIN</b></a> 
 				<a href="${pageContext.request.contextPath}/user/signup" class="joinA"><b>SIGN UP</b></a>
 			</c:if>
 		</ul>

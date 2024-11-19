@@ -64,7 +64,7 @@ public class BusinessMypostsAction implements Action {
 		req.getSession().setAttribute("referer", "list"); 
 		
 		int page = 1;
-		int limit = 7;
+		int limit = 10;
 		if (req.getParameter("page") != null) {
 			page = Integer.parseInt(req.getParameter("page"));
 		}
