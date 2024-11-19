@@ -1,6 +1,6 @@
 @charset "EUC-KR";
 
-
+.container {min-width : 1200px;}
 .table {width : 100%; margin : 0 auto}
 
 table caption {

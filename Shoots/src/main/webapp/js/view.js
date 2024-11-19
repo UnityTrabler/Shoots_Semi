@@ -28,56 +28,89 @@ function getList(state) {
       $('.comment-order-list').html(output);
 
       output = ''; // 초기화
-      if (rdata.commentlist.length) { 
-        rdata.commentlist.forEach(comment => {
-		  //let ref = comment.comment_ref_id;
-          let replyClass = (comment.comment_ref_id) ? 'comment-list-item--reply' : ''; // comment_ref_id가 있으면 답글로 처리
-          let src = comment.user_file ? `../userupload/${comment.user_file}` : '../img/profile.png';
-          
-          // 답글 버튼은 원문 댓글에만 표시
-          let replyButton = (!comment.comment_ref_id) ? `<a href='javascript:replyform(${comment.comment_id})' class='comment-info-button'>답글쓰기</a>` : '';
-          
-          // 댓글 작성자가 로그인한 사용자일 경우, 더보기 버튼 클릭하면 수정/삭제 버튼 표시
-          let toolButtons = $("#loginid").val() == comment.id ? ` 
+      if (rdata.commentlist.length) {
+    rdata.commentlist.forEach(Comment => {
+        // 부모 댓글 처리
+        let replyClass = (Comment.comment_ref_id) ? 'comment-list-item--reply' : ''; // 답글 여부
+        let src = Comment.user_file ? `../userupload/${Comment.user_file}` : '../img/profile.png';
+
+        // 답글 버튼은 원본 댓글에만 표시
+        let replyButton = (!Comment.comment_ref_id) ? 
+            `<a href='javascript:replyform(${Comment.comment_id})' class='comment-info-button'>답글쓰기</a>` : '';
+
+        // 댓글 작성자가 로그인한 사용자일 경우, 수정/삭제 버튼 표시
+        let toolButtons = $("#loginid").val() == Comment.user_id ? ` 
             <div class='comment-tool'>
-              <div title='더보기' class='comment-tool-button'> 
-                <div>&#46;&#46;&#46;</div>
-              </div>
-              <div id='comment-list-item-layer${comment.comment_id}' class='LayerMore'>
-                <ul class='layer-list'>
-                  <li class='layer-item'>
-                    <a href='javascript:updateForm(${comment.comment_id})' class='layer-button'>수정</a>
-                    <a href='javascript:del(${comment.comment_id})' class='layer-button'>삭제</a>
-                  </li>
-                </ul>
-              </div>
+                <div title='더보기' class='comment-tool-button'> 
+                    <div>&#46;&#46;&#46;</div>
+                </div>
+                <div id='comment-list-item-layer${Comment.comment_id}' class='LayerMore'>
+                    <ul class='layer-list'>
+                        <li class='layer-item'>
+                            <a href='javascript:updateForm(${Comment.comment_id})' class='layer-button'>수정</a>
+                            <a href='javascript:del(${Comment.comment_id})' class='layer-button'>삭제</a>
+                        </li>
+                    </ul>
+                </div>
             </div>` : '';
-          
-          output += ` 
-          <li id='${comment.comment_id}' class='comment-list-item ${replyClass}'>
+
+		//답글은 ref_id가 null이 아니니까 출력하면 안되지
+        output += (Comment.comment_ref_id !== 0) ? '' : `
+        <li id='${Comment.comment_id}' class='comment-list-item ${replyClass}'>
             <div class='comment-nick-area'>
-              <img src='${src}' alt='profile picture' width='36' height='36'>
-              <div class='comment-box'>
-                <div class='comment-nick-box'>
-                  <div class='comment-nick-info'>
-                    <div class='comment-nickname'>${comment.id}</div>
-                  </div>
+                <img src='${src}' alt='profile picture' width='36' height='36'>
+                <div class='comment-box'>
+                    <div class='comment-nick-box'>
+                        <div class='comment-nick-info'>
+                            <div class='comment-nickname'>${Comment.user_id}</div>
+                        </div>
+                    </div>
+                    <div class='comment-text-box'>
+                        <p class='comment-text-view'>
+                            <span class='text-comment'>${Comment.content}</span>
+                        </p>
+                    </div>
+                    <div class='comment-info-box'>
+                        <span class='comment-info-date'>${Comment.register_date}</span>
+                        ${replyButton}
+                    </div>
+                    ${toolButtons}
                 </div>
-                <div class='comment-text-box'>
-                  <p class='comment-text-view'>
-                    <span class='text-comment'>${comment.content}</span>
-                  </p>
-                </div>
-                <div class='comment-info-box'>
-                  <span class='comment-info-date'>${comment.register_date}</span>
-                  ${replyButton}
-                </div>
-                ${toolButtons}
-              </div>
             </div>
-          </li>`;
+        </li>`;
+
+        // 답글 처리: 부모 댓글에 대한 답글을 출력
+        rdata.commentlist.forEach(childComment => {
+            if (childComment.comment_ref_id === Comment.comment_id) {
+                let childSrc = childComment.user_file ? `../userupload/${childComment.user_file}` : '../img/profile.png';
+
+                output += `
+                <li id='${childComment.comment_id}' class='comment-list-item comment-list-item--reply'>
+                    <div class='comment-nick-area'>
+                        <img src='${childSrc}' alt='profile picture' width='36' height='36'>
+                        <div class='comment-box'>
+                            <div class='comment-nick-box'>
+                                <div class='comment-nick-info'>
+                                    <div class='comment-nickname'>${childComment.user_id}</div>
+                                </div>
+                            </div>
+                            <div class='comment-text-box'>
+                                <p class='comment-text-view'>
+                                    <span class='text-comment'>${childComment.content}</span>
+                                </p>
+                            </div>
+                            <div class='comment-info-box'>
+                                <span class='comment-info-date'>${childComment.register_date}</span>
+                            </div>
+                        </div>
+                    </div>
+                </li>`;
+            }
         });
-      }
+    });
+}
+
+      
       $('.comment-list').html(output); //댓글 데이터를 HTML로 변환하여 화면에 출력
       
       //댓글이 없으면 댓글 목록과 정렬 메뉴를 비움
@@ -153,7 +186,7 @@ function replyform(comment_id, comment_ref_id) {
   //등록을 답글 완료로 변경합니다.
   $comment_id_next.find('.btn-register')
            .addClass('reply')
-           .attr({ 'data-ref': comment_ref_id }) // 부모 댓글의 comment_id를 'data-ref'로 설정
+           .attr({ 'data-ref': comment_id }) // 부모 댓글의 comment_id를 'data-ref'로 설정
            .text('답글완료');
   //댓글 폼 보이지 않습니다.
   $("body > div > div.comment-area > div.comment-write").hide(); // 댓글 폼 숨기기
@@ -250,7 +283,6 @@ $(function() {
 	
 	//답글완료 클릭한 경우
 	$('.comment-area').on('click', '.reply', function(){
-		
 		const content= $(this).parent().parent().find('.comment-write-area-text').val();
 		if(!content){ //내용없이 답글완료 클릭한 경우
 			alert("답글을 입력하세요");
@@ -266,7 +298,7 @@ $(function() {
         id: $('#loginid').val(),
         content: content,
         post_id: $("#post_id").val(),  
-        comment_ref_id: $(this).attr('data-ref') // 부모 댓글의 comment_id를 comment_ref_id로 설정
+        comment_ref_id: $(this).attr('data-ref') // 부모 댓글의 comment_id를 comment_ref_id로 설정v @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
       },
       success: function(rdata) {
         if (rdata == 1) {

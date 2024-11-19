@@ -56,7 +56,7 @@ public class InquiryDeleteAction implements Action {
 				PrintWriter out = resp.getWriter();
 				out.print("<script>");
 				out.print("alert('문의글을 성공적으로 삭제했습니다.');");
-				out.print("location.href='list';");
+				out.print("location.href='../customer/support';");
 				out.print("</script>");
 				out.close();
 				return null;

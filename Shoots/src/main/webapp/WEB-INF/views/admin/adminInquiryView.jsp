@@ -6,9 +6,7 @@
 <head>
 <title>문의 게시판</title>
 <jsp:include page = "/WEB-INF/views/user/top.jsp"/>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/inquiry.css">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath }/css/view.css" type="text/css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/inquiryDetail.css" type="text/css">
 
 <script src="${pageContext.request.contextPath }/js/jquery-3.7.1.js"></script>
 <script src="${pageContext.request.contextPath }/js/inquiryJs/inquiryview.js"></script>
@@ -22,10 +20,12 @@
 	<div class="container">
 		<table class="table">
 				<tr>
-				${inquirydata.user_id }개인이면 //
-				${inquirydata.business_id } 여긴 기업 //
-				${role }
-					<th colspan="2">1:1 문의 게시판</th>
+					<th colspan="15">1:1 문의 게시판</th>
+				</tr>
+				
+					<%--문의글 제목 --%>
+				<tr>
+					<th>&nbsp<c:out value = "${inquirydata.title}"/></th>
 				</tr>
 				<tr>
 					<td><div>문의자</div></td>
@@ -39,10 +39,8 @@
 			            </c:when>
 			        </c:choose>
 					
-				</tr>
-				<tr>
-					<td><div>제목</div></td>
-					<td><c:out value = "${inquirydata.title}"/></td>
+					
+						<td>문의 날짜</td>
 				</tr>
 				<tr>
 					<td><div>내용</div></td>
@@ -56,7 +54,7 @@
 					
 					<%--파일 첨부한 경우 --%>
 					<c:if test="${!empty inquirydata.inquiry_file}">
-						<td><img src="${pageContext.request.contextPath}/img/down.png" width="10px">
+						<td><img src="${pageContext.request.contextPath}/img/down.png" id="downImg" width="10px">
 							<a href="down?filename=${inquirydata.inquiry_file}">${inquirydata.inquiry_file}</a></td>
 					</c:if>
 					
@@ -71,7 +69,7 @@
 				<td colspan="2" class="center">
 					<%--관리자 페이지는 수정삭제 버튼 다 보임 --%>
 						<a href="../inquiry/modify?inquiryid=${inquirydata.inquiry_id}">
-							<button class="btn btn-info">수정</button>
+							<button class="btn btn-info updateBtn">수정</button>
 						</a>
 						
 						<a href ="../inquiry/delete?num=${inquirydata.inquiry_id}">
@@ -83,12 +81,12 @@
 							<c:choose>
 							    <c:when test="${role == 'admin'}">
 							        <a href="../admin/mypage">
-							            <button class="btn btn-warning">목록</button>
+							            <button class="btn btn-warning listBtn">목록</button>
 							        </a>
 							    </c:when>
 							    <c:otherwise>
 							        <a href="list">
-							            <button class="btn btn-warning">목록</button>
+							            <button class="btn btn-warning listBtn">목록</button>
 							        </a>
 							    </c:otherwise>
 							</c:choose>
@@ -102,7 +100,6 @@
 	
 	 <!-- 댓글 리스트 출력 -->
     <div class="comments-section">
-        <h2>문의답변 목록</h2>
         
         <c:if test="${!empty iqlist}">
             <c:forEach var="ic" items="${iqlist}">

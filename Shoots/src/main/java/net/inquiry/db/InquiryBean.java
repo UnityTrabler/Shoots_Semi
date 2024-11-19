@@ -13,6 +13,25 @@ public class InquiryBean {
 	private String business_id;
 	private int idx;
 	private int commentcount;
+    private boolean hasReply;
+    private String resolved_id;
+
+    
+    public String getResolved_id() {
+		return resolved_id;
+	}
+
+	public void setResolved_id(String resolved_id) {
+		this.resolved_id = resolved_id;
+	}
+
+	public boolean isHasReply() {
+        return hasReply;
+    }
+
+    public void setHasReply(boolean hasReply) {
+        this.hasReply = hasReply;
+    }
 	
 	public int getCommentcount() {
 		return commentcount;

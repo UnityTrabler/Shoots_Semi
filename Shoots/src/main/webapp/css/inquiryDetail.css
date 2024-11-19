@@ -1,0 +1,66 @@
+@charset "UTF-8";
+
+	/* 본문 내용 (view)의 전체 컨테이너*/
+.container {display: flex; min-width: 1200px}
+
+	/*본문에 달린 답변(댓글) 내용 부분*/
+.comments-section {
+    display: flex;
+    flex-direction: column; /* 요소를 세로로 정렬 */
+    justify-content: center; /* 수직 방향으로 중앙 정렬 */
+    align-items: center; /* 가로 방향으로 중앙 정렬 */
+    min-width: 1200px;
+    gap: 10px; /* 요소 간 간격 */
+}
+
+/* 답변 (댓글) 폼 부분*/
+#iqcommentform {display: block; margin:200px;}
+
+
+
+#downImg{
+	width : 10px
+}
+
+table caption {
+	caption-side: top;
+	font-size : 30px;
+	font-weight: bold;
+	color : black;
+}
+
+.listBtn,.updateBtn,#inquiryDelete  {margin: auto;
+    text-decoration: none;
+    font-size: 15px;
+    border-radius: 10px;
+    border: none;
+    width: 80px;
+    height: 23px;
+    display: float; /* 플렉스박스 활성화 */
+    align-items: center; /* 수직 정렬 */
+    justify-content: center; /* 수평 정렬 */
+    color: white;
+    background: #059669;
+    transition: background 0.3s, color 0.3s}
+.listBtn {margin:auto; text-decoration: none; font-size : 15px; border-radius : 10px; border : none; width : 80px; height : 23px;  line-height: 23px; text-align: center; color : white ; background : #059669; transition: background 0.3s, color 0.3s; }
+.listBtn:hover {text-decoration: none; font-size : 15px; border : 1px solid #059669; border-radius : 10px; width : 80px; height : 23px; text-align: center; color : #059669 ; background : white}
+
+.updateBtn {text-decoration: none; font-size : 15px; border-radius : 10px; border : none; width : 80px; height : 23px; text-align: center; color : white ; background : #1d4ed8; transition: background 0.3s, color 0.3s; }
+.updateBtn:hover {text-decoration: none; font-size : 15px; border : 1px solid #1d4ed8; border-radius : 10px; width : 80px; height : 23px; text-align: center; color : #1d4ed8 ; background : white}
+
+#inquiryDelete {text-decoration: none; font-size : 15px; border-radius : 10px; border : none; width : 80px; height : 23px; text-align: center; color : white ; background : #be123c; transition: background 0.3s, color 0.3s; }
+#inquiryDelete:hover {text-decoration: none; font-size : 15px; border : 1px solid #be123c; border-radius : 10px; width : 80px; height : 23px; text-align: center; color : #be123c ; background : white}
+
+
+ tr:last-child td:last-child {
+ 	text-align:right; 
+ 	padding-left: 0;
+    margin-right: 0;
+}
+
+textarea{
+	border:none;
+	resize:none;
+	background-color:transparent;
+	outline: none;
+}

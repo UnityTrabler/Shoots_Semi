@@ -44,6 +44,9 @@ public class AdminFrontController extends HttpServlet{
 			case "/inquirydetail" :
 				action = new AdminInquiryDetailAction();
 				break;
+			case "/userlist" :
+				action = new AdminUserListAction();
+				break;
 			
 			default:
 					RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB_INF/views/error/error404.jsp");
