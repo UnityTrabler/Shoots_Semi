@@ -88,7 +88,6 @@ public class UserSignupProcessAction extends HttpServlet implements Action {
 				userBean.setAddress(req.getParameter("address") + " " +req.getParameter("addressDetail"));
 				userBean.setDescription(req.getParameter("description"));
 				userBean.setBusiness_file(req.getParameter("business_file"));
-				//여기에 승인요청 해야함 DB에 추가
 				int result = 0;
 				result = new UserDAO().insertUser(userBean);
 				System.out.println(result);

@@ -5,6 +5,7 @@ import java.io.IOException;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import net.comment.db.CommentBean;
 import net.comment.db.CommentDAO;
 import net.core.Action;
@@ -22,8 +23,15 @@ public class CommentAddAction implements Action {
 		
 		
 		co.setPost_id(Integer.parseInt(request.getParameter("post_id")));
-		co.setComment_ref_id(Integer.parseInt(request.getParameter("comment_ref_id")));
-		co.setWriter(Integer.parseInt(request.getParameter("writer")));
+		System.out.println("class : " + request.getParameter("comment_ref_id").getClass());
+		System.out.println("is null1 :  " +  request.getParameter("comment_ref_id") == null);
+		System.out.println("is null2 : " +  request.getParameter("comment_ref_id").toString().equals(""));
+		System.out.println("is null3 : " +  request.getParameter("comment_ref_id").equals(""));
+		co.setComment_ref_id(request.getParameter("comment_ref_id").equals("") ? -1 : Integer.parseInt(request.getParameter("comment_ref_id")));
+//		co.setComment_ref_id(request.getParameter("comment_ref_id").equals("") ? null : 1);
+		System.out.println("출려 해서" + request.getParameter("comment_ref_id"));
+		HttpSession session = request.getSession();
+		co.setWriter((int) session.getAttribute("idx"));
 		co.setContent(request.getParameter("content"));
         
 		
