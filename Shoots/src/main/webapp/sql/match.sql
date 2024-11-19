@@ -65,7 +65,7 @@ select TABLE_NAME FROM USER_CONSTRAINTS where CONSTRAINT_NAME = 'SYS_C007220';
 
 select mp.*, COALESCE(p.playerCount, 0) AS playerCount 
 				from match_post mp
-				left join (SELECT match_id, COUNT(*) AS playerCount
+				inner join (SELECT match_id, COUNT(*) AS playerCount
 						     FROM payment 
 						     WHERE status = 'SUCCESS'
 						     GROUP BY match_id) p 
@@ -77,3 +77,11 @@ SELECT * FROM match_post
 WHERE writer = 5
 AND EXTRACT(YEAR FROM match_date) = 2024
 AND EXTRACT(MONTH FROM match_date) = 11;
+
+update match_post set match_time = '20:35' where match_id = 48;
+select * from match_post where match_id = 48;
+
+select * from match_post mp
+				inner join payment p
+				on mp.match_id = p.match_id
+				where p.buyer = 2 and p.status = 'SUCCESS';
