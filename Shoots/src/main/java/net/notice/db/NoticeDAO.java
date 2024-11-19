@@ -90,7 +90,7 @@ private DataSource ds;
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			System.out.println("getMatchList() 에러 : " + e);
+			System.out.println("getNoticeList() 에러 : " + e);
 		}
 		
 		return list;
