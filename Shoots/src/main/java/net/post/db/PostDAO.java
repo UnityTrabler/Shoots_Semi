@@ -188,9 +188,10 @@ private DataSource ds;
 			pstmt.setString(3,  postdata.getTitle());
 			pstmt.setString(4,  postdata.getContent());
 			pstmt.setString(5,  postdata.getPost_file());
+			
 			pstmt.setInt(6, postdata.getPrice());
 			
-			// 중고게시판(B)일 경우 가격 설정, 아니면 0
+//			//중고게시판(B)일 경우 가격 설정, 아니면 0
 //	        if ("B".equals(postdata.getCategory())) {
 //	            pstmt.setInt(6, postdata.getPrice());
 //	        } else {

@@ -88,8 +88,8 @@ public class PostAddAction implements Action {
 			
 			
 			// 시스템 상에 업로드된 실제 파일명을 얻어 옵니다.
-						String filename = multi.getFilesystemName("post_file");
-						postdata.setPost_file(filename);
+					String filename = multi.getFilesystemName("post_file");
+					postdata.setPost_file(filename);
 			
 			// 글 등록 처리를 위해 DAO의 postInsert()메서드를 호출합니다.
 			// 글 등록 폼에서 입력한 정보가 저장되어 있는 postdata객체를 전달합니다.
