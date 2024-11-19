@@ -13,7 +13,8 @@
 			$('#id').focus();
 			$('button#btnRegular').addClass('btn-success');
 		}
-    
+    	function btnRegularClick() {}
+    	function btnBusinessClick() {}
     	$(function() {
     		init();
     		
@@ -60,10 +61,13 @@
 				dataType : "json",
 				success : function(data){
 					console.log('ajax success');
+					alert(data.message);
 					window.location.href = "${pageContext.request.contextPath}/index.jsp";
 				},
-				error:function(){
+				error:function(xhr, textStatus, errorThrown){
 					console.log('ajax error');
+					var response = JSON.parse(xhr.responseText);
+					alert(response.message);
 				}
 			});
 		}
