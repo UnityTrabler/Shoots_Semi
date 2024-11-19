@@ -226,7 +226,7 @@ function applyFilter() {
 }
 
 
-//inquriy pagination
+//inquiry pagination
 isRequestInProgress = false
 function go_inquiry(page) {
 	if(isRequestInProgress) return;
