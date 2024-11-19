@@ -13,7 +13,6 @@
 	<title>공지사항 관리 더 보기</title>
 	<script src="${pageContext.request.contextPath}/js/adminJS/AdminMypage.js"></script>
 	<jsp:include page="../user/top.jsp"></jsp:include>
-	
 	<link rel = "stylesheet" href = "${pageContext.request.contextPath}/css/noticeDetail.css" type = "text/css">
 	<script>
 		$(function(){
@@ -61,9 +60,7 @@
 				<td>
                     <a href="update?id=${nb.notice_id}" type="button" class="updateBtn">수정</a>
                     <a href="delete?id=${nb.notice_id}" type="button" class="deleteBtn">삭제</a>
-                    
-                    
-                    <input type = "button" class = "backBtn" onClick="history.go(-1)" value = "BACK">
+                    <a href="../admin/mypage" type="button" class="listBtn">목록</a>  
                 </td>
 			</tr>
 		</table>

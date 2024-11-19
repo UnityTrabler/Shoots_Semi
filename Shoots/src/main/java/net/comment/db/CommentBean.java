@@ -9,6 +9,7 @@ public class CommentBean {
 	private String register_date;
 	private String user_id;
 	private int idx;
+	private String user_file;
 	
 	public int getComment_id() {
 		return comment_id;
@@ -57,6 +58,12 @@ public class CommentBean {
 	}
 	public void setIdx(int idx) {
 		this.idx = idx;
+	}
+	public String getUser_file() {
+		return user_file;
+	}
+	public void setUser_file(String user_file) {
+		this.user_file = user_file;
 	}
 	
 	

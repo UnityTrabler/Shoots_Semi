@@ -1,45 +1,45 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="EUC-KR">
-<title>Insert title here</title>
+	<meta charset="UTF-8">
+	<title>Insert title here</title>
 </head>
 <body>
-	<p class = "cP1"> ±¸ÀåÁ¤º¸ </p>
+	<p class = "cP1"> êµ¬ì¥ì •ë³´ </p>
 	<input type = "hidden" id = "idx" name =  "idx" value = "${idx}">
 	<table class = "table">
 		<tr>
-			<th> ±â¾÷¸í </th> <td> ${businessUser.business_name} </td>
+			<th> ê¸°ì—…ëª… </th> <td> ${businessUser.business_name} </td>
 		</tr>
 		<tr>
-			<th> »ç¾÷ÀÚ ¹øÈ£ </th> <td> ${businessUser.business_number} </td>
+			<th> ì‚¬ì—…ì ë²ˆí˜¸ </th> <td> ${businessUser.business_number} </td>
 		</tr>
 		<tr>
-			<th> À§Ä¡ </th> <td> ${businessUser.address} </td>
+			<th> ìœ„ì¹˜ </th> <td> ${businessUser.address} </td>
 		</tr>
 		<tr>
-			<th> ´ëÇ¥ ¹øÈ£ </th> <td> ${businessUser.tel} </td>
+			<th> ëŒ€í‘œ ë²ˆí˜¸ </th> <td> ${businessUser.tel} </td>
 		</tr>
 		<tr>
-			<th> ±â¾÷ ÀÌ¸ŞÀÏ </th> <td> ${businessUser.email} </td>
+			<th> ê¸°ì—… ì´ë©”ì¼ </th> <td> ${businessUser.email} </td>
 		</tr>
 		<tr>
-			<th> ÁÖ¼Ò </th> <td> (${businessUser.post})  ${businessUser.address} </td>
+			<th> ì£¼ì†Œ </th> <td> (${businessUser.post})  ${businessUser.address} </td>
 		</tr>
 		<tr>
-			<th> ±¸ÀåÁ¤º¸ </th> <td> ${businessUser.description} </td>
+			<th> êµ¬ì¥ì •ë³´ </th> <td> ${businessUser.description} </td>
 		</tr>
 		<tr>
-			<th> ÆÄÀÏ </th> <td> ${businessUser.business_file} </td>
+			<th> íŒŒì¼ </th> <td> ${businessUser.business_file} </td>
 		</tr>
 		<tr>
-			<th> °¡ÀÔÀÏ </th> <td> ${businessUser.register_date.substring(0,4)}³â ${businessUser.register_date.substring(5,7)}¿ù ${businessUser.register_date.substring(8,10)}ÀÏ </td>
+			<th> ê°€ì…ì¼ </th> <td> ${businessUser.register_date.substring(0,4)}ë…„ ${businessUser.register_date.substring(5,7)}ì›” ${businessUser.register_date.substring(8,10)}ì¼ </td>
 		</tr>
 	</table>
 	<div class = "container2">
-		<input type = "button" class = "updateBtn" value = "±¸Àå Á¤º¸ ¼öÁ¤">
+		<input type = "button" class = "updateBtn" value = "êµ¬ì¥ ì •ë³´ ìˆ˜ì •">
 	</div>
 </body>
 </html>

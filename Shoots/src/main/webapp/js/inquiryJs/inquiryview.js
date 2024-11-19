@@ -2,23 +2,10 @@ $(function() {
     const loginid = $("#loginid").val();  // 로그인한 유저의 id
     const inquiryid = $("#inquiryid").val(); // 문의글 번호.
     
-	$('#inquiryDelete').click(function(){ //문의글 삭제 버튼 누르면 삭제하는 메서드
-		if (confirm("문의글을 삭제하시겠습니까?")) {
-			$.ajax({
-				type: "POST", 
-				url: "delete?num=" + inquiryid, 
-				success: function(response) {
-					alert("삭제되었습니다."); 
-					location.href = "../inquiry/list"; 
-				},
-				error: function() {
-					alert("삭제 실패. 다시 시도해주세요.");
-				}
-			});
-		}
-	}); //문의글 삭제 메서드 끝
+    $(".listlook").click(function(){
+		history.back();
+	})
     
-
     $(".ic").each(function() { //문의댓글을 c:foreach 반복문으로 뽑아내서 여러개가 나오기 때문에 각 댓글들마다 코드 실행시키기 위해 each 함수 사용
         const commentwriter = $(this).find(".iqcomment-writer").val();  // 각 댓글의 작성자 id
 

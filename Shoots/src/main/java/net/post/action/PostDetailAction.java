@@ -19,6 +19,7 @@ public class PostDetailAction implements Action {
 		
 		// 글번호 파라미터 값을 num변수에 저장합니다.
 		int num = Integer.parseInt(request.getParameter("num"));
+		//int postId = Integer.parseInt(request.getParameter("postid"));
 		
 		// boards/list 에서 boards/detail로 이동 후 sessionReferer 값 확인
 		HttpSession session = request.getSession();

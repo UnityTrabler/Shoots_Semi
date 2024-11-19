@@ -269,6 +269,43 @@ public class MatchDAO {
 		}
 		return list;
 	}
+	
+	public List<MatchBean> getMatchListById(int business_idx, int year, int month) {
+		String sql = """
+				SELECT * FROM match_post 
+				WHERE writer = ?
+				AND EXTRACT(YEAR FROM match_date) = ?
+			    AND EXTRACT(MONTH FROM match_date) = ?
+			    ORDER BY match_date DESC
+	            """;
+		List<MatchBean> list = new ArrayList<MatchBean>();
+        
+		try (Connection con = ds.getConnection();
+				PreparedStatement pstmt = con.prepareStatement(sql);) {
+			System.out.println(business_idx+ " " + year + " " + month );
+			pstmt.setInt(1, business_idx);
+            pstmt.setInt(2, year);
+            pstmt.setInt(3, month);
+
+			try (ResultSet rs = pstmt.executeQuery()) {
+				while(rs.next()) {
+					MatchBean match = new MatchBean();
+					match.setMatch_id(rs.getInt("match_id"));
+					match.setMatch_date(rs.getString("match_date"));
+					match.setMatch_time(rs.getString("match_time"));
+					match.setPlayer_max(rs.getInt("player_max"));
+					match.setPlayer_min(rs.getInt("player_min"));
+					match.setPrice(rs.getInt("price"));
+
+					list.add(match);
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("getMatchListById() 에러 : " + e);
+		}
+		return list;
+	}
 
 	public List<MatchBean> getAfterMatchList() {
 		String sql = """

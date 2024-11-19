@@ -31,3 +31,8 @@ select * from (
 	on ic.writer = r.idx)
 where inquiry_id = 23
 order by i_comment_id asc;
+
+
+
+--3. inquiry list 를 뽑을때 inquiry_id (=a) 값이 같이 뽑힘. 그러면 select * from inquiry_comment where a = ? 커리문을 써서 메서드 만들고 메서드 반환값은 boolean
+-- true 나오면 List.jsp 에서 [답변완료] 를 남김

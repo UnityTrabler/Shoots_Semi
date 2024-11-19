@@ -167,6 +167,23 @@ private DataSource ds;
 		}
 		return x;
 	}//getId() end
+
+	public int getListCount() {
+		String sql = "select count(*) from faq";
+		int x = 0;
+		try(Connection con = ds.getConnection();
+			PreparedStatement pstmt = con.prepareStatement(sql);){
+			try(ResultSet rs = pstmt.executeQuery()){
+				if(rs.next()) {
+					x = rs.getInt(1);
+				}
+			}
+		}catch(Exception ex) {
+			ex.printStackTrace();
+			System.out.println("getListCount() 에러: " + ex);
+		}
+		return x;
+	}
 	
 	
 }

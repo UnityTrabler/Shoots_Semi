@@ -26,7 +26,10 @@ private DataSource ds;
 	
 	
 	public int getListCount(String category) {
-		String sql = "select count(*) from post where category = ?";
+		String sql = """
+				select count(*) from post 
+				where category = ?
+							""";
 		int x = 0;
 		
 		try (Connection con = ds.getConnection();
@@ -54,7 +57,8 @@ private DataSource ds;
 		// limit : 페이지 당 목록의 수
 			
 		String post_list_sql = """
-				select * from (
+				select * 
+				from ( 
 		SELECT ROWNUM rnum, post_id, writer, category, title, content, post_file, price, register_date, readcount, user_id
 		from(
 				SELECT p.*, r.user_id
@@ -67,6 +71,21 @@ private DataSource ds;
 			) where rnum >= ?
 				
 			""";
+		/*
+		select * 
+				from ( 
+		SELECT ROWNUM rnum, post_id, writer, category, title, content, post_file, price, register_date, readcount, user_id
+		from(
+				SELECT p.*, r.user_id
+				FROM post p
+				INNER JOIN regular_user r ON p.writer = r.idx
+				WHERE p.category = ?
+				ORDER BY p.register_date DESC
+				)
+				where rownum <= ?
+			) where rnum >= ?
+		*/
+		
 		//limit ? offset ?
 		//페이지 1: LIMIT 10 OFFSET 0 → 0부터 10개 게시글을 가져옴
 		//페이지 2: LIMIT 10 OFFSET 10 → 10부터 10개 게시글을 가져옴
@@ -225,14 +244,25 @@ private DataSource ds;
 	
 	
 	public PostBean getDetail(int num) {
-		PostBean post = null;
+		PostBean post = new PostBean();
 		
 		String post_getDetail_sql = """
-				select *
-				from post
+				select * from(
+							select p.*, r.user_id, r.idx
+							from post p 
+							join regular_user r 
+							on p.writer = r.idx
+							order by post_id desc
+							)
 				where post_id = ?
 				""";
 			
+		/*
+		 select *
+				from post
+				where post_id = ? 
+		 */
+		
 			try (Connection con = ds.getConnection();
 					 PreparedStatement pstmt = con.prepareStatement(post_getDetail_sql);) {
 					
@@ -250,6 +280,8 @@ private DataSource ds;
 							post.setPrice(rs.getInt("PRICE"));
 							post.setRegister_date(rs.getString("REGISTER_DATE"));
 							post.setReadcount(rs.getInt("READCOUNT"));
+							post.setUser_id(rs.getString("user_id"));
+							post.setIdx(rs.getInt("idx"));
 						}
 					}
 					} catch (Exception ex) {

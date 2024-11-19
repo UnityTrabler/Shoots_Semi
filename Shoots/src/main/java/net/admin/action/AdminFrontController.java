@@ -38,6 +38,12 @@ public class AdminFrontController extends HttpServlet{
 			case "/notice" :
 				action = new AdminNoticeAction();
 				break;
+			case "/inquirylist" :
+				action = new AdminInquiryListAction();
+				break;
+			case "/inquirydetail" :
+				action = new AdminInquiryDetailAction();
+				break;
 			
 			case "/businessUserApproval" :
 				action = new AdminbusinessUserApprovalAction();

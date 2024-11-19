@@ -55,17 +55,17 @@ public class CommentFrontController extends jakarta.servlet.http.HttpServlet {
 				action = new CommentListAction();
 				break;
 				
-//			case "/delete":
-//				action = new CommentDeleteAction();
-//				break;
-//				
-//			case "/update":
-//				action = new CommentUpdateAction();
-//				break;
-//				
-//			case "/reply":
-//				action = new CommentReplyAction();
-//				break;
+			case "/delete":
+				action = new CommentDeleteAction();
+				break;
+				
+			case "/update":
+				action = new CommentUpdateAction();
+				break;
+				
+			case "/reply":
+				action = new CommentReplyAction();
+				break;
 				
 			
 			default:

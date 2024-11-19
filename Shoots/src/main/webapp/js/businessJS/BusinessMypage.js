@@ -136,6 +136,13 @@ function go(page, year, month) {
 	ajax(data);
 }
 
+function sgo(year, month) {
+	if (isRequestInProgress) return;
+	
+	const sdata = {state : "ajax", year: year, month: month};
+	sajax(sdata);
+}
+
 function setPaging (href, digit, isActive = false) {
 	const gray = (href === "" && isNaN(digit)) ? "gray" : "";
 	const active = isActive ? "active" : "";
@@ -258,6 +265,92 @@ function updateMatchList(data) {
 	 generatePagination(data);
 }
 
+function supdateMatchList(data) {
+	
+	let output = "<tbody id = 'searchResults'>";
+	let previousDate = "";
+    let rowspan = 1;
+    let dailyTotal = 0;
+    let totalPlayerCount = 0;
+    let totalSales = 0;
+    
+    const currentDate = new Date();
+    const currentDateTime = currentDate.getFullYear() + '-' +
+							(currentDate.getMonth() + 1).toString().padStart(2,'0') + '-' +
+							 currentDate.getDate().toString().padStart(2, '0') + ' ' +
+							 currentDate.getHours().toString().padStart(2, '0') + ':' +
+                             currentDate.getMinutes().toString().padStart(2, '0');
+    
+    console.log(currentDateTime);
+    
+	$(data.list).each(function(index, item){
+		
+		const matchDate = item.match_date.substring(0, 10);
+		const formattedDate = matchDate.replace(/-/g, '/');
+		
+		totalPlayerCount += item.playerCount;
+        totalSales += item.price * item.playerCount; 
+        
+		if (matchDate === previousDate) {
+            rowspan++;
+            dailyTotal += item.price * item.playerCount;
+            output += `
+                <tr>
+                    <td class="empty-td"></td>
+                    <td> ${item.match_time} </td>
+                    <td> ${item.price} </td>
+                    <td> ${item.playerCount} </td>
+                    <td> ${item.total} </td>
+                </tr>
+            `;
+            
+        } else {
+			
+			if (previousDate !== "") {
+                output += `
+                    <tr>
+                        <td colspan="3"></td>
+                        <td style="font-weight: bold;">날짜 별 총 매출</td>
+                        <td>${dailyTotal}</td>
+                    </tr>
+                `;
+            }
+            
+			output += `
+				<tr>
+					<td rowspan="${rowspan}"> ${formattedDate} </td>
+                    <td> ${item.match_time} </td>
+                    <td> ${item.price} </td>
+                    <td> ${item.playerCount} </td>
+                    <td> ${item.total} </td>
+				</tr>
+			`;
+			
+			dailyTotal = item.price * item.playerCount;
+		 }
+		 rowspan = 1;
+		 previousDate = matchDate;
+	});
+	
+	 if (previousDate !== "") {
+        output += `
+            <tr>
+                <td colspan="3"></td>
+                <td style="font-weight: bold;">날짜 별 총 매출</td>
+                <td>${dailyTotal}</td>
+            </tr>
+        `;
+    }
+	output += "</tbody>";
+	$('.tabletd').append(output);
+	
+	 $(".totalD").html(`
+        <strong> 이번달 총 참여인원 &nbsp; ${totalPlayerCount}명 </strong> &nbsp;&nbsp;&nbsp; 
+        <strong> 이번달 총 매출 &nbsp; ${totalSales}원 </strong>
+    `);
+	
+}
+
 function ajax(sdata) {
 	console.log(sdata);
 	
@@ -290,12 +383,49 @@ function ajax(sdata) {
 	});
 }
 
+function sajax(sdata) {
+	console.log(sdata);
+	
+	$.ajax({
+		data : sdata,
+		url : "/Shoots/business/sales",
+		dataType : "json",
+		cache : false, 
+		success : function(data){
+			console.log(data);
+			if (data.listcount > 0) {
+				$("tbody").remove();
+				supdateMatchList(data);
+			} else {
+				$("tbody").remove();
+				$(".tabletd").append("<tbody><tr><td colspan='5' style='text-align: center;'>등록된 매칭이 없습니다</td></tr></tbody>");
+			}
+		},
+		error : function() {
+			console.log("에러");
+			$("thead").hide();
+			$("tbody").remove();
+    		$(".tabletd").append("<tbody><tr><td colspan='5' style='text-align: center;'>데이터를 불러오는 중 오류가 발생했습니다. 다시 시도해주세요.</td></tr></tbody>");
+		}
+	});
+}
+
 function applyFilter() {
     const year = document.getElementById('year').value;
     const month = document.getElementById('month').value;
     go(1, year, month); 
 }
 
+function sapplyFilter() {
+    const year = document.getElementById('year').value;
+    const month = document.getElementById('month').value;
+    sgo(year, month); 
+}
+
 $(document).on('click', '.uploadBtn', function(){
     location.href = "../matchs/write";
+});
+
+$(document).on('click', '.excelB', function(){
+    location.href = "../business/downloadExcel";
 });

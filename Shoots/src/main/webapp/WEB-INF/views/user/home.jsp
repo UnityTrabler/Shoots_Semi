@@ -65,7 +65,7 @@
 	    
 	    $(function(){
 			$('.btn4_1').click(function(){
-				location.href = "notice/noticeList";
+				location.href = "customer/support";
 			});
 	    });
     </script>

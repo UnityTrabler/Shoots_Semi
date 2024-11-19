@@ -41,7 +41,15 @@
 				<c:forEach var="notice" items="${totallist}">
 					<tr>
 						<td>
-							<a href="../notice/adminDetail?id=${notice.notice_id}" class="noticeDetail">${notice.title}</a>
+							<a href="../notice/adminDetail?id=${notice.notice_id}" class="noticeDetail">
+								<c:if test="${notice.title.length()>=20 }">
+									<c:out value="${notice.title.substring(0,20 )}..." />
+								</c:if> 
+										
+								<c:if test="${notice.title.length()<20 }">
+									<c:out value="${notice.title}" />
+								</c:if>
+							</a>
 						</td>
 						<td>${notice.readcount }</td>
 						<td>${notice.register_date}</td>
@@ -60,7 +68,7 @@
 	<%-- 게시글이 없는 경우 --%>
 	<c:if test="${listcount == 0 }">
 		<h3 style="text-align:center">등록된 글이 없습니다.</h3>
-		<a href="write" type="button" class="btnWrite">글 쓰 기</a>
+		<a href="../notice/write" type="button" class="btnWrite">글 쓰 기</a>
 	</c:if>
 	
 	<%--페이징 --%>
