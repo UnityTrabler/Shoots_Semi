@@ -1,4 +1,4 @@
-
+DROP TABLE business_user CASCADE CONSTRAINTS PURGE;
 CREATE TABLE business_user (
     business_idx NUMBER(10) PRIMARY KEY,
     business_id VARCHAR2(30) NOT NULL,
@@ -13,11 +13,15 @@ CREATE TABLE business_user (
     business_file varchar2(50),
 
 );
-
+DROP SEQUENCE business_seq;
 CREATE SEQUENCE business_seq
 START WITH 1
 INCREMENT BY 1
 NOCACHE;
+
+SELECT * FROM business_user;
+
+ALTER TABLE business_user RENAME COLUMN req TO tel;
 
 INSERT INTO BUSINESS_USER 
 VALUES (
