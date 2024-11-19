@@ -121,6 +121,29 @@ function loadinquiry() { //ajax로  관리자전용 1:1 문의글 리스트 뽑�
 } //loadinquiry() 끝
 
 
+//사용자 로드
+function loaduser(){
+	var xhr = new XMLHttpRequest();
+    xhr.open('GET', '../admin/userlist', true); 
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+			document.getElementById('content-container').innerHTML = xhr.responseText; // 내용 뽑아오기 끝
+			
+		}
+		
+		
+        // 관리자 페이지에서 좌측 탭 누르면 메뉴들 활성화 / 비활성화 시키는 부분 
+		var tab = document.querySelector('.cP0-4 a'); 
+        if (tab) {
+            var activeTabs = document.querySelectorAll('.cP0-1 a, .cP0-2 a, .cP0-3 a, .cP0-4 a');
+            activeTabs.forEach(function(item) {
+                item.classList.remove('active');
+            	});
+            tab.classList.add('active');
+        }
+    };
+    xhr.send(); 
+}//loaduser() end
 
 //pagination
 let isRequestInProgress = false;
