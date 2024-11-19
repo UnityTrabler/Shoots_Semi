@@ -71,6 +71,11 @@ dl, ol, ul {
 	margin-left: 8px;
 }
 
+.comment-list-item--reply {
+	margin-left: 150px;
+}
+
+
 body, button, li, ol, textarea, ul {
 	margin: 0;
 	padding: 0;

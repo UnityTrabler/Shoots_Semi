@@ -1,4 +1,3 @@
-DROP TABLE regular_user CASCADE CONSTRAINTS PURGE;
 CREATE TABLE match_post(
     match_id NUMBER(10) PRIMARY KEY,
     writer NUMBER(10) references business_user(business_idx) on delete cascade,
@@ -15,6 +14,7 @@ CREATE SEQUENCE match_seq
 START WITH 1
 INCREMENT BY 1
 NOCACHE;
+
 
 select * from match_post order by match_id desc;
 
@@ -72,7 +72,7 @@ select mp.*, COALESCE(p.playerCount, 0) AS playerCount
 				on mp.match_id = p.match_id
 				where match_date = TO_CHAR(SYSDATE, 'YYYY-MM-DD')
 				order by match_time ASC;
-
+				
 SELECT * FROM match_post 
 WHERE writer = 5
 AND EXTRACT(YEAR FROM match_date) = 2024

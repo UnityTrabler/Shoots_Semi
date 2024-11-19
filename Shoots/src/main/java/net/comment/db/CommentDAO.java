@@ -60,7 +60,10 @@ public class CommentDAO {
 			
 			// 파라미터 설정 - 새로운 글을 등록하는 부분
 			pstmt.setInt(1, co.getPost_id());  
-			pstmt.setInt(2, co.getComment_ref_id()); // 부모 댓글 ID (답글인 경우)
+			if(co.getComment_ref_id() == -1)
+				pstmt.setNull(2, java.sql.Types.INTEGER);
+			else
+				pstmt.setInt(2, co.getComment_ref_id()); // 부모 댓글 ID (답글인 경우)
 			pstmt.setInt(3, co.getWriter()); // 작성자 ID
 			pstmt.setString(4, co.getContent()); // 댓글 내용
 			
@@ -144,6 +147,7 @@ public class CommentDAO {
 						object.addProperty("comment_id", rs.getInt(1));
 						object.addProperty("post_id", rs.getInt(2));
 						object.addProperty("comment_ref_id", rs.getInt(3));
+						System.err.println("get :  + + + + + + +"  + object.get("comment_ref_id"));
 						object.addProperty("writer", rs.getInt(4));
 						object.addProperty("content", rs.getString(5));
 						object.addProperty("register_date", rs.getString(6));
@@ -257,72 +261,6 @@ public class CommentDAO {
 	
 	
 
-	public int commentsReply(CommentBean co) {
-		int result = 0;
-		
-		try (Connection con = ds.getConnection(); ) {
-			con.setAutoCommit(false);
-		
-			
-			try {
-				reply_update(con, co.getComment_ref_id());
-				result=reply_insert(con,co);
-				con.commit();
-			}
-				catch (Exception e) {
-					e.printStackTrace(); //오류 확인용
-					if (con!=null) {
-						try {
-							con.rollback(); // rollback 합니다.
-						} catch (SQLException ex) {
-							ex.printStackTrace();
-						}
-					}
-			}
-			con.setAutoCommit(true);
-			
-		}catch (Exception e) {
-			e.printStackTrace();
-		}
-		return result;
-	}
-	
-	
-	
-	
-	private void reply_update(Connection con, int comment_ref_id) throws SQLException {
-	    // comment_ref_id 기준으로 해당 답글들의 순서를 증가시키는 로직
-	    String update_sql = """
-	            update post_comment
-	            set comment_ref_id = comment_ref_id + 1
-	            where comment_ref_id = ?
-	            """;
-
-	    try (PreparedStatement pstmt = con.prepareStatement(update_sql)) {
-	        pstmt.setInt(1, comment_ref_id); // 부모 댓글 ID
-	        pstmt.executeUpdate(); // 해당 부모 댓글 ID의 모든 답글 순서 증가
-	    }
-	}
-	
-
-	
-	private int reply_insert(Connection con, CommentBean co) throws SQLException {
-	    int result = 0;
-	    String sql = """
-	            insert into post_comment
-	            (comment_id, post_id, comment_ref_id, writer, content, register_date)
-	            values (post_comment_seq.nextval, ?, ?, ?, ?, current_timestamp)
-	            """;
-
-	    try (PreparedStatement pstmt = con.prepareStatement(sql)) {
-	        pstmt.setInt(1, co.getPost_id()); // 해당 게시글 ID
-	        pstmt.setInt(2, co.getComment_ref_id()); // 부모 댓글 ID (comment_ref_id)
-	        pstmt.setInt(3, co.getWriter()); // 작성자 ID
-	        pstmt.setString(4, co.getContent()); // 댓글 내용
-	        result = pstmt.executeUpdate(); // 댓글 삽입
-	    }
-	    return result;
-	}
 	
 	
 	

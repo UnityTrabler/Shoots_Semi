@@ -11,12 +11,17 @@
 <script src="${pageContext.request.contextPath}/js/view.js"></script>
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 	<script src = "https://code.jquery.com/jquery-3.7.1.js"></script>
+	<script>
+		$(function() {
+			alert(`/${postdata.post_id}`);
+		});
+	</script>
 </head>
 <body>
 <input type="hidden" id="loginid" value="${id}" name="loginid"> <!-- 수정 삭제 버튼 보이게 하려고 현재 로그인 한 유저의 id값을 받아놓음 -->
 
-<input type="hidden" value="${postdata.post_id}" id="postid">  <!-- 댓글 삭제한 뒤 다시 글로 돌아오게 하기 위해 글 번호값을 받아둠 -->
 
+<input type="hidden" value="${postdata.post_id}" id="post_id" name="post_id">  <!-- 댓글 삭제한 뒤 다시 글로 돌아오게 하기 위해 글 번호값을 받아둠 -->
 	<%-- view.js에서 사용하기 위해 추가 --%>
 	<div class="container">
 		<!-- 게시글 정보 -->

@@ -152,42 +152,6 @@ public class UserDAO {
 		return userBean;
 	}
 	
-	public BusinessUserBean getBusinessUser(String id) {
-		String sql = """
-				select *
-				from business_user
-				where business_id = ?
-				""";
-		BusinessUserBean userBean = new BusinessUserBean();
-		
-		try(Connection con = ds.getConnection(); 
-				PreparedStatement pstmt = con.prepareStatement(sql);) {
-			pstmt.setString(1, id);
-			try(ResultSet rs = pstmt.executeQuery();){
-				if(rs.next()) {
-					userBean.setBusiness_idx(Integer.parseInt(rs.getString("business_idx")));
-					userBean.setBusiness_id(id);
-					userBean.setPassword(rs.getString("password"));
-					userBean.setBusiness_name(rs.getString("business_name"));
-					userBean.setBusiness_number(Integer.parseInt(rs.getString("business_number")));
-					userBean.setTel(Integer.parseInt(rs.getString("tel")));
-					userBean.setEmail(rs.getString("email"));
-					userBean.setPost(Integer.parseInt(rs.getString("post")));
-					userBean.setAddress(rs.getString("address"));
-					userBean.setDescription(rs.getString("description"));
-					userBean.setBusiness_file(rs.getString("business_file"));
-					userBean.setRegister_date(rs.getString("register_date"));
-					userBean.setLogin_status(rs.getString("login_status"));
-				}
-				else {System.err.println("ID not found in the database.");return null;}
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		
-		return userBean;
-	}
-	
 	public int getUserIdx(String id) {
 		String sql = """
 				select idx
