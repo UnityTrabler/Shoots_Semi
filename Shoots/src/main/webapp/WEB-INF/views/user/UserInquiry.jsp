@@ -7,6 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-
+	<p class = "cP1"> 문의 내역 </p>
 </body>
 </html>

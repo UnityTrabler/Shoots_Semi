@@ -46,3 +46,167 @@ function loadUserMatchs() {
     xhr.send(); 
 }
 
+function loadUserPosts() {
+	var xhr = new XMLHttpRequest();
+    xhr.open('GET', '../user/posts', true); 
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+			document.getElementById('content-container').innerHTML = xhr.responseText;
+        }
+        
+        var tab = document.querySelector('.cP0-1 a');
+        if (tab) {
+            var activeTabs = document.querySelectorAll('.cP0-1 a');
+            activeTabs.forEach(function(item) {
+                item.classList.remove('active');
+            });
+            tab.classList.add('active');
+        }
+    };
+    xhr.send(); 
+}
+
+function loadUserComments() {
+	var xhr = new XMLHttpRequest();
+    xhr.open('GET', '../user/comments', true); 
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+			document.getElementById('content-container').innerHTML = xhr.responseText;
+        }
+        
+        var tab = document.querySelector('.cP0-1 a');
+        if (tab) {
+            var activeTabs = document.querySelectorAll('.cP0-1 a');
+            activeTabs.forEach(function(item) {
+                item.classList.remove('active');
+            });
+            tab.classList.add('active');
+        }
+    };
+    xhr.send(); 
+}
+
+function loadUserInquiry() {
+	var xhr = new XMLHttpRequest();
+    xhr.open('GET', '../user/inquiry', true); 
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+			document.getElementById('content-container').innerHTML = xhr.responseText;
+        }
+        
+        var tab = document.querySelector('.cP0-1 a');
+        if (tab) {
+            var activeTabs = document.querySelectorAll('.cP0-1 a');
+            activeTabs.forEach(function(item) {
+                item.classList.remove('active');
+            });
+            tab.classList.add('active');
+        }
+    };
+    xhr.send(); 
+}
+
+// button
+function redirectToUpdatePage() {
+	location.href = "update";
+	}
+	
+function redirectToUpdatePost(postId) {
+	location.href = "../post/modify?num=" + postId;
+	}
+
+function redirectToDeletePost(postId) {
+	location.href = "../post/delete?num=" + postId;
+	}	
+	
+// pagination
+let isRequestInProgress = false;
+
+function go(page) {
+	if (isRequestInProgress) return;
+	 
+	const limit = 10;
+	const data = {limit : limit, state : "ajax", page : page};
+	ajax(data);
+}
+
+function setPaging (href, digit, isActive = false) {
+	const gray = (href === "" && isNaN(digit)) ? "gray" : "";
+	const active = isActive ? "active" : "";
+	const anchor = `<a class = "page-link ${gray}" ${href}>${digit}</a>`;
+	return `<li class = "page-item ${active}">${anchor}</li>`;
+}
+
+function generatePagination(data) {
+	let output = "";
+	
+	let prevHref = data.page > 1 ? `href=javascript:go(${data.page - 1})` : "";
+	output += setPaging(prevHref, '&lt;&lt;');
+	
+	for (let i = data.startpage; i <= data.endpage; i++) {
+		const isActive = (i === data.page);
+		let pageHref = !isActive ? `href=javascript:go(${i})` : "";
+		  
+		output += setPaging(pageHref, i, isActive); 
+	}
+	
+	let nextHref = (data.page < data.maxpage) ? `href=javascript:go(${data.page + 1})` : "";
+	output += setPaging(nextHref, '&gt;&gt;' );
+	
+	$(".pagination").empty().append(output);
+}
+
+function updateMatchList(data) {
+	let output = "<tbody id = 'result'>";
+	$(data.list).each(function(index, item){
+	
+		output += `
+                <tr>
+                    <td> ${item.category === 'A' ? '<span class = "a"> [자유] </span>' : item.category === 'B' ? '<span class = "b"> [중고] </span>' : item.category} </td>
+                    <td> <a href = "../post/detail?num=${item.post_id}"> ${item.title.length > 12 ? item.title.substring(0, 12) + '...' : item.title} </a> </td>
+                    <td> ${item.user_id} </td>
+                    <td> ${item.register_date.substring(0,10)} </td>
+                    <td> ${item.readcount} </td>
+					<td> <input type = "button" value = "수정" class= "updateBtn" onclick = "redirectToUpdatePost(${item.post_id})"> </td>
+					<td> <input type = "button" value = "삭제" class= "deleteBtn" onclick = "redirectToDeletePost(${item.post_id})"> </td>
+                </tr>
+            `;
+	});
+	
+	output += "</tbody>";
+	$('table').append(output);
+	
+	 generatePagination(data);
+}
+
+function ajax(sdata) {
+	console.log(sdata);
+	
+	$.ajax({
+		data : sdata,
+		url : "/Shoots/user/posts",
+		dataType : "json",
+		cache : false, 
+		success : function(data){
+			console.log(data);
+			if (data.listcount > 0) {
+				$("thead").show();
+				$("tbody").remove();
+				updateMatchList(data);
+				generatePagination(data);
+			} else {
+				$("thead").hide();
+				$("tbody").remove();
+				$(".pagination").empty();
+				$("table").append("<tbody><tr><td colspan='5' style='text-align: center;'>등록된 매칭이 없습니다</td></tr></tbody>");
+			}
+		},
+		error : function() {
+			console.log("에러");
+			$("thead").hide();
+			$("tbody").remove();
+    		$(".pagination").empty();
+    		$("table").append("<tbody><tr><td colspan='5' style='text-align: center;'>데이터를 불러오는 중 오류가 발생했습니다. 다시 시도해주세요.</td></tr></tbody>");
+		}
+	});
+}

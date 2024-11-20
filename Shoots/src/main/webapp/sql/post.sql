@@ -104,5 +104,5 @@ select * from (
 				where rownum <= 10
 			) where rnum >= 1;
 			
-			
+
 			

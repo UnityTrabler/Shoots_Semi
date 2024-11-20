@@ -14,7 +14,14 @@ public class MatchBean {
 	private String address;
 	private int playerCount;
 	private int total;
+	private boolean isMatchPast;
 	
+	public boolean isMatchPast() {
+		return isMatchPast;
+	}
+	public void setMatchPast(boolean isMatchPast) {
+		this.isMatchPast = isMatchPast;
+	}
 	public int getTotal() {
 		return total;
 	}

@@ -1,0 +1,24 @@
+@charset "EUC-KR";
+
+.table {width : 100%; text-align : center}
+.postC {min-height : 500px}
+
+th:nth-child(1) {width : 15%}
+th:nth-child(2) {width : 30%}
+th:nth-child(3) {width : 10%}
+th:nth-child(4) {width : 15%}
+th:nth-child(5) {width : 10%}
+th:nth-child(6) {width : 10%}
+th:nth-child(7) {width : 10%}
+
+.a {color : #1d4ed8; font-weight :  bold}
+.b {color : #be123c; font-weight :  bold}
+
+.updateBtn {font-size :  10px; border-radius : 10px; border : none; width : 50px; height : 23px; color : white ; background : orange; transition: background 0.3s, color 0.3s; margin : 0px}
+.updateBtn:hover {font-size :  10px; border : 1px solid orange; border-radius : 10px; width : 50px; height : 23px; color : orange ; background : white; margin : 0px}
+
+.deleteBtn {font-size :  10px; border-radius : 10px; border : none; width : 50px; height : 23px; color : white ; background : #be123c; transition: background 0.3s, color 0.3s}
+.deleteBtn:hover {font-size :  10px; border : 1px solid #be123c; border-radius : 10px; width : 50px; height : 23px; color : #be123c ; background : white}
+
+a {text-decoration: none; color : black}
+a:hover {text-decoration: none; font-weight : bold; color : #059669}
