@@ -18,6 +18,7 @@
 			<p class = "cP0-2"><a type="button" class = "cA0" id= "tab" onclick="loadnotice()"> 공지사항 관리 </a></p>
 			<p class = "cP0-3"><a type="button" class = "cA0" id= "tab" onclick="loadinquiry()"> 1:1 문의글 관리 </a></p>
 			<p class = "cP0-4"><a type="button" class = "cA0" id= "tab" onclick="loaduser()"> 회원관리 </a></p>
+			<p class = "cP0-5"><a type="button" class = "cA0" id= "tab" onclick="loadbusiness()"> 기업목록 </a></p>
 		</div>
 		
 		<div class = "container" id = "content-container"></div>
