@@ -30,6 +30,8 @@
 		                    console.error("AJAX 요청 실패: " + error);
 		                }
 		            });
+		            currentCategory = category; // 선택된 카테고리 저장
+    go(1); // 첫 페이지로 이동하여 게시글 목록 요청
         }
 
         // 서버에서 받은 응답 데이터를 바탕으로 게시글 목록을 갱신하는 함수
@@ -87,9 +89,10 @@
                 }
                 row.append('</tr>');
                 tableBody.append(row);
+                
             });
             
-            
+            /*
             
 
             // 페이지 네비게이션 갱신 (예시: 페이지 번호 표시)
@@ -101,7 +104,7 @@
                 var pageLink = $('<li class="page-item"><a class="page-link" href="javascript:void(0);" onclick="switchPage(' + i + ')">' + i + '</a></li>');
                 pagination.append(pageLink);
             }
-        }
+        
 
         // 게시판 클릭 시 게시판 이동하는 함수 (페이지 이동)
         function switchPage(pageNumber) {
@@ -109,8 +112,8 @@
             switchCategory(category, pageNumber); 
         }
         
-        
-        
+       */
+        }
 		
 		/*// 글쓰기 버튼 클릭 시 카테고리와 함께 '글쓰기' 페이지로 이동
 		function postWrite() {
@@ -132,3 +135,90 @@
             var category = $('input[name="category"]:checked').val();  // 선택된 카테고리
             location.href = "write?category=" + category;  // 카테고리 파라미터를 함께 전달
         }*/
+        
+        
+     let isRequestInProgress = false;
+
+// 현재 선택된 카테고리 (기본값: A)
+let currentCategory = 'A';
+
+// 페이지 이동 요청 함수
+function go(page) {
+    if (isRequestInProgress) return;
+
+    const limit = 10;
+    const data = {
+        limit: limit,
+        state: "ajax",
+        page: page,
+        category: currentCategory // 현재 선택된 카테고리 추가
+    };
+    ajax(data);
+}
+
+// 페이징 버튼 생성 함수
+function setPaging(href, digit, isActive = false) {
+    const gray = (href === "" && isNaN(digit)) ? "gray" : "";
+    const active = isActive ? "active" : "";
+    const anchor = `<a class="page-link ${gray}" ${href}>${digit}</a>`;
+    return `<li class="page-item ${active}">${anchor}</li>`;
+}
+
+// 페이지네이션 생성 함수
+function generatePagination(data) {
+    let output = "";
+
+    // 이전 버튼
+    let prevHref = data.page > 1 ? `href=javascript:go(${data.page - 1})` : "";
+    output += setPaging(prevHref, '&lt;&lt;');
+
+    // 중간 페이지 번호
+    for (let i = data.startpage; i <= data.endpage; i++) {
+        const isActive = (i === data.page);
+        let pageHref = !isActive ? `href=javascript:go(${i})` : "";
+        output += setPaging(pageHref, i, isActive);
+    }
+
+    // 다음 버튼
+    let nextHref = data.page < data.maxpage ? `href=javascript:go(${data.page + 1})` : "";
+    output += setPaging(nextHref, '&gt;&gt;');
+
+    $(".pagination").empty().append(output);
+}
+
+// 게시글 목록 요청 및 업데이트 함수
+function ajax(sdata) {
+    console.log(sdata);
+
+    isRequestInProgress = true;
+
+    $.ajax({
+        data: sdata,
+        url: "/Shoots/post/list",
+        dataType: "json",
+        cache: false,
+        success: function(data) {
+            console.log(data);
+            if (data.listcount > 0) {
+                $("thead").show();
+                
+                updatePostList(data); // 게시글 목록 업데이트
+                generatePagination(data); // 페이지네이션 업데이트
+            } else {
+                $("thead").hide();
+                $(".pagination").empty();
+                $("table").append("<tbody><tr><td colspan='5' style='text-align: center;'>게시글이 존재하지 않습니다</td></tr></tbody>");
+            }
+        },
+        error: function() {
+            console.log("에러");
+            $("thead").hide();
+            $(".pagination").empty();
+            $("table").append("<tbody><tr><td colspan='5' style='text-align: center;'>데이터를 불러오는 중 오류가 발생했습니다. 다시 시도해주세요.</td></tr></tbody>");
+        },
+        complete: function() {
+            isRequestInProgress = false;
+        }
+    });
+}
+

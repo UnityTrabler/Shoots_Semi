@@ -265,6 +265,7 @@ function updateNoticeList_inquiry(data) {
     	var shortenedTitle = item.title.length >= 20 ? item.title.substring(0, 20) + "..." : item.title;
     	var userId = item.inquiry_type == 'A' ? item.user_id : item.business_id;
     	var inquiryType = item.inquiry_type == 'A' ? "개인회원 문의" : "기업회원 문의";
+    	var hasReply = (item.hasReply === true || item.hasReply === 'true') ? "[답변완료]" : "";
 		output += `			
 			<tr>
 				<td>
@@ -275,7 +276,8 @@ function updateNoticeList_inquiry(data) {
 					<div>
 						<a href="detail?inquiryid=${item.inquiry_id}">
 							${shortenedTitle}
-						</a> [${item.cnt}]
+						</a> 
+						${hasReply}
 					</div>
 				</td>
 				

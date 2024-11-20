@@ -1,100 +1,49 @@
-
+$(document).ready(function(){
+	
+	//첨부파일이 있을(없을)경우 remove 이미지가 보이도록(안보이도록) 하는 함수
+	function show(){ 
+	$('.remove').css('display' , $('#filevalue').text() ? 'inline-block' : 'none')
+	.css({'position' : 'relative', 'top' : '-5px'});
+	}
 	
 	
-	let check = 0;
+	//미리 show 함수를 실행해서 remove 이미지를 세팅해놓음
+	show();
+	
+	//첨부파일 옆 x 표시 아이콘 누르면 첨부했던 첨부파일 다시 없애기
+	$('.remove').click(function(){
+		$('#filevalue').text('');
+		$('#upfile').val(''); // 실제 파일 입력 필드 초기화
+		$(this).css('display', 'none');// or $('.remove').toggle();
+	});
+	
+	
+	//사용자가 첨부파일을 업로드하면 업로드 한 첨부파일의 이름이 나타나게 하는 함수
+	$("#upfile").change(function(){
+		console.log($(this).val());
+		const inputfile = $(this).val().split('\\');
+		$('#filevalue').text(inputfile[inputfile.length-1]);
+		show();
+	});
+	
+	})
+ // $(document).ready(function(){ end
 	
 	
 	
 	$("form[name=modifyform]").submit(function(event){
 		event.preventDefault();  // 기본 폼 제출을 막음
 		
-		const $title = $('#title');
-		if($title.val().trim() == ""){
-			alert("제목을 입력하세요.");
-			$title.focus();
-			return false;
-		}
-		
-		const $content = $('#content');
-		if($content.val().trim() == ""){
-			alert("내용을 입력하세요.");
-			$content.focus();
-			return false;
-		}
-		
-		
-		
-		// 중고게시판(B) 선택 시 가격 확인
-        if ($("#B").is(":checked")) {
-            const $price = $("#priceInput");
-            if ($price.val().trim() == "") {
-                alert("가격을 입력하세요");
-                $price.focus();
-                return false;
-            }
-            // 가격이 숫자인지 확인
-            if (isNaN($price.val().trim())) {
-                alert("가격은 숫자만 입력 가능합니다.");
-                $price.focus();
-                return false;
-            }
-        }
-        
-		
-		/*
-		
-		
-        
-		
-		
-		 */
-		
-		$("#upfile").change(function(){
-		check++;
-		const maxSizeInBytes = 20 * 1024 * 1024;
-		const file = this.files[0];
-		if(file.size > maxSizeInBytes){
-			alert("파일용량 <= 20MB 이어야함.");
-			$(this).val('');
-		}else
-			$('#filevalue').text(file.name);
-		
-		show();
-	});
 	
-	
-	
-	function show() {
-		//파일 이름이 있는 경우 remove 이미지를 보이게 하고
-		//파일 이름이 없는 경우 remove 이미지 보이지 않게 합니다.
-		$('.remove').css('display', $('#filevalue').text() ? 'inline-block' : 'none')
-					.css({'position' : 'relative', 'top': '-5px'});
-	}
-	
-	show();
-	
-	// remove 이미지를 클릭하면 파일명을 ''로 변경하고 remove 이미지를 보이지 않게 합니다.
-	$(".remove").click(function() {
-		$('#filevalue').text('');
-		$(this).css('display', 'none');
-	});
 		
-        
-		// 파일첨부를 변경하지 않으면 $('#filevalue').text()의 파일명을
-		// 파라미터 'check'라는 이름으로 form에 추가하여 전송합니다.
-		if(check == 0){
-			const value = $('#filevalue').text();
-			const html = `<input type='hidden' value='${value}' name='check'>`;
-			console.log(html);
-			$(this).append(html);
-			
-			
-		}
+	
 		
 		
 			
 			// 모든 입력이 정상이라면 폼을 전송
         const formData = new FormData(this);  // this는 현재 폼을 가리킴
+        
+        
         // submit 버튼 비활성화 (중복 제출 방지)
         $('button[type="submit"]').prop('disabled', true);
 
@@ -123,10 +72,10 @@
                 // 버튼을 다시 활성화 시켜주기
                 $('button[type="submit"]').prop('disabled', false);
             }
-        });
+        });  //ajax 끝
         
 		
-	});//submit click event
+	});//submit click event end
 	
 	
 	
@@ -134,7 +83,6 @@
 	
 	
 	
- // $(document).ready(function(){ end
 
 
 

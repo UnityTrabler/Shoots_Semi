@@ -14,7 +14,7 @@
 		<div class = "infoD">
 			<div class = "infoD1">
 				<c:if test = "${empty user.userfile}">
-					<img src="${pageContext.request.contextPath}/img/info.png" class="infoI">
+					<img src="${pageContext.request.contextPath}/img/info2.png" class="infoI">
 				</c:if>
 				<c:if test="${not empty user.userfile}">
 					<img src="${pageContext.request.contextPath}/userupload/${user.userfile}" class="infoIs">
@@ -50,7 +50,7 @@
 			</div>
 			</div>
 		<div class = "container2">
-			<input type = "button" class = "updateBtn" value = "내 정보 수정">
+			<input type = "button" class = "updateBtn" value = "내 정보 수정" onclick = "redirectToUpdatePage()">
 		</div>
 </body>
 </html>

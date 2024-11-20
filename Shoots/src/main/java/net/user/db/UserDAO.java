@@ -13,6 +13,7 @@ import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
 import net.notice.db.NoticeBean;
+import net.post.db.PostBean;
 
 public class UserDAO {
 

@@ -1,34 +1,37 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-	pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8;"
+    pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <!DOCTYPE html>
-<html>
+<html> 
 <head>
-<meta charset="EUC-KR">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/inquiry.css">
+
+<meta charset="UTF-8">
 <script src="${pageContext.request.contextPath}/js/jquery-3.7.1.js"></script>
 <script src="${pageContext.request.contextPath}/js/inquiryJs/inquirylist.js"></script>
 
-<title>������ ���� ���� �Խ���</title>
+<title>관리자 전용 문의 게시판</title>
 </head>
 <body>
-		<%--�Խñ��� �ִ� ��� --%>
+		<%--게시글이 있는 경우 --%>
+
 		<c:if test="${listcount > 0 }">
 			<table class="table table-striped">
 				<thead>
 					<tr>
-						<th colspan="4">������ ���� 1:1 ���� �Խ���</th>
-						<th colspan="3"><span>���Ǳ� ���� : ${listcount}</span></th>
+
+						<th colspan="4">관리자 전용 1:1 문의 게시판</th>
+						<th colspan="3"><span>문의글 개수 : ${listcount}</span></th>
 					</tr>
 					<tr>
-						<th><div>��ȣ</div></th>
-						<th><div>���� ����</div></th>
-						<th><div>������ ����</div></th>
-						<th><div>������</div></th>
-						<th><div>��¥</div></th>
-						<th>����</th>
-						<th>����</th>
+						<th><div>번호</div></th>
+						<th><div>문의 제목</div></th>
+						<th><div>문의자 유형</div></th>
+						<th><div>문의자</div></th>
+						<th><div>날짜</div></th>
+						<th>수정</th>
+						<th>삭제</th>
+
 					</tr>
 				</thead>
 				<tbody>
@@ -36,11 +39,13 @@
 					<c:forEach var="i" items="${inquirylist}">
 						<tr>
 							<td>
-								<%--��ȣ --%> <c:out value=" ${num }" />
-								<%--num ��� --%> <c:set var="num" value="${num-1}" /> <%--num=num-1; �ǹ� --%>
+
+								<%--번호 --%> <c:out value=" ${num }" />
+								<%--num 출력 --%> <c:set var="num" value="${num-1}" /> <%--num=num-1; 의미 --%>
 							</td>
 							<td>
-								<%--���� --%>
+								<%--제목 --%>
+
 								<div>
 									<a href="inquirydetail?inquiryid=${i.inquiry_id}"> 
 										<c:if test="${i.title.length()>=20 }">
@@ -51,30 +56,36 @@
 											<c:out value="${i.title}" />
 										</c:if>
 									</a>
-									<!-- �亯 ���� ǥ�� -->
+
+									<!-- 답변 여부 표시 -->
 						                <span>
 						                    <c:if test="${i.hasReply}">
-						                        [�亯�Ϸ�]
+						                        [답변완료]
+
 						                    </c:if>
 						                </span>
 								</div>
 							</td>
-							<%--������ ���� : A�� ����, B�� ��� --%>
+
 							 <td>
 							    <div>
 							        <c:choose>
 							            <c:when test="${i.inquiry_type == 'A'}">
-							                ����ȸ�� ����
+
+							                개인회원 문의
 							            </c:when>
 							            <c:when test="${i.inquiry_type == 'B'}">
-							                ���ȸ�� ����
+							                기업회원 문의
+
 							            </c:when>
 							        </c:choose>
 							    </div>
 							</td>
 
-							<%--�������� ID. �ʱ� ������ �������� �ĺ���ȣ����. 
-							(���Ǳ� �ĺ���ȣ & ���Ǳ� �� ����� idx ��ȣ  2���� ���� �� �� user_id�� �̾ƿ�) --%>
+
+							<%--문의자의 ID. 초기 버전은 문의자의 식별번호였음. 
+							(문의글 식별번호 & 문의글 쓴 사람의 idx 번호  2개를 조인 한 뒤 user_id를 뽑아옴) --%>
+
 							<c:choose>
 					            <c:when test="${i.inquiry_type eq 'A'}">
 					               <td><div>${i.user_id}</div></td>
@@ -84,18 +95,22 @@
 					            </c:when>
 					        </c:choose>
 							
-							<%--���� �����--%>
+
+							<%--문의 등록일--%>
 							<td><div>${i.register_date}</div></td>
 							
-							<%--������ ������������ ����/���� ��ư --%>
-							<td><a href="../inquiry/modify?inquiryid=${i.inquiry_id}" type="button" class="inquiryUpdate">����</a></td>
-							<td><a href="../inquiry/delete?num=${i.inquiry_id}"  type="button" class="inquiryDelete">����</a></td>
+							<%--관리자 페이지에서의 수정/삭제 버튼 --%>
+							<td><a href="../inquiry/modify?inquiryid=${i.inquiry_id}" type="button" class="inquiryUpdate">수정</a></td>
+							<td><a href="../inquiry/delete?num=${i.inquiry_id}"  type="button" class="inquiryDelete">삭제</a></td>
+
 						</tr>
 					</c:forEach>
 				</tbody>
 			</table>
 
-				<%--����¡ --%>
+
+				<%--페이징 --%>
+
 			<div class = "center-block">
 					<ul class = "pagination justify-content-center">
 						<li class = "page-item">
@@ -118,13 +133,15 @@
 						</li>
 					</ul>
 				</div>
-				<%--����¡ �� --%>
+
+				<%--페이징 끝 --%>
 			
 		</c:if>
 		<%--<c:if test"${listcount > 0}"> end --%>
-		<%--�Խñ��� ���� ��� --%>
+		<%--게시글이 없는 경우 --%>
 		<c:if test="${listcount == 0 }">
-			<h3 style="text-align: center">��ϵ� ���ǰ� �����ϴ�.</h3>
+			<h3 style="text-align: center">등록된 문의가 없습니다.</h3>
+
 		</c:if>
 
 	<%--<div class="container"> end --%>

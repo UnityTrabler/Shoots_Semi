@@ -27,6 +27,8 @@ $(function() {
 		show();
 	});
 	
+	
+	
 	//문의글쓰기에서 '등록' 눌렀을때 제목/내용이 공백일 경우 창 띄움. + 첨부파일에 check 란 이름 붙여서 form 에 같이 전송함 
 	$("form[name=inquiryform]").submit(function() {
 		
