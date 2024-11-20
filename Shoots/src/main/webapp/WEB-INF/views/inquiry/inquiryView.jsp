@@ -13,7 +13,6 @@
 
 </head>
 <body>
-
 <input type="hidden" value="${id}" id="loginid">  <!-- 수정 삭제 버튼 보이게 하려고 현재 로그인 한 유저의 id값을 받아놓음 -->
 <input type="hidden" value="${inquirydata.inquiry_id}" id="inquiryid">  <!-- 댓글 삭제한 뒤 다시 문의글로 돌아오게 하기 위해 문의글 번호값을 받아둠 -->
 	<%--view.js에서 사용하기 위해 추가 --%>

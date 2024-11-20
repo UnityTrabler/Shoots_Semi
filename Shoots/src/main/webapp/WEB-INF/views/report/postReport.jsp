@@ -7,17 +7,16 @@
 <head>
 <meta charset="UTF-8">
 <script src="${pageContext.request.contextPath }/js/jquery-3.7.1.js"></script>
-<script src="${pageContext.request.contextPath }/js/report.js"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/report.css">
-<script src="${pageContext.request.contextPath}/js/report.js"></script>
 
 
 <title>신고창</title>
 </head>
 <body>
-<button class ="push" data-toggle="modal" data-target=".report-modal">여기 누르면 모달 창이 뜸</button>
+<button class ="btn-light postReportButton" data-toggle="modal" data-target=".report-modal"
+style ="border:none">···</button>
 
 	<!-- 모달창 시작-->		
 <div class="modal report-modal fade" style="display:none">
@@ -28,8 +27,8 @@
         	<h1 style="text-align:center;">게시글 신고</h1>
         	<br>
         	<input type="hidden" name="report_type" id ="report_type" value="A"> <!-- 신고유형 분류, 게시글은 A, 숨겨둠. -->
-        	<input type="hidden" name="reporter" id="reporter" value="1"> <!-- 신고자, 로그인 한 아이디로 가져옴 -->
-        	<input type="hidden" name="target" id="target" value="2"> <!-- 신고당하는 사람, detail?num에서 뽑아와야함-->
+        	<input type="hidden" name="reporter" id="reporter" value="${idx}"> <!-- 신고자, 로그인 한 아이디로 가져옴. 회원 번호(idx)로 저장 -->
+        	<input type="hidden" name="target" id="target" value="${postdata.idx}"> <!-- 신고당하는 사람, view에서 데이터 가져왔을때 그 객체에서 .idx 뽑아와야함-->
         	<input type="hidden" name="report_ref_id" id="report_ref_id" value="102"> <!-- 참조할 번호. A면 postid, B면 commentid, C면 matchid-->
         	
         	<p>
@@ -44,6 +43,7 @@
 				<option value="게시판과 관계 없는 내용">게시판과 관계 없는 내용</option>
 				<option value="도배 목적의 글">도배 목적의 글</option>
 				<option value="성적 컨텐츠가 포함된 글">성적 컨텐츠가 포함된 글</option>
+				<option value="직접 입력">직접 입력</option>
 			</select>
 			</div>
 			
