@@ -27,8 +27,8 @@
         	<h1 style="text-align:center;">플레이어 신고</h1>
         	
         	<br>
-        	<input type="hidden" name="report_type" id ="report_type" value="B"> <!-- 신고유형 분류, 댓글은 B, 숨겨둠. -->
-        	<input type="hidden" name="reporter" id="reporter" value="1"> <!-- 신고자, 로그인 한 아이디로 가져옴 -->
+        	<input type="hidden" name="report_type" id ="report_type" value="C"> <!-- 신고유형 분류, 댓글은 B, 숨겨둠. -->
+        	<input type="hidden" name="reporter" id="reporter" value="${idx}"> <!-- 신고자, 로그인 한 아이디로 가져옴 -->
         	<input type="hidden" name="target" id="target" value="2"> <!-- 신고당하는 사람, detail?num에서 뽑아와야함-->
         	<input type="hidden" name="report_ref_id" id="report_ref_id" value="102"> <!-- 참조할 번호. A면 postid, B면 commentid, C면 matchid-->
         	

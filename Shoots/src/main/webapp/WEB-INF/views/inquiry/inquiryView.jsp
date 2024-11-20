@@ -19,26 +19,27 @@
 	<div class="container">
 		<table class="table">
 				<tr>
-					<th colspan="2">1:1 문의 게시판</th>
+					<th colspan="3" style="text-align:center">1:1 문의 게시판</th>
 				</tr>
+				
+				<%--문의글 제목 --%>
 				<tr>
-					<td><div>문의자</div></td>
-					<td><div>${inquirydata.user_id}</div></td>
-					
+					<th colspan="3">&nbsp<c:out value = "${inquirydata.title}"/></th>
 				</tr>
+				
 				<tr>
-					<td><div>제목</div></td>
-					<td><c:out value = "${inquirydata.title}"/></td>
+					<td><div>문의자: ${inquirydata.user_id}</div></td>
+					<td>문의 날짜: ${inquirydata.register_date.substring(0,16)}</td>
 				</tr>
+				
 				<tr>
-					<td><div>내용</div></td>
-					<td style ="padding-right:0px">
+					<td colspan="2" style ="padding-right:0px">
 						<textarea class="form-control" rows="5"
 						 readOnly>${inquirydata.content}</textarea></td>
 				</tr>
 				
 				<tr>
-						<td><div>첨부파일</div></td>
+					<td><div>첨부파일</div></td>
 					
 					<%--파일 첨부한 경우 --%>
 					<c:if test="${!empty inquirydata.inquiry_file}">
@@ -124,7 +125,6 @@
 <c:if test="${role == 'admin'}">
 <form action="../iqcomments/add" method ="post" name = "iqcommentform" id="iqcommentform">
 	<div class="comment-head">
-	<h2>댓글</h2>
 	</div>
 	
 	<!-- 댓글 내용 부분 -->

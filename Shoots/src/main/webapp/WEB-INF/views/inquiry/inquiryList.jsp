@@ -10,6 +10,7 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/inquiry.css">
 <script src="${pageContext.request.contextPath}/js/jquery-3.7.1.js"></script>
 <script src="${pageContext.request.contextPath}/js/inquiryJs/inquirylist.js"></script>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/inquiryList.css">
 
 
 <title>문의 게시판</title>

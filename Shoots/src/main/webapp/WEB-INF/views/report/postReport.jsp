@@ -29,10 +29,10 @@ style ="border:none">···</button>
         	<input type="hidden" name="report_type" id ="report_type" value="A"> <!-- 신고유형 분류, 게시글은 A, 숨겨둠. -->
         	<input type="hidden" name="reporter" id="reporter" value="${idx}"> <!-- 신고자, 로그인 한 아이디로 가져옴. 회원 번호(idx)로 저장 -->
         	<input type="hidden" name="target" id="target" value="${postdata.idx}"> <!-- 신고당하는 사람, view에서 데이터 가져왔을때 그 객체에서 .idx 뽑아와야함-->
-        	<input type="hidden" name="report_ref_id" id="report_ref_id" value="102"> <!-- 참조할 번호. A면 postid, B면 commentid, C면 matchid-->
+        	<input type="hidden" name="report_ref_id" id="report_ref_id" value="${postdata.post_id}"> <!-- 참조할 번호. A면 postid, B면 commentid, C면 matchid-->
         	
         	<p>
-        	<span>★</span>신고사유</p>
+        	<span class="redColor">★</span>신고사유</p>
         	
         	<!-- 신고사유 선택 = report: title 부분 -->
         	<div id="title"> <!-- select는 중앙으로 정렬이 안돼서 부모요소로 div 써둠 -->
