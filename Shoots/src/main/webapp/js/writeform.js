@@ -2,36 +2,6 @@
     $("form[name=writeform]").submit(function(event) {
         event.preventDefault(); // 기본 폼 제출 동작을 막음
 
-        const $title = $("#title");
-        if ($title.val().trim() == "") {
-            alert("제목을 입력하세요");
-            $title.focus();
-            return false;
-        }
-        
-        const $content = $("#content");
-        if ($content.val().trim() == "") {
-            alert("내용을 입력하세요");
-            $content.focus();
-            return false;
-        }
-
-
-        // 중고게시판(B) 선택 시 가격 확인
-        if ($("#B").is(":checked")) {
-            const $price = $("#priceInput");
-            if ($price.val().trim() == "") {
-                alert("가격을 입력하세요");
-                $price.focus();
-                return false;
-            }
-            // 가격이 숫자인지 확인
-            if (isNaN($price.val().trim())) {
-                alert("가격은 숫자만 입력 가능합니다.");
-                $price.focus();
-                return false;
-            }
-        }
         
  		// 모든 입력이 정상이라면 폼을 전송
         const formData = new FormData(this);  // this는 현재 폼을 가리킴

@@ -91,6 +91,14 @@
 
             // 페이지 로드 시 카테고리 값에 따라 가격 입력란 상태 설정
             togglePriceField();
+            
+            
+         // 폼 제출 시 유효성 검사
+            document.querySelector("form[name='writeform']").addEventListener("submit", function (event) {
+                if (!validateForm()) {
+                    event.preventDefault(); // 유효성 검사 실패 시 폼 제출 중단
+                }
+            });
         });
 
         function togglePriceField() {
@@ -104,6 +112,33 @@
                 priceField.style.display = "none";
             }
         }
+        
+        
+     
+    
+    function validateForm() {
+        const B = document.getElementById("B").checked;
+        const priceInput = document.getElementById("priceInput");
+
+        // 중고게시판(B) 선택 시 가격 필수 입력 확인
+        if (B) {
+            if (priceInput.value.trim() === "") {
+                alert("중고게시판에서는 가격을 입력해야 합니다.");
+                priceInput.focus();
+                return false;
+            }
+
+            // 가격이 숫자인지 확인
+            if (isNaN(priceInput.value.trim())) {
+                alert("가격은 숫자만 입력 가능합니다.");
+                priceInput.focus();
+                return false;
+            }
+        }
+
+        return true; // 유효성 검사 통과
+    }
+        
         
      // 이미지 미리보기 함수
         function previewImage() {
