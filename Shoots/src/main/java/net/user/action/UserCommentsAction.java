@@ -43,7 +43,7 @@ public class UserCommentsAction implements Action {
 		
 		int listcount = dao.getListCountById(idx);
 		
-		List<CommentBean> list = dao.getCommentById(idx);
+		List<CommentBean> list = dao.getCommentById(idx, page, limit);
 		
 		int maxpage = (listcount + limit - 1) / limit;
 		System.out.println("총 페이지수 = " + maxpage);

@@ -1,0 +1,11 @@
+@charset "EUC-KR";
+
+p {margin-bottom : 5px}
+.nm {text-align : center; height : 200px}
+
+.Cc {margin-top : 30px; min-height : 500px}
+
+a {text-decoration: none; color : black}
+a:hover {text-decoration: none; font-weight : bold; color : #059669}
+
+.commentI {width : 15px; margin-bottom : 2px}

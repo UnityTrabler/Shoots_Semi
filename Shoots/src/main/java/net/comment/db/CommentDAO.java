@@ -3,7 +3,6 @@ package net.comment.db;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,8 +12,6 @@ import javax.sql.DataSource;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-
-import net.inquiryComment.db.InquiryCommentBean;
 
 public class CommentDAO {
 	
@@ -261,15 +258,73 @@ public class CommentDAO {
 
 
 	public int getListCountById(int idx) {
+		String sql = """
+				select count(*) from post_comment
+				where writer = ?
+				""";
+		int x = 0;
 		
-		return 0;
+		try (Connection con = ds.getConnection();
+			 PreparedStatement pstmt = con.prepareStatement(sql);) {
+			pstmt.setInt(1, idx);
+			
+			try (ResultSet rs = pstmt.executeQuery()) {
+				if(rs.next()) {
+					x = rs.getInt(1);
+					
+				}
+			}
+			} catch (Exception ex) {
+				ex.printStackTrace();
+				System.out.println("getListCountById() 에러: " + ex);
+			}
+		return x;
 	}
 
 
 
-	public List<CommentBean> getCommentById(int idx) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<CommentBean> getCommentById(int idx, int page, int limit) {
+		String sql = """
+				select * from (select pc.*, rownum rnum  
+				from (select pc.*, u.user_id, p.title from post_comment pc
+				inner join regular_user u on pc.writer = u.idx 
+				inner join post p on pc.post_id = p.post_id
+				where pc.writer = ?
+				order by pc.register_date desc
+				) pc
+				where ROWNUM <= ?
+				) 
+				where rnum >= ?
+				""";
+		List<CommentBean> list = new ArrayList();
+		try (Connection con = ds.getConnection();
+				PreparedStatement pstmt = con.prepareCall(sql);) {
+			int startrow = (page - 1) * limit + 1;
+			int endrow = startrow + limit - 1;
+					
+			pstmt.setInt(1, idx);
+			pstmt.setInt(2, endrow);
+			pstmt.setInt(3, startrow);
+			try(ResultSet rs = pstmt.executeQuery()) {
+				while (rs.next()) {
+					CommentBean comment =  new CommentBean();
+					comment.setComment_id(rs.getInt("comment_id"));
+					comment.setPost_id(rs.getInt("post_id"));
+					comment.setComment_ref_id(rs.getInt("comment_ref_id"));
+					comment.setWriter(rs.getInt("writer"));
+					comment.setContent(rs.getString("content"));
+					comment.setRegister_date(rs.getString("register_date"));
+					comment.setUser_id(rs.getString("user_id"));
+					comment.setPost_title(rs.getString("title"));
+					
+					list.add(comment);
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("getCommentById() 에러 : " + e);
+		}
+		return list;
 	}
 	
 	
