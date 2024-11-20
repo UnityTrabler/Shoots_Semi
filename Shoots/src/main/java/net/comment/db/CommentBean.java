@@ -10,7 +10,14 @@ public class CommentBean {
 	private String user_id;
 	private int idx;
 	private String user_file;
+	private String post_title;
 	
+	public String getPost_title() {
+		return post_title;
+	}
+	public void setPost_title(String post_title) {
+		this.post_title = post_title;
+	}
 	public int getComment_id() {
 		return comment_id;
 	}

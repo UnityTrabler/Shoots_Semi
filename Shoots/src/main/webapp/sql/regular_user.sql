@@ -64,3 +64,4 @@ values (user_seq.nextval, 'test5', '1', '최주경',  981215, 1, '01092837465', 
 
 insert into regular_user
 values (user_seq.nextval, 'test6', '1', '김임최',  840506, 4, '01083848384', 'iudhsf7@naver.com', null, null, current_timestamp, 'common');
+
