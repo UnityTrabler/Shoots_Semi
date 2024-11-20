@@ -27,7 +27,7 @@ function loadfaq() {
         // 관리자 페이지에서 좌측 탭 누르면 메뉴들 활성화 / 비활성화 시키는 부분 
         var tab = document.querySelector('.cP0-1 a');
         if (tab) {
-            var activeTabs = document.querySelectorAll('.cP0-1 a, .cP0-2 a, .cP0-3 a');
+            var activeTabs = document.querySelectorAll('.cP0-1 a, .cP0-2 a, .cP0-3 a, .cP0-4 a');
             activeTabs.forEach(function(item) {
                 item.classList.remove('active');
             });
@@ -72,7 +72,7 @@ function loadnotice() {
         // 관리자 페이지에서 좌측 탭 누르면 메뉴들 활성화 / 비활성화 시키는 부분 
 		var tab = document.querySelector('.cP0-2 a'); 
         if (tab) {
-            var activeTabs = document.querySelectorAll('.cP0-2 a, .cP0-1 a, .cP0-3 a');
+            var activeTabs = document.querySelectorAll('.cP0-2 a, .cP0-1 a, .cP0-3 a, .cP0-4 a');
             activeTabs.forEach(function(item) {
                 item.classList.remove('active');
             	});
@@ -110,7 +110,7 @@ function loadinquiry() { //ajax로  관리자전용 1:1 문의글 리스트 뽑�
         // 관리자 페이지에서 좌측 탭 누르면 메뉴들 활성화 / 비활성화 시키는 부분 
 		var tab = document.querySelector('.cP0-3 a'); 
         if (tab) {
-            var activeTabs = document.querySelectorAll('.cP0-1 a, .cP0-2 a, .cP0-3 a');
+            var activeTabs = document.querySelectorAll('.cP0-1 a, .cP0-2 a, .cP0-3 a, .cP0-4 a');
             activeTabs.forEach(function(item) {
                 item.classList.remove('active');
             	});
@@ -356,6 +356,95 @@ function ajax_inquiry(sdata) {
 		}
 	});
 } //inquiry pagenation 끝
+
+
+//useradmin pagination
+isRequestInProgress = false
+function go_user(page) {
+	if(isRequestInProgress) return;
+	
+	const limit = 10;
+	const data = {limit : limit, state : "ajax", page : page};
+	ajax_user(data);
+}
+
+
+function generatePagination_user(data) {
+	let output = "";
+	
+	let prevHref = data.page > 1 ? `href=javascript:go_user(${data.page - 1})` : "";
+	output += setPaging(prevHref, '&lt;&lt;');
+	
+	for (let i = data.startpage; i <= data.endpage; i++) {
+		const isActive = (i === data.page);
+		let pageHref = !isActive ? `href=javascript:go_user(${i})` : "";
+		  
+		output += setPaging(pageHref, i, isActive); 
+	}
+	
+	let nextHref = (data.page < data.maxpage) ? `href=javascript:go_user(${data.page + 1})` : "";
+	output += setPaging(nextHref, '&gt;&gt;' );
+	
+	$(".pagination").empty().append(output);
+}
+
+//userlist tobody
+function updateNoticeList_user(data) {
+	let output = "<tbody>";
+	
+	$(data.inquirylist).each(function(index, item){
+		var gender = (item.gender == 1 || item.gender == 3) ? "남자" : "여자"
+		output += `			
+			<tr>
+						<td>${user.idx }</td>
+						<td>${user.id }</td>
+						<td>${user.name }</td>
+						<td>${user.RRN }</td>
+						<td>${gender}</td>
+						<td>${user.tel }</td>
+						<td>${user.email }</td>
+						<td>${user.register_date.substring(0, 10) }</td>
+						<td><a href="../user/mypage"  type="button" class="userDetail">보기</a></td>
+					</tr>
+            	`;
+	});
+	output += "</tbody>";
+	
+	$('table').append(output);
+	
+	 generatePagination_user(data);
+}
+
+function ajax_user(sdata) {
+	console.log(sdata);
+	
+	$.ajax({
+		data : sdata,
+		url : "/Shoots/admin/userlist",
+		dataType : "json",
+		cache : false, 
+		success : function(data){
+			console.log(data);
+			if (data.listcount > 0) {
+				$("thead").show();
+				$("tbody").remove();
+				updateNoticeList_inquiry(data);
+			} else {
+				$("thead").hide();
+				$("tbody").remove();
+				$(".pagination").empty();
+				$("table").append("<tbody><tr><td colspan='5' style='text-align: center;'>회원이 존재하지 않습니다</td></tr></tbody>");
+			}
+		},
+		error : function() {
+			console.log("에러");
+			$("thead").hide();
+			$("tbody").remove();
+    		$(".pagination").empty();
+    		$("table").append("<tbody><tr><td colspan='5' style='text-align: center;'>데이터를 불러오는 중 오류가 발생했습니다. 다시 시도해주세요.</td></tr></tbody>");
+		}
+	});
+} //useradmin pagenation 끝
 
 
 function backBtn(){

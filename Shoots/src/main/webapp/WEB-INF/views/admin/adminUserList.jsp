@@ -6,6 +6,7 @@
 <head>
 <title>Insert title here</title>
 <script src="${pageContext.request.contextPath}/js/jquery-3.7.1.js"></script>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/userList.css" type="text/css">
 </head>
 <body>
 	<c:if test="${listcount > 0 }">	
@@ -22,6 +23,7 @@
 					<th>email</th>
 					<th>가입일</th>
 					<th>활동기록</th>
+					<th>권한</th>
 				</tr>
 			</thead>
 			
@@ -46,6 +48,15 @@
 						<td>${user.email }</td>
 						<td>${user.register_date.substring(0, 10) }</td>
 						<td><a href="../user/mypage"  type="button" class="userDetail">보기</a></td> <!--href="../user/mypage?id=${user.id}" 경로로 회원 상세정보를 확인할 수 있게 해야합니다  -->
+						<td>
+							<c:if test="${user.role == 'common'}">
+    							<a href="../admin/grant?id=${user.id}" type="button" class="grantadmin">일반</a>
+  							</c:if>
+  							
+  							<c:if test="${user.role == 'admin'}">
+    							<a href="../admin/revoke?id=${user.id}" type="button" class="revokeadmin">관리자</a>
+  							</c:if>
+						</td>
 					</tr>
 				</c:forEach>
 			</tbody>

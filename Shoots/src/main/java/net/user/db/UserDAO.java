@@ -392,7 +392,7 @@ public class UserDAO {
 		List<UserBean> list = new ArrayList<UserBean>();
 		String sql = """
 				select * from (
-					select rownum rnum, idx, user_id, name ,jumin, gender, tel, email, register_date
+					select rownum rnum, idx, user_id, name ,jumin, gender, tel, email, register_date, role
 					from regular_user
 				) p where p.rnum >= ? and p.rnum <= ?
 				""";
@@ -415,6 +415,7 @@ public class UserDAO {
 						ub.setTel(rs.getString("tel"));
 						ub.setEmail(rs.getString("email"));
 						ub.setRegister_date(rs.getString("register_date"));
+						ub.setRole(rs.getString("role"));
 						
 						list.add(ub);
 					}
@@ -426,4 +427,40 @@ public class UserDAO {
 			
 			return list;
 	}//getUserList() end
+
+	public int grantAdmin(String id) {
+		int result = 0;
+		String sql = """
+				update regular_user 
+				set role = 'admin' 
+				where user_id = ?
+				""";
+		try(Connection con = ds.getConnection();
+				PreparedStatement pstmt = con.prepareStatement(sql);){
+				pstmt.setString(1, id);
+				result = pstmt.executeUpdate();
+			}catch(SQLException ex) {
+				System.out.println("grantAdmin() 에러: " + ex);
+			}
+		
+		return result;
+	}
+
+	public int revokeAdmin(String id) {
+		int result = 0;
+		String sql = """
+				update regular_user 
+				set role = 'common' 
+				where user_id = ?
+				""";
+		try(Connection con = ds.getConnection();
+				PreparedStatement pstmt = con.prepareStatement(sql);){
+				pstmt.setString(1, id);
+				result = pstmt.executeUpdate();
+			}catch(SQLException ex) {
+				System.out.println("revokeAdmin() 에러: " + ex);
+			}
+		
+		return result;
+	}
 }
