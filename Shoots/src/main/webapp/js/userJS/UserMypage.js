@@ -40,9 +40,9 @@ function loadUserMatchs() {
             activeTabs.forEach(function(item) {
                 item.classList.remove('active');
             });
-
             tab.classList.add('active');
         }
     };
     xhr.send(); 
 }
+

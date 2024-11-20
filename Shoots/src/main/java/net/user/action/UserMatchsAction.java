@@ -1,6 +1,7 @@
 package net.user.action;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import jakarta.servlet.ServletException;
@@ -28,9 +29,15 @@ public class UserMatchsAction implements Action {
 		
 		List<MatchBean> list = dao.getMatchsByPlayerId(idx);
 		
+		System.out.println("list == " + list);
+		
 		for (MatchBean match : list) {
 	        int playerCount = pdao.getPaymentCountById(match.getMatch_id());
 	        match.setPlayerCount(playerCount);
+	        
+	        String a = match.getMatch_date().substring(0,10) + ' ' + match.getMatch_time();
+	        LocalDateTime currentDateTime = LocalDateTime.now();
+	        boolean isMatchPast = matchDateTime.minusHours(2).isBefore(currentDateTime);
 	    }
 		
 		ActionForward forward = new ActionForward();

@@ -2,3 +2,6 @@
 
 .nm {text-align : center; height : 200px}
 .table {width : 80%; text-align : center}
+
+.sc {width : 100% ; min-height: 500px; overflow-y: auto; margin-top : 15px}
+.tablehd {position : sticky; background-color: white; top : 0; z-index : 1;}
