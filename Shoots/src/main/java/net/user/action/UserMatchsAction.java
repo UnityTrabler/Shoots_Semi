@@ -2,6 +2,8 @@ package net.user.action;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.servlet.ServletException;
@@ -31,13 +33,23 @@ public class UserMatchsAction implements Action {
 		
 		System.out.println("list == " + list);
 		
+		
 		for (MatchBean match : list) {
 	        int playerCount = pdao.getPaymentCountById(match.getMatch_id());
 	        match.setPlayerCount(playerCount);
 	        
 	        String a = match.getMatch_date().substring(0,10) + ' ' + match.getMatch_time();
+	        
+	        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+	        LocalDateTime matchDateTime = LocalDateTime.parse(a, formatter);
+	        
 	        LocalDateTime currentDateTime = LocalDateTime.now();
-	        boolean isMatchPast = matchDateTime.minusHours(2).isBefore(currentDateTime);
+	        
+	        LocalDateTime twoHoursBeforeMatch = matchDateTime.minusHours(2);
+	        
+	        boolean isMatchPast = twoHoursBeforeMatch.isBefore(currentDateTime);
+	        match.setMatchPast(isMatchPast);
+	
 	    }
 		
 		ActionForward forward = new ActionForward();

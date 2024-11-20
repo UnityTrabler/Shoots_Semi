@@ -349,13 +349,15 @@ public class MatchDAO {
 
 	public List<MatchBean> getMatchsByPlayerId(int idx) {
 		String sql = """
-				select mp.*, COALESCE(p.playerCount, 0) AS playerCount 
+				select mp.*, COALESCE(p.playerCount, 0) AS playerCount, b.business_name
 				from match_post mp
 				inner join (SELECT match_id, COUNT(*) AS playerCount
 						     FROM payment 
 						     WHERE status = 'SUCCESS' and buyer = ?
 						     GROUP BY match_id) p 
 				on mp.match_id = p.match_id
+				inner join business_user b
+				on mp.writer = b.business_idx
 				order by match_date desc
 				""";
 		List<MatchBean> list = new ArrayList();
@@ -366,7 +368,7 @@ public class MatchDAO {
 				while (rs.next()) {
 					MatchBean match = new MatchBean();
 					match.setMatch_id(rs.getInt("match_id"));
-					match.setWriter(rs.getInt("writer"));
+					match.setBusiness_name(rs.getString("business_name"));
 					match.setMatch_date(rs.getString("match_date"));
 					match.setMatch_time(rs.getString("match_time"));
 					match.setPlayer_max(rs.getInt("player_max"));

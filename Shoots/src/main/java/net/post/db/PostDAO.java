@@ -405,6 +405,84 @@ private DataSource ds;
 		}
 			return false;
 	}
+
+
+
+	public List<PostBean> getPostsById(int page, int limit,int idx) {
+		String sql = """
+				select * 
+				from ( 
+				    select ROWNUM rnum, post_id, writer, category, title, content, post_file, price, register_date, readcount, user_id
+				    from (
+				        select p.*, u.user_id
+				        from post p
+				        inner join regular_user u on p.writer = u.idx
+				        where p.writer = ?
+				        order by p.register_date DESC
+				    )
+				    where ROWNUM <= ?
+				    )
+				where rnum >= ?
+				""";
+		List<PostBean> list = new ArrayList();
+		try (Connection con = ds.getConnection();
+				PreparedStatement pstmt = con.prepareCall(sql);) {
+			int startrow = (page - 1) * limit + 1;
+			int endrow = startrow + limit - 1;
+					
+			pstmt.setInt(1, idx);
+			pstmt.setInt(2, endrow);
+			pstmt.setInt(3, startrow);
+			
+			try (ResultSet rs = pstmt.executeQuery()) {
+				while(rs.next()) {
+					PostBean post = new PostBean();
+					post.setPost_id(rs.getInt("POST_ID"));
+					post.setWriter(rs.getInt("WRITER"));
+					post.setCategory(rs.getString("CATEGORY"));
+					post.setTitle(rs.getString("TITLE"));
+					post.setContent(rs.getString("CONTENT"));
+					post.setPost_file(rs.getString("POST_FILE"));
+					post.setPrice(rs.getInt("PRICE"));
+					post.setRegister_date(rs.getString("REGISTER_DATE"));
+					post.setReadcount(rs.getInt("READCOUNT"));
+					post.setUser_id(rs.getString("user_id"));
+					
+					list.add(post);
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("getPostsById() 에러 : " + e);
+		}
+		return list;
+	}
+
+
+
+	public int getListCountById(int idx) {
+		String sql = """
+				select count(*) from post 
+				where writer = ?
+				""";
+		int x = 0;
+		
+		try (Connection con = ds.getConnection();
+			 PreparedStatement pstmt = con.prepareStatement(sql);) {
+			pstmt.setInt(1, idx);
+			
+			try (ResultSet rs = pstmt.executeQuery()) {
+				if(rs.next()) {
+					x = rs.getInt(1);
+					
+				}
+			}
+			} catch (Exception ex) {
+				ex.printStackTrace();
+				System.out.println("getListCountById() 에러: " + ex);
+			}
+		return x;
+	}
 	
 	
 	

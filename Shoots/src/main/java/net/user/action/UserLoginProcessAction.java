@@ -31,6 +31,7 @@ public class UserLoginProcessAction implements Action {
 				session.setAttribute("id", id);
 				session.setAttribute("idx", userDAO.getUserIdx(id));
 				session.setAttribute("role", new UserDAO().getUser(id).getRole());
+				session.setAttribute("file", new UserDAO().getUser(id).getUserfile());
 				session.setAttribute("userClassification", "regular");
 				//store cookie
 				Cookie cookie = new Cookie("id", id);

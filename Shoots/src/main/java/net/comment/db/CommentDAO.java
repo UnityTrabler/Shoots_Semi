@@ -34,6 +34,8 @@ public class CommentDAO {
 	/*
 	
 	comment_id NUMBER(10) PRIMARY KEY, --댓글 식별 번호
+	
+	
     post_id NUMBER(10) references post(post_id) on delete cascade, --게시글 아이디
     comment_ref_id NUMBER(10), --부모 댓글 아이디
     writer NUMBER(10) references regular_user(idx) on delete cascade, --작성자
@@ -254,6 +256,20 @@ public class CommentDAO {
 				}
 		
 		return co;
+	}
+
+
+
+	public int getListCountById(int idx) {
+		
+		return 0;
+	}
+
+
+
+	public List<CommentBean> getCommentById(int idx) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 	
