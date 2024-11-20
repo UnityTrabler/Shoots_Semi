@@ -56,6 +56,9 @@ public class AdminFrontController extends HttpServlet{
 			case "/businesslist":
 				action = new AdminBusinessListAction();
 				break;
+			case "/businessUserApproval" :
+				action = new AdminbusinessUserApprovalAction();
+				break;
 			default:
 					RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB_INF/views/error/error404.jsp");
 					dispatcher.forward(request, response);

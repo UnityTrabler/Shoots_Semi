@@ -12,6 +12,7 @@ CREATE TABLE business_user (
     description clob,
     business_file varchar2(50),
    	register_date timestamp DEFAULT current_timestamp
+   	login_status varchar2(9) DEFAULT 'pending'
 );
 
 DROP SEQUENCE business_seq;

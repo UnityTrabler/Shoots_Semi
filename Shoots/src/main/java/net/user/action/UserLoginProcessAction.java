@@ -46,21 +46,26 @@ public class UserLoginProcessAction implements Action {
 				resp.getWriter().println("{\"message\":\"login successed\"}");
 				return null;
 			}
-			System.out.println("business login 불일치");
+			System.out.println("regular login 불일치");
 			resp.setContentType("application/json; charset=UTF-8");
 			resp.getWriter().print("""
-					{message : <script>
-						alert('business login 불일치');
-					</script>}
+					{'message' : 'regular login 불일치'}
 				""");
 
-		}
+		}//if regular
 		else if(req.getParameter("state").equals("business")) {
 			int result = userDAO.isIdBusiness(id, pwd);
 			System.out.println("result : " + result);
 			
 			if(result == 1) {
-				System.out.println("id :" + id +"- login 일치");
+				System.out.println("b - id :" + id +"- login 일치");
+				System.out.println("userDAO.getBusinessUser(id).getLogin_status() : " + userDAO.getBusinessUser(id).getLogin_status());
+				if(!userDAO.getBusinessUser(id).getLogin_status().equals("approved")) {
+					resp.setContentType("application/json; charset=UTF-8");
+					resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+					resp.getWriter().println("{\"message\":\"승인 대기중이거나 관리자가 승인하지 않은 ID 입니다.\"}");
+					return null;
+				}
 						
 				//session id
 				HttpSession session = req.getSession();
@@ -83,10 +88,8 @@ public class UserLoginProcessAction implements Action {
 			}
 			System.out.println("business login 불일치");
 			resp.setContentType("application/json; charset=UTF-8");
-			resp.getWriter().print("""
-					{message : <script>
-						alert('business login 불일치');
-					</script>}
+			resp.getWriter().print("""	
+					{'message' : 'business login 불일치'}
 				""");
 		}
 		

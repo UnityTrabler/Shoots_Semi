@@ -14,6 +14,7 @@ public class UserBean {
 	private String register_date;
 	private String role;
 	
+	
 	public String getIdx() {
 		return idx;
 	}
