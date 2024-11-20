@@ -52,7 +52,12 @@
 										<c:if test="${i.title.length()<20 }">
 											<c:out value="${i.title}" />
 										</c:if>
-									</a> [${i.cnt}]
+									<!-- 답변 여부 표시 -->
+						                <span>
+						                    <c:if test="${i.hasReply}">
+						                        [답변완료]
+						                    </c:if>
+						                </span>
 								</div>
 							</td>
 							<%--문의자 유형 : A면 개인, B면 기업 --%>

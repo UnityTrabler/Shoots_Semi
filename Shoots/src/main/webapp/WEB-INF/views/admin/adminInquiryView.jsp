@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>문의 게시판</title>
+<title>관리자 전용 문의 게시판</title>
 <jsp:include page = "/WEB-INF/views/user/top.jsp"/>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/inquiryDetail.css" type="text/css">
 
@@ -20,37 +20,35 @@
 	<div class="container">
 		<table class="table">
 				<tr>
-					<th colspan="15">1:1 문의 게시판</th>
+					<th colspan="3" style="text-align:center">1:1 문의 게시판</th>
 				</tr>
 				
 					<%--문의글 제목 --%>
 				<tr>
-					<th>&nbsp<c:out value = "${inquirydata.title}"/></th>
+					<th colspan="3">&nbsp<c:out value = "${inquirydata.title}"/></th>
 				</tr>
 				<tr>
-					<td><div>문의자</div></td>
+					<td><div>문의자: 
 					
 					<c:choose>
 			            <c:when test="${inquirydata.inquiry_type eq 'A'}">
-			               <td><div>${inquirydata.user_id}</div></td>
+			                ${inquirydata.user_id}</div></td>
 			            </c:when>
 			            <c:when test="${inquirydata.inquiry_type eq 'B'}">
-			                <td><div>${inquirydata.business_id}</div></td>
+			                ${inquirydata.business_id}</div></td>
 			            </c:when>
 			        </c:choose>
 					
-					
-						<td>문의 날짜</td>
+					<td>문의 날짜: ${inquirydata.register_date.substring(0,16)}</td>
 				</tr>
 				<tr>
-					<td><div>내용</div></td>
-					<td style ="padding-right:0px">
+					<td colspan="2" style ="padding-right:0px">
 						<textarea class="form-control" rows="5"
 						 readOnly>${inquirydata.content}</textarea></td>
 				</tr>
 				
 				<tr>
-						<td><div>첨부파일</div></td>
+					<td><div>첨부파일</div></td>
 					
 					<%--파일 첨부한 경우 --%>
 					<c:if test="${!empty inquirydata.inquiry_file}">
