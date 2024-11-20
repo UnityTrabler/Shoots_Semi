@@ -13,6 +13,7 @@ public class BusinessUserBean {
 	private String description;
 	private String business_file;
 	private String register_date;
+	private String login_status;
 	
 	public int getBusiness_idx() {
 		return business_idx;
@@ -85,5 +86,11 @@ public class BusinessUserBean {
 	}
 	public void setTel(int tel) {
 		this.tel = tel;
+	}
+	public String getLogin_status() {
+		return login_status;
+	}
+	public void setLogin_status(String login_status) {
+		this.login_status = login_status;
 	}
 }

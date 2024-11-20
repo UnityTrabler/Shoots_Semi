@@ -74,10 +74,13 @@
 					dataType : "json",
 					success : function(data){
 						console.log('ajax success');
+						alert(data.message);
 						window.location.href = "${pageContext.request.contextPath}/user/login";
 					},
-					error:function(){
+					error:function(xhr, textStatus, errorThrown){
 						console.log('ajax error');
+						var response = JSON.parse(xhr.responseText);
+						alert(response.message);
 					}
 				});
 			}//ajax()
