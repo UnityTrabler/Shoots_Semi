@@ -37,8 +37,8 @@
 			
 			<tr>
 				<td><div>내용</div></td>
-				<td style="padding-right: 0px">
-					<textarea rows="5" readOnly>${nb.content}</textarea></td>
+				<td style="padding-right: 0px;">
+					<textarea rows="5" readOnly style="width:100%">${nb.content}</textarea></td>
 			</tr>
 			
 			<tr>

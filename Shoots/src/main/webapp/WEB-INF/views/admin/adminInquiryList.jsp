@@ -20,7 +20,7 @@
 				<thead>
 					<tr>
 						<th colspan="4">관리자 전용 1:1 문의 게시판</th>
-						<th colspan="3"><span>글 개수 : ${listcount}</span></th>
+						<th colspan="3"><span>문의글 개수 : ${listcount}</span></th>
 					</tr>
 					<tr>
 						<th><div>번호</div></th>
@@ -51,7 +51,13 @@
 										<c:if test="${i.title.length()<20 }">
 											<c:out value="${i.title}" />
 										</c:if>
-									</a> [${i.cnt}]
+									</a>
+									<!-- 답변 여부 표시 -->
+						                <span>
+						                    <c:if test="${i.hasReply}">
+						                        [답변완료]
+						                    </c:if>
+						                </span>
 								</div>
 							</td>
 							<%--문의자 유형 : A면 개인, B면 기업 --%>
@@ -90,28 +96,31 @@
 				</tbody>
 			</table>
 
+				<%--페이징 --%>
 			<div class = "center-block">
-            <ul class = "pagination justify-content-center">
-               <li class = "page-item">
-                  <a ${page > 1 ? 'href = list?page=' += (page - 1) : '' }
-                     class = "page-link ${page <= 1 ? 'gray' : '' }">
-                     &lt;&lt;
-                  </a>
-               </li>
-               <c:forEach var = "a" begin = "${startpage}" end = "${endpage}">
-                  <li class = "page-item ${a == page ? 'active' : '' }">
-                     <a ${a == page ? '' : 'href = list?page=' += a }
-                        class = "page-link">${a}</a>
-                  </li>
-               </c:forEach>
-               <li class = "page-item">
-                  <a ${page < maxpage ? 'href = list?page=' += (page + 1) : '' }
-                     class = "page-link" ${page >= maxpage ? 'gray' : '' }">
-                     &gt;&gt;
-                  </a>
-               </li>
-            </ul>
-         </div>
+					<ul class = "pagination justify-content-center">
+						<li class = "page-item">
+							<a href="javascript:go_inquiry(${page - 1})"
+								class = "page-link ${page <= 1 ? 'gray' : '' }">
+								&lt;&lt;
+							</a>
+						</li>
+						<c:forEach var = "a" begin = "${startpage}" end = "${endpage}">
+							<li class = "page-item ${a == page ? 'active' : '' }">
+								<a href="javascript:go_inquiry(${a})"
+									class = "page-link">${a}</a>
+							</li>
+						</c:forEach>
+						<li class = "page-item">
+							<a href="javascript:go_inquiry(${page + 1})"
+								class = "page-link ${page >= maxpage ? 'gray' : '' }">
+								&gt;&gt;
+							</a>
+						</li>
+					</ul>
+				</div>
+				<%--페이징 끝 --%>
+			
 		</c:if>
 		<%--<c:if test"${listcount > 0}"> end --%>
 		<%--게시글이 없는 경우 --%>
@@ -119,7 +128,6 @@
 			<h3 style="text-align: center">등록된 문의가 없습니다.</h3>
 		</c:if>
 
-		<button type="button" class="btn btn-info float-right">문의하기</button>
 	<%--<div class="container"> end --%>
 </body>
 </html>

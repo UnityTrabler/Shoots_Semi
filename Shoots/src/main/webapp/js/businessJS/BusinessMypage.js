@@ -131,7 +131,7 @@ let isRequestInProgress = false;
 function go(page, year, month) {
 	if (isRequestInProgress) return;
 	 
-	const limit = 7;
+	const limit = 10;
 	const data = {limit : limit, state : "ajax", page : page,  year: year, month: month};
 	ajax(data);
 }

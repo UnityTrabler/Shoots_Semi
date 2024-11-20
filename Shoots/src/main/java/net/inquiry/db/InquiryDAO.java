@@ -152,7 +152,7 @@ public class InquiryDAO {
 							SELECT i.*, 
 						       CASE WHEN i.inquiry_type = 'A' THEN r.user_id 
 						            WHEN i.inquiry_type = 'B' THEN b.business_id 
-					       	END AS user_id, business_id
+					       	END AS user_id, business_id, r.idx
 							FROM inquiry i 
 							LEFT JOIN regular_user r ON i.inquiry_type = 'A' AND i.inquiry_ref_idx = r.idx
 							LEFT JOIN business_user b ON i.inquiry_type = 'B' AND i.inquiry_ref_idx = b.business_idx
@@ -181,6 +181,7 @@ public class InquiryDAO {
 					}
 				}catch (Exception ex) {
 						System.out.println("getDetail() 에러:" + ex);
+						ex.printStackTrace();
 				}
 		
 		return ib;

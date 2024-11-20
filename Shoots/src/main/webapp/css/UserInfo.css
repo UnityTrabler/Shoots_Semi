@@ -1,0 +1,7 @@
+@charset "EUC-KR";
+
+.infoD {display : flex; gap : 5%}
+.infoD1 {width : 30%; text-align : center}
+.infoD2 {width : 50%}
+
+.infoIs {width : 100px; border-radius : 50%; margin-top : 60px}

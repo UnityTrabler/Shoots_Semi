@@ -33,7 +33,7 @@
 			<tr>
 				<td><div>내용</div></td>
 				<td style="padding-right: 0px">
-					<textarea rows="5" readOnly>${fb.content}</textarea>
+					<textarea rows="5" style="width:100%" readOnly>${fb.content}</textarea>
 				</td>
 			</tr>
 			

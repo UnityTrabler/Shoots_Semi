@@ -61,14 +61,15 @@ public class InquiryListAction implements Action {
 		//리스트를 받아옴
 		inquirylist = inquirydao.getInquiryList(page, limit, idx, usertype);
 		
-		Boolean replyComplete = false;
 		
-		if(!inquirylist.isEmpty()) {
-		int inquiryid =inquirylist.get(0).getInquiry_id();
-		replyComplete = inquirydao.replyComplete(inquiryid);
+		/*댓글이 있는지 없는지 확인하고 (.replyComplete()) 뽑아낸 inquirylist 데이터에서 각각의 글들에 댓글이 있는지
+			for문을 사용해서 개별 비교를 한 뒤 inquirylist에 true/false값을 저장해둠.
+			jsp에서 hasReply 를 써서 바로 값의 여부 (참/거짓)을 들고 올 수 있게 됨. 
+		 */
+		for (InquiryBean inquiry : inquirylist) {
+		    boolean hasReply = inquirydao.replyComplete(inquiry.getInquiry_id());
+		    inquiry.setHasReply(hasReply); // 댓글 여부를 InquiryBean 객체에 저장
 		}
-		
-		req.setAttribute("replyComplete", String.valueOf(replyComplete));
 		
 		
 		/*
