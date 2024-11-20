@@ -20,9 +20,9 @@
   	<h1>게시판 글쓰기</h1>
   
   	<div class="form-group">
-  		<label for="category"></label>
-  		<input type="radio" name="category" id ="A" value="A" checked><span>자유게시판</span>
-		<input type="radio" name="category" id ="B" value="B"><span>중고게시판</span>
+  		<label for="category" ></label>
+  		<input type="radio" name="category" id ="A" value="A" required><span>자유게시판</span>
+		<input type="radio" name="category" id ="B" value="B" required><span>중고게시판</span>
   	</div>
   	
   	<!-- 작성자 -->
@@ -31,12 +31,12 @@
   
   	<div class="form-group">
   		<label for="title">제목</label>
-  		<input name="title" id="title" type="text" maxlength="100" class="form-control" placeholder="제목을 입력해주세요" >
+  		<input name="title" id="title" type="text" maxlength="100" class="form-control" placeholder="제목을 입력해주세요" required>
   	</div>
   
   	<div class="form-group">
   		<label for="content">내용</label>
-  		<textarea name="content" id="content" rows="20" class="form-control" placeholder="내용을 입력하세요." ></textarea>
+  		<textarea name="content" id="content" rows="20" class="form-control" placeholder="내용을 입력하세요." required></textarea>
   	</div>
   	
   	
@@ -45,7 +45,7 @@
   	<!-- 가격 입력 (중고게시판일 경우에만 보이게 설정) -->
   	<div class="form-group fade active show" id="price">
   		<label for="priceInput">가격</label>
-  		<input name="price" id="priceInput" type="text" class="form-control" placeholder="가격을 입력해주세요"></input >
+  		<input name="price" id="priceInput" type="text" class="form-control" placeholder="가격을 입력해주세요" ></input >
   	</div>
   	
   
@@ -135,6 +135,9 @@
             }
         }
         
+     
+     
+     
         
     </script>
     

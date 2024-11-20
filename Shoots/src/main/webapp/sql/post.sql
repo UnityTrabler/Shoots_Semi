@@ -20,6 +20,7 @@ NOCACHE;
 
 
 
+
 /*
   
 CREATE TABLE post (
@@ -37,7 +38,6 @@ CREATE TABLE post (
 */
 
 DROP TABLE post CASCADE CONSTRAINTS;
-drop table post;
 drop sequence post_seq;
 
 

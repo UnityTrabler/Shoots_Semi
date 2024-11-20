@@ -1,6 +1,3 @@
-
-	
-	
 	// submit 버튼 클릭 시 유효성 검사 및 AJAX 처리
     $("form[name=writeform]").submit(function(event) {
         event.preventDefault(); // 기본 폼 제출 동작을 막음
@@ -35,18 +32,15 @@
                 return false;
             }
         }
-
         
-        
-	
-	
-        
-        
-         // 모든 입력이 정상이라면 폼을 전송
+ 		// 모든 입력이 정상이라면 폼을 전송
         const formData = new FormData(this);  // this는 현재 폼을 가리킴
-
+        
+        
         // submit 버튼 비활성화 (중복 제출 방지)
         $('button[type="submit"]').prop('disabled', true);
+        
+        
 
         // AJAX를 통해 폼 데이터 전송
         $.ajax({
@@ -72,14 +66,11 @@
                 // 버튼을 다시 활성화 시켜주기
                 $('button[type="submit"]').prop('disabled', false);
             }
-        });
+        }); //ajax 끝
         
-        
-       
-        
+	}) //submit 클릭 버튼시 이벤트 끝
 	
-	
-}) // ready() end
+
 
 
 
