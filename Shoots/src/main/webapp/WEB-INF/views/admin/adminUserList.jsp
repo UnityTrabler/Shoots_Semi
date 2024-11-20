@@ -68,28 +68,28 @@
 	
 	<%--페이징 --%>
 	<div class = "center-block">
-		<ul class = "pagination justify-content-center">
-			<li class = "page-item">
-				<a ${page > 1 ? 'href = notice?page=' += (page - 1) : '' }
-					class = "page-link ${page <= 1 ? 'gray' : '' }">
-					&lt;&lt;
-				</a>
-			</li>
-			<c:forEach var = "a" begin = "${startpage}" end = "${endpage}">
-				<li class = "page-item ${a == page ? 'active' : '' }">
-					<a ${a == page ? '' : 'href = notice?page=' += a }
-						class = "page-link">${a}</a>
-				</li>
-			</c:forEach>
-			<li class = "page-item">
-				<a ${page < maxpage ? 'href = notice?page=' += (page + 1) : '' }
-					class = "page-link ${page >= maxpage ? 'gray' : '' }">
-					&gt;&gt;
-				</a>
-			</li>
-		</ul>
-	</div>
-	<%--페이징 끝 --%>
+				<ul class = "pagination justify-content-center">
+					<li class = "page-item">
+						<a href="javascript:go_user(${page - 1})"
+							class = "page-link ${page <= 1 ? 'gray' : '' }">
+							&lt;&lt;
+						</a>
+					</li>
+					<c:forEach var = "a" begin = "${startpage}" end = "${endpage}">
+						<li class = "page-item ${a == page ? 'active' : '' }">
+							<a href="javascript:go_user(${a})"
+								class = "page-link">${a}</a>
+						</li>
+					</c:forEach>
+					<li class = "page-item">
+						<a href="javascript:go_user(${page + 1})"
+							class = "page-link ${page >= maxpage ? 'gray' : '' }">
+							&gt;&gt;
+						</a>
+					</li>
+				</ul>
+			</div>
+		<%--페이징 끝 --%>	
 	
 </body>
 </html>

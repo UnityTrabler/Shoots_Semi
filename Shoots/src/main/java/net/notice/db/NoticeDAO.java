@@ -65,7 +65,7 @@ private DataSource ds;
 					select rownum rnum, n.notice_id, n.title, n.register_date,n.readcount, u.name
 					from notice n 
 					join regular_user u 
-					on n.writer = u.idx order by n.notice_id
+					on n.writer = u.idx order by n.register_date
 				) p where p.rnum >= ? and p.rnum <= ?
 				""";
 		int startrow = (page - 1) * limit + 1;
@@ -274,7 +274,7 @@ private DataSource ds;
 					from notice n 
 					join regular_user u 
 					on n.writer = u.idx where title like ? 
-					order by n.notice_id  
+					order by n.register_date
 				) p where p.rnum >= ? and p.rnum <= ?
 				""";
 		int startrow = (page - 1) * limit + 1;
@@ -300,7 +300,7 @@ private DataSource ds;
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			System.out.println("getMatchList(search_word) 에러 : " + e);
+			System.out.println("getNoticeList(search_word) 에러 : " + e);
 		}
 		
 		return list;

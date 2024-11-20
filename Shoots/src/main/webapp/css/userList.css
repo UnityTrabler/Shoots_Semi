@@ -2,5 +2,20 @@
 .container{min-width : 1200px;}
 .table{width : 100%; margin : 0 auto}
 
-.grantadmin{text-decoration: none;}
-.revokeadmin{text-decoration:none; }
+td .grantadmin{text-decoration: none; font-size : 15px; border-radius : 10px; border : none; width : 70px; height : 23px; text-align: center; color : white ; background : orange; transition: background 0.3s, color 0.3s;}
+td .grantadmin:hover{font-size : 15px; border : 1px solid orange; border-radius : 10px; width : 70px; height : 23px; text-align: center; color : orange ; background : white}
+
+td .revokeadmin{text-decoration: none; font-size :  15px; border-radius : 10px; border : none; width : 70px; height : 23px; text-align: center; color : white ; background : red; transition: background 0.3s, color 0.3s;}
+td .revokeadmin:hover{font-size : 15px; border : 1px solid red; border-radius : 10px; width : 70px; height : 23px; text-align: center; color : red ; background : white}
+
+td .userDetail{text-decoration: none; font-size :  15px; border-radius : 10px; border : none; width : 70px; height : 23px; text-align: center; color : white ; background : skyblue; transition: background 0.3s, color 0.3s;}
+td .userDetail:hover{text-decoration: none; font-size :  15px; border : 1px solid skyblue; border-radius : 10px; width : 70px; height : 23px; text-align: center; color : skyblue ; background : white}
+
+
+th:nth-child(9), th:nth-child(10){
+	text-align:center;
+}
+
+td:nth-child(9), td:nth-child(10){
+	text-align:center;
+}

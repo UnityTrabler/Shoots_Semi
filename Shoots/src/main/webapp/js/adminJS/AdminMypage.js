@@ -27,7 +27,7 @@ function loadfaq() {
         // 관리자 페이지에서 좌측 탭 누르면 메뉴들 활성화 / 비활성화 시키는 부분 
         var tab = document.querySelector('.cP0-1 a');
         if (tab) {
-            var activeTabs = document.querySelectorAll('.cP0-1 a, .cP0-2 a, .cP0-3 a, .cP0-4 a');
+            var activeTabs = document.querySelectorAll('.cP0-1 a, .cP0-2 a, .cP0-3 a, .cP0-4 a, .cP0-5 a');
             activeTabs.forEach(function(item) {
                 item.classList.remove('active');
             });
@@ -72,7 +72,7 @@ function loadnotice() {
         // 관리자 페이지에서 좌측 탭 누르면 메뉴들 활성화 / 비활성화 시키는 부분 
 		var tab = document.querySelector('.cP0-2 a'); 
         if (tab) {
-            var activeTabs = document.querySelectorAll('.cP0-2 a, .cP0-1 a, .cP0-3 a, .cP0-4 a');
+            var activeTabs = document.querySelectorAll('.cP0-2 a, .cP0-1 a, .cP0-3 a, .cP0-4 a, .cP0-5 a');
             activeTabs.forEach(function(item) {
                 item.classList.remove('active');
             	});
@@ -110,7 +110,7 @@ function loadinquiry() { //ajax로  관리자전용 1:1 문의글 리스트 뽑�
         // 관리자 페이지에서 좌측 탭 누르면 메뉴들 활성화 / 비활성화 시키는 부분 
 		var tab = document.querySelector('.cP0-3 a'); 
         if (tab) {
-            var activeTabs = document.querySelectorAll('.cP0-1 a, .cP0-2 a, .cP0-3 a, .cP0-4 a');
+            var activeTabs = document.querySelectorAll('.cP0-1 a, .cP0-2 a, .cP0-3 a, .cP0-4 a, .cP0-5 a');
             activeTabs.forEach(function(item) {
                 item.classList.remove('active');
             	});
@@ -135,7 +135,30 @@ function loaduser(){
         // 관리자 페이지에서 좌측 탭 누르면 메뉴들 활성화 / 비활성화 시키는 부분 
 		var tab = document.querySelector('.cP0-4 a'); 
         if (tab) {
-            var activeTabs = document.querySelectorAll('.cP0-1 a, .cP0-2 a, .cP0-3 a, .cP0-4 a');
+            var activeTabs = document.querySelectorAll('.cP0-1 a, .cP0-2 a, .cP0-3 a, .cP0-4 a, .cP0-5 a');
+            activeTabs.forEach(function(item) {
+                item.classList.remove('active');
+            	});
+            tab.classList.add('active');
+        }
+    };
+    xhr.send(); 
+}//loaduser() end
+
+//기업 로드
+function loadbusiness(){
+	var xhr = new XMLHttpRequest();
+    xhr.open('GET', '../admin/businesslist', true); 
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+			document.getElementById('content-container').innerHTML = xhr.responseText; // 내용 뽑아오기 끝
+			
+		}
+		
+        // 관리자 페이지에서 좌측 탭 누르면 메뉴들 활성화 / 비활성화 시키는 부분 
+		var tab = document.querySelector('.cP0-5 a'); 
+        if (tab) {
+            var activeTabs = document.querySelectorAll('.cP0-1 a, .cP0-2 a, .cP0-3 a, .cP0-4 a, .cP0-5 a');
             activeTabs.forEach(function(item) {
                 item.classList.remove('active');
             	});
@@ -389,25 +412,42 @@ function generatePagination_user(data) {
 }
 
 //userlist tobody
-function updateNoticeList_user(data) {
+function updateUserlist(data) {
 	let output = "<tbody>";
 	
-	$(data.inquirylist).each(function(index, item){
+	$(data.totallist).each(function(index, item){
 		var gender = (item.gender == 1 || item.gender == 3) ? "남자" : "여자"
-		output += `			
-			<tr>
-						<td>${user.idx }</td>
-						<td>${user.id }</td>
-						<td>${user.name }</td>
-						<td>${user.RRN }</td>
-						<td>${gender}</td>
-						<td>${user.tel }</td>
-						<td>${user.email }</td>
-						<td>${user.register_date.substring(0, 10) }</td>
-						<td><a href="../user/mypage"  type="button" class="userDetail">보기</a></td>
-					</tr>
-            	`;
+		output += (item.role == "common") ? 
+    	`			
+        	<tr>
+            	<td>${item.idx}</td>
+            	<td>${item.id}</td>
+            	<td>${item.name}</td>
+            	<td>${item.RRN}</td>
+            	<td>${gender}</td>
+            	<td>${item.tel}</td>
+            	<td>${item.email}</td>
+            	<td>${item.register_date.substring(0, 10)}</td>
+            	<td><a href="../user/mypage" type="button" class="userDetail">보기</a></td>
+            	<td><a href="../admin/grant?id=${item.id}" type="button" class="grantadmin">일반</a></td>
+        	</tr>
+    	` : 
+    	`			
+        	<tr>
+            	<td>${item.idx}</td>
+            	<td>${item.id}</td>
+            	<td>${item.name}</td>
+            	<td>${item.RRN}</td>
+            	<td>${gender}</td>
+            	<td>${item.tel}</td>
+            	<td>${item.email}</td>
+            	<td>${item.register_date.substring(0, 10)}</td>
+            	<td><a href="../user/mypage" type="button" class="userDetail">보기</a></td>
+            	<td><a href="../admin/revoke?id=${item.id}" type="button" class="revokeadmin">관리자</a></td>
+        	</tr>
+    	`;
 	});
+	
 	output += "</tbody>";
 	
 	$('table').append(output);
@@ -428,7 +468,7 @@ function ajax_user(sdata) {
 			if (data.listcount > 0) {
 				$("thead").show();
 				$("tbody").remove();
-				updateNoticeList_inquiry(data);
+				updateUserlist(data);
 			} else {
 				$("thead").hide();
 				$("tbody").remove();
@@ -444,7 +484,94 @@ function ajax_user(sdata) {
     		$("table").append("<tbody><tr><td colspan='5' style='text-align: center;'>데이터를 불러오는 중 오류가 발생했습니다. 다시 시도해주세요.</td></tr></tbody>");
 		}
 	});
-} //useradmin pagenation 끝
+} //useradmin pagination 끝
+
+//businessadmin pagination
+isRequestInProgress = false
+function go_business(page) {
+	if(isRequestInProgress) return;
+	
+	const limit = 10;
+	const data = {limit : limit, state : "ajax", page : page};
+	ajax_business(data);
+}
+
+
+function generatePagination_business(data) {
+	let output = "";
+	
+	let prevHref = data.page > 1 ? `href=javascript:go_business(${data.page - 1})` : "";
+	output += setPaging(prevHref, '&lt;&lt;');
+	
+	for (let i = data.startpage; i <= data.endpage; i++) {
+		const isActive = (i === data.page);
+		let pageHref = !isActive ? `href=javascript:go_business(${i})` : "";
+		  
+		output += setPaging(pageHref, i, isActive); 
+	}
+	
+	let nextHref = (data.page < data.maxpage) ? `href=javascript:go_business(${data.page + 1})` : "";
+	output += setPaging(nextHref, '&gt;&gt;' );
+	
+	$(".pagination").empty().append(output);
+}
+
+//businesslist tobody
+function updateBusiness(data) {
+	let output = "<tbody>";
+	
+	$(data.totallist).each(function(index, item){
+		
+		output += `			
+			<tr>
+				<td>${item.business_idx }</td>
+				<td>${item.business_id }</td>
+				<td>${item.business_name }</td>
+				<td>${item.business_number }</td>
+				<td>${item.email }</td>
+				<td>${item.address} </td>
+				<td>${item.register_date.substring(0, 10)}</td>
+				<td><a href="../business/mypage"  type="button" class="BusinessDetail">보기</a></td>
+			</tr>
+          `;
+	});
+	output += "</tbody>";
+	
+	$('table').append(output);
+	
+	 generatePagination_business(data);
+}
+
+function ajax_business(sdata) {
+	console.log(sdata);
+	
+	$.ajax({
+		data : sdata,
+		url : "/Shoots/admin/businesslist",
+		dataType : "json",
+		cache : false, 
+		success : function(data){
+			console.log(data);
+			if (data.listcount > 0) {
+				$("thead").show();
+				$("tbody").remove();
+				updateBusiness(data);
+			} else {
+				$("thead").hide();
+				$("tbody").remove();
+				$(".pagination").empty();
+				$("table").append("<tbody><tr><td colspan='5' style='text-align: center;'>회원이 존재하지 않습니다</td></tr></tbody>");
+			}
+		},
+		error : function() {
+			console.log("에러");
+			$("thead").hide();
+			$("tbody").remove();
+    		$(".pagination").empty();
+    		$("table").append("<tbody><tr><td colspan='5' style='text-align: center;'>데이터를 불러오는 중 오류가 발생했습니다. 다시 시도해주세요.</td></tr></tbody>");
+		}
+	});
+} //businessadmin pagination 끝
 
 
 function backBtn(){

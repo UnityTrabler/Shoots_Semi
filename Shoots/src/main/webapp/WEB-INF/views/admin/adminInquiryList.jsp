@@ -6,30 +6,29 @@
 <html>
 <head>
 <meta charset="EUC-KR">
-<link rel="stylesheet"	href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/inquiry.css">
 <script src="${pageContext.request.contextPath}/js/jquery-3.7.1.js"></script>
 <script src="${pageContext.request.contextPath}/js/inquiryJs/inquirylist.js"></script>
 
-<title>°ü¸®ÀÚ Àü¿ë ¹®ÀÇ °Ô½ÃÆÇ</title>
+<title>ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ô½ï¿½ï¿½ï¿½</title>
 </head>
 <body>
-		<%--°Ô½Ã±ÛÀÌ ÀÖ´Â °æ¿ì --%>
+		<%--ï¿½Ô½Ã±ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ --%>
 		<c:if test="${listcount > 0 }">
 			<table class="table table-striped">
 				<thead>
 					<tr>
-						<th colspan="4">°ü¸®ÀÚ Àü¿ë 1:1 ¹®ÀÇ °Ô½ÃÆÇ</th>
-						<th colspan="3"><span>¹®ÀÇ±Û °³¼ö : ${listcount}</span></th>
+						<th colspan="4">ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ 1:1 ï¿½ï¿½ï¿½ï¿½ ï¿½Ô½ï¿½ï¿½ï¿½</th>
+						<th colspan="3"><span>ï¿½ï¿½ï¿½Ç±ï¿½ ï¿½ï¿½ï¿½ï¿½ : ${listcount}</span></th>
 					</tr>
 					<tr>
-						<th><div>¹øÈ£</div></th>
-						<th><div>¹®ÀÇ Á¦¸ñ</div></th>
-						<th><div>¹®ÀÇÀÚ À¯Çü</div></th>
-						<th><div>¹®ÀÇÀÚ</div></th>
-						<th><div>³¯Â¥</div></th>
-						<th>¼öÁ¤</th>
-						<th>»èÁ¦</th>
+						<th><div>ï¿½ï¿½È£</div></th>
+						<th><div>ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½</div></th>
+						<th><div>ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½</div></th>
+						<th><div>ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½</div></th>
+						<th><div>ï¿½ï¿½Â¥</div></th>
+						<th>ï¿½ï¿½ï¿½ï¿½</th>
+						<th>ï¿½ï¿½ï¿½ï¿½</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -37,11 +36,11 @@
 					<c:forEach var="i" items="${inquirylist}">
 						<tr>
 							<td>
-								<%--¹øÈ£ --%> <c:out value=" ${num }" />
-								<%--num Ãâ·Â --%> <c:set var="num" value="${num-1}" /> <%--num=num-1; ÀÇ¹Ì --%>
+								<%--ï¿½ï¿½È£ --%> <c:out value=" ${num }" />
+								<%--num ï¿½ï¿½ï¿½ --%> <c:set var="num" value="${num-1}" /> <%--num=num-1; ï¿½Ç¹ï¿½ --%>
 							</td>
 							<td>
-								<%--Á¦¸ñ --%>
+								<%--ï¿½ï¿½ï¿½ï¿½ --%>
 								<div>
 									<a href="inquirydetail?inquiryid=${i.inquiry_id}"> 
 										<c:if test="${i.title.length()>=20 }">
@@ -52,30 +51,30 @@
 											<c:out value="${i.title}" />
 										</c:if>
 									</a>
-									<!-- ´äº¯ ¿©ºÎ Ç¥½Ã -->
+									<!-- ï¿½äº¯ ï¿½ï¿½ï¿½ï¿½ Ç¥ï¿½ï¿½ -->
 						                <span>
 						                    <c:if test="${i.hasReply}">
-						                        [´äº¯¿Ï·á]
+						                        [ï¿½äº¯ï¿½Ï·ï¿½]
 						                    </c:if>
 						                </span>
 								</div>
 							</td>
-							<%--¹®ÀÇÀÚ À¯Çü : A¸é °³ÀÎ, B¸é ±â¾÷ --%>
+							<%--ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ : Aï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½, Bï¿½ï¿½ ï¿½ï¿½ï¿½ --%>
 							 <td>
 							    <div>
 							        <c:choose>
 							            <c:when test="${i.inquiry_type == 'A'}">
-							                °³ÀÎÈ¸¿ø ¹®ÀÇ
+							                ï¿½ï¿½ï¿½ï¿½È¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 							            </c:when>
 							            <c:when test="${i.inquiry_type == 'B'}">
-							                ±â¾÷È¸¿ø ¹®ÀÇ
+							                ï¿½ï¿½ï¿½È¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 							            </c:when>
 							        </c:choose>
 							    </div>
 							</td>
 
-							<%--¹®ÀÇÀÚÀÇ ID. ÃÊ±â ¹öÀüÀº ¹®ÀÇÀÚÀÇ ½Äº°¹øÈ£¿´À½. 
-							(¹®ÀÇ±Û ½Äº°¹øÈ£ & ¹®ÀÇ±Û ¾´ »ç¶÷ÀÇ idx ¹øÈ£  2°³¸¦ Á¶ÀÎ ÇÑ µÚ user_id¸¦ »Ì¾Æ¿È) --%>
+							<%--ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ID. ï¿½Ê±ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Äºï¿½ï¿½ï¿½È£ï¿½ï¿½ï¿½ï¿½. 
+							(ï¿½ï¿½ï¿½Ç±ï¿½ ï¿½Äºï¿½ï¿½ï¿½È£ & ï¿½ï¿½ï¿½Ç±ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ idx ï¿½ï¿½È£  2ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ user_idï¿½ï¿½ ï¿½Ì¾Æ¿ï¿½) --%>
 							<c:choose>
 					            <c:when test="${i.inquiry_type eq 'A'}">
 					               <td><div>${i.user_id}</div></td>
@@ -85,18 +84,18 @@
 					            </c:when>
 					        </c:choose>
 							
-							<%--¹®ÀÇ µî·ÏÀÏ--%>
+							<%--ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½--%>
 							<td><div>${i.register_date}</div></td>
 							
-							<%--°ü¸®ÀÚ ÆäÀÌÁö¿¡¼­ÀÇ ¼öÁ¤/»èÁ¦ ¹öÆ° --%>
-							<td><a href="../inquiry/modify?inquiryid=${i.inquiry_id}" type="button" class="inquiryUpdate">¼öÁ¤</a></td>
-							<td><a href="../inquiry/delete?num=${i.inquiry_id}"  type="button" class="inquiryDelete">»èÁ¦</a></td>
+							<%--ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½/ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ° --%>
+							<td><a href="../inquiry/modify?inquiryid=${i.inquiry_id}" type="button" class="inquiryUpdate">ï¿½ï¿½ï¿½ï¿½</a></td>
+							<td><a href="../inquiry/delete?num=${i.inquiry_id}"  type="button" class="inquiryDelete">ï¿½ï¿½ï¿½ï¿½</a></td>
 						</tr>
 					</c:forEach>
 				</tbody>
 			</table>
 
-				<%--ÆäÀÌÂ¡ --%>
+				<%--ï¿½ï¿½ï¿½ï¿½Â¡ --%>
 			<div class = "center-block">
 					<ul class = "pagination justify-content-center">
 						<li class = "page-item">
@@ -119,13 +118,13 @@
 						</li>
 					</ul>
 				</div>
-				<%--ÆäÀÌÂ¡ ³¡ --%>
+				<%--ï¿½ï¿½ï¿½ï¿½Â¡ ï¿½ï¿½ --%>
 			
 		</c:if>
 		<%--<c:if test"${listcount > 0}"> end --%>
-		<%--°Ô½Ã±ÛÀÌ ¾ø´Â °æ¿ì --%>
+		<%--ï¿½Ô½Ã±ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ --%>
 		<c:if test="${listcount == 0 }">
-			<h3 style="text-align: center">µî·ÏµÈ ¹®ÀÇ°¡ ¾ø½À´Ï´Ù.</h3>
+			<h3 style="text-align: center">ï¿½ï¿½Ïµï¿½ ï¿½ï¿½ï¿½Ç°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.</h3>
 		</c:if>
 
 	<%--<div class="container"> end --%>
