@@ -346,4 +346,41 @@ public class MatchDAO {
 		}
 		return list;
 	}
+
+	public List<MatchBean> getMatchsByPlayerId(int idx) {
+		String sql = """
+				select mp.*, COALESCE(p.playerCount, 0) AS playerCount 
+				from match_post mp
+				inner join (SELECT match_id, COUNT(*) AS playerCount
+						     FROM payment 
+						     WHERE status = 'SUCCESS' and buyer = ?
+						     GROUP BY match_id) p 
+				on mp.match_id = p.match_id
+				order by match_date desc
+				""";
+		List<MatchBean> list = new ArrayList();
+		try (Connection con = ds.getConnection();
+				PreparedStatement pstmt = con.prepareStatement(sql);) {
+			pstmt.setInt(1, idx);
+			try (ResultSet rs = pstmt.executeQuery()) {
+				while (rs.next()) {
+					MatchBean match = new MatchBean();
+					match.setMatch_id(rs.getInt("match_id"));
+					match.setWriter(rs.getInt("writer"));
+					match.setMatch_date(rs.getString("match_date"));
+					match.setMatch_time(rs.getString("match_time"));
+					match.setPlayer_max(rs.getInt("player_max"));
+					match.setPlayer_min(rs.getInt("player_min"));
+					match.setPlayer_gender(rs.getString("player_gender"));
+					match.setPrice(rs.getInt("price"));	
+					
+					list.add(match);
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("getMatchsByPlayerId() 에러 : " + e);
+		}
+		return list;
+	}
 }
