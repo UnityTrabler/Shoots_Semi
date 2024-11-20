@@ -37,6 +37,7 @@
 			<tr>
 				<td><div>제목</div></td>
 				<td><c:out value="${postdata.title}" /></td>
+				<td><jsp:include page="/WEB-INF/views/report/postReport.jsp" /></td>
 			</tr>
 			<tr>
 				<td><div>내용</div></td>

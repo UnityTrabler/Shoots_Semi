@@ -67,13 +67,37 @@
             </div>
         </div>
 
-        <!-- 페이지 네비게이션 -->
-        <ul id="pagination" class="pagination justify-content-center">
-            <!-- 페이지 번호가 여기에 추가됩니다. -->
-        </ul>
+        
 
         <!-- 글 작성 버튼 -->
         <button type="button" class="btn btn-info float-right" onclick="postWrite()">글 작성</button>
     </div>
+    
+    
+    <%--페이징 --%>
+	<div class = "center-block">
+				<ul class = "pagination justify-content-center">
+					<li class = "page-item">
+						<a href="javascript:go(${page - 1})"
+							class = "page-link ${page <= 1 ? 'gray' : '' }">
+							&lt;&lt;
+						</a>
+					</li>
+					<c:forEach var = "a" begin = "${startpage}" end = "${endpage}">
+						<li class = "page-item ${a == page ? 'active' : '' }">
+							<a href="javascript:go(${a})"
+								class = "page-link">${a}</a>
+						</li>
+					</c:forEach>
+					<li class = "page-item">
+						<a href="javascript:go(${page + 1})"
+							class = "page-link ${page >= maxpage ? 'gray' : '' }">
+							&gt;&gt;
+						</a>
+					</li>
+				</ul>
+			</div>
+		<%--페이징 끝 --%>	
+		
 </body>
 </html>
