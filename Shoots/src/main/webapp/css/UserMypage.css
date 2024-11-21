@@ -16,6 +16,9 @@ table {width : 400px ; margin : 0 auto; margin-top : 35px}
 .cP0-2:hover {color : #059669; text-decoration : none; font-weight : bold}
 
 .container2 {text-align : center; margin-top : 30px}
+
+#content-container {min-height : 550px; max-height : 800px}
+
 .updateBtn {font-size :  10px; border-radius : 20px; border : none; width : 80px; height : 23px; color : white ; background : #059669; margin-left : 10px; transition: background 0.3s, color 0.3s;}
 .updateBtn:hover {font-size :  10px; border-radius : 20px; border : 1px solid #059669; width : 80px; height : 23px; color : #059669 ; background : white; margin-left : 10px; transition: background 0.3s, color 0.3s;}
 

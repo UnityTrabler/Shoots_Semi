@@ -22,3 +22,5 @@ th:nth-child(7) {width : 10%}
 
 a {text-decoration: none; color : black}
 a:hover {text-decoration: none; font-weight : bold; color : #059669}
+
+.nm {text-align : center; color : #be123c; margin-top : 150px}

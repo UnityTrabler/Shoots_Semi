@@ -3,9 +3,16 @@
 p {margin-bottom : 5px}
 .nm {text-align : center; height : 200px}
 
-.Cc {margin-top : 30px; min-height : 500px}
+.Cc {margin-top : 30px; max-height : 500px; margin-bottom : 50px}
 
 a {text-decoration: none; color : black}
 a:hover {text-decoration: none; font-weight : bold; color : #059669}
 
 .commentI {width : 15px; margin-bottom : 2px}
+
+.cg {font-size : 10px}
+
+.categoryA {color : #1d4ed8; font-weight : bold}
+.categoryB {color : #be123c; font-weight : bold}
+
+.nm {text-align : center; color : #be123c; margin-top : 150px}

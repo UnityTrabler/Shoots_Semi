@@ -37,7 +37,8 @@ VALUES (
     '서울시 종로구', 
     null,  
     null,  
-    SYSDATE
+    SYSDATE,
+    
 );
 
 ALTER TABLE BUSINESS_USER
@@ -93,3 +94,7 @@ VALUES (
 
 
 SELECT * FROM business_user;
+
+update business_user set login_status = 'approved';
+
+alter table business_user add login_status varchar2(9) DEFAULT 'pending';

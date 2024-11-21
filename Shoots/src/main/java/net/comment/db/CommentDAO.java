@@ -286,7 +286,7 @@ public class CommentDAO {
 	public List<CommentBean> getCommentById(int idx, int page, int limit) {
 		String sql = """
 				select * from (select pc.*, rownum rnum  
-				from (select pc.*, u.user_id, p.title from post_comment pc
+				from (select pc.*, u.user_id, p.title, p.category from post_comment pc
 				inner join regular_user u on pc.writer = u.idx 
 				inner join post p on pc.post_id = p.post_id
 				where pc.writer = ?
@@ -316,6 +316,7 @@ public class CommentDAO {
 					comment.setRegister_date(rs.getString("register_date"));
 					comment.setUser_id(rs.getString("user_id"));
 					comment.setPost_title(rs.getString("title"));
+					comment.setCategory(rs.getString("category"));
 					
 					list.add(comment);
 				}

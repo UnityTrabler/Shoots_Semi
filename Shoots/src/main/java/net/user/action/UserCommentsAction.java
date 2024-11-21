@@ -29,7 +29,7 @@ public class UserCommentsAction implements Action {
 		System.out.println("로그인 = " + idx);
 		
 		int page = 1;
-		int limit = 10;
+		int limit = 12;
 		
 		if (req.getParameter("page") != null) {
 			page = Integer.parseInt(req.getParameter("page"));

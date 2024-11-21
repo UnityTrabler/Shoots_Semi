@@ -1,20 +1,17 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="EUC-KR">
-<title>Insert title here</title>
-	<meta charset="EUC-KR">
+    <meta charset="UTF-8">
 	<title>Insert title here</title>
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/css/UserMatchs.css" type="text/css">
 </head>
 <body>
-	<p class = "cP1"> Âü¿©ÇÑ ¸ÅÄª </p>
+	<p class = "cP1"> ì°¸ì—¬í•œ ë§¤ì¹­ </p>
 	<c:if test = "${empty list}">
 		<div class = "nm">
-			<p> Âü¿©ÇÑ ¸ÅÄªÀÌ Á¸ÀçÇÏÁö ¾Ê½À´Ï´Ù </p>
+			<p> â€» ì°¸ì—¬í•œ ë§¤ì¹­ì´ ì¡´ì¬í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤ â€» </p>
 		</div>
 	</c:if>
 	<c:if test = "${!empty list}">
@@ -22,17 +19,18 @@
 			<table class = "table tablehd">
 		 		<thead>
 					<tr>
-						<th> ³¯Â¥ </th>
-						<th> ½Ã°£ </th>
-						<th> Àå¼Ò </th>
-						<th> ÀÎ¿ø </th>
-						<th> ÇöÈ² </th>
-						<th> ÇÃ·¹ÀÌ¾î </th>
+						<th> ë‚ ì§œ </th>
+						<th> ì‹œê°„ </th>
+						<th> ì¥ì†Œ </th>
+						<th> ì¸ì› </th>
+						<th> í˜„í™© </th>
+						<th> í”Œë ˆì´ì–´ </th>
 					</tr>
 				</thead>
 				<tbody>
 					<c:forEach var = "match" items= "${list}">
 						<tr>
+							<input type = "hidden" value = "match.match_id" name = "match_id">
 							<td> ${match.match_date.substring(0, 10)} </td>
 							<td> ${match.match_time} </td>
 							<td> ${match.business_name} </td>
@@ -40,31 +38,42 @@
 							<td>
 								<c:choose>
 									<c:when test="${match.isMatchPast() && match.playerCount >= match.player_min}">
-							            <input type="button" class="status5" value="¸ÅÄªÈ®Á¤">
+							            <input type="button" class="status5" value="ë§¤ì¹­í™•ì •">
 							        </c:when>
 									 <c:when test="${match.isMatchPast()}">
-								        <input type="button" class="status4" value="¸¶°¨">
+								        <input type="button" class="status4" value="ë§ˆê°">
 								    </c:when>
 								    <c:when test="${match.playerCount == match.player_max}">
-						                <input type="button" class="status2" value="¸¶°¨">
+						                <input type="button" class="status2" value="ë§ˆê°">
 						            </c:when>
 								    <c:when test="${match.playerCount >= match.player_min && match.playerCount < match.player_max}">
-							        	<input type="button" class="status3" data-match-id="${match.match_id}" value="¸¶°¨ÀÓ¹Ú">
+							        	<input type="button" class="status3" data-match-id="${match.match_id}" value="ë§ˆê°ì„ë°•">
 							        </c:when>
 									<c:when test="${match.playerCount >= 0 && match.playerCount <= player_min}">
-						                <input type="button" class="status" data-match-id="${match.match_id}" value="½ÅÃ»°¡´É">
+						                <input type="button" class="status" data-match-id="${match.match_id}" value="ì‹ ì²­ê°€ëŠ¥">
 						            </c:when>
 						 			<c:otherwise>
-						 				<input type = "button" class = "status" data-match-id="${match.match_id}" value = "½ÅÃ»°¡´É">
+						 				<input type = "button" class = "status" data-match-id="${match.match_id}" value = "ì‹ ì²­ê°€ëŠ¥">
 						 			</c:otherwise>
 								</c:choose> 
 							</td>
-							<td> <input type = "button" value = "º¸±â" class = "check"> </td>
+							<td> <input type = "button" value = "ë³´ê¸°" class = "check" data-match-id="${match.match_id}" onclick="openModal(${match.match_id})">
 						</tr>
 					</c:forEach>
 				</tbody>
 			</table>
 		</div>
 	</c:if>
+	
+	<div id="myModal" class="modal">
+        <div class="modal-content">
+            <div class = "modalBD"><input type = "button" value = "X" onclick="closeModal()" class = "modalX"></div>
+            <div id="modalContent">
+				<p> í•¨ê»˜ í•œ í”Œë ˆì´ì–´ </p>
+				<div id="playersList">
+				</div>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
