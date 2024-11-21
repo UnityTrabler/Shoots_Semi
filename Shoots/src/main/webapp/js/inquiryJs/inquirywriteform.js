@@ -64,7 +64,7 @@ $(function() {
 		const $content = $("#content");
 		
 		if (!($title.val().trim() == "") || !($content.val().trim() == "") ) {
-			if(confirm("정말 글 작성을 취소하시겠습니까?")) {
+			if(confirm("정말 문의글 작성을 취소하시겠습니까?")) {
 			history.back();
 			}
 		} else (history.back())

@@ -6,8 +6,7 @@
 <head>
 <title>문의 게시판</title>
 <jsp:include page = "/WEB-INF/views/user/top.jsp"/>
-<link rel="stylesheet" href="${pageContext.request.contextPath }/css/inquiryDetail.css" type="text/css">
-
+<link rel="stylesheet" href="${pageContext.request.contextPath }/css/inquiry.css" type="text/css">
 <script src="${pageContext.request.contextPath }/js/jquery-3.7.1.js"></script>
 <script src="${pageContext.request.contextPath }/js/inquiryJs/inquiryview.js"></script>
 
@@ -18,13 +17,11 @@
 	<%--view.js에서 사용하기 위해 추가 --%>
 	<div class="container">
 		<table class="table">
-				<tr>
-					<th colspan="3" style="text-align:center">1:1 문의 게시판</th>
-				</tr>
+				<caption>1:1 문의 게시판 </caption>
 				
 				<%--문의글 제목 --%>
 				<tr>
-					<th colspan="3">&nbsp<c:out value = "${inquirydata.title}"/></th>
+					<th colspan="3" style="font-size:20px"><c:out value = "${inquirydata.title}"/></th>
 				</tr>
 				
 				<tr>
@@ -58,7 +55,7 @@
 				</tr>
 			
 				<tr>
-					<td colspan="2" class="center">
+					<td colspan="5" class="center" style="float:right">
 						<%--수정, 삭제 버튼은 로그인 한 유저의 아이디 = 문의글 작성자 일때 혹은 id가 관리자 일때만 보이게 함 --%>
 						<c:if test="${inquirydata.inquiry_ref_idx == idx || role == 'admin' }">
 							<a href="modify?inquiryid=${inquirydata.inquiry_id}">
@@ -84,13 +81,11 @@
 							        </a>
 							    </c:otherwise>
 							</c:choose>
-
-					</td>
+					</td> <%--수정,삭제,목록 버튼 있는 td 끝 --%>
 				</tr>
 			</table>
-		</div>
-	<%--<div class="container"> end --%>
 	
+	<hr>
 	
 	 <!-- 댓글 리스트 출력 -->
     <div class="comments-section">
@@ -117,13 +112,14 @@
         </c:if>
         
         <c:if test="${empty iqlist}">
-            <p>아직 관리자의 답변이 없습니다.</p>
+            <h4>아직 관리자의 답변이 없습니다.</h4>
+            <br>
         </c:if>
     </div>
 	
 <!-- 댓글 폼 시작. 댓글 작성은 관리자만 가능 (role == admin) -->
-<c:if test="${role == 'admin'}">
-<form action="../iqcomments/add" method ="post" name = "iqcommentform" id="iqcommentform">
+ <c:if test="${role == 'admin'}">
+  <form action="../iqcomments/add" method ="post" name = "iqcommentform" id="iqcommentform">
 	<div class="comment-head">
 	</div>
 	
@@ -138,7 +134,7 @@
 		</div>
 		
 		
-		<textarea placeholder = "문의글에 대한 답변을 남겨보세요" width="1200" class="iqcomment-content" name="content" maxlength="300" required></textarea>		
+		<textarea placeholder = "문의글에 대한 답변을 남겨보세요" class="iqcomment-content" name="content" maxlength="300" required></textarea>		
 		
 		<div class="register-box">
 			<button class="btn-primary" id="register-comment">등록</button>
@@ -146,9 +142,9 @@
 		</div>
 		
 	</div>
-</form>
-</c:if>
-	
+  </form>
+ </c:if>
+</div>
 <script>
 const inquiryid = $('#inquiryid').val(); 
 

@@ -9,6 +9,7 @@
 <meta charset="UTF-8">
 <script src="${pageContext.request.contextPath}/js/jquery-3.7.1.js"></script>
 <script src="${pageContext.request.contextPath}/js/inquiryJs/inquirylist.js"></script>
+<link rel="stylesheet" href="${pageContext.request.contextPath }/css/inquiry.css" type="text/css">
 
 <title>관리자 전용 문의 게시판</title>
 </head>
@@ -16,7 +17,7 @@
 		<%--게시글이 있는 경우 --%>
 
 		<c:if test="${listcount > 0 }">
-			<table class="table table-striped">
+			<table class="table">
 				<thead>
 					<tr>
 
@@ -47,7 +48,7 @@
 								<%--제목 --%>
 
 								<div>
-									<a href="inquirydetail?inquiryid=${i.inquiry_id}"> 
+									<a class ="inquiryDetail" href="inquirydetail?inquiryid=${i.inquiry_id}"> 
 										<c:if test="${i.title.length()>=20 }">
 											<c:out value="${i.title.substring(0,20 )}..." />
 										</c:if> 
@@ -61,7 +62,6 @@
 						                <span>
 						                    <c:if test="${i.hasReply}">
 						                        [답변완료]
-
 						                    </c:if>
 						                </span>
 								</div>

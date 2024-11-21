@@ -378,7 +378,7 @@ function updateNoticeList_inquiry(data) {
 				<td>
 					
 					<div>
-						<a href="inquirydetail?inquiryid=${item.inquiry_id}">
+						<a class ="inquiryDetail" href="inquirydetail?inquiryid=${item.inquiry_id}">
 							${shortenedTitle}
 						</a> 
 						${hasReply}
