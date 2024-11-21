@@ -484,6 +484,81 @@ private DataSource ds;
 			}
 		return x;
 	}
+
+
+
+	public int getPostListCount() {
+		String sql = """
+				select count(*) from post 
+							""";
+		int x = 0;
+		
+		try (Connection con = ds.getConnection();
+			 PreparedStatement pstmt = con.prepareStatement(sql);) {
+			try (ResultSet rs = pstmt.executeQuery()) {
+				if(rs.next()) {
+					x = rs.getInt(1);
+					
+				}
+			}
+			} catch (Exception ex) {
+				ex.printStackTrace();
+				System.out.println("getPostListCount() 에러: " + ex);
+			}
+		return x;
+	}
+
+
+
+	public List<PostBean> getPostList(int page, int limit) {
+		String sql = """
+				select * 
+				from ( 
+		SELECT ROWNUM rnum, post_id, writer, category, title, content, post_file, price, register_date, readcount, user_id
+		from(
+				SELECT p.*, r.user_id
+				FROM post p
+				INNER JOIN regular_user r ON p.writer = r.idx
+				ORDER BY p.register_date DESC
+				)
+				where rownum <= ?
+			) where rnum >= ?
+				
+			""";
+		List<PostBean> list = new ArrayList<PostBean>();
+		int startrow = (page - 1) * limit + 1; //읽기 시작할 row 번호 (1 11 1 31 ...
+		int endrow = startrow + limit - 1; // 읽을 마지막 row 번호 (10 20 30 40 ...
+				
+		try (Connection con = ds.getConnection();
+				PreparedStatement pstmt = con.prepareStatement(sql);) {
+		        pstmt.setInt(1, endrow);
+				pstmt.setInt(2, startrow);
+				try (ResultSet rs = pstmt.executeQuery()) {
+					
+					//DB에서 가져온 데이터를 PostBean에 담습니다.
+					while(rs.next()) {
+						PostBean post = new PostBean();
+						post.setPost_id(rs.getInt("POST_ID"));
+						post.setWriter(rs.getInt("WRITER"));
+						post.setCategory(rs.getString("category"));
+						post.setTitle(rs.getString("TITLE"));
+						post.setContent(rs.getString("content"));
+						post.setPost_file(rs.getString("post_file"));
+		                post.setPrice(rs.getInt("price"));
+						post.setRegister_date(rs.getString("REGISTER_DATE"));
+						post.setReadcount(rs.getInt("READCOUNT"));
+						post.setUser_id(rs.getString("user_id"));
+						
+						list.add(post); // 값을 담은 객체를 리스트에 저장합니다.
+					}
+				}
+				} catch (Exception ex) {
+					ex.printStackTrace();
+					System.out.println("getPostList() 에러: " + ex);
+				}
+			return list;
+
+	}
 	
 	
 	

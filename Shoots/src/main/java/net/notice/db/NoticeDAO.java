@@ -30,7 +30,7 @@ private DataSource ds;
 				select n.*, u.name 
 				from notice n join regular_user u 
 				on n.writer = u.idx
-				order by n.notice_id
+				order by n.notice_id 
 				""";
 		try(Connection con = ds.getConnection();
 				PreparedStatement pstmt = con.prepareStatement(sql);){
@@ -65,7 +65,7 @@ private DataSource ds;
 					select rownum rnum, n.notice_id, n.title, n.register_date,n.readcount, u.name
 					from notice n 
 					join regular_user u 
-					on n.writer = u.idx order by n.register_date
+					on n.writer = u.idx order by n.notice_id 
 				) p where p.rnum >= ? and p.rnum <= ?
 				""";
 		int startrow = (page - 1) * limit + 1;
@@ -274,7 +274,7 @@ private DataSource ds;
 					from notice n 
 					join regular_user u 
 					on n.writer = u.idx where title like ? 
-					order by n.register_date
+					order by n.notice_id
 				) p where p.rnum >= ? and p.rnum <= ?
 				""";
 		int startrow = (page - 1) * limit + 1;

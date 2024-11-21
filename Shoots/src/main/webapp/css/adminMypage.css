@@ -13,11 +13,10 @@ table caption {
 table {width : 100% ; margin : 0 auto; margin-top : 35px}
 
 .cP0-1 {margin : 30px 20px 20px 0; font-size : 13px; text-align : right;}
-.cP0 {margin : 20px 20px 20px 0; font-size : 13px; text-align : right;}
-.cP0-t {margin : 20px 20px 10px 0; font-size : 13px; text-align : right;}
+
 .cA0 {color : gray; text-decoration : nonel; font-weight : bold}
 .cA0:hover {color : #059669; text-decoration : none; font-weight : bold}
-.cP1 {font-size : 15px; font-weight : bold}
+
 
 .cP0-2 {margin : 20px 20px 20px 0; font-size : 13px; text-align : right;}
 .cP0-2:hover {color : #059669; text-decoration : none; font-weight : bold}
@@ -30,6 +29,9 @@ table {width : 100% ; margin : 0 auto; margin-top : 35px}
 
 .cP0-5 {margin : 20px 20px 20px 0; font-size : 13px; text-align : right;}
 .cP0-5:hover {color : #059669; text-decoration : none; font-weight : bold}
+
+.cP0-6 {margin : 20px 20px 20px 0; font-size : 13px; text-align : right;}
+.cP0-6:hover {color : #059669; text-decoration : none; font-weight : bold}
 
 .cA0.active {color: #059669;}
 
