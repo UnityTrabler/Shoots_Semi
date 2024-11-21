@@ -63,7 +63,6 @@ public class PostAddAction implements Action {
 //            postdata.setTitle(title);
 //            postdata.setContent(content);
             
-            
            
             //postdata.setPrice(price);
             //postdata.setWriter(writer);

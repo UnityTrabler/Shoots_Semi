@@ -7,7 +7,6 @@
     <jsp:include page="../user/top.jsp"></jsp:include>
     <meta charset="UTF-8">
     <title>게시판</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
     <script src="${pageContext.request.contextPath}/js/list.js"></script>
     <script src="${pageContext.request.contextPath}/js/jquery-3.7.1.js"></script>
     

@@ -4,6 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+
 <jsp:include page="../user/top.jsp"></jsp:include>
 <script src="${pageContext.request.contextPath}/js/writeform.js"></script>
 
@@ -55,6 +56,11 @@
   	
   
   	<div class="form-group">
+  	
+  	
+  	
+  	
+  	
   		<label>
   		파일첨부
   		 <img src="${pageContext.request.contextPath}/img/attach.png" alt="파일첨부">
