@@ -74,6 +74,9 @@ public class UserFrontController extends jakarta.servlet.http.HttpServlet {
 			case "/matchs":
 				action = new UserMatchsAction();
 				break;
+			case "/userMatchPlayer":
+				action = new UserMatchPlayerAction();
+				break;
 			case "/posts":
 				action = new UserPostsAction();
 				break;

@@ -11,7 +11,14 @@ public class CommentBean {
 	private int idx;
 	private String user_file;
 	private String post_title;
+	private String category;
 	
+	public String getCategory() {
+		return category;
+	}
+	public void setCategory(String category) {
+		this.category = category;
+	}
 	public String getPost_title() {
 		return post_title;
 	}

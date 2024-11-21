@@ -3,7 +3,6 @@ package net.user.action;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.servlet.ServletException;
@@ -15,6 +14,7 @@ import net.core.ActionForward;
 import net.match.db.MatchBean;
 import net.match.db.MatchDAO;
 import net.pay.db.PaymentDAO;
+import net.user.db.UserDAO;
 
 public class UserMatchsAction implements Action {
 
@@ -24,15 +24,13 @@ public class UserMatchsAction implements Action {
 		
 		MatchDAO dao = new MatchDAO();
 		PaymentDAO pdao = new PaymentDAO();
+		UserDAO udao = new UserDAO();
 		
 		HttpSession session = req.getSession();
 		int idx = (int) session.getAttribute("idx");
 		System.out.println("로그인 = " + idx);
 		
 		List<MatchBean> list = dao.getMatchsByPlayerId(idx);
-		
-		System.out.println("list == " + list);
-		
 		
 		for (MatchBean match : list) {
 	        int playerCount = pdao.getPaymentCountById(match.getMatch_id());
@@ -44,12 +42,12 @@ public class UserMatchsAction implements Action {
 	        LocalDateTime matchDateTime = LocalDateTime.parse(a, formatter);
 	        
 	        LocalDateTime currentDateTime = LocalDateTime.now();
-	        
+	         
 	        LocalDateTime twoHoursBeforeMatch = matchDateTime.minusHours(2);
 	        
 	        boolean isMatchPast = twoHoursBeforeMatch.isBefore(currentDateTime);
 	        match.setMatchPast(isMatchPast);
-	
+	        
 	    }
 		
 		ActionForward forward = new ActionForward();
@@ -57,7 +55,6 @@ public class UserMatchsAction implements Action {
 		forward.setRedirect(false);
 		forward.setPath("/WEB-INF/views/user/UserMatchs.jsp");
 		
-		return forward;
+        return forward;
 	}
-
 }

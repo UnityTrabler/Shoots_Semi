@@ -10,10 +10,10 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/pagination.css" type="text/css">
 </head>
 <body>
-	<p class = "cP1"> 내가 쓴 글 </p>
+	<p class = "cP1"> 내가 쓴 게시글 </p>
 	<c:if test = "${empty list}">
 		<div class = "nm">
-			<p> 작성한 게시글이 없습니다 </p>
+			<p> ※ 작성한 게시글이 없습니다 ※ </p>
 		</div>
 	</c:if>
 	<c:if test = "${!empty list}">
@@ -35,10 +35,10 @@
 					<tr>
 						<td> <c:choose>
 								<c:when test = "${post.category == 'A'}">
-									<span class = "a"> [자유] </span>
+									<span class = "a"> <b>[자유]</b> </span>
 								</c:when>
 								<c:when test = "${post.category == 'B'}">
-									<span class = "b"> [중고] </span>
+									<span class = "b"> <b>[중고]</b> </span>
 								</c:when>
 							</c:choose>
 						</td>
@@ -62,29 +62,29 @@
 			</tbody>
 		</table>
 	</div>
-	</c:if>
 	
 	<div class = "center-block">
-				<ul class = "pagination justify-content-center">
-					<li class = "page-item">
-						<a href="javascript:go(${page - 1})"
-							class = "page-link ${page <= 1 ? 'gray' : '' }">
-							&lt;&lt;
-						</a>
-					</li>
-					<c:forEach var = "a" begin = "${startpage}" end = "${endpage}">
-						<li class = "page-item ${a == page ? 'active' : '' }">
-							<a href="javascript:go(${a})"
-								class = "page-link">${a}</a>
-						</li>
-					</c:forEach>
-					<li class = "page-item">
-						<a href="javascript:go(${page + 1})"
-							class = "page-link" ${page >= maxpage ? 'gray' : '' }">
-							&gt;&gt;
-						</a>
-					</li>
-				</ul>
-			</div>
+		<ul class = "pagination justify-content-center">
+			<li class = "page-item">
+				<a href="javascript:go(${page - 1})"
+					class = "page-link ${page <= 1 ? 'gray' : '' }">
+					&lt;&lt;
+				</a>
+			</li>
+			<c:forEach var = "a" begin = "${startpage}" end = "${endpage}">
+				<li class = "page-item ${a == page ? 'active' : '' }">
+					<a href="javascript:go(${a})"
+						class = "page-link">${a}</a>
+				</li>
+			</c:forEach>
+			<li class = "page-item">
+				<a href="javascript:go(${page + 1})"
+					class = "page-link" ${page >= maxpage ? 'gray' : '' }">
+					&gt;&gt;
+				</a>
+			</li>
+		</ul>
+	</div>
+	</c:if>
 </body>
 </html>

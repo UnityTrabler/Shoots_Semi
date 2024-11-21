@@ -4,16 +4,12 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
-
-import net.notice.db.NoticeBean;
-import net.post.db.PostBean;
 
 public class UserDAO {
 
@@ -136,10 +132,10 @@ public class UserDAO {
 				pstmt.setString(1, id);
 			try(ResultSet rs = pstmt.executeQuery();){
 				if(rs.next()) {
-					userBean.setIdx(rs.getString("idx"));
+					userBean.setIdx(rs.getInt("idx"));
 					userBean.setId(id);
 					userBean.setPassword(rs.getString("password"));
-					userBean.setIdx(rs.getString("name"));
+					userBean.setName(rs.getString("name"));
 					userBean.setRRN(Integer.parseInt(rs.getString("jumin")));
 					userBean.setGender(Integer.parseInt(rs.getString("gender")));
 					userBean.setTel(rs.getString("tel"));
@@ -263,7 +259,7 @@ public class UserDAO {
 			try (ResultSet rs = pstmt.executeQuery()) {
 				while (rs.next()) {
 					UserBean user = new UserBean();
-					user.setIdx(rs.getString("idx"));
+					user.setIdx(rs.getInt("idx"));
 					user.setId(rs.getString("user_id"));
 					user.setName(rs.getString("name"));
 					user.setEmail(rs.getString("email"));
@@ -307,7 +303,7 @@ public class UserDAO {
 			try (ResultSet rs = pstmt.executeQuery()) {
 				while (rs.next()) {
 					UserBean user = new UserBean();
-					user.setIdx(rs.getString("idx"));
+					user.setIdx(rs.getInt("idx"));
 					user.setId(rs.getString("user_id"));
 					user.setName(rs.getString("name"));
 					user.setEmail(rs.getString("email"));
@@ -408,7 +404,7 @@ public class UserDAO {
 				try (ResultSet rs = pstmt.executeQuery()){
 					while(rs.next()) {
 						UserBean ub = new UserBean();
-						ub.setIdx(rs.getString("idx"));
+						ub.setIdx(rs.getInt("idx"));
 						ub.setId(rs.getString("user_id"));
 						ub.setName(rs.getString("name"));
 						ub.setRRN(rs.getInt("jumin"));
@@ -499,5 +495,37 @@ public class UserDAO {
 		}
 		
 		return userBean;
+	}
+
+	public List<UserBean> getPlayerByMatchId(int match_id) {
+		String sql = """
+				select * from regular_user u
+				join payment p on u.idx = p.buyer
+				where p.match_id = ? and p.status = 'SUCCESS'
+				""";
+		List<UserBean> list = new ArrayList();
+		try (Connection con = ds.getConnection();
+				PreparedStatement pstmt = con.prepareStatement(sql);) {
+			pstmt.setInt(1, match_id);
+			try (ResultSet rs = pstmt.executeQuery()) {
+				while(rs.next()) {
+					UserBean user =  new UserBean();
+					user.setIdx(rs.getInt("idx"));
+					user.setUserfile(rs.getString("user_file"));
+					user.setId(rs.getString("user_id"));
+					user.setName(rs.getString("name"));
+					user.setTel(rs.getString("tel"));
+					user.setEmail(rs.getString("email"));
+					user.setMatchId(rs.getInt("match_id"));
+					user.setGender(rs.getInt("gender"));
+					
+					list.add(user);
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("getPlayerByMatchId() 에러 : " + e);
+		}
+		return list;
 	}
 }

@@ -1,7 +1,7 @@
 package net.user.db;
 
 public class UserBean {
-	private String idx;
+	private int idx;
 	private String id;
 	private String password;
 	private String name;
@@ -13,12 +13,18 @@ public class UserBean {
 	private String userfile;
 	private String register_date;
 	private String role;
+	private int matchId;
 	
-	
-	public String getIdx() {
+	public int getMatchId() {
+		return matchId;
+	}
+	public void setMatchId(int matchId) {
+		this.matchId = matchId;
+	}
+	public int getIdx() {
 		return idx;
 	}
-	public void setIdx(String idx) {
+	public void setIdx(int idx) {
 		this.idx = idx;
 	}
 	public String getRegister_date() {

@@ -1,5 +1,9 @@
 package net.match.db;
 
+import java.util.List;
+
+import net.user.db.UserBean;
+
 public class MatchBean {
 	private int match_id;
 	private int writer;
@@ -15,7 +19,14 @@ public class MatchBean {
 	private int playerCount;
 	private int total;
 	private boolean isMatchPast;
+	private List<UserBean> players;
 	
+	public List<UserBean> getPlayers() {
+		return players;
+	}
+	public void setPlayers(List<UserBean> players) {
+		this.players = players;
+	}
 	public boolean isMatchPast() {
 		return isMatchPast;
 	}
