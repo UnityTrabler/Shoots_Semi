@@ -39,23 +39,25 @@
 			
 			<%-- 파일첨부 --%>
 				<%-- 원문글인 경우에만 첨부파일을 추가 할 수 있습니다. --%> 
-			<tr>
+			<%-- 파일을 첨부하지 않은경우엔 아예 태그가 사라져 파일이 보일 칸이 사라짐 --%>
 				<%-- 파일을 첨부한 경우 --%>
 			<c:if test="${!empty postdata.post_file}">
+			<tr>
 				<td><img src="${pageContext.request.contextPath}/postupload/${postdata.post_file}" style= "width : 300px;"}>
 				<br><a href="down?filename=${postdata.post_file}">${postdata.post_file}</a>
+			</tr>
 			</c:if>
 			
-			<%-- 파일을 첨부하지 않은 경우 --%>
+			<%-- 파일을 첨부하지 않은 경우 
 			<c:if test="${empty postdata.post_file}">
 				<td></td>
-			</c:if> <%-- </c:if> --%>
-			</tr>
+			</c:if>  </c:if> --%>
+			
 			
 			<%-- 내용 --%>
 			<tr>
-				<td style="padding-right: 0px">
-						<br><c:out value="${postdata.content}" />
+				<td style="padding-right: 0px";  white-space: pre-wrap;">
+						<c:out value="${postdata.content}" />
 				</td>
 			</tr>
 			
@@ -135,7 +137,10 @@
 	<script>
 	
 	
-		
+	postdata.setContent(postdata.getContent().replace("\n", "<br>"));
+	
+	
+	
 		
 		$(function(){
 			$('#delete-post-btn').click(function(){
