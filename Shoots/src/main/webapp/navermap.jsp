@@ -115,7 +115,7 @@ function searchAddressToCoordinate(address) {
 
         map.setCenter(point);
         infoWindow.open(map, point);
-    });
+    });//naver.maps.Service.geocode
 }//searchAddressToCoordinate
 
 function initGeocoder() {
