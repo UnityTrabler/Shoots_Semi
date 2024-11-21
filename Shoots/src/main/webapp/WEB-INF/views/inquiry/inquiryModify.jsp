@@ -10,13 +10,7 @@
 <jsp:include page = "/WEB-INF/views/user/top.jsp"/>
 	<script src="${pageContext.request.contextPath}/js/inquiryJs/inquirymodifyform.js"></script>
 	<script src="${pageContext.request.contextPath }/js/jquery-3.7.1.js"></script>
-	<style>
-	h1{font-size:1.5rem;  text-align:center; color:#1a92b9}
-	.container{width:60%;}
-	label{font-weight:bold;}
-	#upfile{display:none}
-	img{width:20px;}
-	</style>	
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/css/inquiryWrite.css">
 </head>
 <body>
 	<div class="container">
@@ -45,7 +39,7 @@
 			 <div class="form-group">
 				<label>
 					파일첨부
-					<img src="${pageContext.request.contextPath }/img/attach.png" alt="파일첨부" width="20px">
+					<img src="${pageContext.request.contextPath }/img/attach.png" alt="파일첨부">
 					<input type="file" id="upfile" name="inquiry_file">
 				</label>
 				<span id="filevalue">${inquirydata.inquiry_file}</span>

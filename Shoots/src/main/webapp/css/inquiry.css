@@ -1,4 +1,5 @@
-.container{min-width : 1200px;}
+.container {border: 1.5px solid #059669; border-radius : 30px; width : 50%; margin : 0 auto; padding : 40px}
+
 .table{width : 100%; margin : 0 auto}
 
 .inquiryDetail {text-decoration: none; color : black; }
@@ -17,3 +18,12 @@ th:nth-child(6), th:nth-child(6){
 td:nth-child(6), td:nth-child(6){
 	text-align:center;
 }
+
+table caption {
+	caption-side: top;
+	font-size : 30px;
+	font-weight: bold;
+	color : black;
+}
+
+textarea {resize:none; width:35%;}

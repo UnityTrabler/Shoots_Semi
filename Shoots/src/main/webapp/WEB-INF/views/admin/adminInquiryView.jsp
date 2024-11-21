@@ -19,13 +19,11 @@
 	<%--view.js에서 사용하기 위해 추가 --%>
 	<div class="container">
 		<table class="table">
-				<tr>
-					<th colspan="3" style="text-align:center">1:1 문의 게시판</th>
-				</tr>
+				<caption>1:1 문의 게시판 </caption>
 				
 					<%--문의글 제목 --%>
 				<tr>
-					<th colspan="3">&nbsp<c:out value = "${inquirydata.title}"/></th>
+					<th colspan="3" style="font-size:20px"><c:out value = "${inquirydata.title}"/></th>
 				</tr>
 				<tr>
 					<td><div>문의자: 

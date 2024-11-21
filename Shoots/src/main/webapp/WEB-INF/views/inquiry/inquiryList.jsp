@@ -6,26 +6,21 @@
 <html>
 <head>
 <meta charset="EUC-KR">
-<link rel="stylesheet"	href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/inquiry.css">
 <script src="${pageContext.request.contextPath}/js/jquery-3.7.1.js"></script>
-<script src="${pageContext.request.contextPath}/js/inquiryJs/inquirylist.js"></script>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/inquiryList.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/inquiry.css">
 
 
 <title>문의 게시판</title>
 </head>
 <body>
-	
 		<%--게시글이 있는 경우 --%>
 		<c:if test="${listcount > 0 }">
 			
-			<table class="table table-striped">
+			<table class="table">
+				<caption>1:1 문의 게시판 
+				<span style="font-size:18px; float:right">글 개수 : ${listcount}</span>
+				</caption>
 				<thead>
-					<tr>
-						<th colspan="3">1:1 문의 게시판</th>
-						<th colspan="2"><span>글 개수 : ${listcount}</span></th>
-					</tr>
 					<tr>
 						<th><div>번호</div></th>
 						<th><div>문의 제목</div></th>
@@ -45,7 +40,7 @@
 							<td>
 								<%--제목 --%>
 								<div>
-									<a href="../inquiry/detail?inquiryid=${i.inquiry_id}"> 
+									<a class="inquiryDetail" href="../inquiry/detail?inquiryid=${i.inquiry_id}"> 
 										<c:if test="${i.title.length()>=20 }">
 											<c:out value="${i.title.substring(0,20 )}..." />
 										</c:if> 
@@ -123,8 +118,10 @@
 		<c:if test="${listcount == 0 }">
 			<h3 style="text-align: center">아직 문의주신 사항이 없습니다.</h3>
 		</c:if>
-
-		<button type="button" class="btn btn-info float-right">문의하기</button>
+			
+		<%--문의하기 버튼 누르면 글쓰기 페이지로 이동 --%>
+		<a href="../inquiry/write"><button type="button" class="btn btn-success float-right">문의하기</button></a>
 
 </body>
+
 </html>

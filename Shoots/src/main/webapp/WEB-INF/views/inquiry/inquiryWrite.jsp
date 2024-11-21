@@ -6,15 +6,9 @@
 <head>
 	<script src="${pageContext.request.contextPath }/js/jquery-3.7.1.js"></script>
 	<script src="${pageContext.request.contextPath}/js/inquiryJs/inquirywriteform.js"></script>
-	<style>
-	h1{font-size:1.5rem;  text-align:left; color:#1a92b9}
-	.container{width:60%;}
-	label{font-weight:bold;}
-	#upfile{display:none}
-	img{width:20px;}
-	</style>	
 <jsp:include page = "/WEB-INF/views/user/top.jsp"/>
-<title>1:1 문의글 쓰기</title>
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/css/inquiryWrite.css">
+<title>1:1 문의글 쓰기</title>	
 </head>
 <body>
 	<div class="container">
@@ -39,16 +33,15 @@
 				</c:choose>
 			</div>
 			
-			<br>
 			<div class="form-group">
 				<label for ="board_subject">문의 제목</label>
 				<input name="title" id ="title" maxlength="100" 
-				type="text" class="form-control" placeholder="Enter board_subject">
+				type="text" class="form-control" placeholder="제목을 입력해 주세요">
 			</div>
 			
 			<%--문의 내용 --%>
 			<div class="form-group">
-				<textarea name="content" id ="content"  rows="10"
+				<textarea name="content" id ="content"  rows="10" placeholder="내용을 입력해 주세요"
 				class="form-control"></textarea>
 			</div>
 			
@@ -64,8 +57,8 @@
 			 </div>
 			
 			<div class="form-group">
-				<button type="submit" class="btn btn-primary">등록</button>
-				<button type="button" class="btn btn-danger">취소</button>
+				<button type="submit" class="btn btn-primary registerBtn">문의 접수</button>
+				<button type="button" class="btn btn-danger cancelBtn">취소</button>
 			</div>
 		</form>
 	</div>
