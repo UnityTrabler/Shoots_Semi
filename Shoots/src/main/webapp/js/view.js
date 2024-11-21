@@ -69,6 +69,8 @@ function getList(state) {
                     <div class='comment-text-box'>
                         <p class='comment-text-view'>
                             <span class='text-comment'>${Comment.content}</span>
+                            <button class ="btn-light commentReportButton" data-toggle="modal" 
+                            data-target=".c-report-modal" style ="color:red; border:none">☎</button>
                         </p>
                     </div>
                     <div class='comment-info-box'>
