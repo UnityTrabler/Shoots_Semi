@@ -84,29 +84,17 @@
   
   
 	<%-- 원문글인 경우에만 파일 첨부 수정 가능합니다. --%>
-	<%--  <c:if test="${postdata.board_re_lev==0}"> --%>
   	<div class="form-group">
   		<label>파일첨부
-  		 <img src="${pageContext.request.contextPath}/img/attach.png" alt="파일첨부" width="20px"> 
+  		 <img src="${pageContext.request.contextPath}/img/attach.png" alt="파일첨부"> 
   		 <input type="file" id="upfile" name="post_file">
   		</label>
   		<span id="filevalue">${postdata.post_file}</span> <!-- 기존 파일명 출력 -->
   		<img src="${pageContext.request.contextPath}/img/remove.png"
   			 alt="파일삭제" width="10px" class="remove">
   	</div>
-  	<%-- </c:if> --%>
 
 
-  	<%-- 
-  	
-  	<div class="form-group">
-  		<label for="post_pass">비밀번호</label>
-  		<input name="post_pass" 
-  				id="post_pass" type="password" size="10" maxlength="30"
-  				class="form-control" placeholder="Enter password">
-  	</div>
-  	
-  	--%>
   	
   	
   	<div class="form-group">

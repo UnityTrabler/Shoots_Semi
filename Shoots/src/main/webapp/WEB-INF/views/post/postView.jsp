@@ -11,11 +11,7 @@
 <script src="${pageContext.request.contextPath}/js/view.js"></script>
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 	<script src = "https://code.jquery.com/jquery-3.7.1.js"></script>
-	<script>
-		$(function() {
-			alert(`/${postdata.post_id}`);
-		});
-	</script>
+	
 </head>
 <body>
 <input type="hidden" id="loginid" value="${id}" name="loginid"> <!-- 수정 삭제 버튼 보이게 하려고 현재 로그인 한 유저의 id값을 받아놓음 -->
@@ -28,65 +24,65 @@
 		<table class="table">
 			<!-- 게시글 정보 표시 -->
 			<tr>
-				<th colspan="2">view페이지</th>
-			</tr>
-			<tr>
-				<td><div>작성자</div></td>
-				<td><div>${postdata.user_id}</div></td> <!-- postdata.writer >> id -->
-			</tr>
-			<tr>
-				<td><div>제목</div></td>
-				<td><c:out value="${postdata.title}" /></td>
-				<td><jsp:include page="/WEB-INF/views/report/postReport.jsp" /></td>
-			</tr>
-			<tr>
-				<td><div>내용</div></td>
-				<td style="padding-right: 0px">
-					<textarea class="form-control" rows="5" readOnly>
-						${postdata.content}
-					</textarea>
+				<!-- 글제목, 아래줄에 작성자, 글작성시간, 조회수 -->
+				<td colspan="2"><div class="title"><c:out value="${postdata.title}" />
+				
+				</div>
+				<span class= "user_id">${postdata.user_id}</span>
+				<span class= "register_date" style="margin-left: 30px;">${postdata.register_date}</span>
+				<span class= "readcount" style="margin-left: 30px;">조회수&nbsp; ${postdata.readcount}</span>
+				
+				<div style="float:right"><jsp:include page="/WEB-INF/views/report/postReport.jsp" /></div>
 				</td>
 			</tr>
-			<!-- 중고게시판은 가격 -->
-			<c:if test="${postdata.category=='B'}">
-			<tr>
-			<td><div>가격</div></td>
-				<td><c:out value="${postdata.price}" />원</td>
-				
-			</tr>
-			</c:if>
 			
-		<%-- <c:if test="${boarddata.board_re_lev==0}">
+			
+			<%-- 파일첨부 --%>
 				<%-- 원문글인 경우에만 첨부파일을 추가 할 수 있습니다. --%> 
 			<tr>
-				<td><div>첨부파일</div></td>
-					
 				<%-- 파일을 첨부한 경우 --%>
 			<c:if test="${!empty postdata.post_file}">
 				<td><img src="${pageContext.request.contextPath}/postupload/${postdata.post_file}" style= "width : 300px;"}>
-				<a href="down?filename=${postdata.post_file}">${postdata.post_file}</a>
+				<br><a href="down?filename=${postdata.post_file}">${postdata.post_file}</a>
 			</c:if>
 			
 			<%-- 파일을 첨부하지 않은 경우 --%>
 			<c:if test="${empty postdata.post_file}">
 				<td></td>
-			</c:if>
+			</c:if> <%-- </c:if> --%>
 			</tr>
-			<%-- </c:if> --%>
+			
+			<%-- 내용 --%>
+			<tr>
+				<td style="padding-right: 0px">
+						<br><c:out value="${postdata.content}" />
+				</td>
+			</tr>
+			
+			
+			<!-- 중고게시판은 가격 -->
+			<c:if test="${postdata.category=='B'}">
+			<tr>
+				<td>가격: &nbsp; <c:out value="${postdata.price}" />원</td>
+				
+			</tr>
+			</c:if>
+			
+			
 			
 			<tr>
 				<td colspan="2" class="center">
 				<%--수정, 삭제 버튼은 로그인 한 유저의 아이디 = 글 작성자 일때 혹은 id가 관리자 일때만 보이게 함 --%>
 					 <c:if test="${postdata.writer == idx || id == 'admin' }"> 
 						<a href="modify?num=${postdata.post_id}">
-							<button class="btn btn-info">수정</button>
+							<button class="modifyBtn">수정</button>
 						</a>
 						<%-- href의 주소를 #으로 설정합니다.<a href="#">--%>
-							<button class="btn btn-danger" id="delete-post-btn">삭제</button>
+							<button class="deleteBtn" id="delete-post-btn">삭제</button>
 						<%--</a>--%>
 					 </c:if> 
 					<a href="list">
-						<button class="btn btn-warning">목록</button>
+						<button class="listBtn">목록</button>
 					</a>
 				</td>
 			</tr>

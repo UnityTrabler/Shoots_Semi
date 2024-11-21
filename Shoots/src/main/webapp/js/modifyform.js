@@ -49,7 +49,7 @@ $(document).ready(function(){
 
         // AJAX를 통해 폼 데이터 전송
         $.ajax({
-            url: 'modifyProcess',  // 서버에 데이터 전송할 URL
+            url: 'postModify',  // 서버에 데이터 전송할 URL
             type: 'POST',
             data: formData,
             contentType: false, // 파일 전송시 반드시 false로 설정

@@ -117,7 +117,7 @@ public class CommentDAO {
 			    from post_comment co join regular_user r 
 			    on co.writer = r.idx
 	            where post_id = ?
-	            order by comment_ref_id %s, comment_id asc
+	            order by comment_id %s, comment_ref_id asc
 	            """.formatted(state == 1 ? "asc" : "desc");
 		//.formatted(state == 1 ? "asc" : "desc"); // 등록순, 최신순 정렬 조건
 					
@@ -146,7 +146,7 @@ public class CommentDAO {
 						object.addProperty("comment_id", rs.getInt(1));
 						object.addProperty("post_id", rs.getInt(2));
 						object.addProperty("comment_ref_id", rs.getInt(3));
-						System.err.println("get :  + + + + + + +"  + object.get("comment_ref_id"));
+						//System.err.println("get :  + + + + + + +"  + object.get("comment_ref_id"));
 						object.addProperty("writer", rs.getInt(4));
 						object.addProperty("content", rs.getString(5));
 						object.addProperty("register_date", rs.getString(6));
