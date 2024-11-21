@@ -15,16 +15,16 @@
 <title>신고창</title>
 </head>
 <body>
-<button class ="btn-light postReportButton" data-toggle="modal" data-target=".report-modal"
+<button class ="btn-light commentReportButton" data-toggle="modal" data-target=".c-report-modal"
 style ="border:none">···</button>
 
 	<!-- 모달창 시작-->		
-<div class="modal report-modal fade" style="display:none">
+<div class="modal c-report-modal fade" style="display:none">
 	 <div class="modal-dialog" role="document">
         <div class="modal-content"> <!-- 모달 내용으로 포함시킬 부분 -->
         
         <form action ="${pageContext.request.contextPath}/report/add" method="post" name="reportform" id="reportform">
-        	<h1 style="text-align:center;">게시글 신고</h1>
+        	<h1 style="text-align:center;">댓글 신고</h1>
         	<br>
         	<input type="hidden" name="report_type" id ="report_type" value="B"> <!-- 신고유형 분류, 게시글은 A, 숨겨둠. -->
         	<input type="hidden" name="reporter" id="reporter" value="${idx}"> <!-- 신고자, 로그인 한 아이디로 가져옴. 회원 번호(idx)로 저장 -->

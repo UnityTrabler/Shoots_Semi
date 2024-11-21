@@ -55,7 +55,7 @@ public class InquiryAddAction implements Action {
 				 System.out.println("문의글이 게시되었습니다.");
 				 //글 등록이 완료되면 글 목록을 보여주기 위해 "boards/list"로 이동함.
 				 forward.setRedirect(true);
-				 forward.setPath("list"); //이동할 경로 지정.
+				 forward.setPath("../customer/support"); //이동할 경로 지정.
 			 }
 			 return forward;
 		} catch (Exception e) {
