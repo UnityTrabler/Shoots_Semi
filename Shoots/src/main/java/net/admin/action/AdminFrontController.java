@@ -56,13 +56,22 @@ public class AdminFrontController extends HttpServlet{
 			case "/businesslist":
 				action = new AdminBusinessListAction();
 				break;
-			case "/businessUserApproval" :
-				action = new AdminbusinessUserApprovalAction();
+			case "/businessapprove":
+				action = new AdminBusinessApprovalAction();
+				break;
+			case "/postlist":
+				action = new AdminPostListAction();
+				break;
+			case "/approve":
+				action = new AdminApproveAction();
+				break;
+			case "/refuse":
+				action = new AdminRefuseAction();
 				break;
 			default:
-					RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB_INF/views/error/error404.jsp");
-					dispatcher.forward(request, response);
-					return;
+				RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB_INF/views/error/error404.jsp");
+				dispatcher.forward(request, response);
+				return;
 		}
 		
 		forward = action.execute(request, response);
@@ -75,17 +84,17 @@ public class AdminFrontController extends HttpServlet{
 				dispatcher.forward(request, response);
 			}
 		}
-		}
+	}
 		
-		protected void doGet(HttpServletRequest request,
-				HttpServletResponse response) throws ServletException, IOException {
-			doProcess(request, response);
-		}
+	protected void doGet(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
+		doProcess(request, response);
+	}
 		
-		protected void doPost(HttpServletRequest request, 
-		HttpServletResponse response) throws ServletException, IOException  {
-			doProcess(request, response);
+	protected void doPost(HttpServletRequest request, 
+	HttpServletResponse response) throws ServletException, IOException  {
+		doProcess(request, response);
 		
-		}
+	}
 
 }

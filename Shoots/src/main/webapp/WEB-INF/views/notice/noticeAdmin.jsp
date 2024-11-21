@@ -10,7 +10,6 @@
 <head>
  <script src="${pageContext.request.contextPath}/js/jquery-3.7.1.js"></script>
  <link rel = "stylesheet" href = "${pageContext.request.contextPath}/css/noticeList.css" type = "text/css">
- <link rel = "stylesheet" href = "${pageContext.request.contextPath}/css/pagination.css" type = "text/css">
 
 <title>공지사항 관리(관리자 모드)</title>
 

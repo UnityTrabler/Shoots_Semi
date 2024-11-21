@@ -6,7 +6,7 @@
 <jsp:include page="../user/top.jsp"></jsp:include>
 <title>고객센터</title>
 <link rel = "stylesheet" href = "${pageContext.request.contextPath}/css/customerSupport.css" type = "text/css">
-
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/pagination.css" type="text/css">
 <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
 </head>
 <body>
