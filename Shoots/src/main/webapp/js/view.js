@@ -55,6 +55,7 @@ function getList(state) {
             </div>` : '';
 
 		//답글은 ref_id가 null이 아니니까 출력하면 안되지
+		// 댓글 처리
         output += (Comment.comment_ref_id !== 0) ? '' : `
         <li id='${Comment.comment_id}' class='comment-list-item ${replyClass}'>
             <div class='comment-nick-area'>
@@ -83,7 +84,42 @@ function getList(state) {
         rdata.commentlist.forEach(childComment => {
             if (childComment.comment_ref_id === Comment.comment_id) {
                 let childSrc = childComment.user_file ? `../userupload/${childComment.user_file}` : '../img/profile.png';
-
+                
+                /*
+                정규식 /(@[\w\u00C0-\u017F]+)/g:
+				@: '@' 기호를 탐지.
+				[\w\u00C0-\u017F]+: 단어 문자(\w)와 유니코드 문자 범위(\u00C0-\u017F, 라틴 문자를 포함)로 구성된 문자열. 이는 다양한 언어의 사용자 이름을 지원하기 위함.
+				+: 이름이 하나 이상의 문자로 이루어진 경우에만 매칭.
+				g: 전역 플래그로 문자열 전체에서 모든 일치를 탐색.
+				<span class='mention'>$1</span>:
+				$1: 정규식에서 매칭된 첫 번째 캡처 그룹((@[\w\u00C0-\u017F]+)).
+				<span class='mention'>: HTML 태그를 추가하여 스타일 지정 가능.
+				\u4e00-\u9fff: 중국어, 일본어, 한자의 유니코드 범위.
+				\uac00-\ud7af: 한글 음절의 유니코드 범위..: 점을 포함하도록 추가.
+				\w: 영문자, 숫자, 밑줄을 포함한 단어 문자를 찾습니다.
+				\u00C0-\u017F: 라틴 문자를 포함한 유니코드 범위 (유럽 언어 지원).
+				-: 하이픈을 포함하도록 추가.
+                */
+                 // @parentUsername 부분을 파란색으로 스타일링
+        let formattedContent = childComment.content.replace(/(@[\w\u00C0-\u017F\uac00-\ud7af\u4e00-\u9fff.-]+)/g, "<span class='mention'>$1</span>");
+        
+        
+                // 답글의 더보기 버튼 및 수정/삭제 버튼 처리
+        let childToolButtons = $("#loginid").val() == childComment.user_id ? ` 
+            <div class='comment-tool'>
+                <div title='더보기' class='comment-tool-button'> 
+                    <div>&#46;&#46;&#46;</div>
+                </div>
+                <div id='comment-list-item-layer${childComment.comment_id}' class='LayerMore'>
+                    <ul class='layer-list'>
+                        <li class='layer-item'>
+                            <a href='javascript:updateForm(${childComment.comment_id})' class='layer-button'>수정</a>
+                            <a href='javascript:del(${childComment.comment_id})' class='layer-button'>삭제</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>` : '';
+                
                 output += `
                 <li id='${childComment.comment_id}' class='comment-list-item comment-list-item--reply'>
                     <div class='comment-nick-area'>
@@ -96,12 +132,13 @@ function getList(state) {
                             </div>
                             <div class='comment-text-box'>
                                 <p class='comment-text-view'>
-                                    <span class='text-comment'>${childComment.content}</span>
+                                    <span class='text-comment'>${formattedContent}</span>
                                 </p>
                             </div>
                             <div class='comment-info-box'>
                                 <span class='comment-info-date'>${childComment.register_date}</span>
                             </div>
+                            ${childToolButtons}
                         </div>
                     </div>
                 </li>`;
@@ -142,6 +179,8 @@ function updateForm(comment_id) {
 }
 
 
+
+
  //더보기 -> 삭제 클릭한 경우 실행하는 함수
 function del(comment_id) {//num : 댓글 번호
   if (!confirm('정말 삭제하시겠습니까?')) {
@@ -162,10 +201,15 @@ function del(comment_id) {//num : 댓글 번호
 
 
 //답글 달기 폼
-function replyform(comment_id, comment_ref_id) {
+function replyform(comment_id) {
   //수정 삭제 영역 선택 후 답글쓰기를 클릭한 경우
   $(".LayerMore").hide(); // 수정 삭제 영역 숨김
+  
   let $comment_id = $('#' + comment_id);
+  
+  // 부모 댓글의 작성자 이름 가져오기
+  const parentUsername = $comment_id.find('.comment-nickname').text();
+  
   //선택한 글 뒤에 답글 폼을 추가합니다.
   $comment_id.after(`<li class="comment-list-item comment-list-item--reply"></li>`);
   
@@ -175,14 +219,17 @@ function replyform(comment_id, comment_ref_id) {
   //복사한 폼을 답글 영역에 추가
   let $comment_id_next = $comment_id.next().html(replyForm);
   
-  // 답글 폼의 <textarea>에 '답글을 남겨보세요' placeholder 설정
-  $comment_id_next.find('textarea').attr('placeholder', '답글을 남겨보세요');
+  // 답글 폼의 <textarea>에 '답글을 남겨보세요' placeholder 설정 및 @작성자 입력
+  $comment_id_next.find('textarea')
+						  .attr('placeholder', '답글을 남겨보세요')
+						  .val(`@${parentUsername} `)
+						  .focus(); // 포커스를 텍스트 영역으로 이동
   
   //답글 폼의 'btn-cancel'을 보여주고 클래스 'reply-cancel'를 추가합니다.
   $comment_id_next.find('.btn-cancel').show().addClass('reply-cancel');
   
   //답글 폼의 '.btn-register'에 클래스 'reply' 추가합니다.
-  //속성 'data-ref'에 ref, 'data-lev'에 lev, 'data-seq'에 seq값을 설정합니다.
+  // 속성 'data-ref'에 부모 댓글 ID를 설정합니다.
   //등록을 답글 완료로 변경합니다.
   $comment_id_next.find('.btn-register')
            .addClass('reply')
@@ -233,17 +280,18 @@ $(function() {
   }); // $('ul + .comment-write .btn-register').click(function() {
 
 
-  // 더보기를 클릭한 경우
+  // 더보기를 클릭한 경우 (댓글 및 답글 공통 처리)
 	$(".comment-list").on('click', '.comment-tool-button', function() {
 		//더보기를 클릭하면 수정과 삭제 영역이 나타나고 다시 클릭하면 사라져요
 		$(this).next().toggle();
 		
 		//클릭 한 곳만 수정 삭제 영역이 나타나도록 합니다.
+		// 다른 모든 "더보기" 버튼의 수정/삭제 영역을 숨김
 		$(".comment-tool-button").not(this).next().hide();
 	})
     
     
-    // 수정 후 수정완료를 클릭한 경우
+    // 수정 후 수정완료를 클릭한 경우 (댓글 및 답글 공통 처리)
 	$('.comment-area').on('click','.update',function(){
 		const content = $(this).parent().parent().find('textarea').val();
 		if(!content){ //내용없이 등록 클릭한 경우
@@ -335,3 +383,7 @@ $(function() {
   
   
 });
+
+
+
+
