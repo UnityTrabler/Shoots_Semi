@@ -19,26 +19,41 @@
 		</div>
 	</c:if>
 	<c:if test = "${!empty list}">
-		<c:forEach var="inquiry" items="${list}">
-			<table class = "table">
-				<thead>
+		<table class = "table">
+			<thead>
+				<tr>
+					<th> 문의자 유형 </th>
+					<th> 문의 제목 </th>	
+					<th> 문의자 </th>	
+					<th> 문의 날짜 </th>
+				</tr>
+			</thead>
+			<tbody>
+				<c:forEach var="inquiry" items="${list}">
 					<tr>
-						<th> 문의자 유형 </th>
-						<th> 문의 제목 </th>	
-						<th> 문의자 </th>	
-						<th> 문의 날짜 </th>
+						<td>
+							<c:choose>
+								<c:when test = "${inquiry.inquiry_type == 'A'}">
+									<span> 개인문의 </span>
+								</c:when>
+							</c:choose>
+						</td>
+						<td>
+							<c:choose>
+								<c:when test = "${inquiry.title.length() > 10}">
+									<a href = "../inquiry/detail?inquiryid=${inquiry.inquiry_id}">${inquiry.title.substring(0,10)} ...</a>
+								</c:when>
+								<c:when test = "${inquiry.title.length() <= 10}">
+									<a href = "../inquiry/detail?inquiryid=${inquiry.inquiry_id}">${inquiry.title}</a>
+								</c:when>
+							</c:choose>
+						</td>
+						<td> ${inquiry.user_id} </td>
+						<td> ${inquiry.register_date.substring(0, 10)} </td>
 					</tr>
-				</thead>
-				<tbody>
-					<tr>
-						<td> ${inquiry.inquiry_type} </td>
-						<td> ${inquiry.title} </td>
-						<td> ${inquiry.writer} </td>
-						<td> ${inquiry.register_date} </td>
-					</tr>
-				</tbody>
-			</table>
-		</c:forEach>
+				</c:forEach>
+			</tbody>
+		</table>
 		
 		<div class = "center-block">
 		<ul class = "pagination justify-content-center">

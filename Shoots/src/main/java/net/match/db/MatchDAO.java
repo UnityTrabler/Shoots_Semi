@@ -385,4 +385,31 @@ public class MatchDAO {
 		}
 		return list;
 	}
+
+	public MatchBean getMatchById(int match_id) {
+		String sql = """
+				select * from match_post where match_id = ?
+				""";
+		MatchBean match = null;
+		try (Connection con = ds.getConnection();
+				PreparedStatement pstmt = con.prepareStatement(sql)) {
+			pstmt.setInt(1, match_id);
+			try (ResultSet rs = pstmt.executeQuery()) {
+				if (rs.next()) {
+					match = new MatchBean();
+					match.setMatch_id(rs.getInt("match_id"));
+					match.setMatch_date(rs.getString("match_date"));
+					match.setMatch_time(rs.getString("match_time"));
+					match.setPlayer_max(rs.getInt("player_max"));
+					match.setPlayer_min(rs.getInt("player_min"));
+					match.setPlayer_gender(rs.getString("player_gender"));
+					match.setPrice(rs.getInt("price"));
+				}
+			} 
+		} catch (Exception  e) {
+			e.printStackTrace();
+			System.out.println("getMatchListById() 에러 :  " + e);
+		}
+		return match;
+	}
 }
