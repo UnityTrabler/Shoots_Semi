@@ -29,7 +29,7 @@ public class UserInquiryAction implements Action {
 		System.out.println("로그인 = " + idx);
 		
 		int page = 1;
-		int limit = 12;
+		int limit = 10;
 		
 		if (req.getParameter("page") != null) {
 			page = Integer.parseInt(req.getParameter("page"));
@@ -41,9 +41,10 @@ public class UserInquiryAction implements Action {
 		}
 		System.out.println("넘어온 limit = " + limit);
 		
-		int listcount = dao.getListCount("A", idx);
+		String usertype = "A";
+		int listcount = dao.getListCount(usertype, idx);
 		
-		List<InquiryBean> list = dao.getInquiryList(idx, page, limit, "A");
+		List<InquiryBean> list = dao.getInquiryList(page, limit, idx, usertype);
 		
 		int maxpage = (listcount + limit - 1) / limit;
 		System.out.println("총 페이지수 = " + maxpage);
@@ -58,7 +59,7 @@ public class UserInquiryAction implements Action {
 		
 		System.out.println("현재 페이지에 보여줄 마지막 페이지 수 : " + endpage);
 		String state = req.getParameter("state");
-		
+				
 		if (state == null) {
 			System.out.println("state == null");
 			

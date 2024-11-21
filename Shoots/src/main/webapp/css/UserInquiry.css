@@ -1,3 +1,14 @@
 @charset "EUC-KR";
 
 .nm {text-align : center; color : #be123c; margin-top : 150px}
+
+.table {width : 80%}
+
+th:nth-child(1) {width : 20%}
+th:nth-child(2) {width : 25%}
+th:nth-child(3) {width : 15%}
+th:nth-child(4) {width : 20%}
+
+
+a {text-decoration: none; color : black}
+a:hover {text-decoration: none; font-weight : bold; color : #059669}

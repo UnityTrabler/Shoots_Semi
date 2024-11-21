@@ -33,7 +33,15 @@
 						</c:choose>
 						&nbsp;
 						<c:if test = "${player.idx != idx}">
-							<input type = "button" class = "reportBtn" name = "report" value = "신고">
+							<c:choose>
+								<c:when test = "${isReport}">
+									<input type = "button" class = "reportBtn" name = "report" value = "신고">
+								</c:when>
+								<c:when test = "${! isReport}">
+									<input type = "button" class = "NreportBtn" name = "report" value = "신고" disabled>
+									<span class = "NreportP"> 신고기간이 아닙니다 </span>
+								</c:when>
+							</c:choose>
 						</c:if>
 					</p>
 					<p><img class = "ip" src = "${pageContext.request.contextPath}/img/tel.png"> ${player.tel.substring(0, 3)}-****-${player.tel.substring(7)} &nbsp; | &nbsp; 

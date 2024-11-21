@@ -38,13 +38,13 @@
 							<td>
 								<c:choose>
 									<c:when test="${match.isMatchPast() && match.playerCount >= match.player_min}">
-							            <input type="button" class="status5" value="매칭확정">
+							            <input type="button" class="status5" value="매칭확정" disabled>
 							        </c:when>
 									 <c:when test="${match.isMatchPast()}">
-								        <input type="button" class="status4" value="마감">
+								        <input type="button" class="status4" value="마감" disabled>
 								    </c:when>
 								    <c:when test="${match.playerCount == match.player_max}">
-						                <input type="button" class="status2" value="마감">
+						                <input type="button" class="status2" value="마감" disabled>
 						            </c:when>
 								    <c:when test="${match.playerCount >= match.player_min && match.playerCount < match.player_max}">
 							        	<input type="button" class="status3" data-match-id="${match.match_id}" value="마감임박">
@@ -69,7 +69,7 @@
         <div class="modal-content">
             <div class = "modalBD"><input type = "button" value = "X" onclick="closeModal()" class = "modalX"></div>
             <div id="modalContent">
-				<p> 함께 한 플레이어 </p>
+				<p class = "cP2"> 함께한 플레이어 </p>
 				<div id="playersList">
 				</div>
             </div>
