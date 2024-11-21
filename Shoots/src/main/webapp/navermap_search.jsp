@@ -10,21 +10,28 @@
     <!-- ncpClientId는 등록 환경에 따라 일반(ncpClientId), 공공(govClientId), 금융(finClientId)으로 나뉩니다. 사용하는 환경에 따라 키 이름을 변경하여 사용하세요. 참고: clientId(네이버 개발자 센터)는 지원 종료 -->
     <script type="text/javascript" src="https://oapi.map.naver.com/openapi/v3/maps.js?ncpClientId=83bfuniegk&submodules=geocoder"></script>
     <link rel="stylesheet" type="text/css" href="../../docs/css/examples-base.css" />
-    
-    <style type="text/css">
+</head>
+<body>
+
+<!-- @category Geocoder -->
+
+<style type="text/css">
 .search { position:absolute;z-index:1000;top:20px;left:20px; }
 .search #address { width:150px;height:20px;line-height:20px;border:solid 1px #555;padding:5px;font-size:12px;box-sizing:content-box; }
 .search #submit { height:30px;line-height:30px;padding:0 10px;font-size:12px;border:solid 1px #555;border-radius:3px;cursor:pointer;box-sizing:content-box; }
 </style>
-</head>
-<body class="container">
+
 <div id="wrap" class="section">
+    <h2>주소와 좌표 검색 API 사용하기</h2>
+    <p>Geocoder 서브 모듈의 Service 객체를 사용하여 주소로 좌표를 검색하거나(Geocode) 좌표로 주소를 검색하는(Reversegeocode) 예제입니다.<br />
+    입력 창에 주소를 입력하여 검색하면 해당 주소의 좌표로 이동하며, 지도를 클릭하면 해당 지점의 경위도 좌표로 주소를 검색합니다.</p>
     <div id="map" style="width:100%;height:600px;">
         <div class="search" style="">
             <input id="address" type="text" placeholder="검색할 주소" value="불정로 6" />
             <input id="submit" type="button" value="주소 검색" />
         </div>
     </div>
+    <code id="snippet" class="snippet"></code>
 </div>
 
 <script id="code">
@@ -76,7 +83,7 @@ function searchCoordinateToAddress(latlng) {
 
         infoWindow.open(map, latlng);
     });
-}//searchCoordinateToAddress
+}
 
 function searchAddressToCoordinate(address) {
     naver.maps.Service.geocode({
@@ -115,8 +122,8 @@ function searchAddressToCoordinate(address) {
 
         map.setCenter(point);
         infoWindow.open(map, point);
-    });//naver.maps.Service.geocode
-}//searchAddressToCoordinate
+    });
+}
 
 function initGeocoder() {
     map.addListener('click', function(e) {
