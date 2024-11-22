@@ -1,5 +1,6 @@
 package net.inquiry.action;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 
@@ -57,6 +58,30 @@ public class InquiryModifyProcessAction implements Action {
 			String filename = multi.getFilesystemName("inquiry_file");
 			inquirydata.setInquiry_file(filename);
 		}
+		
+		
+		// 기존 첨부파일 처리: 새 파일이 업로드되지 않으면 기존 파일을 유지
+        String newFileName = multi.getFilesystemName("inquiry_file");  // 새로 업로드된 파일명
+        String existingFile = multi.getParameter("existing_file"); // 기존 파일명
+        String removeFileFlag = multi.getParameter("remove_file"); // 파일 삭제 플래그
+
+        // 파일 삭제 여부 확인
+        if (removeFileFlag != null && removeFileFlag.equals("true")) {
+            // 삭제할 파일이 있으면 서버에서 파일 삭제
+            if (existingFile != null && !existingFile.isEmpty()) {
+                File fileToDelete = new File(realFolder + "/" + existingFile);
+                if (fileToDelete.exists()) {
+                    fileToDelete.delete(); // 서버에서 파일 삭제
+                }
+            }
+            inquirydata.setInquiry_file(null); // 파일 정보도 삭제
+        } else if (newFileName != null) {
+            inquirydata.setInquiry_file(newFileName);  // 새 파일이 있으면 새 파일명을 설정
+        } else {
+            inquirydata.setInquiry_file(existingFile);  // 기존 파일을 그대로 사용
+        }
+        
+        
 		
 		//DAO에서 수정 메서드 호출하여 수정합니다.
 		boolean result = inquirydao.inquiryModify(inquirydata);

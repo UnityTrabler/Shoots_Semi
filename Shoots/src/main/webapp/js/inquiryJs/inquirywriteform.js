@@ -59,7 +59,7 @@ $(function() {
 	
 	
 	//글쓰기 중 취소 누르면 confirm 창 뜨고 확인 시 뒤로가기, 취소시 현상유지
-	$("div:nth-child(7) > button.btn.btn-danger").click(function(){
+	$(".cancelBtn").click(function(){
 		const $title = $("#title");
 		const $content = $("#content");
 		

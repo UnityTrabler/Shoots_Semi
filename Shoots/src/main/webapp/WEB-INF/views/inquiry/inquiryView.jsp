@@ -83,7 +83,7 @@
 							        </a>
 							    </c:when>
 							    <c:otherwise>
-							        <a href="javascript:void(0);" onclick="history.back();">
+							        <a href="../customer/support">
 							            <button class="btn btn-warning">목록</button>
 							        </a>
 							    </c:otherwise>
