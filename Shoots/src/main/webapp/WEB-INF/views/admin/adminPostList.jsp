@@ -11,15 +11,15 @@
 <body>
 	<c:if test="${listcount > 0 }">
 		<table class="table">
-		<caption></caption>
+		<caption>게시판 관리</caption>
 		<thead>
 			<tr>
-				<td>작성자</td>
-				<td>카테고리</td>
-				<td>제목</td>
-				<td>등록일</td>
-				<td>조회수</td>
-				<td>삭제</td>
+				<th>작성자</th>
+				<th>카테고리</th>
+				<th>제목</th>
+				<th>등록일</th>
+				<th>조회수</th>
+				<th>삭제</th>
 			</tr>
 		</thead>
 		
@@ -36,16 +36,14 @@
 						</c:if>
 					</td>
 					<td>${post.title }</td>
-					<td>${post.register_date }</td>
+					<td>${post.register_date.substring(0,10) }</td>
 					<td>${post.readcount }</td>
-					<td><a href="../post/delete"  type="button" class="postDelete">삭제</a></td>
+					<td><a href="postDelete?id=${post.post_id}"  type="button" class="postDelete">삭제</a></td>
 				</tr>
 			</c:forEach>
 		</tbody>
 		</table>
-	</c:if>
-	
-	<%--페이징 --%>
+		<%--페이징 --%>
 	<div class = "center-block">
 				<ul class = "pagination justify-content-center">
 					<li class = "page-item">
@@ -69,6 +67,12 @@
 				</ul>
 			</div>
 		<%--페이징 끝 --%>	
+	</c:if>
+	
+	<c:if test="${listcount == 0 }">
+		<h3 style="text-align:center">등록된 게시물이 없습니다.</h3>
+	</c:if>
+	
 
 </body>
 </html>

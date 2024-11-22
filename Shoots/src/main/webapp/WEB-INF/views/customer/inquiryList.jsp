@@ -6,8 +6,7 @@
 <html>
 <head>
 <meta charset="EUC-KR">
-<link rel="stylesheet"	href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/inquiry.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/inquiryList.css">
 <script src="${pageContext.request.contextPath}/js/jquery-3.7.1.js"></script>
 <script src="${pageContext.request.contextPath}/js/inquiryJs/inquirylist.js"></script>
 
@@ -19,7 +18,7 @@
 		<%--게시글이 있는 경우 --%>
 		<c:if test="${listcount > 0 }">
 			
-			<table class="table table-striped">
+			<table class="table">
 				<thead>
 					<tr>
 						<th colspan="3">1:1 문의 게시판</th>

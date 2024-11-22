@@ -63,36 +63,36 @@
 				</tr>
 			</tbody>
 		</table>
+		<%--페이징 --%>
+		<div class = "center-block">
+			<ul class = "pagination justify-content-center">
+				<li class = "page-item">
+					<a href="javascript:go_notice(${page - 1})"
+						class = "page-link ${page <= 1 ? 'gray' : '' }">
+						&lt;&lt;
+					</a>
+				</li>
+				<c:forEach var = "a" begin = "${startpage}" end = "${endpage}">
+					<li class = "page-item ${a == page ? 'active' : '' }">
+						<a href="javascript:go_notice(${a})"
+							class = "page-link">${a}</a>
+					</li>
+				</c:forEach>
+				<li class = "page-item">
+					<a href="javascript:go_notice(${page + 1})"
+						class = "page-link ${page >= maxpage ? 'gray' : '' }">
+						&gt;&gt;
+					</a>
+				</li>
+			</ul>
+		</div>
+		<%--페이징 끝 --%>	
 	</c:if>
+	
 	<%-- 게시글이 없는 경우 --%>
 	<c:if test="${listcount == 0 }">
 		<h3 style="text-align:center">등록된 글이 없습니다.</h3>
 		<a href="../notice/write" type="button" class="btnWrite">글 쓰 기</a>
 	</c:if>
-	
-	<%--페이징 --%>
-	<div class = "center-block">
-				<ul class = "pagination justify-content-center">
-					<li class = "page-item">
-						<a href="javascript:go_notice(${page - 1})"
-							class = "page-link ${page <= 1 ? 'gray' : '' }">
-							&lt;&lt;
-						</a>
-					</li>
-					<c:forEach var = "a" begin = "${startpage}" end = "${endpage}">
-						<li class = "page-item ${a == page ? 'active' : '' }">
-							<a href="javascript:go_notice(${a})"
-								class = "page-link">${a}</a>
-						</li>
-					</c:forEach>
-					<li class = "page-item">
-						<a href="javascript:go_notice(${page + 1})"
-							class = "page-link ${page >= maxpage ? 'gray' : '' }">
-							&gt;&gt;
-						</a>
-					</li>
-				</ul>
-			</div>
-		<%--페이징 끝 --%>	
 </body>
 </html>
