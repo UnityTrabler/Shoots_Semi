@@ -487,7 +487,6 @@ function updateUserlist(data) {
             	<td>${item.tel}</td>
             	<td>${item.email}</td>
             	<td>${item.register_date.substring(0, 10)}</td>
-            	<td><a href="../user/mypage" type="button" class="userDetail">보기</a></td>
             	<td><a href="../admin/grant?id=${item.id}" type="button" class="grantadmin">일반</a></td>
         	</tr>
     	` : 
@@ -501,7 +500,6 @@ function updateUserlist(data) {
             	<td>${item.tel}</td>
             	<td>${item.email}</td>
             	<td>${item.register_date.substring(0, 10)}</td>
-            	<td><a href="../user/mypage" type="button" class="userDetail">보기</a></td>
             	<td><a href="../admin/revoke?id=${item.id}" type="button" class="revokeadmin">관리자</a></td>
         	</tr>
     	`;
@@ -590,7 +588,6 @@ function updateBusiness(data) {
 				<td>${item.email }</td>
 				<td>${item.address} </td>
 				<td>${item.register_date.substring(0, 10)}</td>
-				<td><a href="../business/mypage"  type="button" class="BusinessDetail">보기</a></td>
 			</tr>
           `;
 	});
@@ -792,7 +789,7 @@ function updatePost(data) {
 			<tr>
 				<td>${item.writer}</td>
 				<td>${category}</td>
-				<td>${item.title }</td>
+				<td><a href="../post/detail?num=${item.post_id}"  type="button" class="postDetail">${item.title }</a></td>
 				<td>${item.register_date.substring(0,10) }</td>
 				<td>${item.readcount }</td>
 				<td><a href="postDelete?id=${item.post_id}"  type="button" class="postDelete">삭제</a></td>

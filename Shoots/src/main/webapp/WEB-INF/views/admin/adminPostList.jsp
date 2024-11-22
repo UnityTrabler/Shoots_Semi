@@ -35,7 +35,7 @@
 							중고
 						</c:if>
 					</td>
-					<td>${post.title }</td>
+					<td><a href="../post/detail?num=${post.post_id}"  type="button" class="postDetail">${post.title }</a></td>
 					<td>${post.register_date.substring(0,10) }</td>
 					<td>${post.readcount }</td>
 					<td><a href="postDelete?id=${post.post_id}"  type="button" class="postDelete">삭제</a></td>
