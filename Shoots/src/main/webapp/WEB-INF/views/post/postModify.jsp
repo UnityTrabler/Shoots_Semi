@@ -16,12 +16,13 @@
  </style>
 </head>
 <body>
+
  <div class="container">
   <form action="modifyProcess" method="post" name="modifyform"
   		enctype="multipart/form-data">
   		<input type="hidden" name="post_id" value="${postdata.post_id}">
   		 <input type="hidden" name="existing_file" value="${postdata.post_file}"> <!-- 기존 첨부파일명 전달 -->
-  		
+  		<input type="hidden" name="remove_file" value="false"> <!-- 파일 삭제 여부 플래그 추가 -->
   	<h1>게시판 - 수정</h1>
   	
   	

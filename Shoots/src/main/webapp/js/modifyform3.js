@@ -14,11 +14,7 @@
 	$('.remove').click(function(){
 		$('#filevalue').text('');
 		$('#upfile').val(''); // 실제 파일 입력 필드 초기화
-		$(this).css('display', 'none'); // 삭제 버튼 숨기기
-		// or $('.remove').toggle();
-		
-		// 파일 삭제 플래그를 true로 설정 (서버로 전송될 수 있게 함)
-		$('input[name="remove_file"]').val('true');
+		$(this).css('display', 'none');// or $('.remove').toggle();
 	});
 	
 	
@@ -28,9 +24,6 @@
 		const inputfile = $(this).val().split('\\');
 		$('#filevalue').text(inputfile[inputfile.length-1]);
 		show();
-		
-		// 파일 삭제 플래그를 false로 설정 (새 파일이 업로드된 경우)
-		$('input[name="remove_file"]').val('false');
 	});
 	
 	})
