@@ -46,6 +46,12 @@ public class UserInquiryAction implements Action {
 		
 		List<InquiryBean> list = dao.getInquiryList(page, limit, idx, usertype);
 		
+		
+		for (InquiryBean inquiry : list) {
+		    boolean hasReply = dao.replyComplete(inquiry.getInquiry_id());
+		    inquiry.setHasReply(hasReply);
+		}
+		
 		int maxpage = (listcount + limit - 1) / limit;
 		System.out.println("총 페이지수 = " + maxpage);
 		

@@ -19,13 +19,16 @@
 		</div>
 	</c:if>
 	<c:if test = "${!empty list}">
+	<div class = "inquiryD">
 		<table class = "table">
 			<thead>
 				<tr>
-					<th> 문의자 유형 </th>
+					<th> 답변상태 </th>
 					<th> 문의 제목 </th>	
 					<th> 문의자 </th>	
 					<th> 문의 날짜 </th>
+					<th> 수정 </th>
+					<th> 삭제 </th>
 				</tr>
 			</thead>
 			<tbody>
@@ -33,27 +36,33 @@
 					<tr>
 						<td>
 							<c:choose>
-								<c:when test = "${inquiry.inquiry_type == 'A'}">
-									<span> 개인문의 </span>
+								<c:when test = "${inquiry.hasReply}">
+									<span class = "comS">[답변완료]</span>
+								</c:when>
+								<c:when test = "${! inquiry.hasReply}">
+									<span class = "comP">[대기중]</span>
 								</c:when>
 							</c:choose>
 						</td>
 						<td>
 							<c:choose>
-								<c:when test = "${inquiry.title.length() > 10}">
-									<a href = "../inquiry/detail?inquiryid=${inquiry.inquiry_id}">${inquiry.title.substring(0,10)} ...</a>
+								<c:when test = "${inquiry.title.length() > 12}">
+									<a href = "../inquiry/detail?inquiryid=${inquiry.inquiry_id}">${inquiry.title.substring(0,12)} ...</a>
 								</c:when>
-								<c:when test = "${inquiry.title.length() <= 10}">
+								<c:when test = "${inquiry.title.length() <= 12}">
 									<a href = "../inquiry/detail?inquiryid=${inquiry.inquiry_id}">${inquiry.title}</a>
 								</c:when>
 							</c:choose>
 						</td>
 						<td> ${inquiry.user_id} </td>
 						<td> ${inquiry.register_date.substring(0, 10)} </td>
+						<td> <input type = "button" value = "수정" class= "updateBtn" onclick = "redirectToUpdateInquiry(${inquiry.inquiry_id})"> </td>
+						<td> <input type = "button" value = "삭제" class= "deleteBtn" onclick = "redirectToDeleteInquiry(${inquiry.inquiry_id})"> </td>
 					</tr>
 				</c:forEach>
 			</tbody>
 		</table>
+	</div>
 		
 		<div class = "center-block">
 		<ul class = "pagination justify-content-center">

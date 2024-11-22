@@ -1,8 +1,8 @@
 @charset "EUC-KR";
 
 .d1 {width : 100%; display : flex; gap : 20%; margin-top : 30px}
-.d2 {display: flex;  flex-wrap: wrap; border : 1.5px solid #059669; border-radius : 20px; width : 40%; margin-left : 15px; min-height : 500px; max-height : 600px; overflow-y: auto;}
-.d3 {display: flex;  flex-wrap: wrap; border : 1.5px solid #059669; border-radius : 20px; width : 40%; margin-right : 15px; min-height : 500px; max-height : 600px; overflow-y: auto;}
+.d2 {display: flex;  flex-wrap: wrap; border : 1.5px solid #059669; border-radius : 20px; width : 45%; margin-left : 15px; min-height : 500px; max-height : 600px; overflow-y: auto;}
+.d3 {display: flex;  flex-wrap: wrap; border : 1.5px solid #059669; border-radius : 20px; width : 45%; margin-right : 15px; min-height : 500px; max-height : 600px; overflow-y: auto;}
 
 .fileD {width: 30%; text-align : right}
 .infoI {margin-top : 25px;}

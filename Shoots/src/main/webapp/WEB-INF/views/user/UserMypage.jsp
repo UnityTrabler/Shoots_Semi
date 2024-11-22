@@ -23,4 +23,5 @@
 		</div>
 	</div>
 </body>
+<jsp:include page="../user/bottom.jsp"></jsp:include>
 </html>

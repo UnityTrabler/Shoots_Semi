@@ -22,13 +22,22 @@
 					</c:if>
 				</div>
 				<div class = "infoD">
-					<p> <b> ${player.name.substring(0,1)} * ${player.name.substring(2,3)} </b> (${player.id} / 
+					<p> <b>
+							<c:choose>
+								<c:when test = "${player.idx != idx}">
+									${player.name.substring(0,1)} * ${player.name.substring(2,3)} 
+								</c:when>
+								<c:when test = "${player.idx == idx}">
+									${player.name}
+								</c:when>
+							</c:choose>
+					 	</b> (${player.id} / 
 						<c:choose>
 							<c:when test = "${player.gender == 1 or player.gender == 3}">
-								(남)
+								남)
 							</c:when>
 							<c:when test = "${player.gender == 2 or player.gender == 4}">
-								(여)
+								여)
 							</c:when>
 						</c:choose>
 						&nbsp;
@@ -44,7 +53,16 @@
 							</c:choose>
 						</c:if>
 					</p>
-					<p><img class = "ip" src = "${pageContext.request.contextPath}/img/tel.png"> ${player.tel.substring(0, 3)}-****-${player.tel.substring(7)} &nbsp; | &nbsp; 
+					<p>
+						<c:choose>
+							<c:when test = "${player.idx != idx}">
+								<img class = "ip" src = "${pageContext.request.contextPath}/img/tel.png"> ${player.tel.substring(0, 3)}-****-${player.tel.substring(7)} 
+							</c:when>
+							<c:when test = "${player.idx == idx}">
+								<img class = "ip" src = "${pageContext.request.contextPath}/img/tel.png"> ${player.tel.substring(0, 3)}-${player.tel.substring(3,7)}-${player.tel.substring(7)} 
+							</c:when>
+						</c:choose>
+						&nbsp; | &nbsp; 
 					   <img class = "ip" src = "${pageContext.request.contextPath}/img/mail.png"> ${player.email}
 					</p>
 					<hr>	

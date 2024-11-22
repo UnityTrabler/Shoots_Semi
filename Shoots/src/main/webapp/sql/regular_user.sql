@@ -71,6 +71,8 @@ values (user_seq.nextval, 'test7', '1', '강김임최',  980919, 2, '01098723231
 insert into regular_user
 values (user_seq.nextval, 'test8', '1', '강김임',  910203, 1, '01083848181', 'opghjk@naver.com', null, null, current_timestamp, 'common');
 
+insert into regular_user
+values (user_seq.nextval, 'Admin', '1', '관리자',  990101, 1, '01074839283', 'admin@gmail.com', null, null, current_timestamp, 'admin');
 
 
 select * from regular_user u

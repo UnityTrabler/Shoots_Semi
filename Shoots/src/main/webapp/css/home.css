@@ -23,14 +23,14 @@
   animation: fade 12s infinite;
 }
 
-.slide:nth-child(1) {opacity: 1; animation-delay: 0}
+.slide:nth-child(1) {opacity: 1 !important; animation-delay: 0s}
 .slide:nth-child(2) {animation-delay: 4s} 
 .slide:nth-child(3) {animation-delay: 8s}
 
 @keyframes fade {
-  0%, 20% {opacity: 0;}
-  25%, 50% {opacity: 1; }
-  75%, 100% {opacity: 0;}
+  0%, 20% {opacity: 0}
+  25%, 50% {opacity: 1}
+  75%, 100% {opacity: 0}
 }
 
 .overlay {
@@ -52,7 +52,7 @@ p {margin-bottom : 0px}
 .p2 {font-size : 40px; font-weight : bold}
 .p3 {font-weight : bold}
 
-.btnD {display: flex; justify-content: center; gap: 160px; margin : 50px; margin-top : 100px}
+.btnD {display: flex; justify-content: center; gap: 160px; margin : 50px; margin-top : 50px}
 .btnI {color : #059669; background : white; border : 1.5px solid #059669; border-radius : 30px; width : 150px; height : 130px; display: flex;
     	flex-direction: column; align-items: center;  justify-content: center; position: relative;  transition: background 0.5s, color 0.5s;
     	}
