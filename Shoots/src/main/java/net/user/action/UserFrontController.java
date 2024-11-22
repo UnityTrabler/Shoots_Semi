@@ -86,6 +86,9 @@ public class UserFrontController extends jakarta.servlet.http.HttpServlet {
 			case "/inquiry":
 				action = new UserInquiryAction();
 				break;
+			case "/map":
+				action = new UserMapAction();
+				break;
 			default:
 				RequestDispatcher dispatcher = req.getRequestDispatcher("/error/error404.jsp");
 				dispatcher.forward(req, resp);
