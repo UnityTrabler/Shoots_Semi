@@ -31,7 +31,6 @@
 						<th><div>문의자 유형</div></th>
 						<th><div>문의자</div></th>
 						<th><div>날짜</div></th>
-						<th>수정</th>
 						<th>삭제</th>
 
 					</tr>
@@ -101,7 +100,6 @@
 							<td><div>${i.register_date}</div></td>
 							
 							<%--관리자 페이지에서의 수정/삭제 버튼 --%>
-							<td><a href="../inquiry/modify?inquiryid=${i.inquiry_id}" type="button" class="inquiryUpdate">수정</a></td>
 							<td><a href="../inquiry/delete?num=${i.inquiry_id}"  type="button" class="inquiryDelete">삭제</a></td>
 
 						</tr>

@@ -397,7 +397,6 @@ function updateNoticeList_inquiry(data) {
 				<td><div>${item.register_date}</div></td>
 				
 				<%--관리자 페이지에서의 수정/삭제 버튼 --%>
-				<td><a href="../inquiry/modify?inquiryid=${item.inquiry_id}" type="button" class="inquiryUpdate">수정</a></td>
 				<td><a href="../inquiry/delete?num=${item.inquiry_id}"  type="button" class="inquiryDelete">삭제</a></td>
 			</tr>
             	`;

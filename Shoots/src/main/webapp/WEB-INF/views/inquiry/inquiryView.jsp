@@ -56,11 +56,18 @@
 			
 				<tr>
 					<td colspan="5" class="center" style="float:right">
-						<%--수정, 삭제 버튼은 로그인 한 유저의 아이디 = 문의글 작성자 일때 혹은 id가 관리자 일때만 보이게 함 --%>
-						<c:if test="${inquirydata.inquiry_ref_idx == idx || role == 'admin' }">
-							<a href="modify?inquiryid=${inquirydata.inquiry_id}">
-								<button class="btn btn-info updateBtn">수정</button>
-							</a>
+						<%--수정, 삭제 버튼은 로그인 한 유저만 보이게 함. 관리자도 안보임 --%>
+						<c:if test="${inquirydata.inquiry_ref_idx == idx}">
+							<c:choose>
+							<c:when test="${!inquirydata.hasReply}">
+								<a href="modify?inquiryid=${inquirydata.inquiry_id}">
+									<button class="btn btn-info updateBtn">수정</button>
+								</a>
+							</c:when>
+								<c:otherwise>
+									<button class="btn btn-info updateBtn" style="display:none">수정</button>
+								</c:otherwise>
+							</c:choose>
 							<%--href의 주소를 #으로 설정함. --%>
 							<a href ="#">
 								<button class="btn btn-danger" data-toggle="modal"

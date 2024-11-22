@@ -1,6 +1,5 @@
 let option = 1; // 유지할 정렬 옵션
 //선택한 등록순과 최신순을 수정, 삭제, 추가 후에도 유지되도록 하기위한 변수로 사용됩니다
-
 //댓글 목록을 불러오는 함수
 function getList(state) {
   console.log(state); 
@@ -69,8 +68,9 @@ function getList(state) {
                     <div class='comment-text-box'>
                         <p class='comment-text-view'>
                             <span class='text-comment'>${Comment.content}</span>
-                            <button class ="btn-light commentReportButton" data-toggle="modal" 
-                            data-target=".c-report-modal" style ="color:red; border:none">☎</button>
+                            <button class ="btn-light commentReportButton"  data-comment-id="${Comment.comment_id}" 
+                         	data-writer="${Comment.writer}" data-tidx="${Comment.writer}" 
+                         	data-toggle="modal" data-target=".c-report-modal" style ="color:red; border:none">☎</button>
                         </p>
                     </div>
                     <div class='comment-info-box'>
@@ -144,10 +144,10 @@ function getList(state) {
                         </div>
                     </div>
                 </li>`;
-            }
-        });
+            } //if (childComment.comment_ref_id === Comment.comment_id) 끝
+        }); //답글 foreach문 끝
     });
-}
+} //if (rdata.commentlist.length) 끝
 
       
       $('.comment-list').html(output); //댓글 데이터를 HTML로 변환하여 화면에 출력
@@ -156,9 +156,27 @@ function getList(state) {
       if (!rdata.commentlist.length) {
         $('.comment-list, .comment-order-list').empty();
       }
+      
     }
   });
-}
+  
+} //getList 함수 끝 (댓글 목록 뽑아오는 함수)
+
+	//버튼을 누르면 모달창의 특정 선택자들에게 값을 부여해주는 함수
+	$(document).on('click', '.commentReportButton', function() {
+		console.log('===============> 모달 button clicked!');
+		
+		// 버튼에서 댓글 ID와 작성자 ID 가져오기
+	    const commentId = $(this).data('comment-id');
+	    const target = $(this).data('writer');
+	    console.log('===> commentId:', commentId);
+	    console.log('===> writer:', target);
+	
+	    // 모달창에 값 설정
+	    $('.report_ref_id').val(commentId); // 신고 댓글 ID
+	    $('.target').val(target); // 신고 대상자 ID
+		
+	}) //댓글 선택자 값 부여 함수 끝
 
 
 // 더보기 - 수정 클릭한 경우에 수정 폼을 보여줍니다.

@@ -1,4 +1,4 @@
-$(function() {
+$(function() { //ready 함수
     const loginid = $("#loginid").val();  // 로그인한 유저의 id
     const inquiryid = $("#inquiryid").val(); // 문의글 번호.
     

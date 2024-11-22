@@ -51,6 +51,13 @@ public class InquiryDetailAction implements Action {
 		InquiryBean inquirydata = inquirydao.getDetail(inquiryid);
         List<InquiryCommentBean> iqlist = ic.getIqList(inquiryid);
 
+        
+        //getDetail로 뽑아온 해당 문의글에 댓글이 달렸는지 확인 한 후 그 값도 data에 같이 담아서 전달.
+        boolean hasReply = inquirydao.replyComplete(inquiryid);
+        System.out.println("댓글 존재 여부 : " + hasReply);
+        inquirydata.setHasReply(hasReply);
+        
+        
         ActionForward forward = new ActionForward();
 		
 		

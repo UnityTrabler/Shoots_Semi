@@ -26,10 +26,11 @@ style ="border:none">···</button>
         <form action ="${pageContext.request.contextPath}/report/add" method="post" name="reportform" id="reportform">
         	<h1 style="text-align:center;">댓글 신고</h1>
         	<br>
-        	<input type="hidden" name="report_type" id ="report_type" value="B"> <!-- 신고유형 분류, 게시글은 A, 숨겨둠. -->
-        	<input type="hidden" name="reporter" id="reporter" value="${idx}"> <!-- 신고자, 로그인 한 아이디로 가져옴. 회원 번호(idx)로 저장 -->
-        	<input type="hidden" name="target" id="target" value="${Comment.writer}"> <!-- 신고당하는 사람, view에서 데이터 가져왔을때 그 객체에서 .idx 뽑아와야함-->
-        	<input type="hidden" name="report_ref_id" id="report_ref_id" value="${Comment.comment_id}"> <!-- 참조할 번호. A면 postid, B면 commentid, C면 matchid-->
+        	<input type="hidden" name="report_type" class="report_type" value="B"> <!-- 신고유형 분류, 게시글은 A, 숨겨둠. -->
+        	<input type="hidden" name="reporter" class="reporter" value="${idx}"> <!-- 신고자, 로그인 한 아이디로 가져옴. 회원 번호(idx)로 저장 -->
+        	<input type="hidden" name="target" class="target" value="${Comment.writer}"> <!-- 신고당하는 사람, view에서 데이터 가져왔을때 그 객체에서 .idx 뽑아와야함-->
+        	<input type="hidden" name="report_ref_id" class="report_ref_id" value="${Comment.comment_id}"> <!-- 참조할 번호. A면 postid, B면 commentid, C면 matchid-->
+        	<input type="hidden" name="post_id" class="post_id" value="${postdata.post_id}"> <!--신고할때 게시글 번호 가져가려고 값 저장해두는 postid -->
         	
         	<p>
         	<span class="redColor">★</span>신고사유</p>
