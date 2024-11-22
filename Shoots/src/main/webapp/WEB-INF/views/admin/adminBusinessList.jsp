@@ -21,7 +21,6 @@
 					<th>이메일</th>
 					<th>주소</th>
 					<th>가입일</th>
-					<th>정보</th>
 				</tr>
 			</thead>
 			
@@ -35,7 +34,6 @@
 						<td>${business.email }</td>
 						<td>${business.address} </td>
 						<td>${business.register_date.substring(0, 10) }</td>
-						<td><a href="../business/mypage"  type="button" class="BusinessDetail">보기</a></td> <!--href="../user/mypage?id=${user.id}" 경로로 회원 상세정보를 확인할 수 있게 해야합니다  -->
 					</tr>
 				</c:forEach>
 			</tbody>

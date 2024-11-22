@@ -366,7 +366,7 @@ public class UserDAO {
 	//사용자 총 수를 알아낸다
 	public int getUserListCount() {
 		String sql = """
-				select count(*) from regular_user
+				select count(*) from regular_user where role != 'admin'
 				""";
 		int x = 0;
 		try(Connection con = ds.getConnection();
@@ -390,7 +390,7 @@ public class UserDAO {
 		String sql = """
 				select * from (
 					select rownum rnum, idx, user_id, name ,jumin, gender, tel, email, register_date, role
-					from regular_user
+					from regular_user where role != 'admin'
 				) p where p.rnum >= ? and p.rnum <= ?
 				""";
 		int startrow = (page - 1) * limit + 1;
