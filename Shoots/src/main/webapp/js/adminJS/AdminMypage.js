@@ -796,7 +796,7 @@ function updatePost(data) {
 				<td>${item.title }</td>
 				<td>${item.register_date }</td>
 				<td>${item.readcount }</td>
-				<td><a href="../user/mypage"  type="button" class="postDelete">삭제</a></td>
+				<td><a href="../post/delete"  type="button" class="postDelete">삭제</a></td>
 			</tr>
           `;
 	});
