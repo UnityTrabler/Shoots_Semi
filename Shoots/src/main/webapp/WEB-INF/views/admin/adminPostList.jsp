@@ -38,7 +38,7 @@
 					<td>${post.title }</td>
 					<td>${post.register_date }</td>
 					<td>${post.readcount }</td>
-					<td><a href="../user/mypage"  type="button" class="userDetail">삭제</a></td>
+					<td><a href="../post/delete"  type="button" class="postDelete">삭제</a></td>
 				</tr>
 			</c:forEach>
 		</tbody>
