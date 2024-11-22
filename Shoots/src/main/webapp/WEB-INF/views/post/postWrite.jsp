@@ -7,9 +7,10 @@
 
 <jsp:include page="../user/top.jsp"></jsp:include>
 <script src="${pageContext.request.contextPath}/js/writeform.js"></script>
+<script src="${pageContext.request.contextPath}/js/jquery-3.7.1.js"></script>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/writeform.css" type="text/css">
 
  <style>
-  h1{font-size:1.5em; text-align:center; color:#1a92b9}
   .container{width:60%}
   label{font-weight:bold}
   #upfile{display:none}
@@ -72,8 +73,8 @@
   	</div>
   
   	<div class="form-group">
-  		<button type=reset class="btn btn-danger" onClick="history.go(-1)">취소</button>
-  		<button type=submit class="btn btn-primary">등록</button>
+  		<button type=reset class="btn btnc" onClick="history.go(-1)">취소</button>
+  		<button type=submit class="btn btnr">등록</button>
   	</div>
   	
   </form>
