@@ -6,16 +6,16 @@
 <script>
 	$(function() {
 		$('#btnRegular').click(function() {
-			$(this).addClass('btn-success');
-			$(this).siblings().removeClass('btn-success');
+			$(this).addClass('successBtn');
+			$(this).siblings().removeClass('successBtn');
 		});
 		$('#btnBusiness').click(function() {
-			$(this).addClass('btn-success');
-			$(this).siblings().removeClass('btn-success');
+			$(this).addClass('successBtn');
+			$(this).siblings().removeClass('successBtn');
 		});
 	});
 </script>
-<div id="btnGroupRB" class="d-flex justify-content-center align-items-center">
-	<button type="button" id="btnRegular" class="btn btn-secondary mb-5 mr-5" style="width:100px; height:60px; border-radius: 40px" onClick="btnRegularClick()">개인</button>
-	<button type="button" id="btnBusiness" class="btn btn-secondary mb-5" style="width:100px; height:60px; border-radius: 40px" onClick="btnBusinessClick()">기업</button>
+<div id="btnGroupRB" class="d-flex justify-content-center align-items-center" style = "margin :30px 0 30px 0">
+	<button type="button" id="btnRegular" class="regularBtn" onClick="btnRegularClick()">개인</button>
+	<button type="button" id="btnBusiness" class="businessBtn" onClick="btnBusinessClick()">기업</button>
 </div>

@@ -35,7 +35,7 @@
 						&nbsp; ${comment.post_title} </a>
 					</p>
 				</c:if>
-				<p> &nbsp;&nbsp;&nbsp; 
+				<p> &nbsp;&nbsp;&nbsp;  
 					<img src="${pageContext.request.contextPath}/img/comment.png" class="commentI"> 
 					<b> ${comment.content} </b> <span class = "cg"> ${comment.register_date} </span>
 				</p>
