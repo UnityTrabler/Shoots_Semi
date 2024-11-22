@@ -40,11 +40,11 @@
 				e.preventDefault();
 				const data = $(this).serialize();
 				let state;
-				if ($('#btnGroupRB').find('successBtn').first().attr('id') == 'btnRegular')
+				if ($('#btnGroupRB').find('.successBtn').first().attr('id') == 'btnRegular')
 					state = {'state' : 'regular'};
 				
-				else if ($('#btnGroupRB').find('successBtn').first().attr('id') == 'btnBusiness')
-					state = {'state' : 'business'};
+				else if ($('#btnGroupRB').find('.successBtn').first().attr('id') == 'btnBusiness')
+					state = {'state' : 'business'}; 
 				
 				alert(`\${data + "&" + $.param(state)}`);
 				ajax(`\${data + "&" + $.param(state)}`, `\${$(this).attr('action')}`);
@@ -77,7 +77,7 @@
 	<div class = "loginAD">
 		<div class = "loginBD">
 			<div class = "loginImgD">
-				<img src = "${pageContext.request.contextPath}/img/info.png" class = "loginImg">
+			<img src = "${pageContext.request.contextPath}/img/info.png" class = "loginImg">
 			</div>
 		    <jsp:include page="topUserSwitching.jsp"></jsp:include>
 		    <form action="${pageContext.request.contextPath}/user/loginProcess" method="post" name="loginform">
