@@ -44,7 +44,7 @@
 					state = {'state' : 'regular'};
 				
 				else if ($('#btnGroupRB').find('.successBtn').first().attr('id') == 'btnBusiness')
-					state = {'state' : 'business'};
+					state = {'state' : 'business'}; 
 				
 				alert(`\${data + "&" + $.param(state)}`);
 				ajax(`\${data + "&" + $.param(state)}`, `\${$(this).attr('action')}`);
