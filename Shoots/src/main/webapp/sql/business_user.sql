@@ -11,7 +11,7 @@ CREATE TABLE business_user (
     address VARCHAR2(100) NOT NULL,
     description clob,
     business_file varchar2(50),
-   	register_date timestamp DEFAULT current_timestamp
+   	register_date timestamp DEFAULT current_timestamp,
    	login_status varchar2(9) DEFAULT 'pending'
 );
 
