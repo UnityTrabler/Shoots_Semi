@@ -11,8 +11,22 @@ public class ReportBean {
 	private String content;
 	private String report_file;
 	private String register_date;
+	private int post_id;
+	private int match_id;
 	
 	
+	public int getPost_id() {
+		return post_id;
+	}
+	public void setPost_id(int post_id) {
+		this.post_id = post_id;
+	}
+	public int getMatch_id() {
+		return match_id;
+	}
+	public void setMatch_id(int match_id) {
+		this.match_id = match_id;
+	}
 	public int getReport_id() {
 		return report_id;
 	}

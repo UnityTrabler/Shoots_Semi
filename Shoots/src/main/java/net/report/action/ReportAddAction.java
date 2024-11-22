@@ -37,6 +37,10 @@ public class ReportAddAction implements Action {
             rb.setTitle(req.getParameter("title"));
             rb.setContent(req.getParameter("content"));
             rb.setReport_type(req.getParameter("report_type"));
+            rb.setPost_id(Integer.parseInt(req.getParameter("post_id")));;
+            
+            int postId = rb.getPost_id();
+            
             // 글 등록 처리
             boolean result = reportdao.reportInsert(rb);
             if (!result) {
@@ -60,7 +64,7 @@ public class ReportAddAction implements Action {
     			PrintWriter out = resp.getWriter();
     			out.print("<script>");
     			out.print("alert('신고가 완료되었습니다.');");
-    			out.print("location.href = '/Shoots/index.jsp';");
+    			out.print("location.href = '/Shoots/post/detail?num=" + postId + "';");
     			out.print("</script>");
     			out.close();
     			

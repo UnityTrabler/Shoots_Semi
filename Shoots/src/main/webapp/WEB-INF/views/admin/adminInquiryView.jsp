@@ -64,9 +64,10 @@
 			<tr>
 				<td colspan="2" class="center">
 					<%--관리자 페이지는 수정삭제 버튼 다 보임 --%>
-						<a href="../inquiry/modify?inquiryid=${inquirydata.inquiry_id}">
+						<!-- 수정버튼 삭제하래서 주석처리 -->
+						<%-- <a href="../inquiry/modify?inquiryid=${inquirydata.inquiry_id}">
 							<button class="btn btn-info updateBtn">수정</button>
-						</a>
+						</a> --%>
 						
 						<a href ="../inquiry/delete?num=${inquirydata.inquiry_id}">
 							<button class="btn btn-danger" data-toggle="modal"
