@@ -35,10 +35,10 @@
 					<tr>
 						<td> <c:choose>
 								<c:when test = "${post.category == 'A'}">
-									<span class = "a"> <b>[자유]</b> </span>
+									<span class = "a"> [자유] </span>
 								</c:when>
 								<c:when test = "${post.category == 'B'}">
-									<span class = "b"> <b>[중고]</b> </span>
+									<span class = "b"> [중고] </span>
 								</c:when>
 							</c:choose>
 						</td>

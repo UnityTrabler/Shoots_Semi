@@ -117,7 +117,15 @@ function redirectToUpdatePost(postId) {
 
 function redirectToDeletePost(postId) {
 	location.href = "../post/delete?num=" + postId;
-	}	
+	}
+
+function redirectToUpdateInquiry(inquiryId) {
+	location.href = "../inquiry/modify?inquiryid=" + inquiryId;
+	}
+
+function redirectToDeleteInquiry(inquiryId) {
+	location.href = "../inquiry/delete?num=" + inquiryId;
+	}
 	
 // pagination
 let isRequestInProgress = false;
@@ -305,6 +313,102 @@ function cajax(sdata) {
 			$("#comment-list").append("<p>데이터를 불러오는 중 오류가 발생했습니다. 다시 시도해주세요.</p>");		}
 	});
 }
+
+// UserInquiry
+function igo(page) {
+	if (isRequestInProgress) return;
+	 
+	const limit = 10;
+	const data = {limit : limit, state : "ajax", page : page};
+	iajax(data);
+}
+
+function igeneratePagination(data) {
+	let output = "";
+	
+	let prevHref = data.page > 1 ? `href=javascript:igo(${data.page - 1})` : "";
+	output += setPaging(prevHref, '&lt;&lt;');
+	
+	for (let i = data.startpage; i <= data.endpage; i++) {
+		const isActive = (i === data.page);
+		let pageHref = !isActive ? `href=javascript:igo(${i})` : "";
+		  
+		output += setPaging(pageHref, i, isActive); 
+	}
+	
+	let nextHref = (data.page < data.maxpage) ? `href=javascript:igo(${data.page + 1})` : "";
+	output += setPaging(nextHref, '&gt;&gt;' );
+	
+	$(".pagination").empty().append(output);
+}
+
+
+function updateInquiryList(data) {
+	
+    let output = "<tbody id = 'result'>";
+    
+	$(data.list).each(function(index, item){
+	
+		output += `
+                <tr>
+                <td>
+                    ${item.hasReply ? '<span class="comS">[답변완료]</span>' : '<span class="comP">[대기중]</span>'}
+                </td>
+                <td>
+                    <a href="../inquiry/detail?inquiryid=${item.inquiry_id}">
+                        ${item.title.length > 12 ? item.title.substring(0, 12) + '...' : item.title}
+                    </a>
+                </td>
+                <td>${item.user_id}</td>
+                <td>${item.register_date.substring(0, 10)}</td>
+                <td>
+                    <input type="button" value="수정" class="updateBtn" onclick="redirectToUpdateInquiry(${item.inquiry_id})">
+                </td>
+                <td>
+                    <input type="button" value="삭제" class="deleteBtn" onclick="redirectToDeleteInquiry(${item.inquiry_id})">
+                </td>
+            </tr>
+            `;
+	});
+	
+	output += "</tbody>";
+	$('table').append(output);
+	
+	 igeneratePagination(data);
+}
+	
+function iajax(sdata) {
+	console.log(sdata);
+	
+	$.ajax({
+		data : sdata,
+		url : "/Shoots/user/inquiry",
+		dataType : "json",
+		cache : false, 
+		success : function(data){
+			console.log(data);
+			if (data.listcount > 0) {
+				$("thead").show();
+				$("tbody").remove();
+				updateInquiryList(data);
+				igeneratePagination(data);
+			} else {
+				$("thead").hide();
+				$("tbody").remove();
+				$(".pagination").empty();
+				$("table").append("<tbody><tr><td colspan='5' style='text-align: center;'>등록된 매칭이 없습니다</td></tr></tbody>");
+			}
+		},
+		error : function() {
+			console.log("에러");
+			$("thead").hide();
+			$("tbody").remove();
+    		$(".pagination").empty();
+    		$("table").append("<tbody><tr><td colspan='5' style='text-align: center;'>데이터를 불러오는 중 오류가 발생했습니다. 다시 시도해주세요.</td></tr></tbody>");
+		}
+	});
+}
+
 
 // UserMatchs - modal
 

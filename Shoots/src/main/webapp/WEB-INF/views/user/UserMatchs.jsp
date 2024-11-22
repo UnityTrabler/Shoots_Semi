@@ -33,7 +33,7 @@
 							<input type = "hidden" value = "match.match_id" name = "match_id">
 							<td> ${match.match_date.substring(0, 10)} </td>
 							<td> ${match.match_time} </td>
-							<td> ${match.business_name} </td>
+							<td> <a href = "../matchs/detail?match_id=${match.match_id}" class = "locatinA">${match.business_name}</a> </td>
 							<td> ${match.playerCount} / ${match.player_max} </td>
 							<td>
 								<c:choose>
@@ -64,7 +64,9 @@
 			</table>
 		</div>
 	</c:if>
-	
+	<div class = "bB">
+		<input type = button value = "매칭하러가기" class = "matchBtn">
+	</div>
 	<div id="myModal" class="modal">
         <div class="modal-content">
             <div class = "modalBD"><input type = "button" value = "X" onclick="closeModal()" class = "modalX"></div>

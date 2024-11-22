@@ -23,7 +23,7 @@
 			<c:forEach var="comment" items="${list}" varStatus="status">
 				<c:if test="${comment.post_id != prevPostId}">
 					<p> <a href="../post/detail?num=${comment.post_id}">
-						<img src="${pageContext.request.contextPath}/img/post.png" class="commentI"> 
+						<img src="${pageContext.request.contextPath}/img/post.png" class="postI"> 
 						<c:choose>
 							<c:when test = "${comment.category == 'A'}">
 							<span class = "categoryA">[ÀÚÀ¯]</span>
