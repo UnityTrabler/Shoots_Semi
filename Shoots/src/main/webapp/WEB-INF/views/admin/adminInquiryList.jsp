@@ -9,7 +9,7 @@
 <meta charset="UTF-8">
 <script src="${pageContext.request.contextPath}/js/jquery-3.7.1.js"></script>
 <script src="${pageContext.request.contextPath}/js/inquiryJs/inquirylist.js"></script>
-<link rel="stylesheet" href="${pageContext.request.contextPath }/css/inquiry.css" type="text/css">
+<link rel="stylesheet" href="${pageContext.request.contextPath }/css/adminInquiry.css" type="text/css">
 
 <title>관리자 전용 문의 게시판</title>
 </head>
@@ -18,6 +18,7 @@
 
 		<c:if test="${listcount > 0 }">
 			<table class="table">
+				<caption>1:1 문의글 관리</caption>
 				<thead>
 					<tr>
 
@@ -107,43 +108,38 @@
 					</c:forEach>
 				</tbody>
 			</table>
-
-
-				<%--페이징 --%>
-
-			<div class = "center-block">
-					<ul class = "pagination justify-content-center">
-						<li class = "page-item">
-							<a href="javascript:go_inquiry(${page - 1})"
-								class = "page-link ${page <= 1 ? 'gray' : '' }">
-								&lt;&lt;
-							</a>
-						</li>
-						<c:forEach var = "a" begin = "${startpage}" end = "${endpage}">
-							<li class = "page-item ${a == page ? 'active' : '' }">
-								<a href="javascript:go_inquiry(${a})"
-									class = "page-link">${a}</a>
-							</li>
-						</c:forEach>
-						<li class = "page-item">
-							<a href="javascript:go_inquiry(${page + 1})"
-								class = "page-link ${page >= maxpage ? 'gray' : '' }">
-								&gt;&gt;
-							</a>
-						</li>
-					</ul>
-				</div>
-
-				<%--페이징 끝 --%>
 			
+			<%--페이징 --%>
+			<div class = "center-block">
+				<ul class = "pagination justify-content-center">
+					<li class = "page-item">
+						<a href="javascript:go_inquiry(${page - 1})"
+							class = "page-link ${page <= 1 ? 'gray' : '' }">
+							&lt;&lt;
+						</a>
+					</li>
+					<c:forEach var = "a" begin = "${startpage}" end = "${endpage}">
+						<li class = "page-item ${a == page ? 'active' : '' }">
+							<a href="javascript:go_inquiry(${a})"
+								class = "page-link">${a}</a>
+						</li>
+					</c:forEach>
+					<li class = "page-item">
+						<a href="javascript:go_inquiry(${page + 1})"
+							class = "page-link ${page >= maxpage ? 'gray' : '' }">
+							&gt;&gt;
+						</a>
+					</li>
+				</ul>
+			</div>
+			<%--페이징 끝 --%>
 		</c:if>
 		<%--<c:if test"${listcount > 0}"> end --%>
+		
 		<%--게시글이 없는 경우 --%>
 		<c:if test="${listcount == 0 }">
 			<h3 style="text-align: center">등록된 문의가 없습니다.</h3>
-
 		</c:if>
 
-	<%--<div class="container"> end --%>
 </body>
 </html>

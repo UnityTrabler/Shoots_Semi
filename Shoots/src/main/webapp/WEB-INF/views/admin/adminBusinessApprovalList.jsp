@@ -6,7 +6,7 @@
 <head>
 <title>Insert title here</title>
 <script src="${pageContext.request.contextPath}/js/jquery-3.7.1.js"></script>
-<link rel = "stylesheet" href = "${pageContext.request.contextPath}/css/businessList.css" type = "text/css">
+<link rel = "stylesheet" href = "${pageContext.request.contextPath}/css/businessApprovalList.css" type = "text/css">
 </head>
 <body>
 	<c:if test="${listcount > 0 }">	
@@ -61,35 +61,35 @@
 				</c:forEach>
 			</tbody>
 		</table>
+		<%--페이징 --%>
+		<div class = "center-block">
+			<ul class = "pagination justify-content-center">
+				<li class = "page-item">
+					<a href="javascript:go_approve(${page - 1})"
+						class = "page-link ${page <= 1 ? 'gray' : '' }">
+						&lt;&lt;
+					</a>
+				</li>
+				<c:forEach var = "a" begin = "${startpage}" end = "${endpage}">
+					<li class = "page-item ${a == page ? 'active' : '' }">
+						<a href="javascript:go_approve(${a})"
+							class = "page-link">${a}</a>
+					</li>
+				</c:forEach>
+				<li class = "page-item">
+					<a href="javascript:go_approve(${page + 1})"
+						class = "page-link ${page >= maxpage ? 'gray' : '' }">
+						&gt;&gt;
+					</a>
+				</li>
+			</ul>
+		</div>
+		<%--페이징 끝 --%>
 	</c:if>
+	
 	<c:if test="${listcount == 0 }">
 		<h3 style="text-align:center">등록된 회원이 없습니다.</h3>
 	</c:if>
-	
-	<%--페이징 --%>
-	<div class = "center-block">
-				<ul class = "pagination justify-content-center">
-					<li class = "page-item">
-						<a href="javascript:go_approve(${page - 1})"
-							class = "page-link ${page <= 1 ? 'gray' : '' }">
-							&lt;&lt;
-						</a>
-					</li>
-					<c:forEach var = "a" begin = "${startpage}" end = "${endpage}">
-						<li class = "page-item ${a == page ? 'active' : '' }">
-							<a href="javascript:go_approve(${a})"
-								class = "page-link">${a}</a>
-						</li>
-					</c:forEach>
-					<li class = "page-item">
-						<a href="javascript:go_approve(${page + 1})"
-							class = "page-link ${page >= maxpage ? 'gray' : '' }">
-							&gt;&gt;
-						</a>
-					</li>
-				</ul>
-			</div>
-		<%--페이징 끝 --%>	
-
+		
 </body>
 </html>

@@ -201,7 +201,7 @@ function loadpost(){
 			
 			$(function(){
 				//관리자 페이지 -  1:1 문의글 리스트 떴을때 삭제버튼 누르면 삭제 할지 말지 뜨는 팝업창
-				$("td:nth-child(7) > a").click(function(event){
+				$("td:nth-child(6) > a").click(function(event){
 				const answer = confirm("정말 삭제하시겠습니까?");
 				console.log(answer);//취소를 클릭한 경우-false
 				if (!answer){//취소를 클릭한 경우
@@ -788,15 +788,15 @@ function updatePost(data) {
 	let output = "<tbody>";
 	
 	$(data.totallist).each(function(index, item){
-		var category = item.category.equals('A') ? "자유" : "중고"
+		var category = item.category=='A' ? "자유" : "중고"
 		output += `			
 			<tr>
 				<td>${item.writer}</td>
 				<td>${category}</td>
 				<td>${item.title }</td>
-				<td>${item.register_date }</td>
+				<td>${item.register_date.substring(0,10) }</td>
 				<td>${item.readcount }</td>
-				<td><a href="../post/delete"  type="button" class="postDelete">삭제</a></td>
+				<td><a href="postDelete?id=${item.post_id}"  type="button" class="postDelete">삭제</a></td>
 			</tr>
           `;
 	});

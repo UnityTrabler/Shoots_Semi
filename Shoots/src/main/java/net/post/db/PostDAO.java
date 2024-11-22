@@ -559,6 +559,23 @@ private DataSource ds;
 			return list;
 
 	}
+
+	//admin postlist delete
+	public int listDelete(int id) {
+		int result = 0;
+		String sql = """
+				delete from post where post_id = ?
+				""";
+		try(Connection con = ds.getConnection();
+				PreparedStatement pstmt = con.prepareStatement(sql);){
+			pstmt.setInt(1, id);
+			result = pstmt.executeUpdate();
+		}catch(Exception e) {
+			e.printStackTrace();
+			System.out.println("listDelete() 에러: " + e);
+		}
+		return result;
+	}//listDelete() end
 	
 	
 	
