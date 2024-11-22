@@ -8,9 +8,12 @@
 	<link rel = "stylesheet" href = "${pageContext.request.contextPath}/css/home.css" type = "text/css">
 </head>
 <body>
-	<div class = "homeb">
+	<div class = "homeb slider">
 		<div class = "homeL">
-			<img  class = "Limg" src = "${pageContext.request.contextPath}/img/home_thumbnail.png">
+			<div class="slide Limg" style="background-image: url('${pageContext.request.contextPath}/img/home_thumbnail.png');"></div>
+			<div class="slide Limg" style="background-image: url('${pageContext.request.contextPath}/img/home_thumbnail2.jpg');"></div>
+			<div class="slide Limg" style="background-image: url('${pageContext.request.contextPath}/img/home_thumbnail3.jpg');"></div>
+			<img  class = "Limg">
 			<div class="overlay">
 				<p class = "p1"> 만남은 짧고, 이야기는 긴 </p>
 				<p class = "p2"> SHOOTS </p>
