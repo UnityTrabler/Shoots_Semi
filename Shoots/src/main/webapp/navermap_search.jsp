@@ -10,28 +10,20 @@
     <!-- ncpClientId는 등록 환경에 따라 일반(ncpClientId), 공공(govClientId), 금융(finClientId)으로 나뉩니다. 사용하는 환경에 따라 키 이름을 변경하여 사용하세요. 참고: clientId(네이버 개발자 센터)는 지원 종료 -->
     <script type="text/javascript" src="https://oapi.map.naver.com/openapi/v3/maps.js?ncpClientId=83bfuniegk&submodules=geocoder"></script>
     <link rel="stylesheet" type="text/css" href="../../docs/css/examples-base.css" />
-</head>
-<body>
-
-<!-- @category Geocoder -->
-
 <style type="text/css">
-.search { position:absolute;z-index:1000;top:20px;left:20px; }
-.search #address { width:150px;height:20px;line-height:20px;border:solid 1px #555;padding:5px;font-size:12px;box-sizing:content-box; }
-.search #submit { height:30px;line-height:30px;padding:0 10px;font-size:12px;border:solid 1px #555;border-radius:3px;cursor:pointer;box-sizing:content-box; }
+	.search { position:absolute;z-index:1000;top:20px;left:20px; }
+	.search #address { width:150px;height:20px;line-height:20px;border:solid 1px #555;padding:5px;font-size:12px;box-sizing:content-box; }
+	.search #submit { height:30px;line-height:30px;padding:0 10px;font-size:12px;border:solid 1px #555;border-radius:3px;cursor:pointer;box-sizing:content-box; }
 </style>
-
+</head>
+<body class="container">
 <div id="wrap" class="section">
-    <h2>주소와 좌표 검색 API 사용하기</h2>
-    <p>Geocoder 서브 모듈의 Service 객체를 사용하여 주소로 좌표를 검색하거나(Geocode) 좌표로 주소를 검색하는(Reversegeocode) 예제입니다.<br />
-    입력 창에 주소를 입력하여 검색하면 해당 주소의 좌표로 이동하며, 지도를 클릭하면 해당 지점의 경위도 좌표로 주소를 검색합니다.</p>
     <div id="map" style="width:100%;height:600px;">
         <div class="search" style="">
             <input id="address" type="text" placeholder="검색할 주소" value="불정로 6" />
             <input id="submit" type="button" value="주소 검색" />
         </div>
     </div>
-    <code id="snippet" class="snippet"></code>
 </div>
 
 <script id="code">
@@ -58,9 +50,8 @@ function searchCoordinateToAddress(latlng) {
             naver.maps.Service.OrderType.ROAD_ADDR
         ].join(',')
     }, function(status, response) {
-        if (status === naver.maps.Service.Status.ERROR) {
+        if (status === naver.maps.Service.Status.ERROR) 
             return alert('Something Wrong!');
-        }
 
         var items = response.v2.results,
             address = '',
@@ -70,7 +61,6 @@ function searchCoordinateToAddress(latlng) {
             item = items[i];
             address = makeAddress(item) || '';
             addrType = item.name === 'roadaddr' ? '[도로명 주소]' : '[지번 주소]';
-
             htmlAddresses.push((i+1) +'. '+ addrType +' '+ address);
         }
 
@@ -83,15 +73,14 @@ function searchCoordinateToAddress(latlng) {
 
         infoWindow.open(map, latlng);
     });
-}
+}//searchCoordinateToAddress
 
 function searchAddressToCoordinate(address) {
     naver.maps.Service.geocode({
         query: address
     }, function(status, response) {
-        if (status === naver.maps.Service.Status.ERROR) {
+        if (status === naver.maps.Service.Status.ERROR) 
             return alert('Something Wrong!');
-        }
 
         if (response.v2.meta.totalCount === 0) {
             return alert('totalCount' + response.v2.meta.totalCount);
@@ -100,30 +89,42 @@ function searchAddressToCoordinate(address) {
         var htmlAddresses = [],
             item = response.v2.addresses[0],
             point = new naver.maps.Point(item.x, item.y);
-
-        if (item.roadAddress) {
+		
+		$.ajax({
+			url : "https://openapi.naver.com/v1/search/local.xml?query=%EC%A3%BC%EC%8B%9D&display=10&start=1&sort=random",
+			beforeSend : function(xhr){
+				xhr.setRequestHeader("X-Naver-Client-Id", ""); 
+				xhr.setRequestHeader("X-Naver-Client-Secret","");
+			},
+			type : "POST",
+			dataType : "json",
+			success : function(data){
+				console.log('ajax success');
+				console.log(data);
+			}, 
+			error:function(){
+				console.log('ajax error');
+			}
+		});
+        
+        if (item.roadAddress) 
             htmlAddresses.push('[도로명 주소] ' + item.roadAddress);
-        }
-
-        if (item.jibunAddress) {
+        if (item.jibunAddress) 
             htmlAddresses.push('[지번 주소] ' + item.jibunAddress);
-        }
-
-        if (item.englishAddress) {
+        if (item.englishAddress) 
             htmlAddresses.push('[영문명 주소] ' + item.englishAddress);
-        }
 
         infoWindow.setContent([
             '<div style="padding:10px;min-width:200px;line-height:150%;">',
-            '<h4 style="margin-top:5px;">검색 주소 : '+ address +'</h4><br />',
-            htmlAddresses.join('<br />'),
+            '<h4 style="margin-top:5px;">검색 주소 : '+ address +'</h4><br />',//검색주소 : 불정로 6
+            htmlAddresses.join('<br />'), // 도로명 + 지번 + 영문명
             '</div>'
         ].join('\n'));
 
-        map.setCenter(point);
-        infoWindow.open(map, point);
-    });
-}
+        map.setCenter(point); //중앙으로
+        infoWindow.open(map, point); // message box 맵 포인트에
+    });//naver.maps.Service.geocode
+}//searchAddressToCoordinate
 
 function initGeocoder() {
     map.addListener('click', function(e) {
@@ -132,15 +133,12 @@ function initGeocoder() {
 
     $('#address').on('keydown', function(e) {
         var keyCode = e.which;
-
-        if (keyCode === 13) { // Enter Key
+        if (keyCode === 13)  // Enter Key
             searchAddressToCoordinate($('#address').val());
-        }
     });
 
     $('#submit').on('click', function(e) {
         e.preventDefault();
-
         searchAddressToCoordinate($('#address').val());
     });
 
