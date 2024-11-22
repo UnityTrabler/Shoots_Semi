@@ -20,6 +20,7 @@
 
 
 
+/*수정/삭제/목록 버튼 디자인 */
 
 .modifyBtn {
 	font-size :  12px; 
@@ -66,11 +67,6 @@ body>div>table>tbody tr:last-child {
 
 
 
-/* 크기 조절 고정*/
-textarea.form-control {
-	resize: none
-}
-
 
 /*댓글 수*/
 .comment-area .comment-head .comment-count {
@@ -80,7 +76,8 @@ textarea.form-control {
 	font-size: 17px;
 }
 
-/*등록순 최신순*/
+
+/* 댓글 등록순 최신순*/
 .comment-area .comment-head .comment-order .comment-order-list {
 	display: inline-block;
 	margin-top: 4px;

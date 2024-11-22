@@ -43,7 +43,7 @@
 				<%-- 파일을 첨부한 경우 --%>
 			<c:if test="${!empty postdata.post_file}">
 			<tr>
-				<td><img src="${pageContext.request.contextPath}/postupload/${postdata.post_file}" style= "width : 300px;"}>
+				<td><img src="${pageContext.request.contextPath}/postupload/${postdata.post_file}" style= "width : 300px">
 				<br><a href="down?filename=${postdata.post_file}">${postdata.post_file}</a>
 			</tr>
 			</c:if>
@@ -56,8 +56,9 @@
 			
 			<%-- 내용 --%>
 			<tr>
-				<td style="padding-right: 0px";  white-space: pre-wrap;">
-						<c:out value="${postdata.content}" />
+				<td style="padding-right: 0px">
+						<%-- <c:out value="${postdata.content}" /> --%>
+						<pre>${postdata.content}</pre>
 				</td>
 			</tr>
 			
@@ -137,7 +138,6 @@
 	<script>
 	
 	
-	postdata.setContent(postdata.getContent().replace("\n", "<br>"));
 	
 	
 	
