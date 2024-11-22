@@ -9,6 +9,7 @@
     <title>게시판</title>
     <script src="${pageContext.request.contextPath}/js/list.js"></script>
     <script src="${pageContext.request.contextPath}/js/jquery-3.7.1.js"></script>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/list.css" type="text/css">
     
     
     
@@ -29,7 +30,7 @@
         <div class="tab-content mt-3">
             <div class="tab-pane fade active show" id="A" role="tabpanel">
                 <!-- 게시글 목록 테이블 (자유게시판) -->
-                <table class="table table-striped">
+                <table class="table">
                     <thead>
                         <tr>
                             <th>글번호</th>
@@ -44,7 +45,7 @@
             </div>
             <div class="tab-pane fade" id="B" role="tabpanel">
                 <!-- 게시글 목록 테이블 (중고게시판) -->
-                <table class="table table-striped">
+                <table class="table">
                     <thead>
                         <tr>
                             <th>글번호</th>
@@ -69,7 +70,7 @@
         
 
         <!-- 글 작성 버튼 -->
-        <button type="button" class="btn btn-info float-right" onclick="postWrite()">글 작성</button>
+        <button type="button" class="btn btn-info float-right btnw" onclick="postWrite()">글 작성</button>
     </div>
     
     

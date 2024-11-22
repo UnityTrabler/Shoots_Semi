@@ -53,7 +53,11 @@
             postList.forEach(function(post) {
                 var row = $('<tr>');
                 row.append('<td>' + post.post_id + '</td>');
-                row.append('<td><a href="detail?num=' + post.post_id + '">' + (post.title.length > 20 ? post.title.substring(0, 20) + '...' : post.title) + '</a></td>');
+                row.append('<td><a href="detail?num=' + post.post_id + '">' 
+                + (post.title.length > 20 ? post.title.substring(0, 20) + '...' : post.title) + '</a></td>');
+                //row.append('<td><a href="detail?num=' + post.post_id + '">' 
+                //+ (post.title.length > 20 ? post.title.substring(0, 20) + '...' : post.title) 
+                //+ '&nbsp;&nbsp;'  + '<span style="color: orange;">[' + @@댓글수@@ + ']</span>' + '</a></td>');
                 row.append('<td>' + post.user_id + '</td>');
                 row.append('<td>' + post.register_date + '</td>');
                 row.append('<td>' + post.readcount + '</td>');

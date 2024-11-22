@@ -32,6 +32,8 @@ public class CommentListAction implements Action {
 		JsonObject object = new JsonObject(); 
 		object.addProperty("listcount", listcount);
 		
+		request.setAttribute("commentlistcount", listcount); // 총 글의 수
+		
 		JsonArray jarray = dao.getCommentList(post_id, state); 
 		//JsonArray jarray = dao.getCommentList(post_id); 
 		JsonElement je = new Gson().toJsonTree (jarray);
