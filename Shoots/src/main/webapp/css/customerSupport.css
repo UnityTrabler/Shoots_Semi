@@ -1,6 +1,8 @@
 @charset "EUC-KR";
 
 .container {
+	width : 100%!important;
+	min-height : 600px;
 	border: 1.5px solid #059669; 
 	border-radius : 30px; width : 60%;   
 	margin : 0 auto; 
@@ -40,6 +42,4 @@
 
 .tabcontent {
   display: none;
-  padding: 100px 20px;
-  height: 100%;
 }

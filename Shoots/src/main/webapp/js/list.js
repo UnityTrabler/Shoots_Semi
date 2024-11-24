@@ -131,7 +131,10 @@
             location.href = "write";  // 카테고리 파라미터를 함께 전달
         }
         
-         
+		function postWriteN() {
+			alert("로그인 후 이용 가능합니다.")
+			location.href = "../user/login";
+		} 
         
         
         /* // 글쓰기 버튼 클릭 시 카테고리와 함께 '글쓰기' 페이지로 이동

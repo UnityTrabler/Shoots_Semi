@@ -121,14 +121,9 @@
                		<c:set var="previousDate" value="${matchDate}" />
 					</c:forEach>
 				</tbody>
-			</table>		
-		</c:if>
-		
-		<c:if test = "${listcount == 0}">
-			<h3 style = "text-align : center"> 등록된 글이 없습니다. </h3>
-		</c:if>
-		
-		<div class = "center-block">
+			</table>
+			
+			<div class = "center-block">
 				<ul class = "pagination justify-content-center">
 					<li class = "page-item">
 						<a href="javascript:go(${page - 1})"
@@ -149,8 +144,13 @@
 						</a>
 					</li>
 				</ul>
-			</div>
-	
+			</div>	
+		</c:if>
+		
+		<c:if test = "${listcount == 0}">
+			<p class = "ns"> 등록된 글이 없습니다. </p>
+		</c:if>
+		
 	<div class = "btnD">
 		<input type = "button" class = "uploadBtn" value = "매칭 글 작성">
 	</div>

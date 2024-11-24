@@ -77,13 +77,13 @@
 							<td> <a href = "detail?match_id=${match.match_id}" class = "locatinA"> ${match.business_name} </a></td>
 							<td>
 							    <c:choose>
-							        <c:when test="${isMatchPast && match.playerCount >= match.player_min}">
+							        <c:when test="${match.isMatchPast() && match.playerCount >= match.player_min}">
 							            <span style="color: gray">
 							                ${match.playerCount}
 							            </span> / ${match.player_max}
 							            <span style="color: #be123c; font-size: 10px"> 인원확정 </span>
 							        </c:when>
-							        <c:when test="${isMatchPast}">
+							        <c:when test="${match.isMatchPast()}">
 							            <span> — </span>
 							        </c:when>
 							        <c:when test="${match.playerCount == match.player_max}">
@@ -100,10 +100,10 @@
 							</td>
 							<td>
 								<c:choose>
-									<c:when test="${isMatchPast && match.playerCount >= match.player_min}">
+									<c:when test="${match.isMatchPast() && match.playerCount >= match.player_min}">
 							            <input type="button" class="status5" value="매칭확정">
 							        </c:when>
-									 <c:when test="${isMatchPast}">
+									 <c:when test="${match.isMatchPast()}">
 								        <input type="button" class="status4" value="마감">
 								    </c:when>
 								    <c:when test="${match.playerCount == match.player_max}">
@@ -129,13 +129,13 @@
 							<td> <a href = "detail?match_id=${match.match_id}" class = "locatinA"> ${match.business_name} </a> </td>
 							<td>
 							    <c:choose>
-							        <c:when test="${isMatchPast && match.playerCount >= match.player_min}">
+							        <c:when test="${match.isMatchPast() && match.playerCount >= match.player_min}">
 							            <span style="color: gray">
 							                ${match.playerCount}
 							            </span> / ${match.player_max}
 							            <span style="color: #be123c; font-size: 10px"> 인원확정 </span>
 							        </c:when>
-							        <c:when test="${isMatchPast}">
+							        <c:when test="${match.isMatchPast()}">
 							            <span> — </span>
 							        </c:when>
 							        <c:when test="${match.playerCount == match.player_max}">
@@ -152,10 +152,10 @@
 							</td>
 							<td>
 								<c:choose>
-									<c:when test="${isMatchPast && match.playerCount >= match.player_min}">
+									<c:when test="${match.isMatchPast() && match.playerCount >= match.player_min}">
 							            <input type="button" class="status5" value="매칭확정">
 							        </c:when>
-									 <c:when test="${isMatchPast}">
+									 <c:when test="${match.isMatchPast()}">
 								        <input type="button" class="status4" value="마감">
 								    </c:when>
 								    <c:when test="${match.playerCount == match.player_max}">
@@ -178,35 +178,35 @@
                		<c:set var="previousDate" value="${matchDate}" />
 					</c:forEach>
 				</tbody>
-			</table>		
+			</table>
+			
+			<div class = "center-block">
+				<ul class = "pagination justify-content-center">
+					<li class = "page-item">
+						<a href="javascript:go(${page - 1})"
+							class = "page-link ${page <= 1 ? 'gray' : '' }">
+							&lt;&lt;
+						</a>
+					</li>
+					<c:forEach var = "a" begin = "${startpage}" end = "${endpage}">
+						<li class = "page-item ${a == page ? 'active' : '' }">
+							<a href="javascript:go(${a})"
+								class = "page-link">${a}</a>
+						</li>
+					</c:forEach>
+					<li class = "page-item">
+						<a href="javascript:go(${page + 1})"
+							class = "page-link" ${page >= maxpage ? 'gray' : '' }">
+							&gt;&gt;
+						</a>
+					</li>
+				</ul>
+			</div>		
 		</c:if>
 		
 		<c:if test = "${listcount == 0}">
 			<p style = "text-align : center"> 등록된 매칭이 없습니다. </p>
 		</c:if>
-		
-		<div class = "center-block">
-			<ul class = "pagination justify-content-center">
-				<li class = "page-item">
-					<a href="javascript:go(${page - 1})"
-						class = "page-link ${page <= 1 ? 'gray' : '' }">
-						&lt;&lt;
-					</a>
-				</li>
-				<c:forEach var = "a" begin = "${startpage}" end = "${endpage}">
-					<li class = "page-item ${a == page ? 'active' : '' }">
-						<a href="javascript:go(${a})"
-							class = "page-link">${a}</a>
-					</li>
-				</c:forEach>
-				<li class = "page-item">
-					<a href="javascript:go(${page + 1})"
-						class = "page-link" ${page >= maxpage ? 'gray' : '' }">
-						&gt;&gt;
-					</a>
-				</li>
-			</ul>
-		</div>
 		
 		<c:if test="${empty sessionScope.id or userClassification == 'regular'}">
 		</c:if>

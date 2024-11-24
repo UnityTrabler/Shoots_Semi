@@ -121,14 +121,15 @@
 						</c:if>
 					</tbody>
 				</table>
-			</div>		
+			</div>
+			
+			<div class = "totalD">
+				<strong> 이번달 총 참여인원 &nbsp; ${totalPlayerCount}명 </strong> &nbsp;&nbsp;&nbsp; <strong> 이번달 총 매출 &nbsp; ${totalSales}원 </strong>
+			</div>	
 		</c:if>
 		
 		<c:if test = "${listcount == 0}">
-			<p style = "text-align : center"> 등록된 글이 없습니다. </p>
+			<p class = "ns"> 아직 매출이 없습니다 </p>
 		</c:if>
-		<div class = "totalD">
-			<strong> 이번달 총 참여인원 &nbsp; ${totalPlayerCount}명 </strong> &nbsp;&nbsp;&nbsp; <strong> 이번달 총 매출 &nbsp; ${totalSales}원 </strong>
-		</div>
 </body>
 </html>

@@ -90,8 +90,8 @@
 				</tbody>
 			</table>
 
-			<%--페이징 --%>
-		<div class = "center-block">
+							<%--페이징 --%>
+			<div class = "center-block">
 				<ul class = "pagination justify-content-center">
 					<li class = "page-item">
 						<a href="javascript:go_inquiry(${page - 1})"
@@ -114,6 +114,7 @@
 				</ul>
 			</div>
 			<%--페이징 끝 --%>
+			
 		</c:if>
 		<%--<c:if test"${listcount > 0}"> end --%>
 		<%--게시글이 없는 경우 --%>

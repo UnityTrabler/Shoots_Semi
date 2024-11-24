@@ -1,7 +1,7 @@
 @charset "EUC-KR";
 
 .table {width : 100%; text-align : center}
-.postC {min-height : 500px}
+.postC {min-height : 500px; max-height : 500px}
 
 th:nth-child(1) {width : 15%}
 th:nth-child(2) {width : 30%}

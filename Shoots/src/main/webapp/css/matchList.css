@@ -1,10 +1,10 @@
 @charset "EUC-KR";
 
-.imgb {text-align:center; margin-bottom : 35px}
-.imgL {position: relative; display: inline-block; text-align : center;  min-width: 1200px;}
-.Limg {width : 100%; height : auto; display: block; margin : 0 auto}
+.imgb {text-align:center; max-height : 180px}
+.imgL {position: relative; display: inline-block; text-align : center;  min-width: 70%; max-width: 70%; max-height : 180px}
+.Limg {width : 100%; height : 180px; display: block; margin : 0 auto}
 
-.container {min-width : 1200px; min-height : 550px}
+.container {min-width : 70%; min-height : 550px}
 .table {width : 70%; margin : 0 auto}
 
 td:nth-child(1) {width :20%}
@@ -16,22 +16,22 @@ td:nth-child(5) {width :20%}
 .locatinA {text-decoration: none; color : black}
 .locatinA:hover {text-decoration: none; font-weight : bold; color : #059669}
 
-.status {font-size :  10px; border-radius : 10px; border : none; width : 70px; height : 23px; color : white ; background : #1d4ed8; transition: background 0.3s, color 0.3s; }
-.status:hover {font-size :  10px; border : 1px solid #1d4ed8; border-radius : 10px; width : 70px; height : 23px; color : #1d4ed8 ; background : white}
+.status {font-size :  12px; border-radius : 10px; border : none; width : 70px; height : 28px; color : white ; background : #1d4ed8; transition: background 0.3s, color 0.3s; }
+.status:hover {font-size :  12px; border : 1px solid #1d4ed8; border-radius : 10px; width : 70px; height : 28px; color : #1d4ed8 ; background : white}
 
-.status2 {font-size :  10px; border-radius : 10px; border : none; width : 70px; height : 23px; color : white ; background : #be123c; transition: background 0.3s, color 0.3s; }
+.status2 {font-size :  12px; border-radius : 10px; border : none; width : 70px; height : 28px; color : white ; background : #be123c; transition: background 0.3s, color 0.3s; }
 
-.status3 {font-size :  10px; border-radius : 10px; border : none; width : 70px; height : 23px; color : white ; background : orange; transition: background 0.3s, color 0.3s; }
-.status3:hover {font-size :  10px; border : 1px solid orange; border-radius : 10px; width : 70px; height : 23px; color : orange ; background : white}
+.status3 {font-size :  12px; border-radius : 10px; border : none; width : 70px; height : 28px; color : white ; background : orange; transition: background 0.3s, color 0.3s; }
+.status3:hover {font-size :  12px; border : 1px solid orange; border-radius : 10px; width : 70px; height : 25px; color : orange ; background : white}
 
-.status4 {font-size :  10px; border-radius : 10px; border : none; width : 70px; height : 23px; color : white ; background : gray; transition: background 0.3s, color 0.3s; }
-.status5 {font-size :  10px; border-radius : 10px; border : none; width : 70px; height : 23px; color : white ; background : #059669; transition: background 0.3s, color 0.3s; }
+.status4 {font-size :  12px; border-radius : 10px; border : none; width : 70px; height : 28px; color : white ; background : gray; transition: background 0.3s, color 0.3s; }
+.status5 {font-size :  12px; border-radius : 10px; border : none; width : 70px; height : 28px; color : white ; background : #059669; transition: background 0.3s, color 0.3s; }
 
 .overlay {
-    position: absolute;
+    position: relative;
     top: 50%;
     left: 50%; 
-    transform: translate(-215%, -50%); 
+    transform: translate(-45%, -130%); 
     color: white;
     background-color: rgba(0, 0, 0, 0);
     padding: 10px;
@@ -44,17 +44,17 @@ td:nth-child(5) {width :20%}
 
 .btnD {text-align:center; margin-top : 30px}
 
-.uploadBtn {font-size :  10px; border-radius : 20px; border : none; width : 80px; height : 23px; color : white ; background : #be123c; margin-left : 10px;  transition: background 0.3s, color 0.3s; }
-.uploadBtn:hover {font-size :  10px; border-radius : 20px; border : 1px solid #be123c; width : 80px; height : 23px; color : #be123c ; background : white; margin-left : 10px }
+.uploadBtn {font-size :  12px; border-radius : 20px; border : none; width : 80px; height : 25px; color : white ; background : #d60e0e; margin-left : 10px;  transition: background 0.3s, color 0.3s; }
+.uploadBtn:hover {font-size :  12px; border-radius : 20px; border : 1px solid #d60e0e; width : 80px; height : 25px; color : #d60e0e ; background : white; margin-left : 10px }
 
-.filterD {display : flex; gap : 3px}
+.filterD {display : flex; gap : 3px; margin-top : 35px; margin-bottom : 20px}
 form {margin : 25px 0 0 10px; display : flex; gap : 3px}
-select {font-size : 10px; border-radius : 20px; border : 1px solid orange; width : 60px; height : 23px; text-align : center; outline: none;}
+select {font-size : 12px!important; border-radius : 20px; border : 1px solid orange; width : 60px; height : 23px; text-align : center; outline: none;}
 .filterInputD {margin : 25px 0 0 5px}
-.filterInput {font-size : 10px; border : 1px solid orange; border-radius : 20px; width : 500px; height : 23px; outline: none}
+.filterInput {font-size : 12px; border : 1px solid orange; border-radius : 20px; width : 500px; height : 23px; outline: none}
 
-.filterButton  {font-size : 9px; border-radius : 20px; border : none; width : 60px; height : 23px; color : white ; background : orange; margin-left : 8px;  transition: background 0.3s, color 0.3s; margin-bottom : 30px}
-.filterButton:hover  {font-size : 9px; border-radius : 20px; border : 1px solid orange; width : 60px; height : 23px; color : orange ; background : white; margin-left : 8px;  transition: background 0.3s, color 0.3s; }
+.filterButton  {font-size : 12px; border-radius : 20px; border : none; width : 65px; height : 23px; color : white ; background : orange; margin-left : 8px;  transition: background 0.3s, color 0.3s; margin-bottom : 30px}
+.filterButton:hover  {font-size : 12px; border-radius : 20px; border : 1px solid orange; width : 65px; height : 23px; color : orange ; background : white; margin-left : 8px;  transition: background 0.3s, color 0.3s; }
 
 .empty-td {border : none!important}
 

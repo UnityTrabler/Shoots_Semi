@@ -11,6 +11,9 @@
 <body>
 	<p class = "cP1"> 고객관리 </p>
 	<input type = "hidden" name = "idx" values = "${idx}">
+	<div class = "custD">
+		<span class = "cust">전체 회원</span> <span class = "custt">vip</span>
+	</div>
 	<div class = "d1">
 		<div class = "d2">
 			<c:forEach var = "acustomers" items= "${acustomers}">

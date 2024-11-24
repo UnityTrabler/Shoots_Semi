@@ -1,5 +1,5 @@
 
-.loginAD {width : 400px; height : 430px; border : 1.6px solid #059669; border-radius : 30px; margin : 0 auto; margin-top : 6%}
+.loginAD {width : 400px; height : 430px; border : 1.6px solid #059669; border-radius : 30px; margin : 0 auto; margin-top : 7%}
 .loginBD {margin-top : 5%}
 
 .loginImgD {text-align : center}
@@ -7,25 +7,25 @@
 
 .loginD {text-align : center}
 
-.idP {width : 200px; margin : 0 auto; text-align : left; padding : 5px}
-.pwP {width : 200px; margin : 0 auto; text-align : left; padding : 5px}
+.idP {width : 200px; font-size : 14px; margin : 0 auto; text-align : left; padding : 5px}
+.pwP {width : 200px; font-size : 14px; margin : 0 auto; text-align : left; padding : 5px}
 
-.idI {width : 200px; height : 25px; border : 1px solid #059669; border-radius : 20px; outline: none; padding : 5px}
-.pwI {width : 200px; height : 25px; border : 1px solid #059669; border-radius : 20px; outline: none; padding : 5px}
+.idI {width : 200px; height : 25px; font-size :12px; border : 1px solid #059669; border-radius : 20px; outline: none; padding : 10px}
+.pwI {width : 200px; height : 25px; font-size :12px; border : 1px solid #059669; border-radius : 20px; outline: none; padding : 10px}
 
 .loginI {margin-bottom : 20px;}
 
-.RD {margin-top : 20px}
+.RD {margin-top : 20px; font-size : 12px}
 
 .btnD {text-align : center; margin-top: 25px; margin-bottom : 30px}
 
-.loginBtn {font-size :  10px; border-radius : 20px; border : none; width : 80px; height : 23px; color : white ; background : #059669; margin-left : 10px; transition: background 0.3s, color 0.3s}
-.loginBtn:hover {font-size :  10px; border-radius : 20px; border : 1px solid #059669; width : 80px; height : 23px; color : #059669 ; background : white; margin-left : 10px; transition: background 0.3s, color 0.3s}
+.loginBtn {font-size :  12px; border-radius : 20px; border : none; width : 80px; height : 25px; color : white ; background : #059669; margin-left : 10px; transition: background 0.3s, color 0.3s}
+.loginBtn:hover {font-size :  12px; border-radius : 20px; border : 1px solid #059669; width : 80px; height : 25px; color : #059669 ; background : white; margin-left : 10px; transition: background 0.3s, color 0.3s}
 
-.signupBtn {font-size :  10px; border-radius : 20px; border : 1px solid #059669; width : 80px; height : 23px; color : #059669 ; background : white; margin-left : 10px; transition: background 0.3s, color 0.3s}
-.signupBtn:hover {font-size :  10px; border-radius : 20px; border : none; width : 80px; height : 23px; color : white ; background : #1d4ed8; margin-left : 10px; transition: background 0.3s, color 0.3s}
+.signupBtn {font-size :  12px; border-radius : 20px; border : 1px solid #059669; width : 80px; height : 25px; color : #059669 ; background : white; margin-left : 10px; transition: background 0.3s, color 0.3s}
+.signupBtn:hover {font-size :  12px; border-radius : 20px; border : none; width : 80px; height : 25px; color : white ; background : #1d4ed8; margin-left : 10px; transition: background 0.3s, color 0.3s}
 
-.regularBtn {font-size :  10px; border-radius : 20px; border : 1px solid orange; width : 80px; height : 23px; color : orange ; background : white; margin-left : 10px; transition: background 0.3s, color 0.3s}
-.businessBtn {font-size :  10px; border-radius : 20px; border : 1px solid orange; width : 80px; height : 23px; color : orange ; background : white; margin-left : 10px; transition: background 0.3s, color 0.3s}
+.regularBtn {font-size :  12px; border-radius : 20px; border : 1px solid orange; width : 80px; height : 25px; color : orange ; background : white; margin-left : 10px; transition: background 0.3s, color 0.3s}
+.businessBtn {font-size :  12px; border-radius : 20px; border : 1px solid orange; width : 80px; height : 25px; color : orange ; background : white; margin-left : 10px; transition: background 0.3s, color 0.3s}
 
-.successBtn {font-size :  10px; border-radius : 20px; border : none; width : 80px; height : 23px; color : white ; background : orange; margin-left : 10px; transition: background 0.3s, color 0.3s}
+.successBtn {font-size :  12px; border-radius : 20px; border : none; width : 80px; height : 25px; color : white ; background : orange; margin-left : 10px; transition: background 0.3s, color 0.3s}

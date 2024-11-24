@@ -23,24 +23,6 @@ NOCACHE;
 
 ALTER TABLE business_user RENAME COLUMN req TO tel;
 
-
-INSERT INTO BUSINESS_USER 
-VALUES (
-    business_seq.nextval, 
-    'businessAdmin', 
-    '1234', 
-    '기업관리자', 
-    '1234567891', 
-    '0319090909', 
-    'htaFoot@gmail.com',
-    '12345', 
-    '서울시 종로구', 
-    null,  
-    null,  
-    SYSDATE,
-    
-);
-
 ALTER TABLE BUSINESS_USER
 MODIFY business_name VARCHAR2(100);
 
@@ -57,7 +39,8 @@ VALUES (
     '서울시 종로구 종로3가', 
     null,  
     null,  
-    SYSDATE
+    SYSDATE,
+    'approved'
 );
 
 INSERT INTO BUSINESS_USER 
@@ -73,7 +56,8 @@ VALUES (
     '서울특별시 강남구 학동로 426 (삼성동, 강남구청)', 
     null,  
     null,  
-    SYSDATE
+    SYSDATE,
+    'approved'
 );
 
 INSERT INTO BUSINESS_USER 
@@ -89,7 +73,8 @@ VALUES (
     '서울특별시 강남구 학동로 426 (삼성동, 강남구청)', 
     null,  
     null,  
-    SYSDATE
+    SYSDATE,
+    'approved'
 );
 
 

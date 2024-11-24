@@ -1,7 +1,7 @@
 @charset "EUC-KR";
 
+.np {margin-top : 15%!important}
 
-.container {min-width : 1200px;}
 .table {width : 100%; margin : 0 auto}
 
 table caption {
@@ -12,7 +12,7 @@ table caption {
 }
 
 
-.noticeDetail {text-decoration: none; color : black; }
+.noticeDetail {text-sdecoration: none; color : black; }
 .noticeDetail:hover {text-decoration: none; font-weight : bold; color : #059669}
 
 .noticeUpdate {text-decoration: none; font-size : 15px; border-radius : 10px; border : none; width : 50px; height : 23px; text-align: center; color : white ; background : #1d4ed8; transition: background 0.3s, color 0.3s; }

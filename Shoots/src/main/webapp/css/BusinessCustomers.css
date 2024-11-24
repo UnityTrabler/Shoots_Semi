@@ -1,6 +1,6 @@
 @charset "EUC-KR";
 
-.d1 {width : 100%; display : flex; gap : 20%; margin-top : 30px}
+.d1 {width : 100%; display : flex; gap : 20%; margin-top : 15px}
 .d2 {display: flex;  flex-wrap: wrap; border : 1.5px solid #059669; border-radius : 20px; width : 45%; margin-left : 15px; min-height : 500px; max-height : 600px; overflow-y: auto;}
 .d3 {display: flex;  flex-wrap: wrap; border : 1.5px solid #059669; border-radius : 20px; width : 45%; margin-right : 15px; min-height : 500px; max-height : 600px; overflow-y: auto;}
 
@@ -10,4 +10,9 @@
 .infoD {display: block; width : 55%; text-align : right; margin-top : 10px}
 p {margin-bottom : 5px}
 
-.ec {width : 100%; margin-top : 70%; text-align : center; color : #be123c}
+.ec {width : 100%; margin-top : 60%; text-align : center; color : #be123c}
+
+.custD {margin-top : 20px}
+.cust {margin-left : 5%; font-weight : bold; margin-right : 53%}
+.custt {font-weight : bold; }
+
