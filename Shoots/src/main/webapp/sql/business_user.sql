@@ -23,6 +23,8 @@ NOCACHE;
 
 ALTER TABLE business_user RENAME COLUMN req TO tel;
 
+select * from business_user;
+
 
 INSERT INTO BUSINESS_USER 
 VALUES (
