@@ -55,6 +55,12 @@
     
     <script>
 	    $(function(){
+			$('.btn1_1').click(function(){
+				location.href = "user/map";
+			});
+	    });
+	    
+	    $(function(){
 			$('.btn2_1').click(function(){
 				location.href = "matchs/list";
 			});

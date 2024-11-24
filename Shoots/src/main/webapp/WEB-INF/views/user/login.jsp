@@ -14,6 +14,23 @@
     	function btnRegularClick() {}
     	function btnBusinessClick() {}
     	
+    	function checkInvalidate() {
+			var patternIdPwd = /^[a-zA-Z]{1}\w+$/; // 첫글자 알파벳 + 최대 19글자 한글없이 입력하여야 됩니다.
+			
+			if(!patternIdPwd.test($('#id').val())){
+				alert('올바른 아이디 형식이 아닙니다.\n 첫글자 알파벳, 최소 2글자 ~ 최대 20글자, 한글 없이, 특수문자 없이 가능합니다.');
+				$('#id').focus();
+				return false;
+			}
+			else if(!patternIdPwd.test($('#pwd').val())){
+				alert('올바른 비밀번호 형식이 아닙니다.\n 첫글자 알파벳, 최소 2글자 ~ 최대 20글자, 한글 없이, 특수문자 없이 가능합니다.');
+				$('#pwd').focus();
+				return false;
+			}
+			
+			return true;
+		}//checkInvalidate()
+    	
     	$(function() {
     		init();
     		
@@ -38,6 +55,10 @@
 			
 		 	$('form[name="loginform"]').submit(function(e) {
 				e.preventDefault();
+				
+				var invali = checkInvalidate(); //유효성검증
+				if(invali == false) return;
+				
 				const data = $(this).serialize();
 				let state;
 				if ($('#btnGroupRB').find('.successBtn').first().attr('id') == 'btnRegular')
@@ -46,7 +67,6 @@
 				else if ($('#btnGroupRB').find('.successBtn').first().attr('id') == 'btnBusiness')
 					state = {'state' : 'business'}; 
 				
-				alert(`\${data + "&" + $.param(state)}`);
 				ajax(`\${data + "&" + $.param(state)}`, `\${$(this).attr('action')}`);
 			}); 
 			

@@ -39,6 +39,8 @@ public class UserDAO {
 			try(ResultSet rs = pstmt.executeQuery();){
 				if(rs.next()) 
 					result = pwd.equals(rs.getString("password")) ? 1 : 0;
+				else
+					result = -1;
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -61,6 +63,8 @@ public class UserDAO {
 			try(ResultSet rs = pstmt.executeQuery();){
 				if(rs.next()) 
 					result = pwd.equals(rs.getString("password")) ? 1 : 0;
+				else
+					result = -1;
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
