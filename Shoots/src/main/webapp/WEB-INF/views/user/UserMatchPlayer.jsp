@@ -4,10 +4,12 @@
 <html>
 <head>
     <meta charset="UTF-8">
-	<title>Insert title here</title>
+	<title>함께한 플레이어들</title>
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/css/UserMatchPlayer.css" type="text/css">
+
 </head>
 <body>
+<input type="hidden" name="report_ref_id" id="report_ref_id" value="${match.match_id }">
 	<div class = "sc">
 		<div class = "df">
 			<c:forEach var="player" items="${players}">
@@ -44,7 +46,9 @@
 						<c:if test = "${player.idx != idx}">
 							<c:choose>
 								<c:when test = "${isReport}">
-									<input type = "button" class = "reportBtn" name = "report" value = "신고">
+									<input type = "button" class = "reportBtn" name = "report" value = "신고" 
+									data-match-id="${match.match_id}" data-player-idx="${player.idx}" data-player-name="${player.name}"
+									onclick="openReportModal('${player.idx}',$('#report_ref_id').val(), '${player.name}')">
 								</c:when>
 								<c:when test = "${! isReport}">
 									<input type = "button" class = "NreportBtn" name = "report" value = "신고" disabled>
@@ -69,6 +73,57 @@
 				</div>
 			</c:forEach>
 		</div>
-	</div>
+	</div> <!-- div class sc 끝 -->
+	
+		<!-- 플레이어 신고모달창 시작-->		
+	<div id = "p-reportModal" class="modal p-report-modal fade" style="display:none">
+		 <div class="modal-dialog" role="document">
+	        <div class="modal-content"> <!-- 모달 내용으로 포함시킬 부분 -->
+	         <div class = "modalBD"><input type = "button" value = "X" onclick="closeReportModal()" class = "modalX"></div>
+	        
+	        <form action ="${pageContext.request.contextPath}/report/add2" method="post" name="reportform">
+	        
+	        	<h1 style="text-align:center;">플레이어 신고</h1>
+	        	
+	        	<br>
+	        	<input type="hidden" name="report_type" class ="report_type" value="C"> <!-- 신고유형 분류, 댓글은 B, 숨겨둠. -->
+	        	<input type="hidden" name="reporter" class="reporter" value="${idx}"> <!-- 신고자, 로그인 한 아이디로 가져옴 -->
+	        	<input type="hidden" name="target" class="target" value=""> <!-- 신고당하는 사람, detail?num에서 뽑아와야함-->
+	        	<input type="hidden" name="report_ref_id" class="report_ref_id" value=""> <!-- 참조할 번호. A면 postid, B면 commentid, C면 matchid-->
+	        	
+	        	<!-- 플레이어1 구간 -->
+				<div class="player" id="p1">
+				<div>
+				<img src="${pageContext.request.contextPath}/img/reportHuman.png" width="80px"/>
+				<p><input type="text" name="targetName" class="targetName" value="" style="border:none;" readOnly></p>
+				</div>
+				
+				<select name="title" style="margin-bottom: 10px;" required>
+					<option disabled selected hidden value="">신고 사유를 선택해 주세요</option>
+					<option value="욕설, 모욕 등의 언어적 폭력행위">욕설, 모욕 등의 언어적 폭력행위</option>
+					<option value="난폭한 플레이">난폭한 플레이</option>
+					<option value="약속시간 미준수">약속시간 미준수</option>
+					<option value="경기와 관계 없는 행위">경기와 관계 없는 행위</option>
+					<option value="직접 입력">직접 입력</option>
+				</select>
+				
+				<br>
+				<textarea placeholder ="내용을 작성해 주세요." maxlength="300" class="content" name="content" 
+				 style="height:150px; width:500px; resize:none; margin-bottom: 10px;" required></textarea>
+				</div> <!-- 플레이어1 끝 -->
+				
+				
+				<div id="reportbutton" style="text-align: center;">
+					<button class="btn btn-danger">신고하기</button>
+				</div>
+				
+				</form>
+				
+			</div> <!-- modal-content -->
+		</div> <!-- modal-dialog -->
+	</div> <!-- 플레이어 신고모달창 끝 -->
+	
+	
+	
 </body>
 </html>

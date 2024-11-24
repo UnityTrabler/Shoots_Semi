@@ -51,6 +51,11 @@ public class ReportFrontController extends jakarta.servlet.http.HttpServlet {
 				action = new ReportAddAction();
 				break;
 				
+				//플레이어 신고만 add2로 들어감.
+			case "/add2":
+				action = new ReportAdd2Action();
+				break;
+				
 			case "/screen":
 				action = new ReportScreenAction();
 				break;

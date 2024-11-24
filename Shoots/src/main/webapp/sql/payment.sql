@@ -11,6 +11,15 @@ CREATE TABLE payment(
     imp_uid varchar2(30) NOT NULL
 );
 
+INSERT INTO PAYMENT
+VALUES (
+    payment_seq.nextval, 5, 4, 1, 'kakao', 1000, 
+    TO_DATE('2024-11-23 06:00:00', 'YYYY-MM-DD HH24:MI:SS'), 
+    'SUCCESS', '1', '1', 'shit'
+);
+
+
+
 CREATE SEQUENCE payment_seq
 START WITH 1
 INCREMENT BY 1
