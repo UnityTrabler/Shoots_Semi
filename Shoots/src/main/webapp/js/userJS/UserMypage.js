@@ -411,8 +411,9 @@ function iajax(sdata) {
 
 
 // UserMatchs - modal
-
 function openModal(matchId) {
+	console.log(matchId + '== 매치아이디');
+        
     // AJAX 요청을 보내서 플레이어 목록을 가져오기
     fetch(`../user/userMatchPlayer?match_id=${matchId}`)
         .then(response => response.text())  // 텍스트 형태로 응답받기
@@ -420,15 +421,73 @@ function openModal(matchId) {
             // 받은 데이터를 모달에 표시
             document.getElementById('playersList').innerHTML = data;
             document.getElementById('myModal').style.display = "block"; 
+	            
+					//report_ref_id 값에다 matchId를 가져와서 적용하는 부분	            
+	             const reportRefInput = document.getElementById('report_ref_id');
+	        if (reportRefInput) {
+	            reportRefInput.value = matchId;
+	        } else {
+	            console.error("'id = report_ref_id' 인 값을 못찾고 있다.");
+	        }
         })
         .catch(error => {
             console.error('Error:', error);
         });
-}
+        
+} //openModal 끝
 
 function closeModal() {
     document.getElementById('myModal').style.display = "none";
-}
+} //closeModal 끝
+
+
+function openReportModal(playerIdx, matchId, name) {
+    console.log("플레이어 ID: " + playerIdx);
+	 console.log("매치 ID: " + matchId);
+	 
+	  // matchId 설정
+    const reportRefInput = document.querySelector('.report_ref_id');
+    if (reportRefInput) {
+        reportRefInput.value = matchId;
+    } else {
+        console.error(".report_ref_id 클래스를 가진 요소를 찾을 수 없습니다.");
+    }
+
+    // playerIdx 설정
+    const targetInput = document.querySelector('.target');
+    if (targetInput) {
+        targetInput.value = playerIdx;
+    } else {
+        console.error(".target 클래스를 가진 요소를 찾을 수 없습니다.");
+    }
+    
+    const playerName = document.querySelector('.targetName');
+    if (playerName) {
+        playerName.value = name.substring(0,1) + "*" + name.substring(2,3);
+    } else {
+        console.error(".targetName 클래스를 가진 요소를 찾을 수 없습니다.");
+    }
+	
+	////2번째 모달창 (=플레이어 신고 버튼 클릭) 열렸을때 화면 비작동 오류 방지
+   const modal = document.getElementById('p-reportModal');
+    modal.style.display = 'block'; // 기본 표시
+    modal.classList.add('show'); // Bootstrap 활성화 클래스 추가
+    modal.setAttribute('aria-modal', 'true');
+    modal.removeAttribute('aria-hidden');
+    document.body.classList.add('modal-open'); // 배경 스크롤 방지
+} //opentReportModal 끝
+
+function closeReportModal() {
+	
+	//2번째 모달창 (=플레이어 신고 버튼 클릭) 열렸을때 화면 비작동 오류 방지
+     const modal = document.getElementById('p-reportModal');
+    modal.style.display = 'none'; // 숨김
+    modal.classList.remove('show');
+    modal.setAttribute('aria-hidden', 'true');
+    modal.removeAttribute('aria-modal');
+    document.body.classList.remove('modal-open'); // 배경 스크롤 복구
+} //closeReportModal 끝
+
 
 window.onclick = function(event) {
     if (event.target == document.getElementById('myModal')) {
