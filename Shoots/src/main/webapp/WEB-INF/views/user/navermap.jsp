@@ -5,29 +5,26 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
-    <script type="text/javascript" src="js/navemapJSCSS/examples-base.js"></script>
-    <script type="text/javascript" src="js/navemapJSCSS/highlight.min.js"></script>
+    <script type="text/javascript" src="../js/navemapJSCSS/examples-base.js"></script>
+    <script type="text/javascript" src="../js/navemapJSCSS/highlight.min.js"></script>
     <!-- ncpClientId는 등록 환경에 따라 일반(ncpClientId), 공공(govClientId), 금융(finClientId)으로 나뉩니다. 사용하는 환경에 따라 키 이름을 변경하여 사용하세요. 참고: clientId(네이버 개발자 센터)는 지원 종료 -->
     <script type="text/javascript" src="https://oapi.map.naver.com/openapi/v3/maps.js?ncpClientId=83bfuniegk&submodules=geocoder"></script>
-    <link rel="stylesheet" type="text/css" href="js/navemapJSCSS/examples-base.css" />
+    <link rel="stylesheet" type="text/css" href="../js/navemapJSCSS/examples-base.css" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"/>
-    <script>
-        var HOME_PATH = 'js/navemapJSCSS';
-    </script>
     <style type="text/css">
 		.search { position:absolute;z-index:1000;top:20px; }
 		.search #address { width:150px;height:20px;line-height:20px;border:solid 1px #555;padding:5px;font-size:12px;box-sizing:content-box; }
 		.search #submit { height:30px;line-height:30px;padding:0 10px;font-size:12px;border:solid 1px #555;border-radius:3px;cursor:pointer;box-sizing:content-box; }
-		h1Title{
-			display: grid;
+		#h1Title{
 			top:20px;
-		    place-items: center;
 		    text-align: center;
 		}
 	</style>
 </head>
+
 <body class="container">
-<h1 id="h1Title" style="text-align: cetner; justify-content: center;  align-items: center;">전국 풋살장 위치</h1>
+<jsp:include page="../user/top.jsp"></jsp:include>
+<h1 id="h1Title">전국 풋살장 위치</h1>
 <!-- @category Overlay/Marker -->
 <div id="wrap" class="section">
     <div id="map" style="width:100%;height:600px;">
@@ -38,10 +35,9 @@
     </div>
 </div>
 
-<script type="text/javascript">
-var HOME_PATH = window.HOME_PATH || '.';
-</script>
 <script id="code">
+var HOME_PATH = '../js/navemapJSCSS';
+var HOME_PATH = window.HOME_PATH || '.';
 var map = new naver.maps.Map("map", {
         zoom: 6,
         center: new naver.maps.LatLng(36.2253017, 127.6460516),
@@ -151,9 +147,6 @@ function onLoad() {
         }
     });
 }
-</script>
-
-<script type="text/javascript">
     var loaded = 0;
     var list = [
         '/data/accidentdeath.js',
@@ -227,7 +220,7 @@ function searchAddressToCoordinate(address) {
             item = response.v2.addresses[0],
             point = new naver.maps.Point(item.x, item.y);
 		
-	/* 	$.ajax({
+		$.ajax({
 			url : "https://openapi.naver.com/v1/search/local.xml?query=%EC%A3%BC%EC%8B%9D&display=10&start=1&sort=random",
 			beforeSend : function(xhr){
 				xhr.setRequestHeader("X-Naver-Client-Id", ""); 
@@ -242,7 +235,7 @@ function searchAddressToCoordinate(address) {
 			error:function(){
 				console.log('ajax error');
 			}
-		}); */
+		});
         
         if (item.roadAddress) 
             htmlAddresses.push('[도로명 주소] ' + item.roadAddress);
@@ -356,8 +349,9 @@ function hasAddition (addition) {
 }
 
 naver.maps.onJSContentLoaded = initGeocoder;
+
 </script>
- <script type="text/javascript" src="js/navemapJSCSS/accidentdeath.js"></script> 
-<script type="text/javascript" src="js/navemapJSCSS/MarkerClustering.js" onload="onLoad()"></script> 
+<script type="text/javascript" src="../js/navemapJSCSS/accidentdeath.js"></script> 
+<script type="text/javascript" src="../js/navemapJSCSS/MarkerClustering.js" onload="onLoad()"></script> 
 </body>
 </html>

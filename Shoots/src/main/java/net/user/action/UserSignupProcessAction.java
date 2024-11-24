@@ -64,13 +64,13 @@ public class UserSignupProcessAction extends HttpServlet implements Action {
 				if(result == 1) {
 					System.out.println("r user insert successed");
 					resp.setStatus(HttpServletResponse.SC_OK);
-					resp.getWriter().println("{\"message\":\"r sign up successed\"}");
+					resp.getWriter().println("{\"message\":\"회원가입에 성공하셨습니다!\"}");
 					return null;
 				}
 				else {
 					System.out.println("r user insert failed");
 					resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-					resp.getWriter().println("{\"message\":\"r sign up failed\"}");
+					resp.getWriter().println("{\"message\":\"회원가입에 실패하셨습니다!\"}");
 					return null;
 				}
 			}
@@ -95,13 +95,13 @@ public class UserSignupProcessAction extends HttpServlet implements Action {
 				if(result == 1) {
 					System.out.println("b user insert successed");
 					resp.setStatus(HttpServletResponse.SC_OK);
-					resp.getWriter().println("{\"message\":\"b sign up successed\"}");
+					resp.getWriter().println("{\"message\":\"기업 회원가입에 성공하셨습니다!\"}");
 					return null;
 				}
 				else {
 					System.out.println("b user insert failed");
 					resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-					resp.getWriter().println("{\"message\":\"b sign up failed\"}");
+					resp.getWriter().println("{\"message\":\"기업 회원가입에 실패하셨습니다!\"}");
 					return null;
 				}
 			}

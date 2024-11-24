@@ -4,6 +4,10 @@
 <head>
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 	<script src="${pageContext.request.contextPath}/js/jquery-3.7.1.js"></script>
+	<style>
+		input[type="text"], input[type="email"], input[type="password"]{width: 300px; border-radius: 30px; padding: 5px; padding-left: 10px; padding-right: 10px; margin-bottom: 10px; }
+		input{display: block; align-items: center;}
+	</style>
 	<script>
 		function init() {
 			$('#verify-block').css('display', 'none');
@@ -50,7 +54,7 @@
 				 
 			});//$('#check-email-verify').click
 			
-/* 			$('#signupform').on('submit',function(e) {
+ /* 			$('#signupform').on('submit',function(e) {
 				e.preventDefault();
 				$.ajax({
 					url: $(this).attr('action'),
@@ -65,11 +69,12 @@
 						alert('회원가입에 실패하셨습니다.');
 					}
 				});//$.ajax
-			});//$('#signupform').submit */
+			});//$('#signupform').submit  */
 			
 			$('input[type=file]').change(function(event){
-			/* 	const file = event.target.files[0]; //첫번째 파일
+			 	const file = event.target.files[0]; //첫번째 파일
 				const maxSizeInBytes = 5 * 1024 * 1024;
+			 	
 				if(file.size > maxSizeInBytes){
 					alert("5MB 이하 크기로 업로드 하세요");
 					$(this).val('');
@@ -77,27 +82,23 @@
 				}
 				
 				const pattern = /(gif|jpg|jpeg|png)$/i; //i(ignore case) = 대소문자 무시.
+				
 				if(pattern.test(file.name)){
-					$('#filename').text(file.name);
-					
-					//createObjectURL()를 통해 file을 server에 upload하지 않고도 browser에서 미리보기 가능.
-					const fileURL = URL.createObjectURL(file);
-					$('#showImage > img').attr('src', fileURL);
+					$('#preview').show();
+					$('#preview').attr('src', URL.createObjectURL(event.target.files[0]));
+					$('#preview').css({'width' : '150px', 'height' : '150px'});
+					$('#filename').text('file change...');
 				}
 				
 				else{
-					alert('image file(gif,jpg,jpeg,png)이 아닌 경우 무시됩니다.');
-					$('#filename').text('');
+					alert('image file(gif,jpg,jpeg,png) 파일만 올려주세요.');
 					$('#showImage > img').attr('src', '../image/profile.png');
 					$(this).val('');
 					$('input[name=check]').val('');
-				} */
-				const file = event.target.files[0];
-				$('#preview').show();
-				$('#preview').attr('src', URL.createObjectURL(event.target.files[0]));
-				$('#preview').css({'width' : '150px', 
-									'height' : '150px'});
-				$('#filename').text('file change...');
+					return;
+				}
+				
+
 				
 				
 			});//file change event

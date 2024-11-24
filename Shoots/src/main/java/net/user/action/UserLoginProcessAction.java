@@ -20,8 +20,15 @@ public class UserLoginProcessAction implements Action {
 		System.out.println("state :    -    "+req.getParameter("state") + "//////"+id + pwd);
 		
 		if(req.getParameter("state").equals("regular")) {
-			int result = userDAO.isId(id, pwd);
+			int result = userDAO.isId(id, pwd); // id = pwd인가?
 			System.out.println("result : " + result);
+			
+			if(result == -1) {
+				resp.setContentType("application/json; charset=UTF-8");
+				resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+				resp.getWriter().println("{\"message\":\"존재하지 않는 ID\"}");
+				return null;
+			}
 			
 			if(result == 1) {
 				System.out.println("id :" + id +"- login 일치");
@@ -33,6 +40,7 @@ public class UserLoginProcessAction implements Action {
 				session.setAttribute("role", new UserDAO().getUser(id).getRole());
 				session.setAttribute("file", new UserDAO().getUser(id).getUserfile());
 				session.setAttribute("userClassification", "regular");
+				
 				//store cookie
 				Cookie cookie = new Cookie("id", id);
 				cookie.setMaxAge(0);
@@ -45,17 +53,25 @@ public class UserLoginProcessAction implements Action {
 				resp.setStatus(HttpServletResponse.SC_OK);
 				resp.getWriter().println("{\"message\":\"login successed\"}");
 				return null;
-			}
+			}//if 로그인 일치
+			
 			System.out.println("regular login 불일치");
 			resp.setContentType("application/json; charset=UTF-8");
-			resp.getWriter().print("""
-					{'message' : 'regular login 불일치'}
-				""");
-
+			resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+			resp.getWriter().println("{\"message\":\"아이디 또는 비밀번호가 다릅니다.\"}");
+			return null;
 		}//if regular
+		
 		else if(req.getParameter("state").equals("business")) {
 			int result = userDAO.isIdBusiness(id, pwd);
 			System.out.println("result : " + result);
+			
+			if(result == -1) {
+				resp.setContentType("application/json; charset=UTF-8");
+				resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+				resp.getWriter().println("{\"message\":\"존재하지 않는 ID\"}");
+				return null;
+			}
 			
 			if(result == 1) {
 				System.out.println("b - id :" + id +"- login 일치");
@@ -85,13 +101,13 @@ public class UserLoginProcessAction implements Action {
 				resp.setStatus(HttpServletResponse.SC_OK);
 				resp.getWriter().println("{\"message\":\"login successed\"}");
 				return null;
-			}
+			}//if business login successed
 			System.out.println("business login 불일치");
 			resp.setContentType("application/json; charset=UTF-8");
-			resp.getWriter().print("""	
-					{'message' : 'business login 불일치'}
-				""");
-		}
+			resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+			resp.getWriter().println("{\"message\":\"아이디 또는 비밀번호가 다릅니다.\"}");
+			return null;
+		}//if state = business
 		
 		return null;
 	}

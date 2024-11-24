@@ -5,6 +5,11 @@
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 	<script src="${pageContext.request.contextPath}/js/jquery-3.7.1.js"></script>
 	
+	<style>
+		input[type="text"], input[type="email"], input[type="password"]{width: 300px; border-radius: 30px; padding: 5px; padding-left: 10px; padding-right: 10px; margin-bottom: 10px; }
+		input{display: block; align-items: center;}
+	</style>
+	
 	<script>
 		function init() {
  			$('#verify-block').css('display', 'none');
@@ -45,6 +50,7 @@
 						$('#check-email-verify').prop('disabled', true);
 						$('#email-verify-text').prop('readonly', true);
 						${session.removeAttribute()}
+						emailCheck = true;
 					},
 					error : function() {
 						$('#verify-toggle-text').show().text("불일치 합니다.").css('color', 'red');
@@ -54,15 +60,65 @@
 				 
 			});//$('#check-email-verify').click
 			
+			var emailCheck = false;
+			function checkInvalidate() {
+				//유효성검증--- start
+				var patternIdPwd = /^[a-zA-Z]{1}\w+$/; // 첫글자 알파벳 + 최대 19글자 한글없이 입력하여야 됩니다.
+				var patternBusinessName = /^[\w가-힣]{1,99}$/; // 최대 100글자 가능합니다. 			
+				var patternBusinessNumber = /^\d{13}$/; // 13자리 숫자
+				var patternTel = /^(01[016789]|02|0[3-9][0-9])-?\d{3,4}-?\d{4}$/; //010, 011, 016, 017, 018, 019 or 02 or 031.. + 하이픈 선택 + 숫자 3개 or 4개 + 숫자 4개 
+				var patternEmail = /^[a-zA-Z]{1}\w+@\w+[.]\w+$/; //첫글자 알파벳, a@a.a 의 형태로 입력 
+				
+				if(!patternIdPwd.test($('#id').val())){
+					alert('올바른 아이디 형식이 아닙니다.\n 첫글자 알파벳, 최소 2글자 ~ 최대 20글자, 한글 없이, 특수문자 없이 가능합니다.');
+					$('#id').focus();
+					return false;
+				}
+				else if(!patternIdPwd.test($('#pwd').val())){
+					alert('올바른 비밀번호 형식이 아닙니다.\n 첫글자 알파벳, 최소 2글자 ~ 최대 20글자, 한글 없이, 특수문자 없이 가능합니다.');
+					$('#pwd').focus();
+					return false;
+				}
+				else if(!patternBusinessName.test($('#business-name').val())){
+					alert('올바른 기업명 형식이 아닙니다.\n 특수문자 없이 최대 100글자 가능합니다.');
+					$('#business-name').focus();
+					return false;
+				}
+				else if(!patternBusinessNumber.test($('#business-number').val())){
+					alert('올바른 사업자 번호 형식이 아닙니다.\n 13자리, 숫자만 가능합니다.');
+					$('#business-number').focus();
+					return false;
+				}
+				else if(!patternTel.test($('#tel').val())){
+					alert('올바른 전화번호 형식이 아닙니다.\n 010, 011, 016, 017, 018, 019 or 02 or 031.. + 숫자 3개 or 4개 + 숫자 4개 만 가능합니다.');
+					$('#tel').focus();
+					return false;
+				}
+				else if(!patternEmail.test($('#email').val())){
+					alert('올바른 이메일 형식이 아닙니다.\n //첫글자 알파벳, ab@a.a 의 형태만 가능합니다. ');
+					$('#email').focus();
+					return false;
+				}
+				/* else if(emailCheck == false){
+					alert('이메일 인증을 해주세요!');
+					$('#email').focus();
+					return false;
+				} */
+				
+				return true;
+				//유효성검증--- end
+			}//checkInvalidate()
+			
 		 	$('form[name="signupform"]').submit(function(e) {
 				e.preventDefault();
+				var invali = checkInvalidate(); //유효성검증
+				if(invali == false) return;
 				
 				const data = $(this).serialize();
 				let state;
 				if ($('#btnGroupRB').find('.btn-success').first().attr('id') != null)
 					state = $('#btnGroupRB').find('.btn-success').first().attr('id') == 'btnRegular' ? {'state' : 'regular'} : {'state' : 'business'};
 					
-				alert(`\${data + "&" + $.param(state)}`);
 				ajax(`\${data + "&" + $.param(state)}`, $(this).attr('action'));
 			}); 
 			
@@ -98,27 +154,30 @@
 
 				<font color='red'>*</font>표시는 필수 입력 사항입니다.
 				<hr>
-
 				<!-- id pwd business-name business-number tel email postcode address+adressDetail description business_file -->
-				아이디(id)<font color='red'>*</font>
+				아이디<font color='red'>*</font><br>
 				<input type="text" name="id" id="id" class="form-control" placeholder="id..." required>
 
-				비밀번호(password)<font color='red'>*</font> 
+				비밀번호<font color='red'>*</font> <br>
 				<input type="text" name="pwd" id="pwd" class="form-control" placeholder="pwd..." required>
 
-				기업명(business-name)<font color='red'>*</font> 
+				기업명<font color='red'>*</font> <br>
 				<input type="text" name="business-name" id="business-name" class="form-control" placeholder="name..." required>
 				
-				사업자 번호(business-number)<font color='red'>*</font> 
+				사업자 번호<font color='red'>*</font> <br>
 				<input type="text" name="business-number" id="business-number" class="form-control" placeholder="name..." required>
 
-				대표 전화번호(tel)<font color='red'>*</font> <input type="text" name="tel" id="tel" class="form-control" placeholder="tel..." required>
+				대표 전화번호<font color='red'>*</font> <br>
+				<input type="text" name="tel" id="tel" class="form-control" placeholder="tel..." required>
 
-				이메일(Email)<font color='red'>*</font> <input type="email" name="email" id="email" class="form-control" placeholder="받는 주소" value="<%=" kdhmm0325"%>@naver.com" required> 
+				이메일<font color='red'>*</font> <br>
+				<input type="email" name="email" id="email" class="form-control" placeholder="받는 주소" value="<%=" kdhmm0325"%>@naver.com" required>
+				 
 				<input type="button" class="btn btn-primary" id="send-email" value="확인메일 전송(send verifycode)"><br>
+				
 		        <div id="verify-block" class="p-3" style="background-color: #d4edda;">
-		          Enter Verification code<font color='red'>*</font> <input type="text" class="form-control"
-		            id="email-verify-text"> <input type="button" class="btn btn-primary" id="check-email-verify" value="check">
+		          Enter Verification code<font color='red'>*</font> <br>
+		          <input type="text" class="form-control" id="email-verify-text"> <input type="button" class="btn btn-primary" id="check-email-verify" value="check">
 		          <b id="verify-toggle-text"></b>
 		        </div><br>
 				
@@ -173,24 +232,24 @@
 			      }
 				</script>
 				
-				우편번호, 주소(Post)<font color='red'>*</font><br>
+				우편번호, 주소<font color='red'>*</font><br>
 				<label for='postcodeBtn'> 
 		        <input type="button" value="우편번호 검색하기(Postcode search)" id="postcodeBtn" style="visibility: hidden; display: none;">
 				<input type="text" name="postcode" id="postcode" class="form-control" placeholder="search..." readonly required>
 				<input type="text" name="address" id="address" class="form-control" placeholder="search..." readonly required>
 				</label><br>
 				
-				상세주소(Address)<font color='red'>*</font> 
+				상세주소<font color='red'>*</font> <br>
 				<input type="text" name="addressDetail" id="addressDetail" class="form-control" placeholder="name..." required>
 				<!-- 우편번호 block end -->
 				
 				<br><br><hr>
 					선택 사항입니다.
 				<hr>
-					설명(Description) 
+					설명 <br>
 					<input type="text" name="description" id="description" class="form-control" placeholder="name..."> 
 					
-					프로필 사진(Description) 
+					프로필 사진 <br>
 					<input type="text" name="business_file" id="business_file" class="form-control" placeholder="name..."> 
 					<input type="submit" class="submit btn btn-primary">
 			</form>
