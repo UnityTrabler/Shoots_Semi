@@ -13,7 +13,7 @@
 	});
 </script>
 <style>
-	nav {width: 1200px; height: 50px; margin: 30px auto;display: flex;justify-content: space-between;align-items: center;}
+	nav {width: 70%; margin: 30px auto;display: flex;justify-content: space-between;align-items: center;}
 	img {width: 45px;}
 	.brand {font-size: 30px; font-weight: bold; color: black; text-decoration: none!important; transition: background 0.3s, color 0.3s;}
 	.loginA, .joinA {color: black; text-decoration: none!important; margin-right : 10px ;  transition: background 0.3s, color 0.3s;}

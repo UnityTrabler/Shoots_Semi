@@ -15,9 +15,8 @@
 <input type="hidden" value="${id}" id="loginid">  <!-- 수정 삭제 버튼 보이게 하려고 현재 로그인 한 유저의 id값을 받아놓음 -->
 <input type="hidden" value="${inquirydata.inquiry_id}" id="inquiryid">  <!-- 댓글 삭제한 뒤 다시 문의글로 돌아오게 하기 위해 문의글 번호값을 받아둠 -->
 	<%--view.js에서 사용하기 위해 추가 --%>
-	<div class="container">
-		<table class="table">
-				<caption>1:1 문의 게시판 </caption>
+	<div class="containerI">
+		<table class="table tableV">
 				
 				<%--문의글 제목 --%>
 				<tr>
@@ -25,14 +24,16 @@
 				</tr>
 				
 				<tr>
-					<td><div>문의자: ${inquirydata.user_id}</div></td>
-					<td>문의 날짜: ${inquirydata.register_date.substring(0,16)}</td>
+					<td><div>문의자 : ${inquirydata.user_id}</div></td>
+					<td>문의 날짜 : ${inquirydata.register_date.substring(0,16)}</td>
 				</tr>
 				
 				<tr>
 					<td colspan="2" style ="padding-right:0px">
-						<textarea class="form-control" rows="5"
-						 readOnly>${inquirydata.content}</textarea></td>
+					<div class = "contentT">
+						<pre>${inquirydata.content}</pre>
+					</div>
+					</td>
 				</tr>
 				
 				<tr>
@@ -53,47 +54,8 @@
 						<td></td>
 					</c:if>
 				</tr>
-			
-				<tr>
-					<td colspan="5" class="center" style="float:right">
-						<%--수정, 삭제 버튼은 로그인 한 유저만 보이게 함. 관리자도 안보임 --%>
-						<c:if test="${inquirydata.inquiry_ref_idx == idx}">
-							<c:choose>
-							<c:when test="${!inquirydata.hasReply}">
-								<a href="modify?inquiryid=${inquirydata.inquiry_id}">
-									<button class="btn btn-info updateBtn">수정</button>
-								</a>
-							</c:when>
-								<c:otherwise>
-									<button class="btn btn-info updateBtn" style="display:none">수정</button>
-								</c:otherwise>
-							</c:choose>
-							<%--href의 주소를 #으로 설정함. --%>
-							<a href ="#">
-								<button class="btn btn-danger" data-toggle="modal"
-									data-target="#myModal" id="inquiryDelete">삭제</button>
-							</a>
-						</c:if>
-						
-							<%--관리자가 목록 버튼 누르면 관리자 전용 리스트로, 일반회원은 개인 문의글 리스트 경로로 이동 --%>
-							<c:choose>
-							    <c:when test="${role == 'admin'}">
-							        <a href="../admin/mypage">
-							            <button class="btn btn-warning listBtn">목록</button>
-							        </a>
-							    </c:when>
-							    <c:otherwise>
-							        <a href="../customer/support">
-							            <button class="btn btn-warning">목록</button>
-							        </a>
-							    </c:otherwise>
-							</c:choose>
-					</td> <%--수정,삭제,목록 버튼 있는 td 끝 --%>
-				</tr>
 			</table>
-	
-	<hr>
-	
+			<hr>
 	 <!-- 댓글 리스트 출력 -->
     <div class="comments-section">
         <c:if test="${!empty iqlist}">
@@ -107,7 +69,7 @@
                 	
                 	<input type="hidden" value="${ic.user_id}" class="iqcomment-writer"> <!-- 각 문의댓글을 남긴 댓글 작성자 값 -->
                 	<div class="buttonfront">
-                    <p><strong>작성자:</strong> ${ic.user_id} <strong>등록일:</strong> ${ic.register_date.substring(0,16)}
+                    <p><strong>작성자 :</strong> ${ic.user_id} <strong>등록일 :</strong> ${ic.register_date.substring(0,16)}
                     </div>
                     <button type="button" class="btn btn-primary ic-modify" style="display:none" value="${ic.i_comment_id}">수정</button>
                     <button type="button" class="btn btn-danger ic-delete" style="display:none" value="${ic.i_comment_id}">삭제</button>
@@ -119,38 +81,78 @@
         </c:if>
         
         <c:if test="${empty iqlist}">
-            <h4>아직 관리자의 답변이 없습니다.</h4>
+        	<div class = "comD">
+            	<p class = "comP">아직 관리자의 답변이 없습니다.</p>
+            </div>
             <br>
         </c:if>
     </div>
-	
-<!-- 댓글 폼 시작. 댓글 작성은 관리자만 가능 (role == admin) -->
- <c:if test="${role == 'admin'}">
-  <form action="../iqcomments/add" method ="post" name = "iqcommentform" id="iqcommentform">
-	<div class="comment-head">
-	</div>
-	
-	<!-- 댓글 내용 부분 -->
-	<div class="comment-body">
-		<input type="hidden" name="inquiry_id" value="${inquirydata.inquiry_id}">
-		<img src ="${pageContext.request.contextPath}/img/profile.png" alt="프로필" width="60" height="48">
 		
-		<div class="nickname">
-		<input type="hidden" class ="nickname" name="writer" value="${idx}"> <!-- 댓글 작성자의 로그인id :int형, idx 가져옴. -->
-		<span class="nickname">${id}</span>  <!-- 댓글 작성자의 닉네임 : 로그인 한 유저 닉네임 -->
+	<!-- 댓글 폼 시작. 댓글 작성은 관리자만 가능 (role == admin) -->
+	 <c:if test="${role == 'admin'}">
+	  <form action="../iqcomments/add" method ="post" name = "iqcommentform" id="iqcommentform">
+		<div class="comment-head">
 		</div>
 		
-		
-		<textarea placeholder = "문의글에 대한 답변을 남겨보세요" class="iqcomment-content" name="content" maxlength="300" required></textarea>		
-		
-		<div class="register-box">
-			<button class="btn-primary" id="register-comment">등록</button>
-			<button class="btn-danger" id="cancel-comment" style="display:none">취소</button>
+		<!-- 댓글 내용 부분 -->
+		<div class="comment-body">
+			<input type="hidden" name="inquiry_id" value="${inquirydata.inquiry_id}">
+			<img src ="${pageContext.request.contextPath}/img/profile.png" alt="프로필" width="60" height="48">
+			
+			<div class="nickname">
+			<input type="hidden" class ="nickname" name="writer" value="${idx}"> <!-- 댓글 작성자의 로그인id :int형, idx 가져옴. -->
+			<span class="nickname">${id}</span>  <!-- 댓글 작성자의 닉네임 : 로그인 한 유저 닉네임 -->
+			</div>
+			
+			
+			<textarea placeholder = "문의글에 대한 답변을 남겨보세요" class="iqcomment-content" name="content" maxlength="300" required></textarea>		
+			
+			<div class="register-box">
+				<button class="btn-primary" id="register-comment">등록</button>
+				<button class="btn-danger" id="cancel-comment" style="display:none">취소</button>
+			</div>
+			
 		</div>
-		
-	</div>
-  </form>
- </c:if>
+	  </form>
+	 </c:if>
+	 
+			<%--수정, 삭제 버튼은 로그인 한 유저만 보이게 함. 관리자도 안보임 --%>
+			<div class = "btnD">
+				<c:if test="${inquirydata.inquiry_ref_idx == idx}">
+					<c:choose>
+					<c:when test="${!inquirydata.hasReply}">
+						<a href="modify?inquiryid=${inquirydata.inquiry_id}">
+							<button class="btn btn-info updateBtn">수정</button>
+						</a>
+					</c:when>
+						<c:otherwise>
+							<button class="btn btn-info updateBtn" style="display:none">수정</button>
+						</c:otherwise>
+					</c:choose>
+					<%--href의 주소를 #으로 설정함. --%>
+					<a href ="#">
+						<button class="btn deleteBtn" data-toggle="modal"
+							data-target="#myModal" id="inquiryDelete">삭제</button>
+					</a>
+				</c:if>
+				
+					<%--관리자가 목록 버튼 누르면 관리자 전용 리스트로, 일반회원은 개인 문의글 리스트 경로로 이동 --%>
+				<c:choose>
+				    <c:when test="${role == 'admin'}">
+				        <a href="../admin/mypage">
+				            <button class="btn listB listBtn">목록</button>
+				        </a>
+				    </c:when>
+				    <c:otherwise>
+				        <a href="../customer/support">
+				            <button class="btn listB">목록</button>
+				        </a>
+				    </c:otherwise>
+				</c:choose>
+			</div>
+
+	
+	
 </div>
 <script>
 const inquiryid = $('#inquiryid').val(); 

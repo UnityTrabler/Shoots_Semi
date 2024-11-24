@@ -13,7 +13,7 @@
 <body>
 	<div class="container">
 		<form action="add" method="post" enctype="multipart/form-data" name="inquiryform">
-			<h1>1:1 문의하기</h1>		
+			<h3>1:1 문의하기</h3>		
 			<div class="form-group">
 				<%--문의자, hidden --%>
 				<input name="inquiry_ref_idx" id ="inquiry_ref_idx" value="${idx}" 
@@ -34,29 +34,29 @@
 			</div>
 			
 			<div class="form-group">
-				<label for ="board_subject">문의 제목</label>
+				<p class = "titlep">문의 제목</p>
 				<input name="title" id ="title" maxlength="100" 
-				type="text" class="form-control" placeholder="제목을 입력해 주세요">
+				type="text" class="titleI" placeholder="제목을 입력해 주세요">
 			</div>
 			
 			<%--문의 내용 --%>
 			<div class="form-group">
 				<textarea name="content" id ="content"  rows="10" placeholder="내용을 입력해 주세요"
-				class="form-control"></textarea>
+				class="contentI"></textarea>
 			</div>
 			
 			<div class="form-group">
 				<label>
-					파일첨부
-					<img src="${pageContext.request.contextPath }/img/attach.png" alt="파일첨부">
+					<span class = "filep">파일첨부<span>
+					<img src="${pageContext.request.contextPath }/img/attach.png" alt="파일첨부" class = "fileU">
 					<input type="file" id="upfile" name="inquiry_file">
 				</label>
 				<span id="filevalue" name="check">${inquirydata.inquiry_file}</span>
 				<img src="${pageContext.request.contextPath}/img/remove.png"
-				alt="파일삭제" width="10px" class="remove">
+				alt="파일삭제" class="remove">
 			 </div>
 			
-			<div class="form-group">
+			<div class="btnD">
 				<button type="submit" class="btn btn-primary registerBtn">문의 접수</button>
 				<button type="button" class="btn btn-danger cancelBtn">취소</button>
 			</div>

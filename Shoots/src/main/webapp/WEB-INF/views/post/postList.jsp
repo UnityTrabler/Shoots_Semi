@@ -67,10 +67,13 @@
             </div>
         </div>
 
-        
-
         <!-- 글 작성 버튼 -->
-        <button type="button" class="btn btn-info float-right btnw" onclick="postWrite()">글 작성</button>
+        <c:if test = "${idx == null}">
+        	<button type="button" class="btn btn-info float-right btnw" onclick="postWriteN()">글 작성</button>
+        </c:if>
+        <c:if test = "${idx != null}">
+        	<button type="button" class="btn btn-info float-right btnw" onclick="postWrite()">글 작성</button>
+        </c:if>
     </div>
     
     

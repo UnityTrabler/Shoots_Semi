@@ -1,6 +1,4 @@
-.container {border: 1.5px solid #059669; border-radius : 30px; width : 50%; margin : 0 auto; padding : 40px}
-
-.table{width : 100%; margin : 0 auto}
+.table{width : 90%; padding : 0px; margin-top : 20px; margin-bottom : 10px}
 
 .inquiryDetail {text-decoration: none; color : black; }
 .inquiryDetail:hover {text-decoration: none; font-weight : bold; color : #059669}
@@ -19,11 +17,37 @@ td:nth-child(6), td:nth-child(6){
 	text-align:center;
 }
 
+.inquiryD {min-height : 400px; margin-bottom : 10px}
+
 table caption {
 	caption-side: top;
-	font-size : 30px;
+	font-size : 20px;
 	font-weight: bold;
 	color : black;
+	margin-bottom : 20px
 }
 
 textarea {resize:none; width:35%;}
+
+.inquiryBtn {font-size :  12px; border-radius : 20px; border : none; width : 80px; height : 25px; color : white ; background : #059669; transition: background 0.3s, color 0.3s; padding : 0px; margin-right : 5%; margin-bottom : 5%}
+.inquiryBtn:hover {font-size :  12px; border-radius : 20px; border : 1px solid #059669; width : 80px; height : 25px; color : #059669 ; background : white; padding : 0px}
+
+
+.containerI {width : 60%; border : 1.5px solid #059669; border-radius : 20px; margin : 0 auto}
+.tableV {margin : 0 auto; margin-top : 20px}
+
+.btnD {text-align : center; margin-bottom : 30px}
+.updateBtn {font-size :  12px; border-radius : 20px; border : none; width : 80px; height : 25px; color : white ; background : orange; margin-left : 10px; transition: background 0.3s, color 0.3s; padding : 0px}
+.deleteBtn {font-size :  12px; border-radius : 20px; border : none; width : 80px; height : 25px; color : white ; background : #d60e0e; margin-left : 10px; transition: background 0.3s, color 0.3s; padding : 0px}
+.listB {font-size :  12px; border-radius : 20px; border : none; width : 80px; height : 25px; color : white ; background : #059669; margin-left : 10px; transition: background 0.3s, color 0.3s; padding : 0px}
+
+.updateBtn:hover {font-size :  12px; border-radius : 20px; border : 1px solid orange; width : 80px; height : 25px; color : orange ; background : white; margin-left : 10px; transition: background 0.3s, color 0.3s}
+.deleteBtn:hover {font-size :  12px; border-radius : 20px; border : 1px solid #d60e0e; width : 80px; height : 25px; color : #d60e0e ; background : white; margin-left : 10px; transition: background 0.3s, color 0.3s}
+.listB:hover {font-size :  12px; border-radius : 20px; border : 1px solid #059669; width : 80px; height : 25px; color : #059669 ; background : white; margin-left : 10px; transition: background 0.3s, color 0.3s}
+
+.contentT {width : 100%; border : 1px solid #059669; border-radius : 20px; padding : 10px; min-height : 200px}
+hr {width : 90%}
+.comD {width : 90%; margin : 0 auto}
+.comP {margin-left : 10px}
+
+.ni {text-align : center; margin-top : 15%!important}

@@ -53,17 +53,10 @@
 						</tr>
 					</c:forEach>
 				</tbody>
-				
 			</table>
-		</c:if>
-		
-		<%-- 게시글이 없는 경우 --%>
-		<c:if test="${listcount == 0 }">
-			<h3 style="text-align:center">등록된 글이 없습니다.</h3>
-		</c:if>
-		
-		<%--페이징 --%>
-		<div class = "center-block">
+			
+			<%--페이징 --%>
+			<div class = "center-block">
 				<ul class = "pagination justify-content-center">
 					<li class = "page-item">
 						<a href="javascript:go_notice(${page - 1})"
@@ -86,5 +79,12 @@
 				</ul>
 			</div>
 			<%--페이징 끝 --%>
+		</c:if>
+		
+		<%-- 게시글이 없는 경우 --%>
+		<c:if test="${listcount == 0 }">
+			<p style="text-align:center" class = "np">등록된 글이 없습니다.</p>
+		</c:if>
+		
 </body>
 </html>
