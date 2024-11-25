@@ -52,13 +52,7 @@
             // 새로 받은 게시글 목록을 테이블에 추가
             postList.forEach(function(post) {
                 var row = $('<tr>');
-                row.append('<td>' + post.post_id + '</td>');
-                row.append('<td><a href="detail?num=' + post.post_id + '">' 
-                + (post.title.length > 20 ? post.title.substring(0, 20) + '...' : post.title) 
-                + '&nbsp;&nbsp;'  + '<span style="color: orange;">[' + post.commentCount + ']</span>' + '</a></td>');
-                row.append('<td>' + post.user_id + '</td>');
-                row.append('<td>' + post.register_date + '</td>');
-                row.append('<td>' + post.readcount + '</td>');
+                row.append('<td style="vertical-align: middle; text-align: center;">' + post.post_id + '</td>');
                 
                 // 중고게시판(카테고리B)의 경우 -> 파일첨부(미리보기),가격 추가
                 if (category === 'B') {
@@ -78,17 +72,37 @@
 			            // 이미지를 미리보기로 표시
 			            var imgPreview = $('<img>').attr('src', decodeURIComponent(imageUrl))
 										           .attr('alt', '.')
-										           .css({'max-width':'100px','max-height': '100px', 'object-fit': 'cover'});
+										           .css({'min-width':'150px','min-height': '150px','max-width':'150px','max-height': '150px', 'object-fit': 'cover'});
 			            // 이미지 태그를 테이블 셀에 추가
 			            row.append('<td>' + imgPreview[0].outerHTML + '</td>');
 			        }
 		            
 		        else 
 		            row.append('<td></td>'); // 첨부파일이 없으면 빈 칸
-		         
-		        // 카테고리 B일 경우 추가로 가격 표시
-                    row.append('<td>' + post.price + '원</td>');
                 }
+                
+               
+                
+                
+                // 중고게시판(카테고리B)의 경우 -> 파일첨부(미리보기),가격 추가
+                // 카테고리 B일 경우 추가로 가격 표시
+                if (category === 'B') {
+		        	 row.append('<td style="vertical-align: middle; text-align: center;"><a href="detail?num=' + post.post_id + '">' 
+                + (post.title.length > 20 ? post.title.substring(0, 20) + '...' : post.title) 
+                + '&nbsp;&nbsp;'  + '<span style="color: orange;">[' + post.commentCount + ']</span>' + '</a>' + '<br>' + '<br>' + post.price + '원</td>');
+		         
+		        
+                } else {
+					 row.append('<td style="vertical-align: middle; text-align: center;"><a href="detail?num=' + post.post_id + '">' 
+                + (post.title.length > 20 ? post.title.substring(0, 20) + '...' : post.title) 
+                + '&nbsp;&nbsp;'  + '<span style="color: orange;">[' + post.commentCount + ']</span>' + '</a></td>');
+				}
+                
+                
+                row.append('<td style="vertical-align: middle; text-align: center;">' + post.user_id + '</td>');
+                row.append('<td style="vertical-align: middle; text-align: center;">' + post.register_date + '</td>');
+                row.append('<td style="vertical-align: middle; text-align: center;">' + post.readcount + '</td>');
+                
                 row.append('</tr>');
                 tableBody.append(row);
                 
