@@ -20,6 +20,8 @@
 
 
 
+
+
 /*수정/삭제/목록 버튼 디자인 */
 
 .modifyBtn {
@@ -226,12 +228,14 @@ textarea.comment-write-area-text {
 	margin-bottom: 10px;
 }
 
+
+/* 댓글 쓰는 창*/
 .comment-write .comment-write-area-text {
 	overflow-x: hidden;
 	overflow-y: auto;
 	display: block;
 	width: 100%;
-	min-height: 17px;
+	min-height: 60px;
 	padding-right: 1px;
 	border: 0;
 	font-size: 13px;
