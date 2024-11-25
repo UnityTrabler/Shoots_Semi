@@ -65,7 +65,7 @@
 		</div>
 	</c:if>
 	<div class = "bB">
-		<input type = button value = "매칭하러가기" class = "matchBtn">
+		<input type = button value = "매칭하러가기" class = "matchBtn" onclick="matchList()">
 	</div>
 	<div id="myModal" class="modal">
         <div class="modal-content">

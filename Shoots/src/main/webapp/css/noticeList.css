@@ -19,8 +19,8 @@ table caption {
 .noticeDelete {text-decoration: none; font-size : 15px; border-radius : 10px; border : none; width : 50px; height : 23px; text-align: center; color : white ; background : #be123c; transition: background 0.3s, color 0.3s; }
 .noticeDelete:hover {text-decoration: none; font-size : 15px; border : 1px solid #be123c; border-radius : 10px; width : 50px; height : 23px; text-align: center; color : #be123c ; background : white}
 
-.btnWrite{text-decoration: none; font-size : 15px; border-radius : 10px; border : none; width : 80px; height : 23px; text-align: center; color : white ; background : #be123c; transition: background 0.3s, color 0.3s;}
-.btnWrite:hover {text-decoration: none; font-size : 15px; border : 1px solid #be123c; border-radius : 10px; width : 80px; height : 23px; text-align: center; color : #be123c ; background : white}
+.btnWrite{text-decoration: none; font-size : 12px; border-radius : 20px; border : none; width : 90px; height : 23px; text-align: center; color : white ; background : #be123c; transition: background 0.3s, color 0.3s; margin-top : 20px; line-height: 23px}
+.btnWrite:hover {text-decoration: none; font-size : 12px; border : 1px solid #be123c; border-radius : 20px; width : 90px; height : 23px; text-align: center; color : #be123c ; background : white; line-height: 23px}
 
 th:nth-child(2), th:nth-child(3), th:nth-child(4){
 	text-align:center;
@@ -56,6 +56,6 @@ td:nth-child(2), td:nth-child(3), td:nth-child(4){
 textarea {resize:none; width:35%;}
 .np {margin-top : 15%!important}
 
-
+.Bd {margin-top : 50px; text-align : center}
 
 

@@ -14,9 +14,9 @@
 		<caption>게시판 관리</caption>
 		<thead>
 			<tr>
-				<th>작성자</th>
 				<th>카테고리</th>
 				<th>제목</th>
+				<th>작성자</th>
 				<th>등록일</th>
 				<th>조회수</th>
 				<th>삭제</th>
@@ -26,18 +26,20 @@
 		<tbody>
 			<c:forEach var="post" items="${totallist}">
 				<tr>
-					<td>${post.writer}</td>
-					<td>
-						<c:if test="${post.category.equals('A')}">
-							자유
-						</c:if>
-						<c:if test="${post.category.equals('B')}">
-							중고
-						</c:if>
+					<td> 
+						<c:choose>
+							<c:when test = "${post.category == 'A'}">
+								<span class = "a"> [자유] </span>
+							</c:when>
+							<c:when test = "${post.category == 'B'}">
+								<span class = "b"> [중고] </span>
+							</c:when>
+						</c:choose>
 					</td>
-					<td><a href="../post/detail?num=${post.post_id}"  type="button" class="postDetail">${post.title }</a></td>
-					<td>${post.register_date.substring(0,10) }</td>
-					<td>${post.readcount }</td>
+					<td><a href="../post/detail?num=${post.post_id}"  type="button" class="postDetail">${post.title}</a></td>
+					<td>${post.writer}</td>
+					<td>${post.register_date}</td>
+					<td>${post.readcount}</td>
 					<td><a href="postDelete?id=${post.post_id}"  type="button" class="postDelete">삭제</a></td>
 				</tr>
 			</c:forEach>
