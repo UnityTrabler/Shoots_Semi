@@ -67,7 +67,7 @@ public class AdminReportAction implements Action {
 			req.setAttribute("limit", limit);
 			
 			forward.setRedirect(false);
-			forward.setPath("/WEB-INF/views/admin/adminPostList.jsp");
+			forward.setPath("/WEB-INF/views/admin/adminReportList.jsp");
 			return forward;
 		} else {
 			System.out.println("state = ajax");
