@@ -482,7 +482,7 @@ public class UserDAO {
 					userBean.setBusiness_id(id);
 					userBean.setPassword(rs.getString("password"));
 					userBean.setBusiness_name(rs.getString("business_name"));
-					userBean.setBusiness_number(Integer.parseInt(rs.getString("business_number")));
+					userBean.setBusiness_number(Long.parseLong(rs.getString("business_number")));
 					userBean.setTel(Integer.parseInt(rs.getString("tel")));
 					userBean.setEmail(rs.getString("email"));
 					userBean.setPost(Integer.parseInt(rs.getString("post")));
