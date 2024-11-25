@@ -1,15 +1,12 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<!DOCTYPE html>
 <html>
 <head>
-	<meta charset="EUC-KR">
 	<title>Insert title here</title>
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/css/UserInfo.css" type="text/css">
 </head>
 <body>
-	<p class = "cP1"> ³» Á¤º¸ </p>
+	<p class = "cP1"> ë‚´ ì •ë³´ </p>
 		<input type = "hidden" id = "idx" name =  "idx" value = "${idx}">
 		<div class = "infoD">
 			<div class = "infoD1">
@@ -23,34 +20,34 @@
 			<div class = "infoD2">
 				<table class = "table">
 					<tr>
-						<th> ÀÌ¸§ </th> <td> ${user.name} </td>
+						<th> ì´ë¦„ </th> <td> ${user.name} </td>
 					</tr>
 					<tr>
-						<th> ¾ÆÀÌµğ </th> <td> ${user.id} </td>
+						<th> ì•„ì´ë”” </th> <td> ${user.id} </td>
 					</tr>
 					<tr>
-						<th> ÁÖ¹Îµî·Ï¹øÈ£ </th> <td> ${user.RRN}
+						<th> ì£¼ë¯¼ë“±ë¡ë²ˆí˜¸ </th> <td> ${user.RRN}
 						<c:choose>
 				            <c:when test="${user.gender == 2 or user.gender == 4}">
-				                (¿©)
+				                (ì—¬)
 				            </c:when>
 				            <c:when test="${user.gender == 1 or user.gender == 3}">
-				                (³²)
+				                (ë‚¨)
 				            </c:when>
 				        </c:choose>
 						</td>
 					</tr>
 					<tr>
-						<th> ÀÌ¸ŞÀÏ </th> <td> ${user.email} </td>
+						<th> ì´ë©”ì¼ </th> <td> ${user.email} </td>
 					</tr>
 					<tr>
-						<th> ÀüÈ­¹øÈ£ </th> <td> ${user.tel} </td>
+						<th> ì „í™”ë²ˆí˜¸ </th> <td> ${user.tel} </td>
 					</tr>
 				</table>
 			</div>
 			</div>
 		<div class = "container2">
-			<input type = "button" class = "updateBtn" value = "³» Á¤º¸ ¼öÁ¤" onclick = "redirectToUpdatePage()">
+			<input type = "button" class = "updateBtn" value = "ë‚´ ì •ë³´ ìˆ˜ì •" onclick = "redirectToUpdatePage()">
 		</div>
 </body>
 </html>

@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR" pageEncoding="EUC-KR"%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 <head>
@@ -28,10 +28,10 @@
 				
 				 $.post("${pageContext.request.contextPath}/user/signupProcess", {email: $('#email').val()},
 					function(response) {
-			            alert("¿Ã∏ﬁ¿œ¿Ã ¿¸º€µ«æ˙Ω¿¥œ¥Ÿ.");
+			            alert("Ïù¥Î©îÏùºÏù¥ Ï†ÑÏÜ°ÎêòÏóàÏäµÎãàÎã§.");
 			            console.log(response);
 			        }, "json").fail(function(response) {
-			            alert("¿Ã∏ﬁ¿œ ¿¸º€ø° Ω«∆–«ﬂΩ¿¥œ¥Ÿ.");
+			            alert("Ïù¥Î©îÏùº Ï†ÑÏÜ°Ïóê Ïã§Ìå®ÌñàÏäµÎãàÎã§.");
 			            console.log(response);
 			            console.log(response.message);
 			        }); //$.post
@@ -45,13 +45,13 @@
 					data : { key : $('#email-verify-text').val().trim() 
 							},
 					success : function(response){
-						$('#verify-toggle-text').show().text("¿œƒ°«’¥œ¥Ÿ!").css('color', 'green');
+						$('#verify-toggle-text').show().text("ÏùºÏπòÌï©ÎãàÎã§!").css('color', 'green');
 						$('#check-email-verify').prop('disabled', true);
 						$('#email-verify-text').prop('readonly', true);
 						${session.removeAttribute()}
 					},
 					error : function() {
-						$('#verify-toggle-text').show().text("∫“¿œƒ° «’¥œ¥Ÿ.").css('color', 'red');
+						$('#verify-toggle-text').show().text("Î∂àÏùºÏπò Ìï©ÎãàÎã§.").css('color', 'red');
 					},
 					dataType : "json"
 				}); //$.ajax
@@ -65,36 +65,36 @@
 					method:$(this).attr('method'),
 					data:$(this).serialize(),
 					success: function(resp) {
-						alert('»∏ø¯∞°¿‘ø° º∫∞¯«œºÃΩ¿¥œ¥Ÿ.');
-						window.location.href = "${pageContext.request.contextPath}/user/login"; //¿Ãµø
+						alert('ÌöåÏõêÍ∞ÄÏûÖÏóê ÏÑ±Í≥µÌïòÏÖ®ÏäµÎãàÎã§.');
+						window.location.href = "${pageContext.request.contextPath}/user/login"; //Ïù¥Îèô
 					},
 					error: function(error) {
-						console.error("º≠πˆ ø¿∑˘:", error);
-						alert('»∏ø¯∞°¿‘ø° Ω«∆–«œºÃΩ¿¥œ¥Ÿ.');
+						console.error("ÏÑúÎ≤Ñ Ïò§Î•ò:", error);
+						alert('ÌöåÏõêÍ∞ÄÏûÖÏóê Ïã§Ìå®ÌïòÏÖ®ÏäµÎãàÎã§.');
 					}
 				});//$.ajax
 			});//$('#signupform').submit  */
 			
 			$('input[type=file]').change(function(event){
-			 	const file = event.target.files[0]; //√ππ¯¬∞ ∆ƒ¿œ
+			 	const file = event.target.files[0]; //Ï≤´Î≤àÏß∏ ÌååÏùº
 				const maxSizeInBytes = 5 * 1024 * 1024;
 			 	
 				if(file.size > maxSizeInBytes){
-					alert("5MB ¿Ã«œ ≈©±‚∑Œ æ˜∑ŒµÂ «œººø‰");
+					alert("5MB Ïù¥Ìïò ÌÅ¨Í∏∞Î°ú ÏóÖÎ°úÎìú ÌïòÏÑ∏Ïöî");
 					$(this).val('');
 					return;
 				}
 				
-				const pattern = /(gif|jpg|jpeg|png)$/i; //i(ignore case) = ¥Îº“πÆ¿⁄ π´Ω√.
+				const pattern = /(gif|jpg|jpeg|png)$/i; //i(ignore case) = ÎåÄÏÜåÎ¨∏Ïûê Î¨¥Ïãú.
 				
 				if(pattern.test(file.name)){
 					$('#preview').show();
 					$('#preview').attr('src', URL.createObjectURL(event.target.files[0]));
-					$('#filename').text('∆ƒ¿œ∫Ø∞Ê');
+					$('#filename').text('ÌååÏùºÎ≥ÄÍ≤Ω');
 				}
 				
 				else{
-					alert('image file(gif,jpg,jpeg,png) ∆ƒ¿œ∏∏ ø√∑¡¡÷ººø‰.');
+					alert('image file(gif,jpg,jpeg,png) ÌååÏùºÎßå Ïò¨Î†§Ï£ºÏÑ∏Ïöî.');
 					$('#showImage > img').attr('src', '../image/profile.png');
 					$(this).val('');
 					$('input[name=check]').val('');
@@ -107,7 +107,7 @@
 				e.preventDefault();
 				$('input[type=file]').val('');
 				$('#preview').val('');
-				$('#filename').text('∆ƒ¿œ√∑∫Œ');
+				$('#filename').text('ÌååÏùºÏ≤®Î∂Ä');
 				$('#preview').attr('src', '${pageContext.request.contextPath}/img/profile.png');
 			});
 			
@@ -118,7 +118,7 @@
 <body>
 	<jsp:include page="top.jsp"></jsp:include>
 	<div class="container">
-		<jsp:include page="RegularFormArea.jsp"></jsp:include>
+		<jsp:include page="RegularFormAreaUpdate.jsp"></jsp:include>
 	</div>
 </body>
 </html>
