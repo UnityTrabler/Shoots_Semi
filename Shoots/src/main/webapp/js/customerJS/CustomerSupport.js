@@ -98,6 +98,7 @@ function loadinquiry(pageName, elmnt){
   var xhr = new XMLHttpRequest();
   
   if (idx == null || idx.value.trim() === "") {
+
         alert("로그인 후 이용가능합니다.");
         location.href = "../user/login";
         return;

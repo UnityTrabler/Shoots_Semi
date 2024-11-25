@@ -434,11 +434,11 @@ function openModal(matchId) {
             console.error('Error:', error);
         });
         
-} //openModal 끝
+} 
 
 function closeModal() {
     document.getElementById('myModal').style.display = "none";
-} //closeModal 끝
+} 
 
 
 function openReportModal(playerIdx, matchId, name) {

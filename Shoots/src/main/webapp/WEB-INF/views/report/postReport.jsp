@@ -16,7 +16,7 @@
 </head>
 <body>
 <button class ="btn-light postReportButton" data-toggle="modal" data-target=".report-modal"
-style ="border:none">···</button>
+style ="border:none"> <img src = "${pageContext.request.contextPath}/img/report.png" style = "width : 20px"> </button>
 
 	<!-- 모달창 시작-->		
 <div class="modal report-modal fade" style="display:none">

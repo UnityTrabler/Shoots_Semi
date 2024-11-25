@@ -58,7 +58,7 @@ function getList(state) {
         output += (Comment.comment_ref_id !== 0) ? '' : `
         <li id='${Comment.comment_id}' class='comment-list-item ${replyClass}'>
             <div class='comment-nick-area'>
-                <img src='${src}' alt='profile picture' width='36' height='36'>
+                <img src='${src}' alt='profile picture' style = "width : 35px; height : 35px">
                 <div class='comment-box'>
                     <div class='comment-nick-box'>
                         <div class='comment-nick-info'>
@@ -67,10 +67,14 @@ function getList(state) {
                     </div>
                     <div class='comment-text-box'>
                         <p class='comment-text-view'>
+                        
                             <span class='text-comment'>${Comment.content}</span>
-                            <button class ="btn-light commentReportButton"  data-comment-id="${Comment.comment_id}" 
+                            <button class ="commentReportButton"  data-comment-id="${Comment.comment_id}" 
+
                          	data-writer="${Comment.writer}" data-tidx="${Comment.writer}" 
-                         	data-toggle="modal" data-target=".c-report-modal" style ="color:red; border:none">☎</button>
+                         	data-toggle="modal" data-target=".c-report-modal" style ="color:red; border:none">
+                         	<img src='../img/report.png' style = "width : 15px; height : 15px">
+                         	</button>
                         </p>
                     </div>
                     <div class='comment-info-box'>
@@ -85,8 +89,7 @@ function getList(state) {
         // 답글 처리: 부모 댓글에 대한 답글을 출력
         rdata.commentlist.forEach(childComment => {
             if (childComment.comment_ref_id === Comment.comment_id) {
-                let childSrc = childComment.user_file ? `../userupload/${childComment.user_file}` : '../img/profile.png';
-                
+                let childSrc = childComment.user_file ? `../userupload/${childComment.user_file}` : '../img/info.png';
                 /*
                 정규식 /(@[\w\u00C0-\u017F]+)/g:
 				@: '@' 기호를 탐지.
@@ -125,7 +128,7 @@ function getList(state) {
                 output += `
                 <li id='${childComment.comment_id}' class='comment-list-item comment-list-item--reply'>
                     <div class='comment-nick-area'>
-                        <img src='${childSrc}' alt='profile picture' width='36' height='36'>
+                        <img src='${childSrc}' alt='profile picture' style = "width : 35px; height : 35px">
                         <div class='comment-box'>
                             <div class='comment-nick-box'>
                                 <div class='comment-nick-info'>
@@ -134,7 +137,7 @@ function getList(state) {
                             </div>
                             <div class='comment-text-box'>
                                 <p class='comment-text-view'>
-                                    <span class='text-comment'>${formattedContent}</span>
+                                    <pre class='text-comment'>${formattedContent}</pre>
                                 </p>
                             </div>
                             <div class='comment-info-box'>
