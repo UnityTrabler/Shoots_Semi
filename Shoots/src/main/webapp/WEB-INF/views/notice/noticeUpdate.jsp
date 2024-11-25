@@ -22,20 +22,21 @@
 			<input type="hidden" name="notice_id" value="${nb.notice_id}">
 	
 			<div class="form-group">
-				<label>글쓴이</label>
-				<input type="text" class="form-control" value="${id}" readOnly>
+				<label>작성자</label>
+				<input type="text" class="writer" value="${id}" readOnly>
 			</div>
 				
 			<div class="form-group">
-				<label for="title">제목</label>
-				<textarea name="title" id="title" rows="1" maxlength="100"
-						class="form-control">${nb.title}</textarea>
+				<label for="title" class="titlep">제목</label>
+				<input name="title" id="title" rows="1" maxlength="100"
+						class="titleI" value="${nb.title}">
 			</div>
 			
+			<%--공지사항 내용 --%>
 			<div class="form-group">
-				<label for="content">내용</label>
+				
 				<textarea name="content" id="content" rows="10"
-						class="form-control">${nb.content}</textarea>
+						class="content">${nb.content}</textarea>
 			</div>
 			
 			<div class="form-group">
@@ -49,9 +50,9 @@
 					alt="파일삭제" width="10px" class="remove">
 			</div>
 		
-			<div class="form-group">
-				<input type = "submit" class = "uploadbBtn" value = "UPDATE" class = "btn btn-danger">
-				<input type = "button" class = "backBtn" onClick="history.go(-1)" value = "BACK">
+			<div class="btnD">
+				<input type = "submit" class = "uploadbBtn" value = "수정" class = "btn btn-danger">
+				<input type = "button" class = "backBtn" onClick="history.go(-1)" value = "목록">
 			</div>
 		</div>
 	</form>

@@ -13,36 +13,36 @@
 		<form action="add" method="post" enctype="multipart/form-data" name="boardform">
 			<h1>FAQ 등록 페이지</h1>
 			<div class="form-group">
-				<label for="regular_user_id">관리자</label>
+				<label for="regular_user_id">작성자</label>
 				<input name="regular_user_id" id="regular_user_id" value="${id}" 
-						type="text" class="form-control" readOnly> 
+						type="text" class="writer" readOnly> 
 			</div>
 		
 			<div class="form-group">
-				<label for="title">제목</label>
+				<label for="titlep">제목</label>
 				<input name="title" id="title" type="text" maxlength="100"
-						class="form-control" placeholder="Enter FAQ TITLE" required>
+						class="titlei" placeholder="Enter FAQ TITLE" required>
 			</div>
 			
+			<%--문의 내용 --%>
 			<div class="form-group">
-				<label for="content">내용</label>
 				<textarea name="content" id="content" rows="10"
-						class="form-control" required></textarea>
+						class="content" placeholder="내용을 입력해 주세요" required></textarea>
 			</div>
 		
 			<div class="form-group">
 				<label>
-					파일 첨부
+					<span class = "filep">파일첨부</span>
 					<img src="${pageContext.request.contextPath}/img/attach.png" alt="파일첨부">
 					<input type="file" id="upfile" name="faq_file">
 				</label>
 				<span id="filevalue"></span>
 			</div>
 			
-			<div class="form-group">
-				<input type = "submit" value = "UPLOAD" class = "btn btn-danger uploadbBtn">
-				<input type = "reset" value = "RESET" class = "resetBtn">
-				<input type = "button" class = "backBtn" onClick="history.go(-1)" value = "BACK">
+			<div class="btnD">
+				<input type = "submit" value = "등록" class = "uploadbBtn">
+				<input type = "reset" value = "취소" class = "resetBtn">
+				<input type = "button" class = "backBtn" onClick="history.go(-1)" value = "목록">
 			</div>
 		</form>
 	</div>

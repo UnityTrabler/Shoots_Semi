@@ -94,12 +94,15 @@ function loadnotice(pageName, elmnt){
 
 function loadinquiry(pageName, elmnt){
   
-  var idx = document.getElementById('user-data');
-  if (idx == null) {
+  var idx = document.getElementById('idx');
+  var xhr = new XMLHttpRequest();
+  
+  if (idx == null || idx.value.trim() === "") {
+
         alert("로그인 후 이용가능합니다.");
         location.href = "../user/login";
+        return;
     }
-  var xhr = new XMLHttpRequest();
   xhr.open('GET', '../inquiry/list', true);
   // Hide all elements with class="tabcontent" by default */
   var i, tabcontent, tablinks;

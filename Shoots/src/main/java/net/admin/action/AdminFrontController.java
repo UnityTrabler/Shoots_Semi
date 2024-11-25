@@ -62,6 +62,9 @@ public class AdminFrontController extends HttpServlet{
 			case "/postlist":
 				action = new AdminPostListAction();
 				break;
+			case "/report":
+				action = new AdminReportAction();
+				break;
 			case "/postDelete":
 				action = new AdminPostDeleteAction();
 				break;

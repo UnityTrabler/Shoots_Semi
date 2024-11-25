@@ -26,13 +26,12 @@
 		<table class="table">
 			<caption><c:out value="${fb.title}" /></caption>
 			<tr>
-				<td><div>글쓴이</div></td>
-				<td><div>${fb.name}</div></td>
+				<td>글쓴이</td>
+				<td>${fb.name}</td>
 			</tr>
 			
 			<tr>
-				<td><div>내용</div></td>
-				<td style="padding-right: 0px">
+				<td style="padding-right: 0px" colspan="2">
 					<textarea rows="5" style="width:100%" readOnly>${fb.content}</textarea>
 				</td>
 			</tr>
@@ -54,8 +53,7 @@
 			</tr>
 			
 			<tr>
-				<td></td>
-				<td>
+				<td colspan="2" class="btnD">
 					<a href="update?id=${fb.faq_id}" type="button" class="updateBtn">수정</a>
 					<a href="delete?id=${fb.faq_id}" type="button" class="deleteBtn">삭제</a>
 					<a href="../admin/mypage" type="button" class="listBtn">목록</a>

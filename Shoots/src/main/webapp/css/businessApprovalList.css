@@ -15,8 +15,8 @@ td:nth-child(6), td:nth-child(7){
 }
 
 td .pending{color: orange}
-td .approved{color: #1d4ed8}
-td .refused{color: #be123c}
+td .approved{text-decoration: none; color: #1d4ed8}
+td .refused{text-decoration: none; color: #be123c}
 
 
 td .refuse{text-decoration: none; font-size :  15px; border-radius : 10px; border : none; width : 70px; height : 23px; text-align: center; color : white ; background : #be123c; transition: background 0.3s, color 0.3s;}

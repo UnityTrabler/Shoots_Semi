@@ -18,22 +18,22 @@
 		<div class="container">
 			<h1>공지사항 작성</h1>
 			<div class="form-group">
-				<label for="regular_user_id">관리자</label>
+				<label for="regular_user_id">작성자</label>
 				
 				<input name="regular_user_id" id="regular_user_id" value="${id}" 
-						type="text" class="form-control" readOnly > 
+						type="text" class="writer" readOnly > 
 			</div>
 		
 			<div class="form-group">
-				<label for="title">제목</label>
+				<label for="title" class="titlep">제목</label>
 				<input name="title" id="title" type="text" maxlength="100"
-						class="form-control" placeholder="Enter TITLE" required>
+						class="titlei" placeholder="Enter TITLE" required>
 			</div>
 			
+			<%--공지사항 내용 --%>
 			<div class="form-group">
-				<label for="content">내용</label>
 				<textarea name="content" id="content" rows="10"
-						class="form-control" required></textarea>
+						class="content" required></textarea>
 			</div>
 		
 			<div class="form-group">
@@ -45,10 +45,10 @@
 				<span id="filevalue"></span>
 			</div>
 		
-			<div class="form-group">
-				<input type = "submit" value = "UPLOAD" class = "btn btn-danger uploadbBtn">
-				<input type = "reset" value = "RESET" class = "resetBtn">
-				<input type = "button" class = "backBtn" onClick="history.go(-1)" value = "BACK">
+			<div class="btnD">
+				<input type = "submit" value = "등록" class = "uploadbBtn">
+				<input type = "reset" value = "취소" class = "resetBtn">
+				<input type = "button" class = "backBtn" onClick="history.go(-1)" value = "목록">
 			</div>
 			
 		</div>

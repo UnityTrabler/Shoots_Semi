@@ -17,20 +17,22 @@
 		<div class = "container">
 			<input type="hidden" name="faq_id" value="${fb.faq_id}">
 			<div class="form-group">
-				<label>글쓴이</label>
-				<input type="text" class="form-control" value="${fb.name}" readOnly>
+				<label>작성자</label>
+				<input type="text" class="writer" value="${fb.name}" readOnly>
 			</div>
 			
 			<div class="form-group">
-				<label for="title">제목</label>
-				<textarea name="title" id="title" rows="1" maxlength="100"
-						class="form-control">${fb.title}</textarea>
+				<label for="title">
+				<span class="titlep">제목</span>
+				</label>
+				<input name="title" id="title" rows="1" maxlength="100"
+						class="titleI" value="${fb.title}">
 			</div>
 		
+			<%--faq 내용 --%>
 			<div class="form-group">
-				<label for="content">내용</label>
 				<textarea name="content" id="content" rows="10"
-						class="form-control">${fb.content}</textarea>
+						class="content">${fb.content}</textarea>
 			</div>
 		
 			<div class="form-group">
@@ -44,9 +46,9 @@
 					alt="파일삭제" width="10px" class="remove">
 			</div>
 			
-			<div class="form-group">
-				<input type = "submit" class = "uploadbBtn" value = "UPDATE" class = "btn btn-danger">
-				<input type = "button" class = "backBtn" onClick="history.go(-1)" value = "BACK">
+			<div class="btnD">
+				<input type = "submit" class = "uploadbBtn" value = "수정" class = "btn btn-danger">
+				<input type = "button" class = "backBtn" onClick="history.go(-1)" value = "목록">
 			</div>
 		</div>
 	</form>
