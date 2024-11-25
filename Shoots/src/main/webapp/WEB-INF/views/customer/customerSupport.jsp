@@ -11,9 +11,11 @@
 </head>
 <body>
 	<div class="container" id ="content-container">
+	<input type="hidden" id="idx" name="idx" class="idx" value="${idx }">
 		<div class="tab">
 			<button class="tablink" onclick="loadfaq('tab1', this)" >FAQ</button>
 			<button class="tablink" onclick="loadnotice('tab2', this)" id="defaultOpen">공지사항</button>
+			
 			<button class="tablink" onclick="loadinquiry('tab3', this)">1:1 문의</button>
 		</div>
 		

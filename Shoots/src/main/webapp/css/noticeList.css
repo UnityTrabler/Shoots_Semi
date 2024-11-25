@@ -1,7 +1,5 @@
 @charset "EUC-KR";
 
-.np {margin-top : 15%!important}
-
 .table {width : 100%; margin : 0 auto}
 
 table caption {
@@ -12,7 +10,7 @@ table caption {
 }
 
 
-.noticeDetail {text-sdecoration: none; color : black; }
+.noticeDetail {text-decoration: none; color : black; }
 .noticeDetail:hover {text-decoration: none; font-weight : bold; color : #059669}
 
 .noticeUpdate {text-decoration: none; font-size : 15px; border-radius : 10px; border : none; width : 50px; height : 23px; text-align: center; color : white ; background : #1d4ed8; transition: background 0.3s, color 0.3s; }
@@ -35,6 +33,7 @@ td:nth-child(2), td:nth-child(3), td:nth-child(4){
     display: flex;
     justify-content: flex-end;  /* 요소들을 오른쪽 끝으로 정렬 */
     width: 90%;  /* 부모 컨테이너 전체 너비에 맞게 */
+    padding: 20px
 }
 
 .filterButton {
@@ -54,6 +53,7 @@ td:nth-child(2), td:nth-child(3), td:nth-child(4){
 	outline: none;
 }
 
+textarea {resize:none; width:35%;}
 
 
 

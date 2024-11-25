@@ -39,10 +39,10 @@
 								<b class="pending">대기중</b>
 							</c:if>
 							<c:if test="${business.login_status == 'approved' }">
-								<b class="approved">승인됨</b>
+								<a href="../admin/refuse?id=${business.business_id}" type="button" class="approved"><b>승인됨</b></a>
 							</c:if>
 							<c:if test="${business.login_status == 'refused' }">
-								<b class="refused">거절됨</b>
+								<a href="../admin/approve?id=${business.business_id}" type="button" class="refused"><b>거절됨</b></a>
 							</c:if>
 						</td>
 						<c:choose>

@@ -23,8 +23,9 @@
 			</form>
 			
 			<table class="table">
-				<caption>공지사항</caption>
+				
 				<thead>
+					
 					<tr>
 						<th>작성자</th>
 						<th>제목</th>

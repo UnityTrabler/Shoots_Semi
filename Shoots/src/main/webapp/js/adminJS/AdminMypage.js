@@ -19,7 +19,7 @@ function loaduser(){
         // 관리자 페이지에서 좌측 탭 누르면 메뉴들 활성화 / 비활성화 시키는 부분 
 		var tab = document.querySelector('.cP0-1 a'); 
         if (tab) {
-            var activeTabs = document.querySelectorAll('.cP0-1 a, .cP0-2 a, .cP0-3 a, .cP0-4 a, .cP0-5 a, .cP0-6 a, .cP0-7 a');
+            var activeTabs = document.querySelectorAll('.cP0-1 a, .cP0-2 a, .cP0-3 a, .cP0-4 a, .cP0-5 a, .cP0-6 a, .cP0-7 a, .cP0-8 a');
             activeTabs.forEach(function(item) {
                 item.classList.remove('active');
             	});
@@ -42,7 +42,7 @@ function loadbusiness(){
         // 관리자 페이지에서 좌측 탭 누르면 메뉴들 활성화 / 비활성화 시키는 부분 
 		var tab = document.querySelector('.cP0-2 a'); 
         if (tab) {
-            var activeTabs = document.querySelectorAll('.cP0-1 a, .cP0-2 a, .cP0-3 a, .cP0-4 a, .cP0-5 a, .cP0-6 a, .cP0-7 a');
+            var activeTabs = document.querySelectorAll('.cP0-1 a, .cP0-2 a, .cP0-3 a, .cP0-4 a, .cP0-5 a, .cP0-6 a, .cP0-7 a, .cP0-8 a');
             activeTabs.forEach(function(item) {
                 item.classList.remove('active');
             	});
@@ -65,7 +65,7 @@ function loadbusinessApproval(){
         // 관리자 페이지에서 좌측 탭 누르면 메뉴들 활성화 / 비활성화 시키는 부분 
 		var tab = document.querySelector('.cP0-3 a'); 
         if (tab) {
-            var activeTabs = document.querySelectorAll('.cP0-1 a, .cP0-2 a, .cP0-3 a, .cP0-4 a, .cP0-5 a, .cP0-6 a, .cP0-7 a');
+            var activeTabs = document.querySelectorAll('.cP0-1 a, .cP0-2 a, .cP0-3 a, .cP0-4 a, .cP0-5 a, .cP0-6 a, .cP0-7 a, .cP0-8 a');
             activeTabs.forEach(function(item) {
                 item.classList.remove('active');
             	});
@@ -97,7 +97,7 @@ function loadfaq() {
         // 관리자 페이지에서 좌측 탭 누르면 메뉴들 활성화 / 비활성화 시키는 부분 
         var tab = document.querySelector('.cP0-4 a');
         if (tab) {
-            var activeTabs = document.querySelectorAll('.cP0-1 a, .cP0-2 a, .cP0-3 a, .cP0-4 a, .cP0-5 a, .cP0-6 a, .cP0-7 a');
+            var activeTabs = document.querySelectorAll('.cP0-1 a, .cP0-2 a, .cP0-3 a, .cP0-4 a, .cP0-5 a, .cP0-6 a, .cP0-7 a, .cP0-8 a');
             activeTabs.forEach(function(item) {
                 item.classList.remove('active');
             });
@@ -142,7 +142,7 @@ function loadnotice() {
         // 관리자 페이지에서 좌측 탭 누르면 메뉴들 활성화 / 비활성화 시키는 부분 
 		var tab = document.querySelector('.cP0-5 a'); 
         if (tab) {
-            var activeTabs = document.querySelectorAll('.cP0-2 a, .cP0-1 a, .cP0-3 a, .cP0-4 a, .cP0-5 a, .cP0-6 a, .cP0-7 a');
+            var activeTabs = document.querySelectorAll('.cP0-2 a, .cP0-1 a, .cP0-3 a, .cP0-4 a, .cP0-5 a, .cP0-6 a, .cP0-7 a, .cP0-8 a');
             activeTabs.forEach(function(item) {
                 item.classList.remove('active');
             	});
@@ -180,7 +180,7 @@ function loadinquiry() { //ajax로  관리자전용 1:1 문의글 리스트 뽑�
         // 관리자 페이지에서 좌측 탭 누르면 메뉴들 활성화 / 비활성화 시키는 부분 
 		var tab = document.querySelector('.cP0-6 a'); 
         if (tab) {
-            var activeTabs = document.querySelectorAll('.cP0-1 a, .cP0-2 a, .cP0-3 a, .cP0-4 a, .cP0-5 a, .cP0-6 a, .cP0-7 a');
+            var activeTabs = document.querySelectorAll('.cP0-1 a, .cP0-2 a, .cP0-3 a, .cP0-4 a, .cP0-5 a, .cP0-6 a, .cP0-7 a, .cP0-8 a');
             activeTabs.forEach(function(item) {
                 item.classList.remove('active');
             	});
@@ -216,7 +216,7 @@ function loadpost(){
         // 관리자 페이지에서 좌측 탭 누르면 메뉴들 활성화 / 비활성화 시키는 부분 
 		var tab = document.querySelector('.cP0-7 a'); 
         if (tab) {
-            var activeTabs = document.querySelectorAll('.cP0-1 a, .cP0-2 a, .cP0-3 a, .cP0-4 a, .cP0-5 a, .cP0-6 a, .cP0-7 a');
+            var activeTabs = document.querySelectorAll('.cP0-1 a, .cP0-2 a, .cP0-3 a, .cP0-4 a, .cP0-5 a, .cP0-6 a, .cP0-7 a, .cP0-8 a');
             activeTabs.forEach(function(item) {
                 item.classList.remove('active');
             	});
@@ -225,6 +225,31 @@ function loadpost(){
     };
     xhr.send();
 }//loadpost() end
+
+//신고 로드
+function loadreport(){
+	var xhr = new XMLHttpRequest();
+    xhr.open('GET', '../admin/report', true); 
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+			document.getElementById('content-container').innerHTML = xhr.responseText; // 내용 뽑아오기 끝
+			
+		}
+		
+        // 관리자 페이지에서 좌측 탭 누르면 메뉴들 활성화 / 비활성화 시키는 부분 
+		var tab = document.querySelector('.cP0-8 a'); 
+        if (tab) {
+            var activeTabs = document.querySelectorAll('.cP0-1 a, .cP0-2 a, .cP0-3 a, .cP0-4 a, .cP0-5 a, .cP0-6 a, .cP0-7 a, .cP0-8 a');
+            activeTabs.forEach(function(item) {
+                item.classList.remove('active');
+            	});
+            tab.classList.add('active');
+        }
+    };
+    xhr.send(); 
+}//loadreport() end
+
+
 
 //pagination
 let isRequestInProgress = false;
@@ -690,7 +715,7 @@ function updateBusinessApprove(data) {
 				<td>${item.email }</td>
 				<td>${item.address} </td>
 				<td>${item.register_date.substring(0, 10)}</td>
-				<td><b class="approved">승인됨</b></td>
+				<td><a href="../admin/refuse?id=${item.business_id}" type="button" class="approved"><b>승인됨</b></a></td>
 				<td></td>
 				
 			</tr>
@@ -704,7 +729,7 @@ function updateBusinessApprove(data) {
 				<td>${item.email }</td>
 				<td>${item.address} </td>
 				<td>${item.register_date.substring(0, 10)}</td>
-				<td><b class="refused">거절됨</b></td>
+				<td><a href="../admin/approve?id=${item.business_id}" type="button" class="refused"><b>거절됨</b></a></td>
 				<td></td>
 				
 			</tr>

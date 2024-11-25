@@ -2,10 +2,16 @@ package net.report.db;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.List;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
+
+import net.notice.db.NoticeBean;
+
+import java.util.*;
 
 public class ReportDAO {
 	
@@ -53,6 +59,38 @@ public class ReportDAO {
 		
 		return false;
 	}//reportInsert() 끝
+
+	public int getReportListCount() {
+		String sql = """
+				select count(*) from report
+				""";
+		int x = 0;
+		try(Connection con = ds.getConnection();
+			PreparedStatement pstmt = con.prepareStatement(sql);){
+			try(ResultSet rs = pstmt.executeQuery()){
+				if(rs.next()) {
+					x = rs.getInt(1);
+				}
+			}
+				}catch(Exception ex) {
+					ex.printStackTrace();
+					System.out.println("getReportListCount() 에러: " + ex);
+				}
+				return x;
+	}
+
+	public List<ReportBean> getReportList(int page, int limit) {
+		List<ReportBean> list = new ArrayList<ReportBean>();
+		String sql = """
+				select * from (
+					select rownum rnum, report_id, report_type, report_ref_id, reporter, target, title, register_date
+					from report 
+				) p where p.rnum >= ? and p.rnum <= ?
+				""";
+		
+		
+		return null;
+	}
 		
 
 

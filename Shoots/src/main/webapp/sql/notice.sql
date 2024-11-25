@@ -5,7 +5,8 @@ CREATE TABLE notice(
     title varchar2(100) NOT NULL,
     content clob NOT NULL,
     notice_file varchar2(50),
-    register_date DATE DEFAULT SYSDATE 
+    register_date DATE DEFAULT SYSDATE, 
+    readcount number
 );
 
 CREATE SEQUENCE notice_seq

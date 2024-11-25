@@ -18,7 +18,6 @@
 			<div class = "inquiryD">
 				<table class="table">
 					<caption> &nbsp; 1:1 문의 게시판 </caption>
-					<input type ="hidden" id="user-data" data-idx="${idx}">
 					<thead>
 						<tr>
 							<th><div>번호</div></th>

@@ -23,6 +23,7 @@
 			<p class = "cP0-5"><a type="button" class = "cA0" id= "tab" onclick="loadnotice()"> 공지사항 관리 </a></p>
 			<p class = "cP0-6"><a type="button" class = "cA0" id= "tab" onclick="loadinquiry()"> 1:1 문의글 관리 </a></p>
 			<p class = "cP0-7"><a type="button" class = "cA0" id= "tab" onclick="loadpost()"> 게시판 관리 </a></p>
+			<p class = "cP0-8"><a type="button" class = "cA0" id= "tab" onclick="loadreport()"> 신고자 관리 </a></p>
 		</div>
 		
 		<div class = "container" id = "content-container"></div>

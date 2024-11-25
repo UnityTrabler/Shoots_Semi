@@ -36,8 +36,7 @@
 			</tr>
 			
 			<tr>
-				<td><div>내용</div></td>
-				<td style="padding-right: 0px;">
+				<td style="padding-right: 0px;" colspan="2">
 					<textarea rows="5" readOnly style="width:100%">${nb.content}</textarea></td>
 			</tr>
 			
@@ -56,8 +55,8 @@
 				</c:if>
 			</tr>
 			<tr>
-				<td></td>
-				<td>
+				
+				<td colspan="3" class="btnD">
                     <a href="update?id=${nb.notice_id}" type="button" class="updateBtn">수정</a>
                     <a href="delete?id=${nb.notice_id}" type="button" class="deleteBtn">삭제</a>
                     <a href="../admin/mypage" type="button" class="listBtn">목록</a>  
