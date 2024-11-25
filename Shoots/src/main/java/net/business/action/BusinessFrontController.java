@@ -10,6 +10,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import net.core.Action;
 import net.core.ActionForward;
+import net.user.action.UserInquiryAction;
 
 @WebServlet("/business/*")
 public class BusinessFrontController extends HttpServlet {
@@ -52,6 +53,9 @@ public class BusinessFrontController extends HttpServlet {
 				break;
 			case "/downloadExcel" :
 				action = new ExcelDownloadAction();
+				break;
+			case "/updateDescription":
+				action = new BusinessUpdateDescriptionAction();
 				break;
 			
 			default:

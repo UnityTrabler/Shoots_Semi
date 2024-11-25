@@ -220,4 +220,23 @@ public class BusinessUserDAO {
 		
 		return result;
 	}//refuseBusiness() end
+
+	public int updateDescription(int idx, BusinessUserBean user) {
+		String sql = """
+				update business_user set description = ? where business_idx = ?
+				""";
+		int result = 0;
+		try (Connection con = ds.getConnection();
+				PreparedStatement pstmt = con.prepareStatement(sql);) {
+			
+			pstmt.setString(1, user.getDescription());
+			pstmt.setInt(2, idx);
+			
+			result = pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("updateDescription() 에러 : " + e);
+		}
+		return result;
+	}
 }

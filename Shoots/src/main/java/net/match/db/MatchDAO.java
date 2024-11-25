@@ -121,7 +121,7 @@ public class MatchDAO {
 
 	public MatchBean getDetail(int matchId) {
 		String sql = """
-				select mp.*, b.business_name, b.address from match_post mp join business_user b
+				select mp.*, b.business_name, b.address, b.description from match_post mp join business_user b
 				on mp.writer = b.business_idx where match_id = ?
 				""";
 		MatchBean match = null;
@@ -142,6 +142,7 @@ public class MatchDAO {
 					match.setPrice(rs.getInt("price"));
 					match.setBusiness_name(rs.getString("business_name"));
 					match.setAddress(rs.getString("address"));
+					match.setDescription(rs.getString("description"));	
 				}
 			}
 		} catch (Exception e) {

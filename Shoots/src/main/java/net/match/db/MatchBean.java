@@ -18,6 +18,14 @@ public class MatchBean {
 	private String address;
 	private int playerCount;
 	private int total;
+	private String description;
+	
+	public void setDescription(String description) {
+		this.description = description;
+	}
+	public String getDescription() {
+		return description;
+	}
 	private boolean isMatchPast;
 	private List<UserBean> players;
 	
@@ -118,6 +126,4 @@ public class MatchBean {
 				+ player_gender + ", price=" + price + ", register_date=" + register_date + ", business_name="
 				+ business_name + ", address=" + address + ", playerCount=" + playerCount + ", total=" + total + "]";
 	}
-	
-	
 }
