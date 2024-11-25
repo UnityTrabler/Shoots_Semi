@@ -21,6 +21,12 @@ START WITH 1
 INCREMENT BY 1
 NOCACHE;
 
+select * from business_user;
+
+update business_user
+set login_status = 'approved'
+where business_id = 'aa';
+
 ALTER TABLE business_user RENAME COLUMN req TO tel;
 
 ALTER TABLE BUSINESS_USER
