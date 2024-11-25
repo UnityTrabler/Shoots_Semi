@@ -30,7 +30,6 @@
 		
 		var emailCheck = false;
 		function checkInvalidate() {
-			//유효성검증--- start
 			var patternIdPwd = /^[a-zA-Z]{1}\w+$/; // 첫글자 알파벳 + 최대 19글자 한글없이 입력하여야 됩니다.
 			var patternName = /^[\w가-힣]{1,99}$/; // 최대 100글자 가능합니다. 			
 			var patternRRN = /^\d{6}$/; // 6자리 숫자
@@ -79,9 +78,7 @@
 			$('#email').focus();
 			return false;
 		} */
-			
 			return true;
-			//유효성검증--- end
 		}//checkInvalidate()
 	
 		$(function() {

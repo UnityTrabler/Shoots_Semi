@@ -5,7 +5,7 @@ public class BusinessUserBean {
 	private String business_id;
 	private String password;
 	private String business_name;
-	private int business_number;
+	private long business_number;
 	private int tel;
 	private String email;
 	private int post;
@@ -39,10 +39,10 @@ public class BusinessUserBean {
 	public void setBusiness_name(String business_name) {
 		this.business_name = business_name;
 	}
-	public int getBusiness_number() {
+	public long getBusiness_number() {
 		return business_number;
 	}
-	public void setBusiness_number(int business_number) {
+	public void setBusiness_number(long business_number) {
 		this.business_number = business_number;
 	}
 	public String getEmail() {
