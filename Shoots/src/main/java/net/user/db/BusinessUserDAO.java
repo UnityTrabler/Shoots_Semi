@@ -104,7 +104,7 @@ public class BusinessUserDAO {
 						bb.setBusiness_idx(rs.getInt("business_idx"));
 						bb.setBusiness_id(rs.getString("business_id"));
 						bb.setBusiness_name(rs.getString("business_name"));
-						bb.setBusiness_number(rs.getInt("business_number"));
+						bb.setBusiness_number(rs.getLong("business_number"));
 						bb.setEmail(rs.getString("email"));
 						bb.setPost(rs.getInt("post"));
 						bb.setAddress(rs.getString("address"));
@@ -166,7 +166,7 @@ public class BusinessUserDAO {
 							bb.setBusiness_idx(rs.getInt("business_idx"));
 							bb.setBusiness_id(rs.getString("business_id"));
 							bb.setBusiness_name(rs.getString("business_name"));
-							bb.setBusiness_number(rs.getInt("business_number"));
+							bb.setBusiness_number(rs.getLong("business_number"));
 							bb.setEmail(rs.getString("email"));
 							bb.setPost(rs.getInt("post"));
 							bb.setAddress(rs.getString("address"));

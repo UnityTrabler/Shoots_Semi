@@ -31,20 +31,20 @@
 				<td><div>첨부파일</div></td>
 					
 				<%--파일을 첨부한 경우 --%>
-				<c:if test="${!empty rb.notice_file}">
+				<c:if test="${!empty rb.report_file}">
 					<td><img src="${pageContext.request.contextPath}/img/down.png" width="10px" id="downImg">
-						<a href="down?filename=${rb.notice_file}">${rb.notice_file}</a></td>
+						<a href="down?filename=${rb.report_file}">${rb.report_file}</a></td>
 				</c:if>
 				
 				<%--파일을 첨부하지 않은 경우 --%>
-				<c:if test="${empty rb.notice_file}">
+				<c:if test="${empty rb.report_file}">
 					<td></td>
 				</c:if>
 			</tr>
 			<tr>
 				
-				<td colspan="3" class="btnD">
-                    <a href="../admin/mypage" type="button" class="listBtn">목록</a>  
+				<td colspan="2" class="btnD">
+                    <input type = "button" class = "backBtn" onClick="history.go(-1)" value = "목록">  
                 </td>
 			</tr>
 		</table>
