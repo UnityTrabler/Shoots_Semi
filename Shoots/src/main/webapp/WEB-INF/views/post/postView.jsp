@@ -30,10 +30,10 @@
 				</div>
 				 <c:choose>
             <c:when test="${not empty postdata.user_file}">
-                <img src="${pageContext.request.contextPath}/userupload/${postdata.user_file}" alt="profile picture" height="36" style= "border: 1px solid #ccc; border-radius: 50%;">
+                <img src="${pageContext.request.contextPath}/userupload/${postdata.user_file}" alt="profile picture" style= "height:25px; width:25px; border: 1px solid #ccc; border-radius: 50%;">
             </c:when>
             <c:otherwise>
-                <img src="${pageContext.request.contextPath}/img/profile.png" alt="default profile" height="36" >
+                <img src="${pageContext.request.contextPath}/img/info.png" alt="default profile" style= "height:25px; width:25px;" >
             </c:otherwise>
         </c:choose>
 				<span class= "user_id">${postdata.user_id}</span>
