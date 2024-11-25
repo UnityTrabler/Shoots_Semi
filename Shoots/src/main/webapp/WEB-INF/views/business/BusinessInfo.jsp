@@ -55,9 +55,10 @@
 							<textarea class = "descriptionT" name = "description" id = "description" placeholder = "구장에 관련한 설명을 자세하게 적어주세요 (위치, 주차정보, 편의시설, 대여여부 등등)"></textarea> 
 						</c:if>
 						<c:if test = "${!empty businessUser.description}">
-							<textarea class = "descriptionT"><pre>${businessUser.description}</pre></textarea> 
+							<pre><textarea class = "descriptionT" name = "description" id = "description">${businessUser.description}</textarea></pre>
 						</c:if>
 						<br>
+						<input type = "button" class = "returnBtn" value = "취소" onclick="closeModal()">
 						<input type = "submit" class = "submitBtn" value = "저장">
 					</form>
 				</div>

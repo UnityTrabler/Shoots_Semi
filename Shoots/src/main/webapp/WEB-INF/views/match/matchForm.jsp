@@ -54,7 +54,7 @@
 				<div class = "d1">
 					<span class = "Ds"> 구장 정보 </span>
 					<div class = "Dd2">
-						
+						<pre><textarea class = "descriptionT" name = "description" id = "description"> ${user.description} </textarea></pre>
 					</div>
 				</div>
 				<div>

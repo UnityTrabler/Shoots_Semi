@@ -1,6 +1,14 @@
 @charset "EUC-KR";
 
+.Td {min-height : 460px}
 .table {width : 100%!important; margin : 0 auto; margin-top : 30px}
+
+th:nth-child(1) {width : 20%}
+th:nth-child(2) {width : 5%}
+th:nth-child(3) {width : 20%}
+th:nth-child(4) {width : 10%}
+th:nth-child(5) {width : 15%}
+
 
 .locatinA {text-decoration: none; color : black}
 .locatinA:hover {text-decoration: none; font-weight : bold; color : #059669}
