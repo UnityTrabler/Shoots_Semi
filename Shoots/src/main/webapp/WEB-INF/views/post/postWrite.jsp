@@ -125,6 +125,7 @@
     function validateForm() {
         const B = document.getElementById("B").checked;
         const priceInput = document.getElementById("priceInput");
+        const upfile = document.getElementById("upfile");
 
         // 중고게시판(B) 선택 시 가격 필수 입력 확인
         if (B) {
@@ -138,6 +139,13 @@
             if (isNaN(priceInput.value.trim())) {
                 alert("가격은 숫자만 입력 가능합니다.");
                 priceInput.focus();
+                return false;
+            }
+            
+         // 첨부파일 필수 확인
+            if (!upfile.value) {
+                alert("중고게시판에서는 첨부파일을 반드시 첨부해야 합니다.");
+                upfile.focus();
                 return false;
             }
         }
