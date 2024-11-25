@@ -6,8 +6,12 @@
 	<script src="${pageContext.request.contextPath}/js/jquery-3.7.1.js"></script>
 	
 	<style>
-		input[type="text"], input[type="email"], input[type="password"]{width: 300px; border-radius: 30px; padding: 5px; padding-left: 10px; padding-right: 10px; margin-bottom: 10px; }
+		input[type="text"], input[type="email"], input[type="password"]{width: 300px; border-radius: 30px; padding: 5px; padding-left: 10px; padding-right: 10px; margin-bottom: 10px; border: 1px solid #059669;}
 		input{display: block; align-items: center;}
+		form{border: 1px solid #059669; padding: 60px; border-radius: 30px; text-align: center; align-items: center; justify-content: center; justify-items:center;	}
+		.row>.col{padding: 0px 6px;}
+		.regularBtn {font-size :  12px; border-radius : 20px; border : 1px solid orange; width : 80px; height : 25px; color : orange ; background : white; margin-left : 10px; transition: background 0.3s, color 0.3s}
+		.businessBtn {font-size :  12px; border-radius : 20px; border : 1px solid orange; width : 80px; height : 25px; color : orange ; background : white; margin-left : 10px; transition: background 0.3s, color 0.3s}
 	</style>
 	
 	
@@ -15,8 +19,9 @@
 		function init() {
  			$('#verify-block').css('display', 'none');
 			$("#verify-toggle-text").hide();
-			$("#preview").hide(); 
 			$('button#btnRegular').addClass('btn-success');
+			$('input[type=file]').hide();
+			$('#preview').attr('src', '${pageContext.request.contextPath}/img/profile.png');
 		}
 		
 		function btnBusinessClick() {
@@ -117,6 +122,42 @@
 				 
 			});//$('#check-email-verify').click
 			
+			$('input[type=file]').change(function(event){
+			 	const file = event.target.files[0]; //첫번째 파일
+				const maxSizeInBytes = 5 * 1024 * 1024;
+			 	
+				if(file.size > maxSizeInBytes){
+					alert("5MB 이하 크기로 업로드 하세요");
+					$(this).val('');
+					return;
+				}
+				
+				const pattern = /(gif|jpg|jpeg|png)$/i; //i(ignore case) = 대소문자 무시.
+				
+				if(pattern.test(file.name)){
+					$('#preview').show();
+					$('#preview').attr('src', URL.createObjectURL(event.target.files[0]));
+					$('#filename').text('파일변경');
+				}
+				
+				else{
+					alert('image file(gif,jpg,jpeg,png) 파일만 올려주세요.');
+					$('#showImage > img').attr('src', '../image/profile.png');
+					$(this).val('');
+					$('input[name=check]').val('');
+					return;
+				}
+				
+			});//file change event
+			
+			$('#fileReset').click(function(e) {
+				e.preventDefault();
+				$('input[type=file]').val('');
+				$('#preview').val('');
+				$('#filename').text('파일첨부');
+				$('#preview').attr('src', '${pageContext.request.contextPath}/img/profile.png');
+			});
+			
 			$('#signupform').on('submit',function(e) {
 				e.preventDefault();
 				
@@ -147,70 +188,98 @@
 		});//ready 
 	</script>
 </head>
-<body class="container">
+
+<body>
 	<jsp:include page="top.jsp"></jsp:include>
     <jsp:include page="topUserSwitching.jsp"></jsp:include>
-	<div id="switchingContext">
+    
+	<div id="switchingContext"  class="container">
 		<div id="regularContext">
 			<form class="form-horizontal" method="post" action="signupProcess" id="signupform">
-				<h2 style="text-align: center; color:green;">개인 회원가입(sign up)</h2>
+				<h2 style="text-align: center; color: #059669; margin-bottom: 50px">개인 회원가입</h2>
 
 				<font color='red'>*</font>표시는 필수 입력 사항입니다.
-				<hr>
+				<hr style="border: 1px solid #059669; width: 100%; opacity: 1;">
 
 				<!-- name : id, pwd, name, RRN, gender, tel, email, nickname, profile? -->
-				아이디<font color='red'>*</font><br>
-				<input type="text" name="id" id="id"  placeholder="id...">
-
-				비밀번호<font color='red'>*</font><br>
-				<input type="password" name="pwd" id="pwd" class="form-control" placeholder="pwd...">
-
-				성함<font color='red'>*</font><br>
-				<input type="text" name="name" id="name" class="form-control" placeholder="name...">
-
-				주민등록번호<font color='red'>*</font><br>
-				<div class="row mb-3">
-					<div class="col">
-						<input type="text" id="RRN" name="RRN" class="form-control"
-							placeholder="앞자리(frontpart)" maxlength="6">
-					</div>
-					<div class="col-auto">
-						<span>-</span>
-					</div>
-					<div class="col d-flex align-items-center">
-						<input type="text" id="gender" name="gender" class="form-control"
-							placeholder="" maxlength="1" style="width: 40px;"> ******
-					</div>
+				<div class="divBlock1">
+					<div  style="text-align: left;">아이디<font color='red'>*</font></div>
+					<input type="text" name="id" id="id"  placeholder="id...">
 				</div>
-
-				전화번호<font color='red'>*</font><br>
-				 <input type="text" name="tel"
-					id="tel" class="form-control" placeholder="tel...">
-
-				이메일<font color='red'>*</font><br>
-				 <input type="email"
-					name="email" id="email" class="form-control" placeholder="받는 주소"
-					value="<%="kdhmm0325"%>@naver.com" required> <input
-					type="button" class="btn btn-primary" id="send-email"
-					value="확인메일 전송(send verifycode)">
-
-				<div id="verify-block" class="p-3"
-					style="background-color: #d4edda;">
-					Enter Verification code<font color='red'>*</font><br>
-					 <input
-						type="text" class="form-control" id="email-verify-text"> <input
-						type="button" class="btn btn-primary" id="check-email-verify"
-						value="check"> <b id="verify-toggle-text"></b>
+	
+				
+				<div class="divBlock1">
+				    <div style="text-align: left;">비밀번호<font color='red'>*</font></div>
+				    <input type="password" name="pwd" id="pwd" class="form-control" placeholder="pwd...">
 				</div>
-				<br>
-				<br>
-				<hr>
-					선택 사항입니다.<br>
-				<hr>
-					닉네임<br>
-					 <input type="text" name="nickname" id="name"
-					class="form-control" placeholder="name..."> <input
-					type="submit" class="submit btn btn-primary">
+				
+				<div class="divBlock1">
+				    <div style="text-align: left;">성함<font color='red'>*</font></div>
+				    <input type="text" name="name" id="name" class="form-control" placeholder="name...">
+				</div>
+				
+				<div class="divBlock1" style="margin-left: 110px">
+				    <div style="text-align: left; margin-right: 10px;">주민등록번호<font color='red'>*</font></div>
+				    <div class="row mb-3">
+				        <div class="col">
+				            <input type="text" id="RRN" name="RRN" class="form-control" placeholder="990101" maxlength="6">
+				        </div>
+				        <div class="col">
+				            <span>-</span>
+				        </div>
+				        <div class="col d-flex align-items-center" style="padding: auto 0px;">
+				            <input type="text" id="gender" name="gender" class="form-control" placeholder="" maxlength="1" style="width: 40px;"> ****** 
+				        </div>
+				    </div>
+				</div>
+				
+				<div class="divBlock1">
+				    <div style="text-align: left;">전화번호<font color='red'>*</font></div>
+				    <input type="text" name="tel" id="tel" class="form-control" placeholder="tel...">
+				</div>
+				
+				<div class="divBlock1">
+					<div class="row" style="margin-left: 180px;">
+					    <div style="text-align: left;">이메일<font color='red'>*</font></div>
+					    <input type="email" name="email" id="email" class="form-control col" placeholder="받는 주소" value="<%="kdhmm0325"%>@naver.com" required>
+					    <input type="button" class="btn btn-primary col" style="margin-left: 20px; padding: 0px; flex: 0.6;" id="send-email" value="확인메일 전송">
+				    </div>
+				</div>
+				
+				<div id="verify-block" class="p-3" style="background-color: #d4edda;">
+				    <div class="divBlock1">
+				        <div style="text-align: left;">Enter Verification code<font color='red'>*</font></div>
+				        <input type="text" class="form-control" id="email-verify-text">
+				        <input type="button" class="btn btn-primary" id="check-email-verify" value="check">
+				        <b id="verify-toggle-text"></b>
+				    </div>
+				</div>
+				
+				<div class="divBlock1" style="margin-top: 50px">
+					아래는 선택 사항입니다.<br>
+				</div>
+				<hr style="border: 1px solid #059669; width: 100%; opacity: 1;">
+				
+				<div class="divBlock1">
+				    <div style="text-align: left;">닉네임</div>
+				    <input type="text" name="nickname" id="nickname" class="form-control" placeholder="name...">
+				</div>
+				<div class="divBlock1">
+					<div style="text-align: left;">프로필 사진</div>
+					<label>
+						<div class="divBlock2">
+							<img src="" id="preview" style="width:200px; height: 200px; border: 1px solid #059669; margin-bottom: 10px;">
+							<input type="file" name="userFile" >
+						</div>	
+						<span id="filename" class="btn btn-primary" style="width: 100px;">파일첨부</span>
+						<span id="fileReset" class="btn btn-danger" style="width: 100px;">파일리셋</span>
+					</label>
+				</div>
+				
+				<hr style="border: 1px solid #059669; width: 100%; opacity: 1;">
+				<div class="divBlock1">
+				    <input type="submit" class="submit btn btn-info" value="완료">
+				</div>
 			</form>
 
 		</div><!--  	<div id="regularContext">   -->

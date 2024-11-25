@@ -117,11 +117,12 @@ public class UserSignupProcessAction extends HttpServlet implements Action {
 			String verifyNum = String.valueOf(100000 + random.nextInt(900000));//인증용 난수
 			String subject = "shoots email verification : " + verifyNum;
 			String imgPath =  req.getServletContext().getRealPath("/img/logo.png");
-			// SMTP 서버 정보 설정
-			String domain = "naver.com";
-			String host = "smtp."+domain;
-			final String username = "kdhmm0325@"+domain; // 실제 아이디
-			final String password = ""; // 실제 비밀번호
+
+			String domain = "for.you";
+			final String username = "shoots@"+ domain; // 실제 아이디
+			final String password = "shoots3"; // 실제 비밀번호
+
+			String host = "smtp."+ domain;
 			String sender = username;
 			sendEmail(req, resp, host, username, password, sender, receiver, subject, imgPath, verifyNum);
 			session.setAttribute("verifyNum", verifyNum);
