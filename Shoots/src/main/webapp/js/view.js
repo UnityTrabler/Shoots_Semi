@@ -31,7 +31,7 @@ function getList(state) {
     rdata.commentlist.forEach(Comment => {
         // 부모 댓글 처리
         let replyClass = (Comment.comment_ref_id) ? 'comment-list-item--reply' : ''; // 답글 여부
-        let src = Comment.user_file ? `../userupload/${Comment.user_file}` : '../img/profile.png';
+        let src = Comment.user_file ? `../userupload/${Comment.user_file}` : '../img/info.png';
 
         // 답글 버튼은 원본 댓글에만 표시
         let replyButton = (!Comment.comment_ref_id) ? 
