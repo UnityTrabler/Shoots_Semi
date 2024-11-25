@@ -19,11 +19,22 @@ public class UserUpdateAction implements Action {
 		UserDAO userDAO = new UserDAO();
 		HttpSession session = req.getSession();
 		String id = (String)session.getAttribute("id");
-
-		req.setAttribute("userBean", userDAO.getUser(id));
-		forward.setPath("/WEB-INF/views/user/update.jsp");
-		forward.setRedirect(false);
-		return forward;
+		
+		if(session.getAttribute("userClassification").equals("regular")) {
+			req.setAttribute("userBean", userDAO.getUser(id));
+			forward.setPath("/WEB-INF/views/user/update.jsp");
+			forward.setRedirect(false);
+			return forward;
+		}
+		else if(session.getAttribute("userClassification").equals("business")) {
+			req.setAttribute("BusinessBean", userDAO.getBusinessUser(id));
+			forward.setPath("/WEB-INF/views/user/updateBusiness.jsp");
+			forward.setRedirect(false);
+			return forward;
+		}
+		
+		System.out.println("no received state!");
+		return null;
 		
 	}
 

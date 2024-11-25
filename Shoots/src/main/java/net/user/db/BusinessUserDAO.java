@@ -43,7 +43,7 @@ public class BusinessUserDAO {
 					businessUser.setBusiness_id(rs.getString("business_id"));
 					businessUser.setPassword(rs.getString("password"));
 					businessUser.setBusiness_name(rs.getString("business_name"));
-					businessUser.setBusiness_number(rs.getInt("business_number"));
+					businessUser.setBusiness_number(rs.getLong("business_number"));
 					businessUser.setTel(rs.getInt("tel"));
 					businessUser.setEmail(rs.getString("email"));
 					businessUser.setPost(rs.getInt("post"));

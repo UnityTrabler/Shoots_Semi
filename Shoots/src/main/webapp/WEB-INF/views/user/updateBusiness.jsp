@@ -61,9 +61,8 @@
 			var emailCheck = false;
 			function checkInvalidate() {
 				var patternIdPwd = /^[a-zA-Z]{1}\w+$/; // 첫글자 알파벳 + 최대 19글자 한글없이 입력하여야 됩니다.
-				var patternName = /^[\w가-힣]{1,99}$/; // 최대 100글자 가능합니다. 			
-				var patternRRN = /^\d{6}$/; // 6자리 숫자
-				var patternGender = /^\d{1}$/; // 1자리 숫자
+				var patternBusinessName = /^[\w가-힣]{1,99}$/; // 최대 100글자 가능합니다. 			
+				var patternBusinessNumber = /^\d{13}$/; // 13자리 숫자
 				var patternTel = /^(01[016789]|02|0[3-9][0-9])-?\d{3,4}-?\d{4}$/; //010, 011, 016, 017, 018, 019 or 02 or 031.. + 하이픈 선택 + 숫자 3개 or 4개 + 숫자 4개 
 				var patternEmail = /^[a-zA-Z]{1}\w+@\w+[.]\w+$/; //첫글자 알파벳, a@a.a 의 형태로 입력 
 				
@@ -77,19 +76,14 @@
 					$('#pwd').focus();
 					return false;
 				}
-				else if(!patternName.test($('#name').val())){
-					alert('올바른 이름 형식이 아닙니다.\n 특수문자 없이 최대 100글자 가능합니다.');
-					$('#name').focus();
+				else if(!patternBusinessName.test($('#business-name').val())){
+					alert('올바른 기업명 형식이 아닙니다.\n 특수문자 없이 최대 100글자 가능합니다.');
+					$('#business-name').focus();
 					return false;
 				}
-				else if(!patternRRN.test($('#RRN').val())){
-					alert('올바른 주민번호 앞자리 형식이 아닙니다.\n 6자리 숫자만 가능합니다.');
-					$('#RRN').focus();
-					return false;
-				}
-				else if(!patternGender.test($('#gender').val())){
-					alert('올바른 주민번호 뒷자리 형식이 아닙니다.\n 숫자만 가능합니다.');
-					$('#gender').focus();
+				else if(!patternBusinessNumber.test($('#business-number').val())){
+					alert('올바른 사업자 번호 형식이 아닙니다.\n 13자리, 숫자만 가능합니다.');
+					$('#business-number').focus();
 					return false;
 				}
 				else if(!patternTel.test($('#tel').val())){
@@ -102,12 +96,11 @@
 					$('#email').focus();
 					return false;
 				}
-				
 				/* else if(emailCheck == false){
-				alert('이메일 인증을 해주세요!');
-				$('#email').focus();
-				return false;
-			} */
+					alert('이메일 인증을 해주세요!');
+					$('#email').focus();
+					return false;
+				} */
 				return true;
 			}//checkInvalidate()
 			
@@ -184,7 +177,7 @@
 <body>
 	<jsp:include page="top.jsp"></jsp:include>
 	<div class="container">
-		<jsp:include page="RegularFormAreaUpdate.jsp"></jsp:include>
+		<jsp:include page="BusinessFormAreaUpdate.jsp"></jsp:include>
 	</div>
 </body>
 </html>

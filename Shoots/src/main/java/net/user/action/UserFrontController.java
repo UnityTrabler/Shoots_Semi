@@ -65,6 +65,9 @@ public class UserFrontController extends jakarta.servlet.http.HttpServlet {
 			case "/updateProcess":
 				action = new UserUpdateProcessAction();
 				break;
+			case "/updateProcessBusiness":
+				action = new BusinessUserUpdateProcessAction();
+				break;
 			case "/signupform":
 				action = new UserSingupFormAction();
 				break;
