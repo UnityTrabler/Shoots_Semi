@@ -92,9 +92,9 @@
 		
     </script>
 </head>
-<body class="container">
+<body>
 	<jsp:include page="top.jsp"></jsp:include>
-	<div class = "loginAD">
+	<div class = "loginAD container">
 		<div class = "loginBD">
 			<div class = "loginImgD">
 				<img src = "${pageContext.request.contextPath}/img/info.png" class = "loginImg">

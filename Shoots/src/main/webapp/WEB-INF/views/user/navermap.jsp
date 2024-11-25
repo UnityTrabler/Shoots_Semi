@@ -22,11 +22,11 @@
 	</style>
 </head>
 
-<body class="container">
+<body>
 <jsp:include page="../user/top.jsp"></jsp:include>
 <h1 id="h1Title">전국 풋살장 위치</h1>
 <!-- @category Overlay/Marker -->
-<div id="wrap" class="section">
+<div id="wrap" class="section container">
     <div id="map" style="width:100%;height:600px;">
     	<div class="search" style="">
             <input id="address" type="text" placeholder="검색할 주소" value="불정로 6" />
