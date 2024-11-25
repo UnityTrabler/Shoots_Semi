@@ -1,6 +1,7 @@
 package net.filter;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import jakarta.servlet.Filter;
 import jakarta.servlet.FilterChain;
@@ -30,11 +31,29 @@ public class LoginFilter implements Filter {
 		HttpServletRequest hpreq =(HttpServletRequest) req;
 		HttpSession session = hpreq.getSession();
 		String id = (String) session.getAttribute("id");
-		
 		HttpServletResponse hpresp = (HttpServletResponse) resp;
+		
+		
+		  // 현재 요청 URL 가져오기
+	    String requestURI = hpreq.getRequestURI();
+	    System.out.println("현재 요청 URI: " + requestURI);
+
+	    // 로그인 페이지와 관련된 요청은 필터링 제외
+	    String contextPath = hpreq.getContextPath();
+	    if (requestURI.startsWith(contextPath + "/user/login")) {
+	        chain.doFilter(req, resp);
+	        return;
+	    }
+		
 		if(id==null) {
-			System.out.println("filter:null입니다.");
-			hpresp.sendRedirect(hpreq.getContextPath() + "/user/login");
+			hpresp.setContentType("text/html; charset=UTF-8"); // HTML 응답으로 설정
+		    PrintWriter out = hpresp.getWriter();
+		    
+		    out.println("<script>");
+		    out.println("alert('로그인이 필요합니다.');");
+		    out.println("location.href='" + hpreq.getContextPath() + "/user/login';");
+		    out.println("</script>");
+		    out.close();
 			return; //다른 filter로 요청이 전달되지 않고 login으로 이동함.
 		}
 		

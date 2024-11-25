@@ -28,10 +28,56 @@
 	 </filter>
 	 <filter-mapping> <!-- filter-mapping : 필터의 적용 범위를 설정하는것. -->
 	 	<filter-name>LoginFilter</filter-name>
-	 	<url-pattern>/user/logout</url-pattern>
-	 	<url-pattern>/user/updateProcess</url-pattern>
+	 	<url-pattern>/business/*</url-pattern>
 	 	<url-pattern>/user/info</url-pattern>
+	 	<url-pattern>/user/loginProcess</url-pattern>
+	 	<url-pattern>/user/signupProcess</url-pattern>
+	 	<url-pattern>/user/update</url-pattern>
+	 	<url-pattern>/user/updateProcess</url-pattern>
+	 	<url-pattern>/user/updateProcessBusiness</url-pattern>
+	 	<url-pattern>/user/mypage</url-pattern>
+	 	<url-pattern>/user/matchs</url-pattern>
+	 	<url-pattern>/user/userMatchPlayer</url-pattern>
+	 	<url-pattern>/user/posts</url-pattern>
+	 	<url-pattern>/user/comments</url-pattern>
 	 	<url-pattern>/user/inquiry</url-pattern>
+	 	<url-pattern>/user/map</url-pattern>
+	 </filter-mapping>
+	 
+	 
+	 <!-- 개인 회원이 사용하는 주소들은 기업회원이 사용 불가 -->
+	 <filter>
+	 	<filter-name>UserFilter</filter-name>
+	 	<filter-class>net.filter.UserFilter</filter-class>
+	 </filter>
+	 <filter-mapping>
+	 	<filter-name>UserFilter</filter-name>
+	 	<url-pattern>/user/info</url-pattern>
+	 	<url-pattern>/user/loginProcess</url-pattern>
+	 	<url-pattern>/user/signupProcess</url-pattern>
+	 	<url-pattern>/user/update</url-pattern>
+	 	<url-pattern>/user/updateProcess</url-pattern>
+	 	<url-pattern>/user/updateProcessBusiness</url-pattern>
+	 	<url-pattern>/user/mypage</url-pattern>
+	 	<url-pattern>/user/matchs</url-pattern>
+	 	<url-pattern>/user/userMatchPlayer</url-pattern>
+	 	<url-pattern>/user/posts</url-pattern>
+	 	<url-pattern>/user/comments</url-pattern>
+	 	<url-pattern>/user/inquiry</url-pattern>
+	 	<url-pattern>/user/map</url-pattern>
+	 	<url-pattern>/post/modify/*</url-pattern>
+	 	<url-pattern>/inquiry/modify/*</url-pattern>
+	 </filter-mapping>
+	 
+	 
+	 <!-- 기업 회원이 사용하는 주소들은 개인 회원이 사용 불가  -->
+	 <filter>
+	 	<filter-name>BusinessUserFilter</filter-name>
+	 	<filter-class>net.filter.BusinessUserFilter</filter-class>
+	 </filter>
+	 <filter-mapping>
+	 	<filter-name>BusinessUserFilter</filter-name>
+	 	<url-pattern>/business/*</url-pattern>
 	 </filter-mapping>
 	 
 	 

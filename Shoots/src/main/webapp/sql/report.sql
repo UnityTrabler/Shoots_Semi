@@ -16,3 +16,17 @@ INCREMENT BY 1
 NOCACHE;
 
 select * from REPORT;
+
+
+select r.*, ru.name reporter, tu.name target
+					from report r
+					left join regular_user ru on r.reporter = ru.idx
+					left join regular_user tu on r.target = tu.idx 
+				where r.report_id = ?
+				
+				
+	select r.* , u.name, tu.name
+	from report r
+	left join regular_user u on r.reporter = u.idx
+	left join regular_user tu on r.target = tu.idx 
+	where r.report_id = 27;

@@ -34,7 +34,7 @@ public class AdminFilter implements Filter {
 		System.out.println("role 값은 : " + role);
 		
 		HttpServletResponse hpresp = (HttpServletResponse) resp;
-		if(!role.equals("admin")) {
+		if(role == null || !role.equals("admin")) {
 			hpresp.setContentType("text/html; charset=UTF-8"); // HTML 응답으로 설정
 		    PrintWriter out = hpresp.getWriter();
 		    
