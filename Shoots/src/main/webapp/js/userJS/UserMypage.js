@@ -109,23 +109,27 @@ function loadUserInquiry() {
 // button
 function redirectToUpdatePage() {
 	location.href = "update";
-	}
+}
 	
 function redirectToUpdatePost(postId) {
 	location.href = "../post/modify?num=" + postId;
-	}
+}
 
 function redirectToDeletePost(postId) {
-	location.href = "../post/delete?num=" + postId;
+	if (confirm("게시글을 삭제하시겠습니까?")) {
+		location.href = "../post/delete?num=" + postId;
 	}
+}
 
 function redirectToUpdateInquiry(inquiryId) {
 	location.href = "../inquiry/modify?inquiryid=" + inquiryId;
-	}
+}
 
 function redirectToDeleteInquiry(inquiryId) {
-	location.href = "../inquiry/delete?num=" + inquiryId;
+	if (confirm("문의글을 삭제하시겠습니까?")) {
+		location.href = "../inquiry/delete?num=" + inquiryId;
 	}
+}
 	
 // pagination
 let isRequestInProgress = false;
@@ -258,7 +262,7 @@ function cupdateMatchList(data) {
 			
             output += `
                 <p> <a href="../post/detail?num=${item.post_id}">
-                    <img src="/Shoots/img/post.png" class="commentI">
+                    <img src="/Shoots/img/post.png" class="postI">
                     ${item.category == 'A' ? '<span class = "categoryA">[자유]</span>' : '<span class = "categoryB">[중고]</span>'} &nbsp; ${item.post_title} </a>
                 </p>
             `;

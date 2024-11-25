@@ -7,6 +7,7 @@ CREATE TABLE match_post(
     player_min NUMBER(2) NOT NULL,
     player_gender char(1) NOT NULL,
     price NUMBER(10) NOT NULL,
+    description clob, -- 추가 (11/25)
     register_date DATE DEFAULT SYSDATE 
 );
 
@@ -77,3 +78,5 @@ SELECT * FROM match_post
 WHERE writer = 5
 AND EXTRACT(YEAR FROM match_date) = 2024
 AND EXTRACT(MONTH FROM match_date) = 11;
+
+alter table match_post add description clob;

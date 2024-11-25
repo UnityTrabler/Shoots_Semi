@@ -30,6 +30,7 @@ public class MatchUpdateProcessAction implements Action {
 		match.setPlayer_max(Integer.parseInt(req.getParameter("player_max")));
 		match.setPlayer_gender(req.getParameter("player_gender"));
 		match.setPrice(Integer.parseInt(req.getParameter("price")));
+		match.setDescription(req.getParameter("description"));
 		
 		int result = dao.matchUpdate(match);
 		

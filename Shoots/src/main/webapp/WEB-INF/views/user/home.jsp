@@ -10,9 +10,9 @@
 <body>
 	<div class = "homeb slider">
 		<div class = "homeL">
-			<div class="slide Limg" style="background-image: url('${pageContext.request.contextPath}/img/home_thumbnail.png');"></div>
-			<div class="slide Limg" style="background-image: url('${pageContext.request.contextPath}/img/home_thumbnail2.jpg');"></div>
 			<div class="slide Limg" style="background-image: url('${pageContext.request.contextPath}/img/home_thumbnail3.jpg');"></div>
+			<div class="slide Limg" style="background-image: url('${pageContext.request.contextPath}/img/home_thumbnail2.jpg');"></div>
+			<div class="slide Limg" style="background-image: url('${pageContext.request.contextPath}/img/home_thumbnail.jpg');"></div>
 			<img  class = "Limg">
 			<div class="overlay">
 				<p class = "p1"> 만남은 짧고, 이야기는 긴 </p>

@@ -26,6 +26,7 @@ public class MatchAddAction implements Action {
 		match.setPlayer_min(Integer.parseInt(request.getParameter("player_min")));
 		match.setPlayer_gender(request.getParameter("player_gender"));
 		match.setPrice(Integer.parseInt(request.getParameter("price")));
+		match.setDescription(request.getParameter("description"));
 		
 		int result = dao.matchInsert(match);
 		response.getWriter().print(result);
