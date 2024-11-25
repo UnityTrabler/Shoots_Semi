@@ -22,41 +22,14 @@
 
 /*수정/삭제/목록 버튼 디자인 */
 
-.modifyBtn {
-	font-size :  12px; 
-	border-radius : 20px; 
-	border : 1px solid #408080; 
-	width : 70px; 
-	height : 28px; 
-	color : white;  
-	background : #008040 ; 
-	margin-left : 10px; 
-	transition: background 0.3s, color 0.3s;
-}
+.modifyBtn {font-size :  12px; border-radius : 20px; border : none; width : 80px; height : 25px; color : white ; background : orange; margin-left : 10px; transition: background 0.3s, color 0.3s; }
+.deleteBtn {font-size :  12px; border-radius : 20px; border : none; width : 80px; height : 25px; color : white ; background : #d60e0e; margin-left : 10px; transition: background 0.3s, color 0.3s; }
+.listBtn {font-size :  12px; border-radius : 20px; border : none; width : 80px; height : 25px; color : white ; background : #059669; margin-left : 10px; transition: background 0.3s, color 0.3s;}
 
-.deleteBtn {
-	font-size :  12px; 
-	border-radius : 20px; 
-	border : 1px solid #92110e; 
-	width : 70px; 
-	height : 28px; 
-	color : white;  
-	background : #9f0000 ; 
-	margin-left : 10px; 
-	transition: background 0.3s, color 0.3s;
-}
+.modifyBtn:hover {font-size :  12px; border-radius : 20px; border : 1px solid orange; width : 80px; height : 25px; color : orange ; background : white; margin-left : 10px }
+.deleteBtn:hover {font-size :  12px; border-radius : 20px; border : 1px solid #d60e0e; width : 80px; height : 25px; color : #d60e0e ; background : white; margin-left : 10px }
+.listBtn:hover {font-size :  12px; border-radius : 20px; border : 1px solid #059669; width : 80px; height : 25px; color : #059669 ; background : white; margin-left : 10px}
 
-.listBtn {
-	font-size :  12px; 
-	border-radius : 20px; 
-	border : 1px solid #808080; 
-	width : 70px; 
-	height : 28px; 
-	color : white;  
-	background : #756f5e ; 
-	margin-left : 10px; 
-	transition: background 0.3s, color 0.3s;
-}
 
 
 /*수정/삭제/목록 버튼 위치*/
@@ -358,3 +331,5 @@ a:hover {
 .hide{
 	display:none;
 }
+
+.commentReportButton {border : none}

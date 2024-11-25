@@ -121,6 +121,7 @@
 			<input type = "button" class = "deleteBtn" value = "삭제하기">
 		</div>
 	</c:if>
+	<jsp:include page="../user/bottom.jsp"></jsp:include>
 	<script>
 		 $(function() {
 			 

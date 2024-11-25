@@ -29,6 +29,7 @@
  			
 		</div>
 	</div>
+<jsp:include page="../user/bottom.jsp"></jsp:include>
 <script src="${pageContext.request.contextPath}/js/customerJS/CustomerSupport.js"></script>
 </body>
 </html>

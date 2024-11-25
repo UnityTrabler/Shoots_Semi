@@ -10,9 +10,7 @@
     <script src="${pageContext.request.contextPath}/js/list.js"></script>
     <script src="${pageContext.request.contextPath}/js/jquery-3.7.1.js"></script>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/list.css" type="text/css">
-    
-    
-    
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/css/pagination.css" type="text/css">
 </head>
 <body>
     <div class="container">
@@ -59,21 +57,8 @@
                     </thead>
                     <tbody></tbody>
                 </table>
-                
-                
-               
-                
-                
             </div>
         </div>
-
-        <!-- 글 작성 버튼 -->
-        <c:if test = "${idx == null}">
-        	<button type="button" class="btn btn-info float-right btnw" onclick="postWriteN()">글 작성</button>
-        </c:if>
-        <c:if test = "${idx != null}">
-        	<button type="button" class="btn btn-info float-right btnw" onclick="postWrite()">글 작성</button>
-        </c:if>
     </div>
     
     
@@ -101,6 +86,15 @@
 				</ul>
 			</div>
 		<%--페이징 끝 --%>	
-		
+		<!-- 글 작성 버튼 -->
+		<div class = "bD">
+	        <c:if test = "${idx == null}">
+	        	<button type="button" class="btnw" onclick="postWriteN()">글 작성</button>
+	        </c:if>
+	        <c:if test = "${idx != null}">
+	        	<button type="button" class="btn btn-info  btnw" onclick="postWrite()">글 작성</button>
+	        </c:if>
+        </div>
+<jsp:include page="../user/bottom.jsp"></jsp:include>		
 </body>
 </html>

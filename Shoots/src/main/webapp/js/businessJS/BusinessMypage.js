@@ -124,6 +124,11 @@ function loadBusinessCustomer() {
     xhr.send(); 
 }
 
+// button
+function redirectToUpdatePage() {
+	location.href = "../user/update";
+}
+	
 
 // pagination
 let isRequestInProgress = false;
@@ -429,3 +434,15 @@ $(document).on('click', '.uploadBtn', function(){
 $(document).on('click', '.excelB', function(){
     location.href = "../business/downloadExcel";
 });
+
+// modal
+function openModal(businessId) {
+	const modal = document.getElementById('myModal');
+    modal.style.display = "block";
+    const modalContent = document.getElementById('modalContent');
+
+} 
+
+function closeModal() {
+    document.getElementById('myModal').style.display = "none";
+} 

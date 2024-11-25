@@ -29,7 +29,7 @@
 			<th> 주소 </th> <td> (${businessUser.post})  ${businessUser.address} </td>
 		</tr>
 		<tr>
-			<th> 구장정보 </th> <td> ${businessUser.description} </td>
+			<th> 구장설명 </th> <td> ${businessUser.description} </td>
 		</tr>
 		<tr>
 			<th> 파일 </th> <td> ${businessUser.business_file} </td>
@@ -39,7 +39,22 @@
 		</tr>
 	</table>
 	<div class = "container2">
-		<input type = "button" class = "updateBtn" value = "구장 정보 수정">
-	</div>
+		<input type = "button" class = "updateBtn" value = "구장 정보 수정" onclick = "redirectToUpdatePage()">
+		<input type = "button" class = "descriptionBtn" value = "구장 설명 추가" data-match-id="${businessUser.business_idx}" onclick="openModal(${businessUser.business_idx})">
+	
+	<div id="myModal" class="modal">
+        <div class="modal-content">
+            <div class = "modalBD"><input type = "button" value = "X" onclick="closeModal()" class = "modalX"></div>
+            <div id="modalContent">
+				<p class = "cP2"> 구장설명 추가 </p>
+				<div>
+					<form action = 'updateDescription' method = "post">
+						<input type = "hidden" value = "${idx}">
+						<textarea class = "descriptionT" placeholder = "구장에 관련한 설명을 자세하게 적어주세요 (위치, 주차정보, 편의시설, 대여여부 등등)"></textarea> 
+					</form>
+				</div>
+            </div>
+        </div>
+    </div>
 </body>
 </html>

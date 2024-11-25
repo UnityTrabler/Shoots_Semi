@@ -95,7 +95,7 @@ function loadnotice(pageName, elmnt){
 function loadinquiry(pageName, elmnt){
   
   var idx = document.getElementById('user-data');
-  if (idx === null) {
+  if (idx == null) {
         alert("로그인 후 이용가능합니다.");
         location.href = "../user/login";
     }
