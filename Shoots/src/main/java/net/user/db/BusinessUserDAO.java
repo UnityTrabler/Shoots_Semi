@@ -4,8 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -220,4 +220,43 @@ public class BusinessUserDAO {
 		
 		return result;
 	}//refuseBusiness() end
+
+	public int updateDescription(int idx, BusinessUserBean user) {
+		String sql = """
+				update business_user set description = ? where business_idx = ?
+				""";
+		int result = 0;
+		try (Connection con = ds.getConnection();
+				PreparedStatement pstmt = con.prepareStatement(sql);) {
+			
+			pstmt.setString(1, user.getDescription());
+			pstmt.setInt(2, idx);
+			
+			result = pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("updateDescription() 에러 : " + e);
+		}
+		return result;
+	}
+
+	public BusinessUserBean getDescription(int idx) {
+		String sql = """
+				select description from business_user where business_idx = ?
+				""";
+		BusinessUserBean user = new BusinessUserBean();
+		try (Connection con = ds.getConnection();
+				PreparedStatement pstmt = con.prepareStatement(sql);) {
+			pstmt.setInt(1, idx);
+			try (ResultSet rs = pstmt.executeQuery()) {
+				if (rs.next()) {
+					user.setDescription(rs.getString("description"));
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("getDescription() 에러 : " + e );
+		}
+		return user;
+	}
 }

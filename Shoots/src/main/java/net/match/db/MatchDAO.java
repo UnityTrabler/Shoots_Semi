@@ -25,8 +25,8 @@ public class MatchDAO {
 	public int matchInsert(MatchBean match) {
 		int result = 0;
 		String sql = """
-				insert into match_post (match_id, writer, match_date, match_time, player_min, player_max, player_gender, price)
-				values (match_seq.nextval, ?, TO_DATE(?, 'YYYY-MM-DD'), ?, ?, ?, ?, ?)
+				insert into match_post (match_id, writer, match_date, match_time, player_min, player_max, player_gender, price, description)
+				values (match_seq.nextval, ?, TO_DATE(?, 'YYYY-MM-DD'), ?, ?, ?, ?, ?, ?)
 				""";
 		try (Connection con = ds.getConnection();
 				PreparedStatement pstmt = con.prepareStatement(sql);) {
@@ -37,6 +37,7 @@ public class MatchDAO {
 			pstmt.setInt(5, match.getPlayer_max());
 			pstmt.setString(6, match.getPlayer_gender());
 			pstmt.setInt(7, match.getPrice());
+			pstmt.setString(8, match.getDescription());
 			
 			result = pstmt.executeUpdate();
 		} catch (Exception e) {
@@ -121,7 +122,7 @@ public class MatchDAO {
 
 	public MatchBean getDetail(int matchId) {
 		String sql = """
-				select mp.*, b.business_name, b.address from match_post mp join business_user b
+				select mp.*, b.business_name, b.address, b.description from match_post mp join business_user b
 				on mp.writer = b.business_idx where match_id = ?
 				""";
 		MatchBean match = null;
@@ -142,6 +143,7 @@ public class MatchDAO {
 					match.setPrice(rs.getInt("price"));
 					match.setBusiness_name(rs.getString("business_name"));
 					match.setAddress(rs.getString("address"));
+					match.setDescription(rs.getString("description"));	
 				}
 			}
 		} catch (Exception e) {
@@ -155,7 +157,7 @@ public class MatchDAO {
 		int result = 0;
 		String sql = """
 				update match_post set match_date = ?, match_time = ?, player_min = ?, 
-					player_max = ?, player_gender = ?, price = ?
+					player_max = ?, player_gender = ?, price = ?, description = ?
 				where match_id = ?
 				""";
 		try (Connection con = ds.getConnection();
@@ -167,7 +169,8 @@ public class MatchDAO {
 			pstmt.setInt(4, match.getPlayer_max());
 			pstmt.setString(5, match.getPlayer_gender());
 			pstmt.setInt(6, match.getPrice());
-			pstmt.setInt(7, match.getMatch_id());
+			pstmt.setString(7, match.getDescription());
+			pstmt.setInt(8, match.getMatch_id());
 			
 			result = pstmt.executeUpdate();
 		} catch (Exception e) {

@@ -2,6 +2,7 @@
 <%@taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core"%>
 <html>
 <head>
+	<jsp:include page="top.jsp"></jsp:include>
     <script src="${pageContext.request.contextPath}/js/jquery-3.7.1.js"></script>
     <link rel = "stylesheet" href = "${pageContext.request.contextPath}/css/login.css" type = "text/css">
     <script>
@@ -93,8 +94,7 @@
     </script>
 </head>
 <body>
-	<jsp:include page="top.jsp"></jsp:include>
-	<div class = "loginAD container">
+	<div class = "loginAD">
 		<div class = "loginBD">
 			<div class = "loginImgD">
 				<img src = "${pageContext.request.contextPath}/img/info.png" class = "loginImg">

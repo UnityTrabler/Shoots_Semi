@@ -92,9 +92,9 @@
 	        	<input type="hidden" name="report_ref_id" class="report_ref_id" value=""> <!-- 참조할 번호. A면 postid, B면 commentid, C면 matchid-->
 	        	
 	        	<!-- 플레이어1 구간 -->
-				<div class="player" id="p1">
+				<div class="player" id="p1" style="padding-left: 80px;">
 				<div>
-				<img src="${pageContext.request.contextPath}/img/reportHuman.png" width="80px"/>
+				<img src="${pageContext.request.contextPath}/img/info.png" width="80px"/>
 				<p><input type="text" name="targetName" class="targetName" value="" style="border:none;" readOnly></p>
 				</div>
 				

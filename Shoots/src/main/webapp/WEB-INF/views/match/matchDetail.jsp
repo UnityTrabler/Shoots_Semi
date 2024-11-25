@@ -63,6 +63,7 @@
 			<hr class = "hr2">
 			<p class = "mP"> 구장설명 </p>
 			<pre class = "preP">
+				${match.description.trim()}
 			</pre>
 		</div>
 		<div class = "container2">

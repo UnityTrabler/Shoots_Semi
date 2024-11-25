@@ -2,8 +2,11 @@
 
 .container0 {display: flex; justify-content: center; margin-top : 50px}
 .container0-1 {border: none; margin-right :40px; text-align : center;}
-.container {border: 1.5px solid #059669; border-radius : 30px; width : 60%;  padding : 40px; margin : 0px 40px 0px 0px; min-height : 500px}
+.container {border: 1.5px solid #059669; border-radius : 30px; width : 50%;  padding : 40px; margin : 0px 40px 0px 0px; min-height : 500px; max-height : 800px}
 table {width : 80%! important; margin : 0 auto; margin-top : 35px}
+
+th:nth-child(1) {width : 20%}
+th:nth-child(2) {width : 80%}
 
 .cP0-1 {margin : 30px 20px 20px 0; font-size : 13px; text-align : right;}
 .cP0 {margin : 20px 20px 20px 0; font-size : 13px; text-align : right;}
@@ -16,8 +19,12 @@ table {width : 80%! important; margin : 0 auto; margin-top : 35px}
 .cP0-2:hover {color : #059669; text-decoration : none; font-weight : bold}
 
 .container2 {text-align : center; margin-top : 30px}
+
 .updateBtn {font-size :  12px; border-radius : 20px; border : none; width : 90px; height : 25px; color : white ; background : #059669; margin-left : 10px; transition: background 0.3s, color 0.3s; padding : 0px}
 .updateBtn:hover {font-size :  12px; border-radius : 20px; border : 1px solid #059669; width : 90px; height : 25px; color : #059669 ; background : white; margin-left : 10px; transition: background 0.3s, color 0.3s;}
+
+.descriptionBtn {font-size :  12px; border-radius : 20px; border : none; width : 90px; height : 25px; color : white ; background : orange; margin-left : 10px; transition: background 0.3s, color 0.3s; padding : 0px}
+.descriptionBtn:hover {font-size :  12px; border-radius : 20px; border : 1px solid orange; width : 90px; height : 25px; color : orange ; background : white; margin-left : 10px; transition: background 0.3s, color 0.3s;}
 
 .tab-content {display: none;}
 .tab-content p {font-size: 10px; color: #333; text-align : right; margin-right : 20px}
@@ -27,7 +34,7 @@ table {width : 80%! important; margin : 0 auto; margin-top : 35px}
 .empty-td {border : none!important}
                  
 .modal {display : none; position : fixed; z-index : 1; left : 0; top : 0; width : 100%; height : 100%; overflow : auto; background-color : rgba(0, 0, 0, 0.4); padding-top : 60px;}
-.modal-content {width : 800px!important; min-height : 650px; max-height : 600px; background-color : #fefefe; margin : 5% auto; padding : 20px; border : 1px solid #888; width : 80%; border-radius : 20px}
+.modal-content {width : 800px!important; min-height : 500px; max-height : 400px; background-color : #fefefe; margin : 5% auto; padding : 20px; border : 1px solid #888; width : 80%; border-radius : 20px}
 #p-reportModal .modal-content {min-height: 400px; overflow-y: auto;}
 #p-reportModal .modal-dialog {max-width: 80%; width: 70%; height: 20%; margin: auto;}
                  
@@ -35,4 +42,11 @@ table {width : 80%! important; margin : 0 auto; margin-top : 35px}
 .modalX {font-size : 12px; width : 23px; height : 23px; background : #be123c; color : white; border : none; border-radius : 50%; text-align : center}
 .modalX:hover {width : 23px; height : 23px; background : white; color : #be123c; border : 1px solid #be123c; border-radius : 50%; text-align : center}
 
-.descriptionT {width : 80%; height : 300px; border-radius : 20px; border : 1px solid #059669; padding}
+.descriptionT {font-size : 12px; width : 80%; height : 300px; border-radius : 20px; border : 1px solid #059669; padding : 10px; outline: none}
+.submitBtn {font-size :  12px; border-radius : 20px; border : none; width : 90px; height : 25px; color : white ; background : #1d4ed8; margin-left : 10px; transition: background 0.3s, color 0.3s; padding : 0px; margin-top : 10px}
+.submitBtn:hover {font-size :  12px; border-radius : 20px; border : 1px solid #1d4ed8; width : 90px; height : 25px; color : #1d4ed8 ; background : white; margin-left : 10px; transition: background 0.3s, color 0.3s; margin-top : 10px}
+
+.returnBtn {font-size :  12px; border-radius : 20px; border : none; width : 90px; height : 25px; color : white ; background : #d60e0e; margin-left : 10px; transition: background 0.3s, color 0.3s; padding : 0px; margin-top : 10px}
+.returnBtn:hover {font-size :  12px; border-radius : 20px; border : 1px solid #d60e0e; width : 90px; height : 25px; color : #d60e0e ; background : white; margin-left : 10px; transition: background 0.3s, color 0.3s; margin-top : 10px}
+
+.cP2 {margin-left : 50px! important; font-weight : bold; font-size : 15px; margin-bottom : 30px}

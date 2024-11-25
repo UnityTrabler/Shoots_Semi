@@ -4,18 +4,46 @@
 	xmlns="http://xmlns.jcp.org/xml/ns/javaee"
 	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
 	version="4.0">
-	<!-- http://localhost:8088/JSP_Template_JSTL 주소로 요청이 온 경우 
+	
+	<!-- http://localhost:8088/Shoots 주소로 요청이 온 경우 
 		webapp 아래에서 welcome-file file을 차례대로 찾음-->
+	<!-- welcome-file-list은 기본적으로 열릴 파일을 정의함. 위에서부터 파일을 찾아서 열고 없으면 아래로 내려가서 찾음. -->
 	<welcome-file-list>
 		<welcome-file>index.jsp</welcome-file>
 		<welcome-file>index.html</welcome-file>
 	</welcome-file-list>
-	<!-- @WebServlet("*.net") 인 경우
-		http://localhost:8088/JSP_Template_JSTL/list로 입력하면 404 오류 발생함.-->
+	
+	
+	<!-- 403에러는 파일이나 리소스는 찾았지만 권한이 없는 경우에 띄우는 오류.-->
 	<error-page>
-		<error-code>404</error-code>
-		<location>/error/error404.jsp</location>
+		<error-code>403</error-code>
+		<location>/error/error403.jsp</location>
 	</error-page>
+	
+	
+	 <!-- filter : 필터의 이름과 쓸 필터의 클래스를 적는것. -->
+	 <filter>
+	 	<filter-name>LoginFilter</filter-name>
+	 	<filter-class>net.filter.LoginFilter</filter-class>
+	 </filter>
+	 <filter-mapping> <!-- filter-mapping : 필터의 적용 범위를 설정하는것. -->
+	 	<filter-name>LoginFilter</filter-name>
+	 	<url-pattern>/user/logout</url-pattern>
+	 	<url-pattern>/user/updateProcess</url-pattern>
+	 	<url-pattern>/user/info</url-pattern>
+	 	<url-pattern>/user/inquiry</url-pattern>
+	 </filter-mapping>
+	 
+	 
+	 <!-- 관리자 (role = 'admin') 계정이어야만 하는 경우 -->
+	<filter>
+	 	<filter-name>AdminFilter</filter-name>
+	 	<filter-class>net.filter.AdminFilter</filter-class>
+	 </filter>
+	 <filter-mapping>
+	 	<filter-name>AdminFilter</filter-name>
+	 	<url-pattern>/admin/*</url-pattern>
+	 </filter-mapping>
 	
 
 </web-app>

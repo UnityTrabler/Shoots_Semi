@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -46,11 +47,19 @@
         <div class="modal-content">
             <div class = "modalBD"><input type = "button" value = "X" onclick="closeModal()" class = "modalX"></div>
             <div id="modalContent">
-				<p class = "cP2"> 구장설명 추가 </p>
+				<p class = "cP2"> 구장설명 추가/수정 </p>
 				<div>
 					<form action = 'updateDescription' method = "post">
 						<input type = "hidden" value = "${idx}">
-						<textarea class = "descriptionT" placeholder = "구장에 관련한 설명을 자세하게 적어주세요 (위치, 주차정보, 편의시설, 대여여부 등등)"></textarea> 
+						<c:if test = "${empty businessUser.description}">
+							<textarea class = "descriptionT" name = "description" id = "description" placeholder = "구장에 관련한 설명을 자세하게 적어주세요 (위치, 주차정보, 편의시설, 대여여부 등등)"></textarea> 
+						</c:if>
+						<c:if test = "${!empty businessUser.description}">
+							<pre><textarea class = "descriptionT" name = "description" id = "description">${businessUser.description}</textarea></pre>
+						</c:if>
+						<br>
+						<input type = "button" class = "returnBtn" value = "취소" onclick="closeModal()">
+						<input type = "submit" class = "submitBtn" value = "저장">
 					</form>
 				</div>
             </div>
