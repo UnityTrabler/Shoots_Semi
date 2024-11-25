@@ -91,8 +91,10 @@
 	
 	<%-- 게시글이 없는 경우 --%>
 	<c:if test="${listcount == 0 }">
-		<h3 style="text-align:center">등록된 글이 없습니다.</h3>
-		<a href="../notice/write" type="button" class="btnWrite">글 쓰 기</a>
+		<div class = "Bd">
+			<p style="text-align:center">등록된 글이 없습니다.</p>
+			<a href="../notice/write" type="button" class="btnWrite"> 공지사항 쓰기 </a>
+		</div>
 	</c:if>
 </body>
 </html>

@@ -130,6 +130,10 @@ function redirectToDeleteInquiry(inquiryId) {
 		location.href = "../inquiry/delete?num=" + inquiryId;
 	}
 }
+
+function matchList() {
+	location.href = "../matchs/list";
+}
 	
 // pagination
 let isRequestInProgress = false;

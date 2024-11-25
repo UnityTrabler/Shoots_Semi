@@ -2,14 +2,14 @@
 
 table caption {
 	caption-side: top;
-	font-size : 30px;
+	font-size : 25px;
 	font-weight: bold;
 	color : black;
 }
 
 .container0 {display: flex; justify-content: center; margin-top : 50px}
 .container0-1 {border: none; width : 10%; margin-right :40px; text-align : center;}
-.container {border: 1.5px solid #059669; border-radius : 30px;  padding : 40px; margin : 0px 40px 0px 0px}
+.container {border: 1.5px solid #059669; border-radius : 30px;  padding : 40px; margin : 0px 40px 0px 0px; width : 50%;}
 table {width : 100% ; margin : 0 auto; margin-top : 35px}
 
 .cP0-1 {margin : 30px 20px 20px 0; font-size : 13px; text-align : right;}

@@ -820,13 +820,13 @@ function updatePost(data) {
 	let output = "<tbody>";
 	
 	$(data.totallist).each(function(index, item){
-		var category = item.category=='A' ? "자유" : "중고"
+		var category = item.category=='A' ? "<span class = 'a'>[자유]</span>" : "<span class = 'b'>[중고]</span>"
 		output += `			
 			<tr>
-				<td>${item.writer}</td>
 				<td>${category}</td>
 				<td><a href="../post/detail?num=${item.post_id}"  type="button" class="postDetail">${item.title }</a></td>
-				<td>${item.register_date.substring(0,10) }</td>
+				<td>${item.writer}</td>
+				<td>${item.register_date}</td>
 				<td>${item.readcount }</td>
 				<td><a href="postDelete?id=${item.post_id}"  type="button" class="postDelete">삭제</a></td>
 			</tr>

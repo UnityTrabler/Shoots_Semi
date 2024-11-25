@@ -27,6 +27,7 @@
 					</tr>
 					<tr>
 						<th><div>번호</div></th>
+						<th><div>답변상태</div></th>
 						<th><div>문의 제목</div></th>
 						<th><div>문의자 유형</div></th>
 						<th><div>문의자</div></th>
@@ -45,8 +46,17 @@
 								<%--num 출력 --%> <c:set var="num" value="${num-1}" /> <%--num=num-1; 의미 --%>
 							</td>
 							<td>
+								<c:choose>
+								<c:when test = "${i.hasReply}">
+									<span class = "comS">[답변완료]</span>
+								</c:when>
+								<c:when test = "${! i.hasReply}">
+									<span class = "comP">[대기중]</span>
+								</c:when>
+							</c:choose>
+							</td>
+							<td>
 								<%--제목 --%>
-
 								<div>
 									<a class ="inquiryDetail" href="inquirydetail?inquiryid=${i.inquiry_id}"> 
 										<c:if test="${i.title.length()>=20 }">
@@ -57,13 +67,6 @@
 											<c:out value="${i.title}" />
 										</c:if>
 									</a>
-
-									<!-- 답변 여부 표시 -->
-						                <span>
-						                    <c:if test="${i.hasReply}">
-						                        [답변완료]
-						                    </c:if>
-						                </span>
 								</div>
 							</td>
 
@@ -136,7 +139,7 @@
 		
 		<%--게시글이 없는 경우 --%>
 		<c:if test="${listcount == 0 }">
-			<h3 style="text-align: center">등록된 문의가 없습니다.</h3>
+			<p style="text-align: center">등록된 문의가 없습니다.</p>
 		</c:if>
 
 </body>

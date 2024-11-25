@@ -1,6 +1,5 @@
 @charset "EUC-KR";
 
-.container {min-width : 1200px;}
 .table {width : 100%; margin : 0 auto}
 
 table caption {
@@ -27,5 +26,7 @@ td:nth-child(2), td:nth-child(3), td:nth-child(4){
 .faqDelete {text-decoration: none; font-size : 15px; border-radius : 10px; border : none; width : 50px; height : 23px; text-align: center; color : white ; background : #be123c; transition: background 0.3s, color 0.3s; }
 .faqDelete:hover {text-decoration: none; font-size : 15px; border : 1px solid #be123c; border-radius : 10px; width : 50px; height : 23px; text-align: center; color : #be123c ; background : white}
 
-.btnWrite{text-decoration: none; font-size : 15px; border-radius : 10px; border : none; width : 80px; height : 23px; text-align: center; color : white ; background : #be123c; transition: background 0.3s, color 0.3s;}
-.btnWrite:hover {text-decoration: none; font-size : 15px; border : 1px solid #be123c; border-radius : 10px; width : 80px; height : 23px; text-align: center; color : #be123c ; background : white}
+.btnWrite{text-decoration: none; font-size : 12px; border-radius : 20px; border : none; width : 80px; height : 23px; text-align: center; color : white ; background : #be123c; transition: background 0.3s, color 0.3s; margin-top : 20px; line-height: 23px}
+.btnWrite:hover {text-decoration: none; font-size : 12px; border : 1px solid #be123c; border-radius : 20px; width : 80px; height : 23px; text-align: center; color : #be123c ; background : white; line-height: 23px}
+
+.Bd {margin-top : 50px; text-align : center}
