@@ -30,7 +30,7 @@ th:nth-child(6) {width : 10%}
 
 .modal {display : none; position : fixed; z-index : 1; left : 0; top : 0; width : 100%; height : 100%; overflow : auto; background-color : rgba(0, 0, 0, 0.4); padding-top : 60px;}
 .modal-content {width : 800px!important; min-height : 650px; max-height : 600px; background-color : #fefefe; margin : 5% auto; padding : 20px; border : 1px solid #888; width : 80%; border-radius : 20px}
-#p-reportModal .modal-content {min-height: 400px; overflow-y: auto;}
+#p-reportModal .modal-content {width:700px!important; min-height: 400px; overflow-y: auto;}
 #p-reportModal .modal-dialog {max-width: 80%; width: 70%; height: 20%; margin: auto;}
                  
 .modalBD {text-align : right}

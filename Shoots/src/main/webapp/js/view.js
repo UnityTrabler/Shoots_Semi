@@ -70,7 +70,6 @@ function getList(state) {
                         
                             <span class='text-comment'>${Comment.content}</span>
                             <button class ="commentReportButton"  data-comment-id="${Comment.comment_id}" 
-
                          	data-writer="${Comment.writer}" data-tidx="${Comment.writer}" 
                          	data-toggle="modal" data-target=".c-report-modal" style ="color:red; border:none">
                          	<img src='../img/report.png' style = "width : 15px; height : 15px">
@@ -136,8 +135,14 @@ function getList(state) {
                                 </div>
                             </div>
                             <div class='comment-text-box'>
-                                <p class='comment-text-view'>
-                                    <pre class='text-comment'>${formattedContent}</pre>
+                                <p class='comment-text-view' style="display: inline; align-items: center;">
+                                    <span class='text-comment'>${formattedContent}</span>
+                                    <button class ="commentReportButton"  data-comment-id="${childComment.comment_id}" 
+		                         	data-writer="${childComment.writer}" data-tidx="${childComment.writer}" 
+		                         	data-toggle="modal" data-target=".c-report-modal" style ="color:red; border:none; 
+		                         	background: none; display: inline">
+		                         	<img src='../img/report.png' style = "width : 15px; height : 15px">
+		                         	</button>
                                 </p>
                             </div>
                             <div class='comment-info-box'>
