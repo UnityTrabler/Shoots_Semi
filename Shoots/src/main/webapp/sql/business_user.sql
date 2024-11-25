@@ -80,6 +80,7 @@ VALUES (
 
 SELECT * FROM business_user;
 
-update business_user set login_status = 'approved';
+update business_user set password = 'a1';
+
 
 alter table business_user add login_status varchar2(9) DEFAULT 'pending';

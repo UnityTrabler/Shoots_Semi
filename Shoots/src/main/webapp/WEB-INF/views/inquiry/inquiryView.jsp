@@ -37,22 +37,20 @@
 				</tr>
 				
 				<tr>
-					<td><div>첨부파일</div></td>
+					<td colspan = "2"> 첨부파일 &nbsp;
 					
 					<%--파일 첨부한 경우 --%>
 					<c:if test="${!empty inquirydata.inquiry_file}">
-						<td>
 							<a href="down?filename=${inquirydata.inquiry_file}">
-							<img src="${pageContext.request.contextPath}/img/down.png" id="downImg" width="10px">
+							<img src="${pageContext.request.contextPath}/img/down.png" class="downImg">
 							${inquirydata.inquiry_file}</a>
-						</td>
 					</c:if>
 					
 					
 					<%--파일 첨부 안한경우 --%>
 					<c:if test="${empty inquirydata.inquiry_file}">
-						<td></td>
 					</c:if>
+					</td>
 				</tr>
 			</table>
 			<hr>
