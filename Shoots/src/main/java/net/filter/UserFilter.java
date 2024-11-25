@@ -34,7 +34,17 @@ public class UserFilter implements Filter {
 		System.out.println("userClassfication 값은 : " + userClassification);
 		
 		HttpServletResponse hpresp = (HttpServletResponse) resp;
-		if(!userClassification.equals("regular")) {
+		
+		//로그인, 로그인처리 페이지는 필터에서 제외
+		String requestURI = hpreq.getRequestURI();
+		if (requestURI.contains("/user/loginProcess") || requestURI.contains("/user/login")) {
+	        System.out.println("로그인 처리 요청 - 필터 예외 처리");
+	        chain.doFilter(req, resp);
+	        return;
+	    }
+		
+		
+		if(userClassification == null || !userClassification.equals("regular")) {
 			hpresp.setContentType("text/html; charset=UTF-8"); // HTML 응답으로 설정
 		    PrintWriter out = hpresp.getWriter();
 		    

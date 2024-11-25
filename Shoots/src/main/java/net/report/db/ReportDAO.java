@@ -89,14 +89,15 @@ public class ReportDAO {
 		List<ReportBean> list = new ArrayList<ReportBean>();
 		String sql = """
 				select * from (
-					select rownum rnum, r.report_id, r.report_type, r.report_ref_id, ru.name reporter, tu.name target, title, register_date
-					from(
-							select r.*, ru.name, rt.name
+					select rownum rnum, a.*
+						from(
+							select r.report_id, r.report_type, r.report_ref_id, r.title, r.register_date, 
+							       ru.name as reporter, tu.name as target
 							from report r
 							left join regular_user ru on r.reporter = ru.idx
 							left join regular_user tu on r.target = tu.idx
-							order by report_id desc
-							)
+							order by r.report_id desc
+							) a
 					) p where p.rnum >= ? and p.rnum <= ?
 				""";
 		
@@ -118,6 +119,7 @@ public class ReportDAO {
 					rb.setTarget_name(rs.getString("target"));
 					rb.setTitle(rs.getString("title"));
 					rb.setRegister_date(rs.getString("register_date"));
+					list.add(rb);
 				}
 			}
 		} catch (Exception e) {
@@ -133,7 +135,7 @@ public class ReportDAO {
 	public ReportBean getDetail(int id) {
 		ReportBean rb = null;
 		String sql = """
-				select r.*, ru.name reporter, rt.name target
+				select r.*, ru.name reporter, tu.name target
 					from report r
 					left join regular_user ru on r.reporter = ru.idx
 					left join regular_user tu on r.target = tu.idx 
