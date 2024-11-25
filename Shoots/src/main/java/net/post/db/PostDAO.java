@@ -58,10 +58,10 @@ private DataSource ds;
 			
 		String post_list_sql = """
 				select * 
-				from ( 
-		SELECT ROWNUM rnum, post_id, writer, category, title, content, post_file, price, register_date, readcount, user_id
+				from (
+		SELECT ROWNUM rnum, post_id, writer, category, title, content, post_file, price, register_date, readcount, user_id, commentCount
 		from(
-				SELECT p.*, r.user_id
+				SELECT p.*, r.user_id, (SELECT COUNT(comment_id) FROM post_comment c WHERE c.post_id = p.post_id) AS commentCount
 				FROM post p
 				INNER JOIN regular_user r ON p.writer = r.idx
 				WHERE p.category = ?
@@ -86,20 +86,25 @@ private DataSource ds;
 			) where rnum >= ?
 		*/
 		
+		
+		/*
+		  
+		  SELECT p.*, r.user_id, 
+  (SELECT COUNT(*) FROM post_comment WHERE post_id = p.post_id) AS comment_count
+FROM post p
+INNER JOIN regular_user r ON p.writer = r.idx
+WHERE p.category = ?
+ORDER BY p.register_date DESC
+
+		  
+		*/
+		
+		
 		//limit ? offset ?
 		//페이지 1: LIMIT 10 OFFSET 0 → 0부터 10개 게시글을 가져옴
 		//페이지 2: LIMIT 10 OFFSET 10 → 10부터 10개 게시글을 가져옴
 
-		/*
-		  
-		  SELECT p.*, r.user_id
-				FROM post p
-				INNER JOIN regular_user r ON p.writer = r.idx
-				WHERE p.category = ?
-				ORDER BY p.register_date DESC
-		  
-		  
-		*/
+		
 		
 		List<PostBean> list = new ArrayList<PostBean>();
 		
@@ -138,6 +143,7 @@ private DataSource ds;
 						post.setRegister_date(rs.getString("REGISTER_DATE"));
 						post.setReadcount(rs.getInt("READCOUNT"));
 						post.setUser_id(rs.getString("user_id"));
+						post.setCommentCount(rs.getInt("COMMENTCOUNT"));
 						
 						list.add(post); // 값을 담은 객체를 리스트에 저장합니다.
 					}
@@ -249,7 +255,7 @@ private DataSource ds;
 		
 		String post_getDetail_sql = """
 				select * from(
-							select p.*, r.user_id, r.idx
+							select p.*, r.user_id, r.idx, r.user_file
 							from post p 
 							join regular_user r 
 							on p.writer = r.idx
@@ -283,6 +289,7 @@ private DataSource ds;
 							post.setReadcount(rs.getInt("READCOUNT"));
 							post.setUser_id(rs.getString("user_id"));
 							post.setIdx(rs.getInt("idx"));
+							post.setUser_file(rs.getString("user_file"));
 						}
 					}
 					} catch (Exception ex) {

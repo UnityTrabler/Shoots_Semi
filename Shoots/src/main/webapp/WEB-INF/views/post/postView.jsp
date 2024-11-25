@@ -14,6 +14,7 @@
 </head>
 <body>
 <input type="hidden" id="loginid" value="${id}" name="loginid"> <!-- 수정 삭제 버튼 보이게 하려고 현재 로그인 한 유저의 id값을 받아놓음 -->
+<input type="hidden" id="user_file" value="${user_file}" name="user_file"> 
 
 
 <input type="hidden" value="${postdata.post_id}" id="post_id" name="post_id">  <!-- 댓글 삭제한 뒤 다시 글로 돌아오게 하기 위해 글 번호값을 받아둠 -->
@@ -27,6 +28,14 @@
 				<td colspan="2"><div class="title"><c:out value="${postdata.title}" />
 				
 				</div>
+				 <c:choose>
+            <c:when test="${not empty postdata.user_file}">
+                <img src="${pageContext.request.contextPath}/userupload/${postdata.user_file}" alt="profile picture" height="36" style= "border: 1px solid #ccc; border-radius: 50%;">
+            </c:when>
+            <c:otherwise>
+                <img src="${pageContext.request.contextPath}/img/profile.png" alt="default profile" height="36" >
+            </c:otherwise>
+        </c:choose>
 				<span class= "user_id">${postdata.user_id}</span>
 				<span class= "register_date" style="margin-left: 30px;">${postdata.register_date}</span>
 				<span class= "readcount" style="margin-left: 30px;">조회수&nbsp; ${postdata.readcount}</span>

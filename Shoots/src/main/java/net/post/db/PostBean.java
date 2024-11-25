@@ -14,7 +14,8 @@ public class PostBean {
 	private int idx;
 	private int comment_id;
 	private int comment_ref_id;
-	
+	private int commentCount;  // 댓글 수 추가
+	private String user_file;
 	
 	public int getPost_id() {
 		return post_id;
@@ -93,6 +94,18 @@ public class PostBean {
 	}
 	public void setComment_ref_id(int comment_ref_id) {
 		this.comment_ref_id = comment_ref_id;
+	}
+	public int getCommentCount() {
+		return commentCount;
+	}
+	public void setCommentCount(int commentCount) {
+		this.commentCount = commentCount;
+	}
+	public String getUser_file() {
+		return user_file;
+	}
+	public void setUser_file(String user_file) {
+		this.user_file = user_file;
 	}
 	
 	
