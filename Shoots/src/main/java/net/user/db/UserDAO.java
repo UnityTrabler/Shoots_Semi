@@ -227,7 +227,7 @@ public class UserDAO {
 				pstmt.setString(1, userBean.getBusiness_id());
 				pstmt.setString(2, userBean.getPassword());
 				pstmt.setString(3, userBean.getBusiness_name());
-				pstmt.setInt(4, userBean.getBusiness_number());
+				pstmt.setLong(4, userBean.getBusiness_number());
 				pstmt.setInt(5, userBean.getTel());
 				pstmt.setString(6, userBean.getEmail());
 				pstmt.setInt(7, userBean.getPost());

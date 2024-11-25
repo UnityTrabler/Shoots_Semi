@@ -38,6 +38,9 @@ public class UserFrontController extends jakarta.servlet.http.HttpServlet {
 		Action action = null;
 
 		switch (command) {
+			case "/home":
+				action = new UserHomeAction();
+				break;
 			case "/login":
 				action = new UserLoginAction();
 				break;

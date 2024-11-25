@@ -1,6 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <div id="regularContext">
-			<form class="form-horizontal" method="post" action="signupProcess" id="signupform">
+			<form class="form-horizontal" method="post" action="signupProcess" id="signupform" >
 				<h2 style="text-align: center; color: #059669; margin-bottom: 50px">개인 회원가입</h2>
 
 				<font color='red'>*</font>표시는 필수 입력 사항입니다.
@@ -74,7 +74,7 @@
 					<label>
 						<div class="divBlock2">
 							<img src="" id="preview" style="width:200px; height: 200px; border: 1px solid #059669; margin-bottom: 10px;">
-							<input type="file" name="userFile" >
+							<input type="file" name="userFile" accept="image/*">
 						</div>	
 						<span id="filename" class="btn btn-primary" style="width: 100px;">파일첨부</span>
 						<span id="fileReset" class="btn btn-danger" style="width: 100px;">파일리셋</span>

@@ -1,7 +1,6 @@
 package net.user.action;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
@@ -36,32 +35,23 @@ public class UserUpdateProcessAction implements Action {
 			
 			UserDAO userDAO = new UserDAO();
 			int result = userDAO.update(userBean); //db update
-			System.out.println(result == 1 ? "update 성공" : "update 실패");
-			
-			printJSP(resp, result);
+			if(result == 1) {
+				System.out.println("update 성공");
+				resp.setContentType("text/html;charset=utf-8");
+				resp.setStatus(HttpServletResponse.SC_OK);
+				resp.getWriter().println("{\"message\":\"수정 완료\"}");
+				return null;
+			}
+			else {
+				System.out.println("update 실패");
+				resp.setContentType("text/html;charset=utf-8");
+				resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+				resp.getWriter().println("{\"message\":\"수정 실패\"}");
+				return null;
+			}
 		}
 		catch (IOException e) {e.printStackTrace();}
 		return null;
-	}
-
-	private void printJSP(HttpServletResponse resp, int result) throws IOException {
-		PrintWriter out = resp.getWriter();
-		resp.setContentType("text/html;charset=utf-8");
-		out.print("<script>");
-		
-		if (result == 1) 
-			out.print("""
-					alert('수정되었습니다');
-					location.href='../boards/list';
-					""");
-		else 
-			out.print("""
-					alert('수정 실패');
-					history.back();
-					""");
-		
-		out.print("</script>");
-		out.close();
 	}
 
 }

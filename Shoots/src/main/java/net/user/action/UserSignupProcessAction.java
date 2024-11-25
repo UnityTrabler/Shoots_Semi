@@ -81,7 +81,7 @@ public class UserSignupProcessAction extends HttpServlet implements Action {
 				userBean.setBusiness_id(req.getParameter("id"));
 				userBean.setPassword(req.getParameter("pwd"));
 				userBean.setBusiness_name(req.getParameter("business-name"));
-				userBean.setBusiness_number(Integer.parseInt(req.getParameter("business-number")));
+				userBean.setBusiness_number(Long.parseLong(req.getParameter("business-number")));
 				userBean.setTel(Integer.parseInt(req.getParameter("tel")));
 				userBean.setEmail(req.getParameter("email"));
 				userBean.setPost(Integer.parseInt(req.getParameter("postcode")));
