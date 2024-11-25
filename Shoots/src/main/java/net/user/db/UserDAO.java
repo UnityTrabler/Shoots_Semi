@@ -105,16 +105,28 @@ public class UserDAO {
 
 	public int update(UserBean userBean) {
 		String sql = """
-				update regular_user
-				set user_file = ?
-				where user_id = ?
+				UPDATE regular_user
+				SET name = ?, 
+				    jumin = ?, 
+				    gender = ?, 
+				    tel = ?, 
+				    email = ?, 
+				    nickname = ?, 
+				    user_file = ?
+				WHERE user_id = ?
 				""";
 		int result = 0;
 		
 		try(Connection con = ds.getConnection(); 
 				PreparedStatement pstmt = con.prepareStatement(sql);) {
-			pstmt.setString(1, userBean.getUserfile());
-			pstmt.setString(2, userBean.getId());
+			pstmt.setString(1, userBean.getName());
+			pstmt.setInt(2, userBean.getRRN());
+			pstmt.setInt(3, userBean.getGender());
+			pstmt.setString(4, userBean.getTel());
+			pstmt.setString(5, userBean.getEmail());
+			pstmt.setString(6, userBean.getNickname());
+			pstmt.setString(7, userBean.getUserfile());
+			pstmt.setString(8, userBean.getId());
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -531,5 +543,35 @@ public class UserDAO {
 			System.out.println("getPlayerByMatchId() 에러 : " + e);
 		}
 		return list;
+	}
+
+	public int update(BusinessUserBean businessUserBean) {
+		String sql = """
+				UPDATE business_user
+				SET business_name = ?, 
+				    business_number = ?, 
+				    tel = ?, 
+				    email = ?, 
+				    post = ?, 
+				    address = ?
+				WHERE business_id = ?
+				""";
+		int result = 0;
+		
+		try(Connection con = ds.getConnection(); 
+				PreparedStatement pstmt = con.prepareStatement(sql);) {
+			pstmt.setString(1, businessUserBean.getBusiness_name());
+			pstmt.setLong(2, businessUserBean.getBusiness_number());
+			pstmt.setInt(3, businessUserBean.getTel());
+			pstmt.setString(4, businessUserBean.getEmail());
+			pstmt.setInt(5, businessUserBean.getPost());
+			pstmt.setString(6, businessUserBean.getAddress());
+			pstmt.setString(7, businessUserBean.getBusiness_id());
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return result;
 	}
 }
