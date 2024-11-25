@@ -14,6 +14,8 @@
 </head>
 <body>
 	<form action="updateProcess" method="post" enctype="multipart/form-data" name="modifyform">
+		<input type="hidden" name="existing_file" value="${fb.faq_file}"> <!-- 기존 첨부파일명 전달 -->
+  		<input type="hidden" name="remove_file" value="false"> <!-- 파일 삭제 여부 플래그 추가 -->
 		<div class = "container">
 			<input type="hidden" name="faq_id" value="${fb.faq_id}">
 			<div class="form-group">

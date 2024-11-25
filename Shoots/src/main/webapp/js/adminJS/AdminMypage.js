@@ -226,14 +226,23 @@ function loadpost(){
     xhr.send();
 }//loadpost() end
 
-//신고 로드
+//report load
 function loadreport(){
 	var xhr = new XMLHttpRequest();
-    xhr.open('GET', '../admin/report', true); 
+    xhr.open('GET', '../admin/reportList', true); 
     xhr.onreadystatechange = function () {
         if (xhr.readyState === 4 && xhr.status === 200) {
 			document.getElementById('content-container').innerHTML = xhr.responseText; // 내용 뽑아오기 끝
 			
+		function toggleStatus(button) {
+    		if (button.innerHTML === "처리중") {
+        		button.innerHTML = "처리완료";
+        		button.style.backgroundColor = "green"; // optional: change color to indicate completion
+    		} else {
+        		button.innerHTML = "처리중";
+        		button.style.backgroundColor = ""; // revert back to original color
+    	}
+}
 		}
 		
         // 관리자 페이지에서 좌측 탭 누르면 메뉴들 활성화 / 비활성화 시키는 부분 
@@ -501,6 +510,7 @@ function updateUserlist(data) {
 	
 	$(data.totallist).each(function(index, item){
 		var gender = (item.gender == 1 || item.gender == 3) ? "남자" : "여자"
+		
 		output += (item.role == "common") ? 
     	`			
         	<tr>
@@ -528,6 +538,7 @@ function updateUserlist(data) {
             	<td><a href="../admin/revoke?id=${item.id}" type="button" class="revokeadmin">관리자</a></td>
         	</tr>
     	`;
+    	
 	});
 	
 	output += "</tbody>";
@@ -859,15 +870,94 @@ function ajax_post(sdata) {
 	});
 } //postlist pagination 끝
 
-function backBtn(){
-	var tab1 = document.querySelector('#tab-info'); 
-	var tab2 = document.querySelector('#tab');
+
+//reportadmin pagination
+isRequestInProgress = false
+function go_report(page) {
+	if(isRequestInProgress) return;
 	
-	 
-	
-	
-   window.location.href = 'http://localhost:8088/Shoots/admin/mypage'; // 원하는 페이지로 이동
- 
+	const limit = 10;
+	const data = {limit : limit, state : "ajax", page : page};
+	ajax_report(data);
 }
+
+
+function generatePagination_report(data) {
+	let output = "";
+	
+	let prevHref = data.page > 1 ? `href=javascript:go_report(${data.page - 1})` : "";
+	output += setPaging(prevHref, '&lt;&lt;');
+	
+	for (let i = data.startpage; i <= data.endpage; i++) {
+		const isActive = (i === data.page);
+		let pageHref = !isActive ? `href=javascript:go_report(${i})` : "";
+		  
+		output += setPaging(pageHref, i, isActive); 
+	}
+	
+	let nextHref = (data.page < data.maxpage) ? `href=javascript:go_report(${data.page + 1})` : "";
+	output += setPaging(nextHref, '&gt;&gt;' );
+	
+	$(".pagination").empty().append(output);
+}
+
+//reportlist tbody
+function updateReportlist(data) {
+	let output = "<tbody>";
+	
+	$(data.totallist).each(function(index, item){
+		output += `			
+			<tr>
+				<td>${item.report_type}</td>
+				<td>${item.reporter_name}</td>
+				<td>${item.target_name}</td>
+				<td>${item.title} </td>
+				<td>${item.register_date.substring(0, 10) }</td>
+				<td>
+					<button class="status">처리중</button>
+				</td>
+				<td><a href="../admin/report?id=${item.report_id}" type="button" class="report">자세히 보기</a></td>
+			</tr>
+          `;
+	});
+	
+	output += "</tbody>";
+	
+	$('table').append(output);
+	
+	 generatePagination_report(data);
+}
+
+function ajax_report(sdata) {
+	console.log(sdata);
+	
+	$.ajax({
+		data : sdata,
+		url : "/Shoots/admin/reportList",
+		dataType : "json",
+		cache : false, 
+		success : function(data){
+			console.log(data);
+			if (data.listcount > 0) {
+				$("thead").show();
+				$("tbody").remove();
+				updateReportlist(data);
+			} else {
+				$("thead").hide();
+				$("tbody").remove();
+				$(".pagination").empty();
+				$("table").append("<tbody><tr><td colspan='5' style='text-align: center;'>신고내역이 존재하지 않습니다</td></tr></tbody>");
+			}
+		},
+		error : function() {
+			console.log("에러");
+			$("thead").hide();
+			$("tbody").remove();
+    		$(".pagination").empty();
+    		$("table").append("<tbody><tr><td colspan='5' style='text-align: center;'>데이터를 불러오는 중 오류가 발생했습니다. 다시 시도해주세요.</td></tr></tbody>");
+		}
+	});
+} //reportadmin pagination 끝
+
 
 

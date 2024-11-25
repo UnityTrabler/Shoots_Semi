@@ -13,7 +13,8 @@ public class ReportBean {
 	private String register_date;
 	private int post_id;
 	private int match_id;
-	
+	private String reporter_name;
+	private String target_name;
 	
 	public int getPost_id() {
 		return post_id;
@@ -80,6 +81,18 @@ public class ReportBean {
 	}
 	public void setRegister_date(String register_date) {
 		this.register_date = register_date;
+	}
+	public String getReporter_name() {
+		return reporter_name;
+	}
+	public void setReporter_name(String reporter_name) {
+		this.reporter_name = reporter_name;
+	}
+	public String getTarget_name() {
+		return target_name;
+	}
+	public void setTarget_name(String target_name) {
+		this.target_name = target_name;
 	}
 	
 	
