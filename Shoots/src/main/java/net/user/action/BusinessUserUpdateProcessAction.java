@@ -17,6 +17,18 @@ public class BusinessUserUpdateProcessAction implements Action {
 		
 			BusinessUserBean businessUserBean = new BusinessUserBean();
 			UserDAO userDAO = new UserDAO();
+			businessUserBean.setBusiness_id(req.getParameter("id"));
+			businessUserBean.setPassword(req.getParameter("pwd"));
+			businessUserBean.setBusiness_name(req.getParameter("business-name"));
+			businessUserBean.setBusiness_number(Long.parseLong(req.getParameter("business-number")));
+			businessUserBean.setTel(Integer.parseInt(req.getParameter("tel")));
+			System.out.println("sadadsad-a-sad-as-");
+			System.out.println(Integer.parseInt(req.getParameter("tel")));
+			System.out.println(businessUserBean.getTel());
+			businessUserBean.setEmail(req.getParameter("email"));
+			businessUserBean.setPost(Integer.parseInt(req.getParameter("postcode")));
+			businessUserBean.setAddress(req.getParameter("address") + " " + req.getParameter("addressDetail"));
+			
 			int result = userDAO.update(businessUserBean); //db update
 			
 			if(result == 1) {

@@ -116,9 +116,7 @@
 				if(invali == false) return;
 				
 				const data = $(this).serialize();
-				let state;
-				if ($('#btnGroupRB').find('.btn-success').first().attr('id') != null)
-					state = $('#btnGroupRB').find('.btn-success').first().attr('id') == 'btnRegular' ? {'state' : 'regular'} : {'state' : 'business'};
+				let state = '${userClassification}';
 					
 				ajax(`\${data + "&" + $.param(state)}`, $(this).attr('action'));
 			}); 
@@ -132,7 +130,7 @@
 					success : function(data){
 						console.log('ajax success');
 						alert(data.message);
-						window.location.href = "${pageContext.request.contextPath}/user/login";
+						window.location.href = "${pageContext.request.contextPath}/user/home";
 					},
 					error:function(xhr, textStatus, errorThrown){
 						console.log('ajax error');

@@ -556,6 +556,17 @@ public class UserDAO {
 				    address = ?
 				WHERE business_id = ?
 				""";
+		
+		System.out.println("------0---");
+		System.out.println(businessUserBean.getBusiness_name());
+		System.out.println(businessUserBean.getBusiness_number());
+		System.out.println(businessUserBean.getTel());
+		System.out.println(businessUserBean.getEmail());
+		System.out.println(businessUserBean.getPost());
+		System.out.println(businessUserBean.getAddress());
+		System.out.println(businessUserBean.getBusiness_id());
+		System.out.println("------0---");
+		
 		int result = 0;
 		
 		try(Connection con = ds.getConnection(); 
@@ -569,6 +580,7 @@ public class UserDAO {
 			pstmt.setString(7, businessUserBean.getBusiness_id());
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
+			System.out.println(e.getMessage());
 			e.printStackTrace();
 		}
 		
