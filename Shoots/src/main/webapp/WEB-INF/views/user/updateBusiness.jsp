@@ -104,35 +104,34 @@
 				return true;
 			}//checkInvalidate()
 			
-			$('#signupform').on('submit',function(e) {
+		 	$('form[name="signupform"]').submit(function(e) {
 				e.preventDefault();
-				
 				var invali = checkInvalidate(); //유효성검증
 				if(invali == false) return;
 				
-				var formData = new FormData(this);
-				
-				//const data = $(this).serialize();
-				let state = '${userClassification}';
-				
+				const data = $(this).serialize();
+				let state = '${userClassification}'
+				ajax(`\${data + "&" + $.param(state)}`, $(this).attr('action'));
+			}); 
+			
+			function ajax(sdata, surl) {
 				$.ajax({
-					url: $(this).attr('action'),
-					method:$(this).attr('method'),
-					data: formData,
-				    contentType: false, // Do not set content type manually (FormData will handle it)
-			        processData: false, // Do not process the data (FormData will handle it)
-				    dataType : "json",
-					success: function(resp) {
-						alert(resp.message);
-						window.location.href = "${pageContext.request.contextPath}/user/home";
+					url : surl,
+					data : sdata,
+					type : 'POST',
+					dataType : "json",
+					success : function(data){
+						console.log('ajax success');
+						alert(data.message);
+						window.location.href = "${pageContext.request.contextPath}/user/login";
 					},
-					error: function(xhr, textStatus, errorThrown) {
+					error:function(xhr, textStatus, errorThrown){
 						console.log('ajax error');
 						var response = JSON.parse(xhr.responseText);
 						alert(response.message);
 					}
-				});//$.ajax
-			});//$('#signupform').submit 
+				});
+			}//ajax()
 			
 			$('input[type=file]').change(function(event){
 			 	const file = event.target.files[0]; //첫번째 파일
