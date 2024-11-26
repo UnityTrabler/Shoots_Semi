@@ -4,7 +4,7 @@ form {text-align : center}
 .container {border: 1.5px solid #059669; border-radius : 30px; width : 50%; margin : 0 auto; padding : 40px}
 .d1 {display: flex; justify-content: center;}
 
-h1 {margin-bottom : 40px}
+.mu {margin-bottom : 40px}
 span {margin : 0 10px 0 10px; font-weight : bold}
 input {width : 130px; height : 20px; border-radius : 20px; text-align : center; font-size : 12px; border : 1px solid #059669; outline: none; }
 #match_time {width : 130px; height : 20px; border-radius : 20px; text-align : center; font-size : 12px; border : 1px solid #059669; outline: none; margin-right : 5px}

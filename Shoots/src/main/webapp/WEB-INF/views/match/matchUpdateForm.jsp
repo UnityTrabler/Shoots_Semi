@@ -13,7 +13,7 @@
 	<div> 
 		<form action = "updateProcess" method = "post" id = "matchUpdateForm">
 			<div class = "container">
-				<h1> MATCH UPLOAD </h1>
+				<h3 class = "mu"> MATCH UPDATE </h3>
 				<input type = "hidden" id = "match_id" name = "match_id" value = "${match.match_id}">
 				<div class = "d1">
 					<div class = "d2"> 
@@ -33,7 +33,7 @@
 						<input type = "number" id = "player_max" class = "playerMm" name = "player_max" value = "${match.player_max}" placeholder = "최대" min = "6" max = "20" required>
 					</div>
 					<div>
-						<span> 가격 </span> <input type = "number" id = "price" name = "price" value = "${match.price}" min = "1000" max = "100000" required>
+						<span> 가격 </span> <input type = "number" id = "price" name = "price" value = "${match.price}" min = "1000" max="50000" step="1000" required>
 					</div>
 				</div>
 				<hr>
@@ -102,18 +102,34 @@
 		$('.backBtn').click(function(){
 			location.href = location.href = "../matchs/detail?match_id=${match.match_id}";
 		});
-			
-		$(function(){
-		    $('#matchUpdateForm').submit(function(event){
-		        event.preventDefault();
+		
+		document.getElementById('matchUpdateForm').onsubmit = function(event) {
+		       var playerMin = parseInt(document.getElementById('player_min').value);
+		       var playerMax = parseInt(document.getElementById('player_max').value);
+	           var price = parseInt(document.getElementById('price').value);
 
-		        if (confirm("매칭글을 수정하시겠습니까?")) {
-		            location.href = "update?match_id=${match.match_id}",
-		            this.submit();
-		        }
-		    });
-		});
-
+		       if (playerMin > playerMax) {
+		           alert('최소 인원은 최대 인원보다 클 수 없습니다.');
+		           event.preventDefault();
+		           return;
+		       }
+		       
+		       if (price % 1000 !== 0) {
+	                alert('가격은 1000원 단위로 입력해야 합니다.');
+	                event.preventDefault();
+	                return;
+	            }
+		       
+		       if (price > 50000) {
+	                alert('가격은 50,000원 이하로 설정해야 합니다.');
+	                event.preventDefault();
+	                return;
+	            }
+		       
+		       if (confirm("매칭글을 수정하시겠습니까?")) {
+		           this.submit();
+		       }
+		   };
 	</script>
 </body>
 </html>
