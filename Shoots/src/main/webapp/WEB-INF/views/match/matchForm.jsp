@@ -13,7 +13,7 @@
 	<div>
 		<form action = "add" method = "post" name = "matchForm">
 			<div class = "container"> 
-				<h1> MATCH UPLOAD </h1>
+				<h3 class = "mu"> MATCH UPLOAD </h3>
 				<input type = "hidden" id = "writer" name = "writer" value = "${idx}">
 				<div class = "d1">
 					<div class = "d2"> 
@@ -33,7 +33,7 @@
 						<input type = "number" class = "playerMm" id = "player_max" name = "player_max" placeholder = "최대" min = "6" max = "20" required>
 					</div>
 					<div>
-						<span> 가격 </span> <input type = "number" id = "price" name = "price" min = "1000" max = "100000">
+						<span> 가격 </span> <input type = "number" id = "price" name = "price" min = "1000" max="50000" step="1000">
 					</div>
 				</div>
 				<hr>
@@ -85,7 +85,31 @@
 	     }
 	
 		window.onload = populateTimeOptions;		 
-     
+		
+		document.matchForm.onsubmit = function(event) {
+		       var playerMin = parseInt(document.getElementById('player_min').value);
+		       var playerMax = parseInt(document.getElementById('player_max').value);
+	           var price = parseInt(document.getElementById('price').value);
+
+		       if (playerMin > playerMax) {
+		           alert('최소 인원은 최대 인원보다 클 수 없습니다.');
+		           event.preventDefault();
+		           return;
+		       }
+		       
+		       if (price % 1000 !== 0) {
+	                alert('가격은 1000원 단위로 입력해야 합니다.');
+	                event.preventDefault();
+	                return;
+	            }
+		       
+		       if (price > 50000) {
+	                alert('가격은 50,000원 이하로 설정해야 합니다.');
+	                event.preventDefault();
+	                return;
+	            }
+		   };
+		    
 		$('.backBtn').click(function(){
 			location.href  = "../matchs/list";
 		});
