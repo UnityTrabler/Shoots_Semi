@@ -106,7 +106,7 @@
 				    <input type="text" name="addressDetail" id="addressDetail" class="form-control" placeholder="name..." required>
 				</div>
 				
-				<div class="divBlock1" style="margin-top: 50px">
+			<%-- 	<div class="divBlock1" style="margin-top: 50px">
 				    아래는 선택 사항입니다.<br>
 				</div>
 				<hr style="border: 1px solid #059669; width: 100%; opacity: 1;">
@@ -126,7 +126,7 @@
 						<span id="filename" class="btn btn-primary" style="width: 100px;">파일첨부</span>
 						<span id="fileReset" class="btn btn-danger" style="width: 100px;">파일리셋</span>
 					</label>
-				</div>
+				</div> --%>
 				
 				<div class="divBlock1">
 				    <input type="submit" class="submit btn btn-primary">

@@ -56,7 +56,6 @@ public class UserSignupProcessAction extends HttpServlet implements Action {
 				userBean.setEmail(req.getParameter("email"));
 				userBean.setNickname(req.getParameter("nickname"));
 				//userBean.setUserfile(req.getParameter("profile"));
-				//registerDate
 				int result = 0;
 				result = new UserDAO().insertUser(userBean);
 				System.out.println(result);

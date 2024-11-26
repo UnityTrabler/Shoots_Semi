@@ -47,9 +47,7 @@
 	 <filter-mapping>
 	 	<filter-name>UserFilter</filter-name>
 	 	<url-pattern>/user/info</url-pattern>
-	 	<url-pattern>/user/update</url-pattern>
 	 	<url-pattern>/user/updateProcess</url-pattern>
-	 	<url-pattern>/user/updateProcessBusiness</url-pattern>
 	 	<url-pattern>/user/mypage</url-pattern>
 	 	<url-pattern>/user/matchs</url-pattern>
 	 	<url-pattern>/user/userMatchPlayer</url-pattern>

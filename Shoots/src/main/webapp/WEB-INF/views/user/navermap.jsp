@@ -121,8 +121,30 @@ var htmlMarker1 = {
     };
 
 function onLoad() {
-    var data = accidentDeath.searchResult.accidentDeath;
-
+	
+    var latlngs = [
+        new naver.maps.LatLng(37.3633324, 129.1054988),
+        new naver.maps.LatLng(37.3632916, 129.1085015),
+        new naver.maps.LatLng(37.3632507, 129.1115043),
+        new naver.maps.LatLng(37.3632097, 129.114507),
+        new naver.maps.LatLng(37.3631687, 129.1175097),
+        new naver.maps.LatLng(37.3597282, 129.105422),
+        new naver.maps.LatLng(37.3596874, 129.1084246),
+        new naver.maps.LatLng(37.3596465, 129.1114272),
+        new naver.maps.LatLng(37.3596056, 129.1144298),
+        new naver.maps.LatLng(37.3595646, 129.1174323)
+    ];
+    
+    for (var i=0; i<latlngs.length; i++) {
+        marker = new naver.maps.Marker({
+            position: latlngs[i],
+            map: map,
+            draggable: false,
+        });
+	}
+    
+ /*    var data = accidentDeath.searchResult.accidentDeath;
+    
     for (var i = 0, ii = data.length; i < ii; i++) {
         var spot = data[i],
             latlng = new naver.maps.LatLng(spot.grd_la, spot.grd_lo),
@@ -132,7 +154,7 @@ function onLoad() {
             });
 
         markers.push(marker);
-    }
+    } */
 
     var markerClustering = new MarkerClustering({
         minClusterSize: 2,
@@ -213,15 +235,15 @@ function searchAddressToCoordinate(address) {
         if (status === naver.maps.Service.Status.ERROR) 
             return alert('Something Wrong!');
 
-        if (response.v2.meta.totalCount === 0) {
+        if (response.v2.meta.totalCount === 0) 
             return alert('totalCount' + response.v2.meta.totalCount);
-        }
+        
 
         var htmlAddresses = [],
             item = response.v2.addresses[0],
             point = new naver.maps.Point(item.x, item.y);
 		
-		$.ajax({
+/* 		$.ajax({
 			url : "https://openapi.naver.com/v1/search/local.xml?query=%EC%A3%BC%EC%8B%9D&display=10&start=1&sort=random",
 			beforeSend : function(xhr){
 				xhr.setRequestHeader("X-Naver-Client-Id", ""); 
@@ -236,7 +258,7 @@ function searchAddressToCoordinate(address) {
 			error:function(){
 				console.log('ajax error');
 			}
-		});
+		}); */
         
         if (item.roadAddress) 
             htmlAddresses.push('[도로명 주소] ' + item.roadAddress);
@@ -253,6 +275,57 @@ function searchAddressToCoordinate(address) {
         ].join('\n'));
 
         map.setCenter(point); //중앙으로
+        infoWindow.open(map, point); // message box 맵 포인트에
+    });//naver.maps.Service.geocode
+}//searchAddressToCoordinate
+
+function searchAddressToCoordinate2(address) {
+    naver.maps.Service.geocode({
+        query: address
+    }, function(status, response) {
+        if (status === naver.maps.Service.Status.ERROR) 
+            return alert('Something Wrong!');
+
+        if (response.v2.meta.totalCount === 0) 
+            return alert('totalCount' + response.v2.meta.totalCount);
+        
+
+        var htmlAddresses = [],
+            item = response.v2.addresses[0],
+            point = new naver.maps.Point(item.x, item.y);
+		
+/* 		$.ajax({
+			url : "https://openapi.naver.com/v1/search/local.xml?query=%EC%A3%BC%EC%8B%9D&display=10&start=1&sort=random",
+			beforeSend : function(xhr){
+				xhr.setRequestHeader("X-Naver-Client-Id", ""); 
+				xhr.setRequestHeader("X-Naver-Client-Secret","");
+			},
+			type : "POST",
+			dataType : "json",
+			success : function(data){
+				console.log('ajax success');
+				console.log(data);
+			}, 
+			error:function(){
+				console.log('ajax error');
+			}
+		}); */
+        
+        if (item.roadAddress) 
+            htmlAddresses.push('[도로명 주소] ' + item.roadAddress);
+        if (item.jibunAddress) 
+            htmlAddresses.push('[지번 주소] ' + item.jibunAddress);
+        if (item.englishAddress) 
+            htmlAddresses.push('[영문명 주소] ' + item.englishAddress);
+
+        infoWindow.setContent([
+            '<div style="padding:10px;min-width:200px;line-height:150%;">',
+            '<h4 style="margin-top:5px;">검색 주소 : '+ address +'</h4><br />',//검색주소 : 불정로 6
+            htmlAddresses.join('<br />'), // 도로명 + 지번 + 영문명
+            '</div>'
+        ].join('\n'));
+
+//        map.setCenter(point); //중앙으로
         infoWindow.open(map, point); // message box 맵 포인트에
     });//naver.maps.Service.geocode
 }//searchAddressToCoordinate

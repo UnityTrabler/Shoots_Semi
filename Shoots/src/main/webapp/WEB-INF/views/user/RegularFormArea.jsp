@@ -69,17 +69,6 @@
 				    <div style="text-align: left;">닉네임</div>
 				    <input type="text" name="nickname" id="nickname" class="form-control" placeholder="name...">
 				</div>
-				<div class="divBlock1">
-					<div style="text-align: left;">프로필 사진</div>
-					<label>
-						<div class="divBlock2">
-							<img src="" id="preview" style="width:200px; height: 200px; border: 1px solid #059669; margin-bottom: 10px;">
-							<input type="file" name="userFile" accept="image/*">
-						</div>	
-						<span id="filename" class="btn btn-primary" style="width: 100px;">파일첨부</span>
-						<span id="fileReset" class="btn btn-danger" style="width: 100px;">파일리셋</span>
-					</label>
-				</div>
 				
 				<hr style="border: 1px solid #059669; width: 100%; opacity: 1;">
 				<div class="divBlock1">

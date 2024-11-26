@@ -126,7 +126,31 @@ var htmlMarker1 = {
 function onLoad() {
     var data = accidentDeath.searchResult.accidentDeath;
 
-    for (var i = 0, ii = data.length; i < ii; i++) {
+    var latlngs = [
+        new naver.maps.LatLng(37.3633324, 129.1054988),
+        new naver.maps.LatLng(37.3632916, 129.1085015),
+        new naver.maps.LatLng(37.3632507, 129.1115043),
+        new naver.maps.LatLng(37.3632097, 129.114507),
+        new naver.maps.LatLng(37.3631687, 129.1175097),
+        new naver.maps.LatLng(37.3597282, 129.105422),
+        new naver.maps.LatLng(37.3596874, 129.1084246),
+        new naver.maps.LatLng(37.3596465, 129.1114272),
+        new naver.maps.LatLng(37.3596056, 129.1144298),
+        new naver.maps.LatLng(37.3595646, 129.1174323)
+    ];
+    
+    var markerList = [];
+
+    for (var i=0; i<latlngs.length; i++) {
+            marker = new naver.maps.Marker({
+                position: latlngs[i],
+                map: map,
+                draggable: false,
+            });
+    }  
+      
+    
+/*     for (var i = 0, ii = data.length; i < ii; i++) {
         var spot = data[i],
             latlng = new naver.maps.LatLng(spot.grd_la, spot.grd_lo),
             marker = new naver.maps.Marker({
@@ -135,7 +159,7 @@ function onLoad() {
             });
 
         markers.push(marker);
-    }
+    } */
 
     var markerClustering = new MarkerClustering({
         minClusterSize: 2,
