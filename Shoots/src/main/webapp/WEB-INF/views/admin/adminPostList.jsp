@@ -37,7 +37,7 @@
 						</c:choose>
 					</td>
 					<td><a href="../post/detail?num=${post.post_id}"  type="button" class="postDetail">${post.title}</a></td>
-					<td>${post.writer}</td>
+					<td>${post.user_id}</td>
 					<td>${post.register_date}</td>
 					<td>${post.readcount}</td>
 					<td><a href="postDelete?id=${post.post_id}"  type="button" class="postDelete">삭제</a></td>
