@@ -148,7 +148,7 @@ public class BusinessUserDAO {
 			List<BusinessUserBean> list = new ArrayList<BusinessUserBean>();
 			String sql = """
 					select * from (
-						select rownum rnum, business_idx, business_id, business_name ,business_number, email, post, address, register_date, login_status
+						select rownum rnum, business_idx, business_id, business_name ,business_number, email, post, tel, address, register_date, login_status
 						from business_user
 					) p where p.rnum >= ? and p.rnum <= ?
 					""";
@@ -169,6 +169,7 @@ public class BusinessUserDAO {
 							bb.setBusiness_number(rs.getLong("business_number"));
 							bb.setEmail(rs.getString("email"));
 							bb.setPost(rs.getInt("post"));
+							bb.setTel(rs.getInt("tel"));
 							bb.setAddress(rs.getString("address"));
 							bb.setRegister_date(rs.getString("register_date"));
 							bb.setLogin_status(rs.getString("login_status"));

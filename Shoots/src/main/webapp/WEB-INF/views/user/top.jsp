@@ -33,18 +33,29 @@
 					<li class="nav-item"><a class="loginA" href="${pageContext.request.contextPath}/business/mypage"><b>${id}</b><span style = "font-size : 10px">(BUSINESS)</span></a></li>
 				</c:if>
 				<c:if test="${userClassification == 'regular'}">
-					<li class="nav-item"><a class="loginA" href="${pageContext.request.contextPath}/user/mypage"> 
+					<c:if test="${role == 'admin'}">
+						<li class="nav-item"><a class="loginA" href="${pageContext.request.contextPath}/admin/mypage">
 						<c:if test = "${!empty file}">
-							<img src="${pageContext.request.contextPath}/userupload/${file}" style = "width : 30px; border-radius : 30px"> &nbsp;
-						</c:if>
-						<c:if test = "${empty file}">
-							<img src="${pageContext.request.contextPath}/img/info.png" style = "width : 30px; border-radius : 30px"> &nbsp;
-						</c:if>
+								<img src="${pageContext.request.contextPath}/userupload/${file}" style = "width : 30px; border-radius : 30px"> &nbsp;
+							</c:if>
+							<c:if test = "${empty file}">
+								<img src="${pageContext.request.contextPath}/img/info.png" style = "width : 30px; border-radius : 30px"> &nbsp;
+							</c:if>
 						<b>${id}</b>님</a></li>
+					</c:if>
+					
+					<c:if test="${role == 'common'}">
+						<li class="nav-item"><a class="loginA" href="${pageContext.request.contextPath}/user/mypage"> 
+							<c:if test = "${!empty file}">
+								<img src="${pageContext.request.contextPath}/userupload/${file}" style = "width : 30px; border-radius : 30px"> &nbsp;
+							</c:if>
+							<c:if test = "${empty file}">
+								<img src="${pageContext.request.contextPath}/img/info.png" style = "width : 30px; border-radius : 30px"> &nbsp;
+							</c:if>
+						<b>${id}</b>님</a></li>
+					</c:if>
 				</c:if>
-				<c:if test="${role == 'admin'}">
-					<li class="nav-item"><a class="loginA" href="${pageContext.request.contextPath}/admin/mypage">admin mypage</a></li>
-				</c:if>
+				
 				<li class="nav-item"><a class="loginA" href="${pageContext.request.contextPath}/user/logout" id="logout"> 로그아웃 </a></li>
 			</c:if>
 			<c:if test="${empty sessionScope.id}">
