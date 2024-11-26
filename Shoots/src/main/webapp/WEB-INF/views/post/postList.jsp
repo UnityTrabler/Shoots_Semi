@@ -46,14 +46,7 @@
                 <table class="table">
                     <thead>
                         <tr>
-                        <!-- 
-                            <th>글번호</th>
-                            <th>첨부파일</th>
-                            <th>제목/가격</th>
-                            <th>작성자</th>
-                            <th>작성일</th> 
-                            <th>조회수</th>
-                             -->
+                        
                         </tr>
                     </thead>
                     <tbody></tbody>

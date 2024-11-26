@@ -83,7 +83,7 @@
 	        
 	        <form action ="${pageContext.request.contextPath}/report/add2" method="post" name="reportform">
 	        
-	        	<h1 style="text-align:center;">플레이어 신고</h1>
+	        	<p class = "reportT">플레이어 신고</p>
 	        	
 	        	<br>
 	        	<input type="hidden" name="report_type" class ="report_type" value="C"> <!-- 신고유형 분류, 댓글은 B, 숨겨둠. -->
@@ -94,8 +94,7 @@
 	        	<!-- 플레이어1 구간 -->
 				<div class="player" id="p1" style="padding-left: 80px;">
 				<div>
-				<img src="${pageContext.request.contextPath}/img/info.png" width="80px"/>
-				<p><input type="text" name="targetName" class="targetName" value="" style="border:none;" readOnly></p>
+				<p class = "targetT"><input type="text" name="targetName" class="targetName" value="" style="border:none; font-size : 14px; font-weight : bold" readOnly> 플레이어 신고하기 </p>
 				</div>
 				
 				<select name="title" style="margin-bottom: 10px;" required>
@@ -113,8 +112,8 @@
 				</div> <!-- 플레이어1 끝 -->
 				
 				
-				<div id="reportbutton" style="text-align: center;">
-					<button class="btn btn-danger">신고하기</button>
+				<div id="reportbutton">
+					<button class="reportBtnr">신고하기</button>
 				</div>
 				
 				</form>

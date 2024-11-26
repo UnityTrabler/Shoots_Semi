@@ -48,7 +48,7 @@ SELECT * FROM (
 	            ) p
 	            WHERE p.rnum BETWEEN 1 AND 10
 	            
-update match_post set player_max = 8 where match_id = 31;
+update match_post set match_date = '2024-11-25' where match_id = 31;
 
 delete from match_post;
 
@@ -80,3 +80,4 @@ AND EXTRACT(YEAR FROM match_date) = 2024
 AND EXTRACT(MONTH FROM match_date) = 11;
 
 alter table match_post add description clob;
+

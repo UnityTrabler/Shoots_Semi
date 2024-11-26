@@ -5,24 +5,25 @@ p {
 
 .redColor {
 	color:red;
+	font-size : 12px
 }
 
 .modal-content {
     width: 750px;
     height: 500px;
     border-radius: 40px;
-    border: 3px solid #1FAF82;
 }
 
 select {
-    width: 500px;
-    border-radius: 20px;
     border: 1px solid #1FAF82;
+    border-radius : 20px;
+    width : 550px; height : 30px; font-size : 12px; padding-left : 5px;
 }
 
 #content {
     display: flex;
     justify-content: center;
+    font-size : 12px;
 }
 
 #title {
@@ -46,3 +47,9 @@ textarea {
     justify-content: center;
     border-radius: 10px;
 }
+
+.reportR {font-size : 12px}
+.reportT {width : 75%; text-align : center ; font-weight : bold; margin-top : 30px; font-size : 20px; margin-bottom : 0px}
+
+.reportBtn {text-decoration: none; font-size : 12px; border-radius : 20px; border : none; width : 80px; height : 25px; text-align: center; color : white ; background : #be123c; transition: background 0.3s, color 0.3s; line-height : 25px}
+.reportBtn:hover {text-decoration: none; font-size : 12px; border : 1px solid #be123c; border-radius : 20px; width : 80px; height : 25px; text-align: center; color : #be123c ; background : white; line-height : 25px}

@@ -116,7 +116,6 @@ public class UserDAO {
 				WHERE user_id = ?
 				""";
 		int result = 0;
-		
 		try(Connection con = ds.getConnection(); 
 				PreparedStatement pstmt = con.prepareStatement(sql);) {
 			pstmt.setString(1, userBean.getName());

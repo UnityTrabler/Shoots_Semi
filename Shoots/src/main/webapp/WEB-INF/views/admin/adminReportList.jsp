@@ -11,7 +11,7 @@
 <body>
 	<c:if test="${listcount > 0 }">	
 		<table class="table">
-			<caption>기업 승인 목록</caption>
+			<caption>신고자 관리</caption>
 			<thead>
 				<tr>
 					<th>신고유형</th>

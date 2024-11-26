@@ -161,7 +161,7 @@
 				
 				else{
 					alert('image file(gif,jpg,jpeg,png) 파일만 올려주세요.');
-					$('#showImage > img').attr('src', '../image/profile.png');
+					$('#showImage > img').attr('src', '');
 					$(this).val('');
 					$('input[name=check]').val('');
 					return;
@@ -174,7 +174,8 @@
 				$('input[type=file]').val('');
 				$('#preview').val('');
 				$('#filename').text('파일첨부');
-				$('#preview').attr('src', '${pageContext.request.contextPath}/img/profile.png');
+				$('#preview').attr('src', '');
+//				$('#preview').attr('src', '${pageContext.request.contextPath}/img/profile.png');
 			});
 			
 		});//ready 
