@@ -12,17 +12,16 @@ function loadUserInfo() {
         if (xhr.readyState === 4 && xhr.status === 200) {
 			document.getElementById('content-container').innerHTML = xhr.responseText;
         }
-        
-        var tab = document.querySelector('.cP0-1 a');
-        if (tab) {
-            var activeTabs = document.querySelectorAll('.cP0-1 a');
-            activeTabs.forEach(function(item) {
-                item.classList.remove('active');
-            });
+        var activeTabs = document.querySelectorAll('.cP0-1 a');
+        activeTabs.forEach(function(item) {
+            item.classList.remove('active');
+        });
 
-            tab.classList.add('active');
-        }
-    };
+         var tab = document.querySelector('#tab-info');
+    	if (tab) {
+        	tab.classList.add('active');
+    	}
+	};
     xhr.send(); 
 }
 
@@ -30,19 +29,19 @@ function loadUserMatchs() {
 	var xhr = new XMLHttpRequest();
     xhr.open('GET', '../user/matchs', true); 
     xhr.onreadystatechange = function () {
-        if (xhr.readyState === 4 && xhr.status === 200) {
+	    if (xhr.readyState === 4 && xhr.status === 200) {
 			document.getElementById('content-container').innerHTML = xhr.responseText;
-        }
-        
-        var tab = document.querySelector('.cP0-1 a');
-        if (tab) {
-            var activeTabs = document.querySelectorAll('.cP0-1 a');
-            activeTabs.forEach(function(item) {
-                item.classList.remove('active');
-            });
-            tab.classList.add('active');
-        }
-    };
+	    }
+	    
+        var activeTabs = document.querySelectorAll('.cP0-1 a');
+        activeTabs.forEach(function(item) {
+            item.classList.remove('active');
+        });
+        var tab = document.querySelector('#tab-matchs');
+    	if (tab) {
+        	tab.classList.add('active');
+    	}
+	};
     xhr.send(); 
 }
 
@@ -54,15 +53,15 @@ function loadUserPosts() {
 			document.getElementById('content-container').innerHTML = xhr.responseText;
         }
         
-        var tab = document.querySelector('.cP0-1 a');
-        if (tab) {
-            var activeTabs = document.querySelectorAll('.cP0-1 a');
-            activeTabs.forEach(function(item) {
-                item.classList.remove('active');
-            });
-            tab.classList.add('active');
-        }
-    };
+        var activeTabs = document.querySelectorAll('.cP0-1 a');
+        activeTabs.forEach(function(item) {
+            item.classList.remove('active');
+        });
+        var tab = document.querySelector('#tab-posts');
+    	if (tab) {
+        	tab.classList.add('active');
+    	}
+	};
     xhr.send(); 
 }
 
@@ -74,15 +73,15 @@ function loadUserComments() {
 			document.getElementById('content-container').innerHTML = xhr.responseText;
         }
         
-        var tab = document.querySelector('.cP0-1 a');
-        if (tab) {
-            var activeTabs = document.querySelectorAll('.cP0-1 a');
-            activeTabs.forEach(function(item) {
-                item.classList.remove('active');
-            });
-            tab.classList.add('active');
-        }
-    };
+        var activeTabs = document.querySelectorAll('.cP0-1 a');
+        activeTabs.forEach(function(item) {
+            item.classList.remove('active');
+        });
+        var tab = document.querySelector('#tab-comments');
+    	if (tab) {
+        	tab.classList.add('active');
+    	}
+	};
     xhr.send(); 
 }
 
@@ -94,15 +93,15 @@ function loadUserInquiry() {
 			document.getElementById('content-container').innerHTML = xhr.responseText;
         }
         
-        var tab = document.querySelector('.cP0-1 a');
-        if (tab) {
-            var activeTabs = document.querySelectorAll('.cP0-1 a');
-            activeTabs.forEach(function(item) {
-                item.classList.remove('active');
-            });
-            tab.classList.add('active');
-        }
-    };
+        var activeTabs = document.querySelectorAll('.cP0-1 a');
+        activeTabs.forEach(function(item) {
+            item.classList.remove('active');
+        });
+        var tab = document.querySelector('#tab-inquiry');
+    	if (tab) {
+        	tab.classList.add('active');
+    	}
+	};
     xhr.send(); 
 }
 
