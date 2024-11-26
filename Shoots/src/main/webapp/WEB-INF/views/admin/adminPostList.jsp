@@ -19,7 +19,7 @@
 				<th>작성자</th>
 				<th>등록일</th>
 				<th>조회수</th>
-				<th>삭제</th>
+				<th class = "deleteB">삭제</th>
 			</tr>
 		</thead>
 		
@@ -40,7 +40,7 @@
 					<td>${post.user_id}</td>
 					<td>${post.register_date}</td>
 					<td>${post.readcount}</td>
-					<td><a href="postDelete?id=${post.post_id}"  type="button" class="postDelete">삭제</a></td>
+					<td class = "deleteB"><a href="postDelete?id=${post.post_id}"  type="button" class="postDelete">삭제</a></td>
 				</tr>
 			</c:forEach>
 		</tbody>

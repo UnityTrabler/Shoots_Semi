@@ -1,6 +1,6 @@
 @charset "UTF-8";
 
-.table{width : 100%; margin : 0 auto}
+.table{width : 100%; margin : 0 auto; font-size : 12px}
 
 td .grantadmin {text-decoration: none; font-size :  10px; border-radius : 10px; border : none; width : 60px; height : 23px; color : white ; background : orange; transition: background 0.3s, color 0.3s; padding : 0px; line-height: 23px}
 td .grantadmin:hover {font-size :  10px; border-radius : 10px; border : 1px solid orange; width : 60px; height : 23px; color : orange ; background : white; transition: background 0.3s, color 0.3s; padding : 0px; line-height: 23px}
@@ -11,6 +11,9 @@ td .revokeadmin:hover {font-size : 10px; border : 1px solid #be123c; border-radi
 td .userDetail{text-decoration: none; font-size :  10px; border-radius : 10px; border : none; width : 70px; height : 25px; text-align: center; color : white ; background : #059669; transition: background 0.3s, color 0.3s;}
 td .userDetail:hover{text-decoration: none; font-size :  10px; border : 1px solid #059669; border-radius : 10px; width : 70px; height : 25px; text-align: center; color : #059669 ; background : white}
 
+th:nth-child(1) {text-align : center}
+td:nth-child(1) {text-align : center}
+
 
 th:nth-child(9), th:nth-child(10){
 	text-align:center;
@@ -19,6 +22,8 @@ th:nth-child(9), th:nth-child(10){
 td:nth-child(9), td:nth-child(10){
 	text-align:center;
 }
+
+.deleteB {text-align : center}
 
 td .postDelete{text-decoration: none; font-size :  10px; border-radius : 10px; border : none; width : 50px; height : 23px; text-align: center; color : white ; background : #be123c; transition: background 0.3s, color 0.3s; padding : 0px; line-height : 23px}
 td .postDelete:hover{text-decoration: none; font-size :  10px; border : 1px solid #be123c; border-radius : 10px; width : 50px; height : 23px; text-align: center; color : #be123c ; background : white; padding : 0px; line-height : 23px}

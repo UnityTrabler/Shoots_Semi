@@ -15,7 +15,7 @@
 <body>
 		<c:if test="${listcount > 0 }">	
 			<form id="filterForm" method="post">
-				<div class="input-group">
+				<div class="input-groupc">
 					<input type="button" class = "filterButton" id = "filterButton" onclick = "applyFilter()" value="SERACH" >&nbsp;
 					<input name="search_word" type="text" class="search"
 						placeholder="  Search..." value="${search_word}">

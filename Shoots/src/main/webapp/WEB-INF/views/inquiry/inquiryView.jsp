@@ -20,11 +20,11 @@
 				
 				<%--문의글 제목 --%>
 				<tr>
-					<th colspan="3" style="font-size:20px"><c:out value = "${inquirydata.title}"/></th>
+					<th colspan="3" style="font-size:20px; text-align : left"><c:out value = "${inquirydata.title}"/></th>
 				</tr>
 				
 				<tr>
-					<td><div>문의자 : ${inquirydata.user_id}</div></td>
+					<td style = "text-align : left"><div>문의자 : ${inquirydata.user_id}</div></td>
 					<td>문의 날짜 : ${inquirydata.register_date.substring(0,16)}</td>
 				</tr>
 				
@@ -37,7 +37,7 @@
 				</tr>
 				
 				<tr>
-					<td colspan = "2"> 첨부파일 &nbsp;
+					<td colspan = "2" style = "text-align : left"> 첨부파일 &nbsp;
 					
 					<%--파일 첨부한 경우 --%>
 					<c:if test="${!empty inquirydata.inquiry_file}">
@@ -63,16 +63,15 @@
                 	<input type="hidden" value="${ic.i_comment_id}" name = "i_comment_id" class="ic-num">  <!-- 문의댓글의 고유번호값 받아두기 -->
                 	
                 	<!-- 프로필 사진 -->
-                	<img src ="${pageContext.request.contextPath}/img/profile.png" alt="프로필" width="60" height="48">
+                	<img src ="${pageContext.request.contextPath}/img/info.png" alt="프로필" style = "width :35px; height : 35px">
                 	
                 	<input type="hidden" value="${ic.user_id}" class="iqcomment-writer"> <!-- 각 문의댓글을 남긴 댓글 작성자 값 -->
                 	<div class="buttonfront">
-                    <p><strong>작성자 :</strong> ${ic.user_id} <strong>등록일 :</strong> ${ic.register_date.substring(0,16)}
-                    </div>
-                    <button type="button" class="btn btn-primary ic-modify" style="display:none" value="${ic.i_comment_id}">수정</button>
-                    <button type="button" class="btn btn-danger ic-delete" style="display:none" value="${ic.i_comment_id}">삭제</button>
-                    </p>
-                    <span class="iqcomment-content">${ic.content}</span>
+                    	<p style = "font-size : 12px"><strong>작성자 :</strong> ${ic.user_id} <strong>등록일 :</strong> ${ic.register_date.substring(0,16)}</p>
+		            </div>
+		                    <button type="button" class="btn btn-primary ic-modify" style="display:none" value="${ic.i_comment_id}">수정</button>
+		                    <button type="button" class="btn btn-danger ic-delete" style="display:none" value="${ic.i_comment_id}">삭제</button>
+                    <span class="iqcomment-content" style = "font-size : 13px">${ic.content}</span>
                 </div>
                 <hr>
             </c:forEach>

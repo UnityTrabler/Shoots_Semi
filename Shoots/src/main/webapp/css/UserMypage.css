@@ -17,7 +17,7 @@ table {width : 400px ; margin : 0 auto; margin-top : 35px}
 
 .container2 {text-align : center; margin-top : 30px}
 
-#content-container {min-height : 700px; max-height : 700px}
+#content-container {min-height : 750px; max-height : 750px}
 
 .updateBtn {font-size :  12px; border-radius : 20px; border : none; width : 80px; height : 25px; color : white ; background : #059669; margin-left : 10px; transition: background 0.3s, color 0.3s;}
 .updateBtn:hover {font-size :  12px; border-radius : 20px; border : 1px solid #059669; width : 80px; height : 25px; color : #059669 ; background : white; margin-left : 10px; transition: background 0.3s, color 0.3s;}

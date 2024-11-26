@@ -1,6 +1,6 @@
 @charset "EUC-KR";
 
-.container {display: flex; min-width: 1200px; border : 1.5px solid #059669; border-radius : 20px; margin : 0 auto}
+.container {display: flex; min-width: 1200px; border : 1.5px solid #059669; border-radius : 20px; margin : 0 auto; font-size : 13px}
 
 
 #downImg{
@@ -9,19 +9,19 @@
 
 table caption {
 	caption-side: top;
-	font-size : 30px;
+	font-size : 25px;
 	font-weight: bold;
 	color : black;
 }
 
-.listBtn {text-decoration: none; font-size : 15px; border-radius : 10px; border : none; width : 80px; height : 23px; text-align: center; color : white ; background : #059669; transition: background 0.3s, color 0.3s; }
-.listBtn:hover {text-decoration: none; font-size : 15px; border : 1px solid #059669; border-radius : 10px; width : 80px; height : 23px; text-align: center; color : #059669 ; background : white}
+.listBtn {text-decoration: none; font-size : 12px; border-radius : 20px; border : none; width : 80px; height : 25px; text-align: center; color : white ; background : #059669; transition: background 0.3s, color 0.3s; line-height : 25px }
+.listBtn:hover {text-decoration: none; font-size : 12px; border : 1px solid #059669; border-radius : 20px; width : 80px; height : 25px; text-align: center; color : #059669 ; background : white; line-height : 25px}
 
-.updateBtn {text-decoration: none; font-size : 15px; border-radius : 10px; border : none; width : 80px; height : 23px; text-align: center; color : white ; background : #1d4ed8; transition: background 0.3s, color 0.3s; }
-.updateBtn:hover {text-decoration: none; font-size : 15px; border : 1px solid #1d4ed8; border-radius : 10px; width : 80px; height : 23px; text-align: center; color : #1d4ed8 ; background : white}
+.updateBtn {text-decoration: none; font-size : 12px; border-radius : 20px; border : none; width : 80px; height : 25px; text-align: center; color : white ; background : #1d4ed8; transition: background 0.3s, color 0.3s; line-height : 25px}
+.updateBtn:hover {text-decoration: none; font-size : 12px; border : 1px solid #1d4ed8; border-radius : 20px; width : 80px; height : 25px; text-align: center; color : #1d4ed8 ; background : white; line-height : 25px}
 
-.deleteBtn {text-decoration: none; font-size : 15px; border-radius : 10px; border : none; width : 80px; height : 23px; text-align: center; color : white ; background : #be123c; transition: background 0.3s, color 0.3s; }
-.deleteBtn:hover {text-decoration: none; font-size : 15px; border : 1px solid #be123c; border-radius : 10px; width : 80px; height : 23px; text-align: center; color : #be123c ; background : white}
+.deleteBtn {text-decoration: none; font-size : 12px; border-radius : 20px; border : none; width : 80px; height : 25px; text-align: center; color : white ; background : #be123c; transition: background 0.3s, color 0.3s; line-height : 25px}
+.deleteBtn:hover {text-decoration: none; font-size : 12px; border : 1px solid #be123c; border-radius : 20px; width : 80px; height : 25px; text-align: center; color : #be123c ; background : white; line-height : 25px}
 
 
 
@@ -33,3 +33,4 @@ textarea{
 }
 
 .btnD {text-align : center; margin-bottom : 30px}
+.noticeCd {width : 100%; min-height : 200px}

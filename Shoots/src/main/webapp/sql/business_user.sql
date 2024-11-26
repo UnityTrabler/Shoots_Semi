@@ -83,6 +83,23 @@ VALUES (
     'approved'
 );
 
+INSERT INTO BUSINESS_USER 
+VALUES (
+    business_seq.nextval, 
+    'qwerty4', 
+    'a1', 
+    'testsetstest', 
+    '0987654321232', 
+    '028088080', 
+    'JongRsc@gmail.com',
+    '10882', 
+    '서울시 종로구 종로3가', 
+    null,  
+    null,  
+    SYSDATE,
+    'pending'
+);
+
 
 SELECT * FROM business_user;
 

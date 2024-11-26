@@ -18,6 +18,7 @@
 		#h1Title{
 			top:20px;
 		    text-align: center;
+		    font-weight : bold
 		}
 	</style>
 </head>
