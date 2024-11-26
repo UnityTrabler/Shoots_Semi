@@ -46,7 +46,7 @@ public class MatchUpdateProcessAction implements Action {
 			PrintWriter out = resp.getWriter();
 			out.print("<script>");
 			out.print("alert('수정 되었습니다.');");
-			out.print("location.href = 'detail?match_id=" + match.getMatch_id() + "';");
+			out.print("window.location.replace('detail?match_id=" + match.getMatch_id() + "');");
 			out.print("</script>");
 			out.close();
 		}

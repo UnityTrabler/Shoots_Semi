@@ -34,7 +34,7 @@
 							<td>${user.idx }</td>
 							<td>${user.id }</td>
 							<td>${user.name }</td>
-							<td>${user.RRN }</td>
+							<td>${user.RRN}</td>
 							<td>
 								<c:choose>
     								<c:when test="${user.gender == 1 or user.gender == 3}">

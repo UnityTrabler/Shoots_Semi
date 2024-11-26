@@ -18,40 +18,39 @@
 			<input type="hidden" name="inquiry_id" value="${inquirydata.inquiry_id}">
 			<input type="hidden" name="existing_file" value="${inquirydata.inquiry_file}"> <!-- 기존 첨부파일명 전달 -->
   			<input type="hidden" name="remove_file" value="false"> <!-- 파일 삭제 여부 플래그 추가 -->
-			<h1>1:1 문의글 수정</h1>		
+			<h3>문의글 수정</h3>		
 			<div class="form-group">
 				<label for ="inquiry_ref_idx">문의자</label>
 				<input value="${inquirydata.user_id}" type="text" 
-				class="form-control" readOnly>
+				class="titleI" readOnly>
 			</div>
 			
-			
 			<div class="form-group">
-				<label for ="title">제목</label>
-				<textarea name="title" id ="title" maxlength="100"  rows="1"
-				class="form-control">${inquirydata.title}</textarea>
+				<p class = "titlep">문의 제목</p>
+				<input name="title" id ="title" maxlength="100" 
+				type="text" class="titleI" value = "${inquirydata.title}">
 			</div>
 			
 			<div class="form-group">
 				<label for ="content">내용</label>
 				<textarea name="content" id ="content"  rows="10"
-				class="form-control">${inquirydata.content}</textarea>
+				class="contentI">${inquirydata.content}</textarea>
 			</div>
 			
 			 <div class="form-group">
 				<label>
-					파일첨부
-					<img src="${pageContext.request.contextPath }/img/attach.png" alt="파일첨부">
+					<span class = "filep">파일첨부<span>
+					<img src="${pageContext.request.contextPath }/img/attach.png" alt="파일첨부" class = "fileU">
 					<input type="file" id="upfile" name="inquiry_file">
 				</label>
 				<span id="filevalue">${inquirydata.inquiry_file}</span>
 				<img src="${pageContext.request.contextPath}/img/remove.png"
-				alt="파일삭제" width="10px" class="remove">
+				alt="파일삭제" class="remove">
 			 </div>
 			
-			<div class="form-group">
-				<button type="submit" class="btn btn-primary">수정</button>
-				<button type="reset" class="btn btn-danger" onClick="history.go(-1)">취소</button>
+			<div class="btnD">
+				<button type="submit" class="btn btn-primary registerBtn">수정</button>
+				<button type="reset" class="btn btn-danger cancelBtn" onClick="history.go(-1)">취소</button>
 			</div>
 		</form>
 	</div> <%--class="container" end --%>

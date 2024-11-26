@@ -90,7 +90,7 @@ VALUES (
     'a1', 
     'testsetstest', 
     '0987654321232', 
-    '028088080', 
+    '91099999999', 
     'JongRsc@gmail.com',
     '10882', 
     '서울시 종로구 종로3가', 
@@ -100,10 +100,10 @@ VALUES (
     'pending'
 );
 
-
+delete from business_user where business_id = 'qwerty4';
 SELECT * FROM business_user;
 
-update business_user set password = 'a1';
+update business_user set tel = '01099999999';
 
 
 alter table business_user add login_status varchar2(9) DEFAULT 'pending';
