@@ -30,18 +30,12 @@
 	 	<filter-name>LoginFilter</filter-name>
 	 	<url-pattern>/business/*</url-pattern>
 	 	<url-pattern>/user/info</url-pattern>
-	 	<url-pattern>/user/loginProcess</url-pattern>
-	 	<url-pattern>/user/signupProcess</url-pattern>
 	 	<url-pattern>/user/update</url-pattern>
 	 	<url-pattern>/user/updateProcess</url-pattern>
 	 	<url-pattern>/user/updateProcessBusiness</url-pattern>
 	 	<url-pattern>/user/mypage</url-pattern>
 	 	<url-pattern>/user/matchs</url-pattern>
 	 	<url-pattern>/user/userMatchPlayer</url-pattern>
-	 	<url-pattern>/user/posts</url-pattern>
-	 	<url-pattern>/user/comments</url-pattern>
-	 	<url-pattern>/user/inquiry</url-pattern>
-	 	<url-pattern>/user/map</url-pattern>
 	 </filter-mapping>
 	 
 	 
@@ -53,20 +47,12 @@
 	 <filter-mapping>
 	 	<filter-name>UserFilter</filter-name>
 	 	<url-pattern>/user/info</url-pattern>
-	 	<url-pattern>/user/loginProcess</url-pattern>
-	 	<url-pattern>/user/signupProcess</url-pattern>
 	 	<url-pattern>/user/update</url-pattern>
 	 	<url-pattern>/user/updateProcess</url-pattern>
 	 	<url-pattern>/user/updateProcessBusiness</url-pattern>
 	 	<url-pattern>/user/mypage</url-pattern>
 	 	<url-pattern>/user/matchs</url-pattern>
 	 	<url-pattern>/user/userMatchPlayer</url-pattern>
-	 	<url-pattern>/user/posts</url-pattern>
-	 	<url-pattern>/user/comments</url-pattern>
-	 	<url-pattern>/user/inquiry</url-pattern>
-	 	<url-pattern>/user/map</url-pattern>
-	 	<url-pattern>/post/modify/*</url-pattern>
-	 	<url-pattern>/inquiry/modify/*</url-pattern>
 	 </filter-mapping>
 	 
 	 
@@ -89,6 +75,7 @@
 	 <filter-mapping>
 	 	<filter-name>AdminFilter</filter-name>
 	 	<url-pattern>/admin/*</url-pattern>
+	 	<url-pattern>/user/inquiry</url-pattern>
 	 </filter-mapping>
 	
 

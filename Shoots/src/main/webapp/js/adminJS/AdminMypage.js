@@ -233,18 +233,19 @@ function loadreport(){
     xhr.onreadystatechange = function () {
         if (xhr.readyState === 4 && xhr.status === 200) {
 			document.getElementById('content-container').innerHTML = xhr.responseText; // 내용 뽑아오기 끝
-		
-		
+
+			
 		$(function(){
 			$("td:nth-child(6) > input").click(function(event){
 				var button = $(this);
-				if (button.val() === "처리중") {
-            		button.val("완료");
-        			} else {
-            			button.val("처리중"); // '완료'일 경우 다시 '처리중'으로 변경
-        			}
-				})//삭제 클릭 end
+				if(button.val() === "처리중"){
+					button.val("완료");
+				}else{
+					button.val("처리중");
+				}
 			})
+		})
+
 		}
 		
         // 관리자 페이지에서 좌측 탭 누르면 메뉴들 활성화 / 비활성화 시키는 부분 
@@ -908,9 +909,10 @@ function updateReportlist(data) {
 	let output = "<tbody>";
 	
 	$(data.totallist).each(function(index, item){
-		output += `			
+		output += (item.report_type == "A") ?
+		`			
 			<tr>
-				<td>${item.report_type}</td>
+				<td>게시글</td>
 				<td>${item.reporter_name}</td>
 				<td>${item.target_name}</td>
 				<td>${item.title} </td>
@@ -920,7 +922,35 @@ function updateReportlist(data) {
 				</td>
 				<td><a href="../admin/report?id=${item.report_id}" type="button" class="report">자세히 보기</a></td>
 			</tr>
-          `;
+          `:((item.report_type=="B") ? 
+          `			
+			<tr>
+				<td>댓글</td>
+				<td>${item.reporter_name}</td>
+				<td>${item.target_name}</td>
+				<td>${item.title} </td>
+				<td>${item.register_date.substring(0, 10) }</td>
+				<td>
+					<button class="status">처리중</button>
+				</td>
+				<td><a href="../admin/report?id=${item.report_id}" type="button" class="report">자세히 보기</a></td>
+			</tr>
+          ` :
+          `			
+			<tr>
+				<td>매칭선수</td>
+				<td>${item.reporter_name}</td>
+				<td>${item.target_name}</td>
+				<td>${item.title} </td>
+				<td>${item.register_date.substring(0, 10) }</td>
+				<td>
+					<button class="status">처리중</button>
+				</td>
+				<td><a href="../admin/report?id=${item.report_id}" type="button" class="report">자세히 보기</a></td>
+			</tr>
+          `
+          )
+          ;
 	});
 	
 	output += "</tbody>";
