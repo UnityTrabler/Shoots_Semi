@@ -233,6 +233,7 @@ function loadreport(){
     xhr.onreadystatechange = function () {
         if (xhr.readyState === 4 && xhr.status === 200) {
 			document.getElementById('content-container').innerHTML = xhr.responseText; // 내용 뽑아오기 끝
+
 			
 		$(function(){
 			$("td:nth-child(6) > input").click(function(event){
@@ -244,6 +245,7 @@ function loadreport(){
 				}
 			})
 		})
+
 		}
 		
         // 관리자 페이지에서 좌측 탭 누르면 메뉴들 활성화 / 비활성화 시키는 부분 
@@ -520,7 +522,7 @@ function updateUserlist(data) {
             	<td>${item.name}</td>
             	<td>${item.RRN}</td>
             	<td>${gender}</td>
-            	<td>${item.tel}</td>
+            	<td>${String(user.tel).substring(0,3)}-${String(user.tel).substring(3,7)}-${String(user.tel).substring(7)}</td>
             	<td>${item.email}</td>
             	<td>${item.register_date.substring(0, 10)}</td>
             	<td><a href="../admin/grant?id=${item.id}" type="button" class="grantadmin">일반</a></td>
@@ -533,7 +535,7 @@ function updateUserlist(data) {
             	<td>${item.name}</td>
             	<td>${item.RRN}</td>
             	<td>${gender}</td>
-            	<td>${item.tel}</td>
+            	<td>${String(user.tel).substring(0,3)}-${String(user.tel).substring(3,7)}-${String(user.tel).substring(7)}</td>
             	<td>${item.email}</td>
             	<td>${item.register_date.substring(0, 10)}</td>
             	<td><a href="../admin/revoke?id=${item.id}" type="button" class="revokeadmin">관리자</a></td>
@@ -709,7 +711,7 @@ function updateBusinessApprove(data) {
 				<td>${item.business_name }</td>
 				<td>${item.business_number }</td>
 				<td>${item.email }</td>
-				<td>${item.address} </td>
+				<td>${business.tel.substring(0,3)}-${business.tel.substring(3,7)}-${business.tel.substring(7) }</td>
 				<td>${item.register_date.substring(0, 10)}</td>
 				<td><b class="pending">대기중</b></td>
 				<td>
@@ -725,7 +727,7 @@ function updateBusinessApprove(data) {
 				<td>${item.business_name }</td>
 				<td>${item.business_number }</td>
 				<td>${item.email }</td>
-				<td>${item.address} </td>
+				<td>${String(business.tel).substring(0,3)}-${String(business.tel).substring(3,7)}-${String(business.tel).substring(7)}</td>
 				<td>${item.register_date.substring(0, 10)}</td>
 				<td><a href="../admin/refuse?id=${item.business_id}" type="button" class="approved"><b>승인됨</b></a></td>
 				<td></td>
@@ -739,7 +741,7 @@ function updateBusinessApprove(data) {
 				<td>${item.business_name }</td>
 				<td>${item.business_number }</td>
 				<td>${item.email }</td>
-				<td>${item.address} </td>
+				<td>${String(business.tel).substring(0,3)}-${String(business.tel).substring(3,7)}-${String(business.tel).substring(7)}</td>
 				<td>${item.register_date.substring(0, 10)}</td>
 				<td><a href="../admin/approve?id=${item.business_id}" type="button" class="refused"><b>거절됨</b></a></td>
 				<td></td>
@@ -826,7 +828,7 @@ function updatePost(data) {
 			<tr>
 				<td>${category}</td>
 				<td><a href="../post/detail?num=${item.post_id}"  type="button" class="postDetail">${item.title }</a></td>
-				<td>${item.writer}</td>
+				<td>${item.user_id}</td>
 				<td>${item.register_date}</td>
 				<td>${item.readcount }</td>
 				<td><a href="postDelete?id=${item.post_id}"  type="button" class="postDelete">삭제</a></td>

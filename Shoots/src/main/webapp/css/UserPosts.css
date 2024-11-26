@@ -1,10 +1,14 @@
 @charset "EUC-KR";
 
-.table {width : 100%; text-align : center}
-.postC {min-height : 500px; max-height : 500px}
+.table {width : 100%; text-align : center; font-size : 12px}
+.postC {min-height : 500px; max-height : 700px}
 
-th:nth-child(1) {width : 15%}
-th:nth-child(2) {width : 30%}
+th:nth-child(1) {width : 15%; text-align : left}
+td:nth-child(1) {width : 15%; text-align : left}
+
+th:nth-child(2) {width : 30%; text-align : left}
+td:nth-child(2) {width : 30%; text-align : left}
+
 th:nth-child(3) {width : 10%}
 th:nth-child(4) {width : 15%}
 th:nth-child(5) {width : 10%}

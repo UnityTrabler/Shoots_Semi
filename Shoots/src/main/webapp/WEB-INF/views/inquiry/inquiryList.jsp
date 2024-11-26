@@ -21,6 +21,7 @@
 					<thead>
 						<tr>
 							<th><div>번호</div></th>
+							<th><div>답변상태</div></th>
 							<th><div>문의 제목</div></th>
 							<th><div>문의자 유형</div></th>
 							<th><div>문의자</div></th>
@@ -36,6 +37,16 @@
 									<%--num 출력 --%> <c:set var="num" value="${num-1}" /> <%--num=num-1; 의미 --%>
 								</td>
 								<td>
+								<c:choose>
+									<c:when test = "${i.hasReply}">
+										<span class = "comS">[답변완료]</span>
+									</c:when>
+									<c:when test = "${! i.hasReply}">
+										<span class = "comP">[대기중]</span>
+									</c:when>
+								</c:choose>
+								</td>
+								<td>
 									<%--제목 --%>
 									<div>
 										<a class="inquiryDetail" href="../inquiry/detail?inquiryid=${i.inquiry_id}"> 
@@ -47,12 +58,6 @@
 												<c:out value="${i.title}" />
 											</c:if>
 										</a>
-										<!-- 답변 여부 표시 -->
-						                <span>
-						                    <c:if test="${i.hasReply}">
-						                        [답변완료]
-						                    </c:if>
-						                </span>
 									</div>
 								</td>
 								<%--문의자 유형 : A면 개인, B면 기업 --%>

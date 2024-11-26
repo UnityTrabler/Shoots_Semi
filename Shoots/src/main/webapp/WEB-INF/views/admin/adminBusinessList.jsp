@@ -6,7 +6,7 @@
 <head>
 <title>Insert title here</title>
 <script src="${pageContext.request.contextPath}/js/jquery-3.7.1.js"></script>
-<link rel = "stylesheet" href = "${pageContext.request.contextPath}/css/businessList.css" type = "text/css">
+<link rel = "stylesheet" href = "${pageContext.request.contextPath}/css/adminBusinessList.css" type = "text/css">
 </head>
 <body>
 	<c:if test="${listcount > 0 }">	
@@ -15,7 +15,7 @@
 			<thead>
 				<tr>
 					<th>기업번호</th>
-					<th>기업아이디</th>
+					<th>아이디</th>
 					<th>기업명</th>
 					<th>사업자번호</th>
 					<th>이메일</th>

@@ -37,7 +37,7 @@
     position: relative;
     top: 50%;
     left: 50%; 
-    transform: translate(-45%, -155%); 
+    transform: translate(-45%, -140%); 
     color: white;
     background-color: rgba(0, 0, 0, 0);
     padding: 10px;
@@ -54,7 +54,7 @@ p {margin-bottom : 0px}
 
 .btnD {display: flex; justify-content: center; gap: 160px; margin : 0 auto; margin-top : 50px; width : 70%}
 .btnI {color : #059669; background : white; border : 1.5px solid #059669; border-radius : 30px; width : 170px; height : 150px; display: flex;
-    	flex-direction: column; align-items: center;  justify-content: center; position: relative;  transition: background 0.5s, color 0.5s;
+    	flex-direction: column; align-items: center;  justify-content: center; position: relative;  transition: background 0.5s, color 0.5s; font-size : 13px
     	}
 
 .btnI:hover {color: #059669; background: white; border: 1.5px solid #059669;  opacity: 1; box-shadow : 5px 5px 5px -3px gray}
@@ -65,8 +65,8 @@ p {margin-bottom : 0px}
 .btnI:hover .normal {display: none;}
 .btnI:hover .hover {display: block;}
 
-.button-image1 {width : 30px}
-.button-image2 {width : 35px; margin-left : 8px}
+.button-image1 {width : 30px; margin-top : 10px}
+.button-image2 {width : 35px; margin-left : 8px; margin-top : 10px}
 
 
 .btnP1 {color : gray; margin-top : 10px}

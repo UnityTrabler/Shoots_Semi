@@ -45,7 +45,7 @@
     								</c:otherwise>
 								</c:choose>
 							</td>
-							<td>${user.tel}</td>
+							<td>${String(user.tel).substring(0,3)}-${String(user.tel).substring(3,7)}-${String(user.tel).substring(7)}</td>
 							<td>${user.email }</td>
 							<td>${user.register_date.substring(0, 10) }</td>
 							<td>

@@ -79,7 +79,9 @@
 	</c:if>
 	
 	<c:if test="${listcount == 0 }">
-		<h3 style="text-align:center">신고 내역이 없습니다</h3>
+		<div class = "Bd">
+			<p style="text-align:center">신고 내역이 없습니다</p>
+		</div>
 	</c:if>
 
 </body>

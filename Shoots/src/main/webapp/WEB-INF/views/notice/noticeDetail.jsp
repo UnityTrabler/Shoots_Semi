@@ -22,14 +22,15 @@
 			<tr>
 				<td>작성자 : ${nb.name }</td>
 				<td>작성일 : ${nb.register_date }</td>
-				<td>조회수 : ${nb.readcount }</td>
-				
+				<td>조회수 : ${nb.readcount }</td>			
 			</tr>
 			
 			<tr>
-				<th>내용</th>
 				<td colspan='2' style="padding-right: 0px">
-					<textarea rows="5" readOnly>${nb.content}</textarea></td>
+				<div class = "noticeCd">
+					<textarea rows="5" readOnly>${nb.content}</textarea>
+				</div>
+				</td>
 			</tr>
 			
 			<tr>	
@@ -48,7 +49,7 @@
 			</tr>
 			
 			<tr>
-				<td colspan='3'><a href="../support" type="button" class="listBtn">목록</a></td>
+				<td colspan='3' style = "text-align : center"><a href="../support" type="button" class="listBtn">목록</a></td>
 			</tr>
 		</table>
 		

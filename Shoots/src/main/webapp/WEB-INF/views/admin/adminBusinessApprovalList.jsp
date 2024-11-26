@@ -1,3 +1,4 @@
+<%--<td>${business.tel.substring(0,3)}-${business.tel.substring(3,7)}-${business.tel.substring(7) }</td> --%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -18,7 +19,7 @@
 					<th>기업명</th>
 					<th>사업자번호</th>
 					<th>이메일</th>
-					<th>주소</th>
+					<th>전화번호</th>
 					<th>신청일</th>
 					<th>승인상태</th>
 					<th></th>
@@ -32,7 +33,7 @@
 						<td>${business.business_name }</td>
 						<td>${business.business_number }</td>
 						<td>${business.email }</td>
-						<td>${business.address} </td>
+						<td>${String(business.tel).substring(0,3)}-${String(business.tel).substring(3,7)}-${String(business.tel).substring(7)}</td>
 						<td>${business.register_date.substring(0, 10) }</td>
 						<td>
 							<c:if test="${business.login_status == 'pending' }">
