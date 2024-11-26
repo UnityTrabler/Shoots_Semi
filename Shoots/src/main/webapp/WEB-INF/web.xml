@@ -20,6 +20,11 @@
 		<location>/error/error403.jsp</location>
 	</error-page>
 	
+	<error-page>
+		<error-code>404</error-code>
+		<location>/error/error404.jsp</location>
+	</error-page>
+	
 	
 	 <!-- filter : 필터의 이름과 쓸 필터의 클래스를 적는것. -->
 	 <filter>
@@ -34,6 +39,7 @@
 	 	<url-pattern>/user/updateProcess</url-pattern>
 	 	<url-pattern>/user/updateProcessBusiness</url-pattern>
 	 	<url-pattern>/user/mypage</url-pattern>
+	 	<url-pattern>/user/inquiry</url-pattern>
 	 	<url-pattern>/user/matchs</url-pattern>
 	 	<url-pattern>/user/userMatchPlayer</url-pattern>
 	 </filter-mapping>
@@ -75,7 +81,6 @@
 	 <filter-mapping>
 	 	<filter-name>AdminFilter</filter-name>
 	 	<url-pattern>/admin/*</url-pattern>
-	 	<url-pattern>/user/inquiry</url-pattern>
 	 </filter-mapping>
 	
 
