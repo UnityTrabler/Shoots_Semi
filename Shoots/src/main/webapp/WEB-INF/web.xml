@@ -36,6 +36,7 @@
 	 	<url-pattern>/user/mypage</url-pattern>
 	 	<url-pattern>/user/matchs</url-pattern>
 	 	<url-pattern>/user/userMatchPlayer</url-pattern>
+	 	<url-pattern>/user/inquiry</url-pattern>
 	 </filter-mapping>
 	 
 	 
@@ -47,7 +48,6 @@
 	 <filter-mapping>
 	 	<filter-name>UserFilter</filter-name>
 	 	<url-pattern>/user/info</url-pattern>
-	 	<url-pattern>/user/updateProcess</url-pattern>
 	 	<url-pattern>/user/mypage</url-pattern>
 	 	<url-pattern>/user/matchs</url-pattern>
 	 	<url-pattern>/user/userMatchPlayer</url-pattern>
@@ -73,7 +73,17 @@
 	 <filter-mapping>
 	 	<filter-name>AdminFilter</filter-name>
 	 	<url-pattern>/admin/*</url-pattern>
-	 	<url-pattern>/user/inquiry</url-pattern>
+	 </filter-mapping>
+	 
+	 
+	  <!-- 그냥 무조건 forbidden으로 막아버리는 곳 -->
+	<filter>
+	 	<filter-name>ForbiddenFilter</filter-name>
+	 	<filter-class>net.filter.ForbiddenFilter</filter-class>
+	 </filter>
+	 <filter-mapping>
+	 	<filter-name>ForbiddenFilter</filter-name>
+	 	<url-pattern></url-pattern>
 	 </filter-mapping>
 	
 
