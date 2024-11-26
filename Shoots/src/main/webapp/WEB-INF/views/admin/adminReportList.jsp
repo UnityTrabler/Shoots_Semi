@@ -28,13 +28,23 @@
 				<c:forEach var="report" items="${totallist}">
 					<tr>
 						
-						<td>${report.report_type}</td>
+						<td>
+							<c:if test="${report.report_type == 'A' }">
+								게시글
+							</c:if>
+							<c:if test="${report.report_type == 'B' }">
+								댓글
+							</c:if>
+							<c:if test="${report.report_type == 'C' }">
+								매칭선수
+							</c:if>
+						</td>
 						<td>${report.reporter_name}</td>
 						<td>${report.target_name}</td>
 						<td>${report.title} </td>
 						<td>${report.register_date.substring(0, 10) }</td>
 						<td>
-							<button class="status" onclick="toggleStatus(this)">처리중</button>
+							<input type="button" class="status" value="처리중">
 						</td>
 						<td><a href="../admin/report?id=${report.report_id}" type="button" class="report">자세히 보기</a></td>
 					</tr>

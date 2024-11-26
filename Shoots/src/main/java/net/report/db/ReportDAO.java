@@ -135,10 +135,11 @@ public class ReportDAO {
 	public ReportBean getDetail(int id) {
 		ReportBean rb = null;
 		String sql = """
-				select r.*, ru.name reporter, tu.name target
-					from report r
-					left join regular_user ru on r.reporter = ru.idx
-					left join regular_user tu on r.target = tu.idx 
+				select r.report_id, r.report_type, r.report_ref_id, r.title, r.register_date, r.content, r.report_file,
+							       ru.name as reporter, tu.name as target
+				from report r
+				left join regular_user ru on r.reporter = ru.idx
+				left join regular_user tu on r.target = tu.idx 
 				where r.report_id = ?
 				""";
 		try(Connection con = ds.getConnection();
