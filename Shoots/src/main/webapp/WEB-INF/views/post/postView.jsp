@@ -144,7 +144,7 @@
 	        <div class="modal-content"> <!-- 모달 내용으로 포함시킬 부분 -->
 	        
 	        <form action ="${pageContext.request.contextPath}/report/add" method="post" name="reportform" id="reportform">
-	        	<h1 style="text-align:center;">댓글 신고</h1>
+	        	<p class = "reportT">댓글 신고</p>
 	        	<br>
 	        	<input type="hidden" name="report_type" class="report_type" value="B"> <!-- 신고유형 분류, 게시글은 A, 숨겨둠. -->
 	        	<input type="hidden" name="reporter" class="reporter" value="${idx}"> <!-- 신고자, 로그인 한 아이디로 가져옴. 회원 번호(idx)로 저장 -->
@@ -153,8 +153,8 @@
 	        	<input type="hidden" name="post_id" class="post_id" value="${postdata.post_id}"> <!--신고할때 게시글 번호 가져가려고 값 저장해두는 postid -->
 	        	
 	        	
-	        	<p>
-	        	<span class="redColor">★</span>신고사유</p>
+	        	<p class = "reportR">
+        		<span class="redColor">★&nbsp;</span>신고사유</p>
 	        	
 	        	<!-- 신고사유 선택 = report: title 부분 -->
 	        	<div id="title"> <!-- select는 중앙으로 정렬이 안돼서 부모요소로 div 써둠 -->
@@ -177,7 +177,7 @@
 				<br>
 				
 				<div id="reportbutton">
-					<button class="btn btn-danger">신고하기</button>
+					<button class="reportBtn">신고하기</button>
 				</div>
 				
 				</form>

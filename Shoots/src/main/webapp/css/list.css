@@ -31,8 +31,8 @@ th:nth-child(5) {width :10%}
 td:nth-child(5) {width :10%; text-align : center}
 
 
-.jtdI {width : 20% !important; text-align : center!important}
-.jtdt {width : 30% !important; text-align : left !important}
+.jtdI {width : 20% !important; text-align : center !important}
+.jtdt {width : 25% !important; text-align : left !important}
 .jtdw {width : 10% !important; text-align : left !important}
-.jtdr {width : 20% !important; text-align : left !important}
+.jtdr {width : 25% !important; text-align : left !important}
 .jtdc {width : 10% !important; text-align : left !important}
