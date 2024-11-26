@@ -15,9 +15,11 @@
 <title>신고창</title>
 </head>
 <body>
+
+<c:if test="${postdata.writer != idx and role == 'common'}">
 <button class ="btn-light postReportButton" data-toggle="modal" data-target=".report-modal"
 style ="border:none"> <img src = "${pageContext.request.contextPath}/img/report.png" style = "width : 20px"> </button>
-
+</c:if>
 	<!-- 모달창 시작-->		
 <div class="modal report-modal fade" style="display:none">
 	 <div class="modal-dialog" role="document">

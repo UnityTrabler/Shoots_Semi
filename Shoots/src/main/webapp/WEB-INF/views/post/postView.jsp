@@ -207,7 +207,7 @@
 		
 	<%--js에서 contextPath를 직접 선언할 수 없기에 jsp에서 선언하기 위해 있는 부분 --%>
 	const contextPath = "${pageContext.request.contextPath}";
-		
+	const role = '${role}';
 	</script>
 </body>
 

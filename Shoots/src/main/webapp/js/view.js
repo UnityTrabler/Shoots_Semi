@@ -53,6 +53,15 @@ function getList(state) {
                 </div>
             </div>` : '';
 
+		//신고버튼은 댓글 작성자와 로그인한 사람이 같을시 안뜨도록 설정하기 위해 미리 선언함
+		let reportButton = (Comment.user_id !== $("#loginid").val() && role == 'common') ? `
+            <button class="commentReportButton" data-comment-id="${Comment.comment_id}" 
+                    data-writer="${Comment.writer}" data-tidx="${Comment.writer}" 
+                    data-toggle="modal" data-target=".c-report-modal" style="color:red; border:none">
+                <img src='../img/report.png' style="width:15px; height:15px">
+            </button>` : '';
+		
+
 		//답글은 ref_id가 null이 아니니까 출력하면 안되지
 		// 댓글 처리
         output += (Comment.comment_ref_id !== 0) ? '' : `
@@ -69,11 +78,7 @@ function getList(state) {
                         <p class='comment-text-view'>
                         
                             <span class='text-comment'>${Comment.content}</span>
-                            <button class ="commentReportButton"  data-comment-id="${Comment.comment_id}" 
-                         	data-writer="${Comment.writer}" data-tidx="${Comment.writer}" 
-                         	data-toggle="modal" data-target=".c-report-modal" style ="color:red; border:none">
-                         	<img src='../img/report.png' style = "width : 15px; height : 15px">
-                         	</button>
+                            ${reportButton}
                         </p>
                     </div>
                     <div class='comment-info-box'>
@@ -137,12 +142,7 @@ function getList(state) {
                             <div class='comment-text-box'>
                                 <p class='comment-text-view' style="display: inline; align-items: center;">
                                     <span class='text-comment'>${formattedContent}</span>
-                                    <button class ="commentReportButton"  data-comment-id="${childComment.comment_id}" 
-		                         	data-writer="${childComment.writer}" data-tidx="${childComment.writer}" 
-		                         	data-toggle="modal" data-target=".c-report-modal" style ="color:red; border:none; 
-		                         	background: none; display: inline">
-		                         	<img src='../img/report.png' style = "width : 15px; height : 15px">
-		                         	</button>
+                                    ${reportButton}
                                 </p>
                             </div>
                             <div class='comment-info-box'>

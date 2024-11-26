@@ -27,6 +27,7 @@
 	
 	
 	 <!-- filter : 필터의 이름과 쓸 필터의 클래스를 적는것. -->
+	 <!-- LoginFilter는 로그인 안한 사람들이 못가게 막는 필터 -->
 	 <filter>
 	 	<filter-name>LoginFilter</filter-name>
 	 	<filter-class>net.filter.LoginFilter</filter-class>
@@ -57,6 +58,7 @@
 	 	<url-pattern>/user/mypage</url-pattern>
 	 	<url-pattern>/user/matchs</url-pattern>
 	 	<url-pattern>/user/userMatchPlayer</url-pattern>
+	 	<url-pattern>/user/login</url-pattern>
 	 </filter-mapping>
 	 
 	 
@@ -81,6 +83,7 @@
 	 	<url-pattern>/admin/*</url-pattern>
 	 </filter-mapping>
 	 
+  
 	  <!-- 그냥 무조건 forbidden으로 막아버리는 곳 -->
 	<filter>
 	 	<filter-name>ForbiddenFilter</filter-name>
@@ -88,8 +91,8 @@
 	 </filter>
 	 <filter-mapping>
 	 	<filter-name>ForbiddenFilter</filter-name>
-	 	<url-pattern></url-pattern>
+	 	<url-pattern>/user/inquiry</url-pattern>
+	 	<url-pattern>/user/posts</url-pattern>
 	 </filter-mapping>
-	
 
 </web-app>
