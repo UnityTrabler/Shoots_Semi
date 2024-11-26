@@ -1,7 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <div id="regularContext">
 			<form class="form-horizontal" method="post" action="updateProcess" id="signupform" enctype="multipart/form-data">
-				<h2 style="text-align: center; color: #059669; margin-bottom: 50px">개인 회원가입</h2>
+				<h2 style="text-align: center; color: #059669; margin-bottom: 50px">${id}님의 정보수정</h2>
 
 				<font color='red'>*</font>표시는 필수 입력 사항입니다.
 				<hr style="border: 1px solid #059669; width: 100%; opacity: 1;">

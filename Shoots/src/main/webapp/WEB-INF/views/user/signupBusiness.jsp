@@ -18,7 +18,7 @@
 		function init() {
  			$('#verify-block').css('display', 'none');
 			$("#verify-toggle-text").hide();
-			$("#preview").hide(); 
+			/* $("#preview").hide();  */
 			$('button#btnBusiness').addClass('btn-success');
 		}
 		

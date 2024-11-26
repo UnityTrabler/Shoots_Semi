@@ -123,7 +123,7 @@
 					success : function(data){
 						console.log('ajax success');
 						alert(data.message);
-						window.location.href = "${pageContext.request.contextPath}/user/login";
+						window.location.href = "${pageContext.request.contextPath}/user/home";
 					},
 					error:function(xhr, textStatus, errorThrown){
 						console.log('ajax error');

@@ -20,8 +20,8 @@
  			$('#verify-block').css('display', 'none');
 			$("#verify-toggle-text").hide();
 			$('button#btnRegular').addClass('btn-success');
-			$('input[type=file]').hide();
-			$('#preview').attr('src', '${pageContext.request.contextPath}/img/profile.png');
+			/* $('input[type=file]').hide();
+			$('#preview').attr('src', '${pageContext.request.contextPath}/img/profile.png'); */
 		}
 		
 		function btnBusinessClick() {
@@ -119,7 +119,7 @@
 				 
 			});//$('#check-email-verify').click
 			
-			$('input[type=file]').change(function(event){
+			/* $('input[type=file]').change(function(event){
 			 	const file = event.target.files[0]; //첫번째 파일
 				const maxSizeInBytes = 5 * 1024 * 1024;
 			 	
@@ -153,7 +153,7 @@
 				$('#preview').val('');
 				$('#filename').text('파일첨부');
 				$('#preview').attr('src', '${pageContext.request.contextPath}/img/profile.png');
-			});
+			}); */
 			
 			$('#signupform').on('submit',function(e) {
 				e.preventDefault();
