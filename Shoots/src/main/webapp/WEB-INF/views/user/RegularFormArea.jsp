@@ -4,7 +4,7 @@
 				<h2 style="text-align: center; color: #059669; margin-bottom: 50px">개인 회원가입</h2>
 
 				<font color='red'>*</font>표시는 필수 입력 사항입니다.
-				<hr style="border: 1px solid #059669; width: 100%; opacity: 1;">
+				<hr style="background:#059669; width: 100%; opacity: 1;">
 
 				<!-- name : id, pwd, name, RRN, gender, tel, email, nickname, profile? -->
 				<div class="divBlock1">
@@ -46,7 +46,7 @@
 				<div class="divBlock1">
 					<div class="row" style="margin-left: 180px;">
 					    <div style="text-align: left;">이메일<font color='red'>*</font></div>
-					    <input type="email" name="email" id="email" class="form-control col" placeholder="받는 주소" value="<%="kdhmm0325"%>@naver.com" required>
+					    <input type="email" name="email" id="email" class="form-control col" placeholder="받는 주소" value="shoots1126@naver.com" required>
 					    <input type="button" class="btn btn-primary col" style="margin-left: 20px; padding: 0px; flex: 0.6;" id="send-email" value="확인메일 전송">
 				    </div>
 				</div>
@@ -60,17 +60,11 @@
 				    </div>
 				</div>
 				
-				<div class="divBlock1" style="margin-top: 50px">
-					아래는 선택 사항입니다.<br>
-				</div>
-				<hr style="border: 1px solid #059669; width: 100%; opacity: 1;">
-				
 				<div class="divBlock1">
 				    <div style="text-align: left;">닉네임</div>
 				    <input type="text" name="nickname" id="nickname" class="form-control" placeholder="name...">
 				</div>
 				
-				<hr style="border: 1px solid #059669; width: 100%; opacity: 1;">
 				<div class="divBlock1">
 				    <input type="submit" class="submit btn btn-info" value="완료">
 				</div>

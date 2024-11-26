@@ -6,7 +6,7 @@
 				<h2 style="text-align: center; color: #059669; margin-bottom: 50px">기업 회원가입</h2>
 
 				<font color='red'>*</font>표시는 필수 입력 사항입니다.
-				<hr style="border: 1px solid #059669; width: 100%; opacity: 1;">
+				<hr style="background:#059669; width: 100%; opacity: 1;">
 				<!-- id pwd business-name business-number tel email postcode address+adressDetail description business_file -->
 				<div class="divBlock1">
 				    <div style="text-align: left;">아이디<font color='red'>*</font></div>
@@ -35,7 +35,7 @@
 				
 				<div class="row" style="margin-left: 180px;">
 				    <div style="text-align: left;">이메일<font color='red'>*</font></div>
-				    <input type="email" name="email" id="email" class="form-control col" placeholder="받는 주소" value="<%="kdhmm0325"%>@naver.com" required>
+				    <input type="email" name="email" id="email" class="form-control col" placeholder="받는 주소" value="shoots1126@naver.com" required>
 				    <input type="button" class="btn btn-primary col" style="margin-left: 20px; padding: 0px; flex: 0.6;" id="send-email" value="확인메일 전송">
 			    </div>
 				

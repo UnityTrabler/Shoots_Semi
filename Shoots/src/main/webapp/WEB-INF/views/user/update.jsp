@@ -17,7 +17,18 @@
 			$('#verify-block').css('display', 'none');
 			 $("#verify-toggle-text").hide();
 			 $('input[type=file]').hide();
-			 $('#preview').attr('src', '${pageContext.request.contextPath}/userupload/${userBean.userfile}');
+			 console.log("src : " +'${pageContext.request.contextPath}/userupload/${userBean.userfile}');
+			 console.log("src : " + $('#preview').attr('src') == null);
+			 console.log("src : " + $('#preview').attr('src').trim() == null);
+			 console.log("src : " + $('#preview').attr('src').indexOf("/Shoots/userupload/") !== -1);
+			 console.log("ends : " + $('#preview').attr('src').endsWith("/Shoots/userupload/"));
+			 
+			 if($('#preview').attr('src') == "/Shoots/userupload/")
+			 	$('#preview').attr('src', '${pageContext.request.contextPath}/img/info.png');
+			 else if('${pageContext.request.contextPath}/userupload/${userBean.userfile}' != null)
+			 	$('#preview').attr('src', '${pageContext.request.contextPath}/userupload/${userBean.userfile}');
+			 else
+			 	$('#preview').attr('src', '${pageContext.request.contextPath}/img/info.png');
 		}
 	
 		$(function() {
@@ -174,8 +185,7 @@
 				$('input[type=file]').val('');
 				$('#preview').val('');
 				$('#filename').text('파일첨부');
-				$('#preview').attr('src', '');
-//				$('#preview').attr('src', '${pageContext.request.contextPath}/img/profile.png');
+				$('#preview').attr('src', '${pageContext.request.contextPath}/img/info.png');
 			});
 			
 		});//ready 

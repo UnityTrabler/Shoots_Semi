@@ -6,7 +6,7 @@
 				<h2 style="text-align: center; color: #059669; margin-bottom: 50px">기업 ${id}님의 정보수정</h2>
 
 				<font color='red'>*</font>표시는 필수 입력 사항입니다.
-				<hr style="border: 1px solid #059669; width: 100%; opacity: 1;">
+				<hr style="background:#059669; width: 100%; opacity: 1;">
 				<!-- id pwd business-name business-number tel email postcode address+adressDetail description business_file -->
 				<div class="divBlock1">
 				    <div style="text-align: left;">아이디<font color='red'>*</font></div>
@@ -117,8 +117,6 @@
 							$('#addressDetail').val(address.substring(lastSpaceIndex + 1)); 
 					</script>
 				</div>
-				
-				<hr style="border: 1px solid #059669; width: 100%; opacity: 1;">
 				
 				<div class="divBlock1">
 				    <input type="submit" class="submit btn btn-primary">
