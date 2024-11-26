@@ -6,6 +6,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import net.core.Action;
 import net.core.ActionForward;
 
@@ -17,6 +18,8 @@ public class UserLoginAction implements Action {
 		ActionForward forward = new ActionForward();
 		forward.setRedirect(false);
 		forward.setPath("/WEB-INF/views/user/login.jsp");
+		HttpSession session = req.getSession();
+		session.invalidate();
 		
 		//set cookie in input
 		String id = "";
