@@ -30,8 +30,17 @@ public class UserUpdateProcessAction implements Action {
 			System.out.println("userFile : " + userFile);
 
 			UserBean userBean = new UserBean();
+			
+			userBean.setId(req.getSession().getAttribute("id").toString());
+			userBean.setPassword(multi.getParameter("pwd"));
+			userBean.setName(multi.getParameter("name"));
+			userBean.setRRN(Integer.parseInt(multi.getParameter("RRN")));
+			userBean.setGender(Integer.parseInt(multi.getParameter("gender")));
+			userBean.setTel(multi.getParameter("tel"));
+			userBean.setEmail(multi.getParameter("email"));
+			userBean.setNickname(multi.getParameter("nickname"));
 			userBean.setUserfile(userFile != null ? userFile : multi.getParameter("check"));
-			userBean.setId(multi.getParameter("id"));
+			userBean.setRole(req.getSession().getAttribute("role").toString());
 			
 			UserDAO userDAO = new UserDAO();
 			int result = userDAO.update(userBean); //db update

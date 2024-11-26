@@ -43,7 +43,6 @@ public class UserFilter implements Filter {
 	        return;
 	    }
 		
-		
 		if(userClassification == null || !userClassification.equals("regular")) {
 			hpresp.setContentType("text/html; charset=UTF-8"); // HTML 응답으로 설정
 		    PrintWriter out = hpresp.getWriter();
