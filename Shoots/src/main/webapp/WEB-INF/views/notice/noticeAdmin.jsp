@@ -33,7 +33,7 @@
 					<th>조회수</th>
 					<th>등록일</th>
 					<th>수정</th>
-					<th>삭제</th>
+					<th class = "deleteB">삭제</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -53,12 +53,12 @@
 						<td>${notice.readcount }</td>
 						<td>${notice.register_date}</td>
 						<td><a href="../notice/update?id=${notice.notice_id}" type="button" class="noticeUpdate">수정</a></td>
-						<td><a href="../notice/delete?id=${notice.notice_id}"  type="button" class="noticeDelete">삭제</a></td>
+						<td  class = "deleteB"><a href="../notice/delete?id=${notice.notice_id}"  type="button" class="noticeDelete">삭제</a></td>
 					</tr>
 				</c:forEach>
 				<tr>
 					<td colspan="5" style="text-align:center;">
-						<a href="../notice/write" type="button" class="btnWrite">글 쓰 기</a>
+						<a href="../notice/write" type="button" class="btnWrite">공지사항 쓰기</a>
 					</td>
 				</tr>
 			</tbody>

@@ -5,7 +5,7 @@
 .Limg {width : 100%; height : 180px; display: block; margin : 0 auto}
 
 .container {min-width : 70%; min-height : 550px}
-.table {width : 70%; margin : 0 auto}
+.table {width : 70%; margin : 0 auto; font-size : 13px}
 
 td:nth-child(1) {width :20%}
 td:nth-child(2) {width :15%}

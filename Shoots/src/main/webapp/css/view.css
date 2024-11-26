@@ -2,6 +2,8 @@
 	width: 80%
 }
 
+.contentD {width : 100%; min-height : 200px}
+
 /*답글달때 @원댓글 작성자 아이디*/
 .mention {
     color: royalblue;
@@ -337,3 +339,4 @@ a:hover {
 }
 
 .commentReportButton {border : none}
+.text-comment {font-size : 13px; font-weight : normal !important}

@@ -1,5 +1,5 @@
 
-.table{width : 100%; margin : 0 auto}
+.table{width : 100%; margin : 0 auto; font-size : 12px}
 
 .inquiryDetail {text-decoration: none; color : black; }
 .inquiryDetail:hover {text-decoration: none; font-weight : bold; color : #059669}

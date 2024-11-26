@@ -3,10 +3,14 @@
 .nm {text-align : center; color : #be123c; margin-top : 150px}
 .inquiryD {min-height : 500px} 
 
-.table {width : 100%; text-align : center}
+.table {width : 100%; text-align : center; font-size : 12px}
 
-th:nth-child(1) {width : 15%}
-th:nth-child(2) {width : 25%}
+th:nth-child(1) {width : 15%; text-align : left}
+td:nth-child(1) {width : 15%; text-align : left}
+
+th:nth-child(2) {width : 25%; text-align : left}
+td:nth-child(2) {width : 25%; text-align : left}
+
 th:nth-child(3) {width : 10%}
 th:nth-child(4) {width : 20%}
 th:nth-child(5) {width : 10%}

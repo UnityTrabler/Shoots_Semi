@@ -27,7 +27,7 @@
 	</style>
 </head>
 <body class="container">
-<h1 id="h1Title" style="text-align: cetner; justify-content: center;  align-items: center;">전국 풋살장 위치</h1>
+<h1 id="h1Title" style="text-align: cetner; justify-content: center;  align-items: center">전국 풋살장 위치</h1>
 <!-- @category Overlay/Marker -->
 <div id="wrap" class="section">
     <div id="map" style="width:100%;height:600px;">

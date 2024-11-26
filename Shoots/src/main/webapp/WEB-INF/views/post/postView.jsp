@@ -66,7 +66,9 @@
 			<tr>
 				<td style="padding-right: 0px">
 						<%-- <c:out value="${postdata.content}" /> --%>
-						<pre>${postdata.content}</pre>
+						<div class = "contentD">
+							<pre>${postdata.content}</pre>
+						</div>
 				</td>
 			</tr>
 			
