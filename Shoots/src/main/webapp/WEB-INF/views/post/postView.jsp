@@ -140,7 +140,9 @@
 		
 		<!-- 모달창 시작-->		
 	<div class="modal c-report-modal fade" style="display:none">
-		 <div class="modal-dialog" role="document">
+		 <div class="modal-dialog" role="document" style="position: fixed; 
+            top: 40%; left: 50%; transform: translate(-50%, -50%); 
+            width: 100%; max-width: 750px;">
 	        <div class="modal-content"> <!-- 모달 내용으로 포함시킬 부분 -->
 	        
 	        <form action ="${pageContext.request.contextPath}/report/add" method="post" name="reportform" id="reportform">
