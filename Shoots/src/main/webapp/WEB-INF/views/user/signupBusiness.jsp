@@ -116,7 +116,9 @@
 				if(invali == false) return;
 				
 				const data = $(this).serialize();
-				let state = '${userClassification}';
+				let state;
+				if ($('#btnGroupRB').find('.btn-success').first().attr('id') != null)
+					state = $('#btnGroupRB').find('.btn-success').first().attr('id') == 'btnRegular' ? {'state' : 'regular'} : {'state' : 'business'};
 					
 				ajax(`\${data + "&" + $.param(state)}`, $(this).attr('action'));
 			}); 

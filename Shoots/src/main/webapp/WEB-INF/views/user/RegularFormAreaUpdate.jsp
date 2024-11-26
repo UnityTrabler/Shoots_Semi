@@ -4,7 +4,7 @@
 				<h2 style="text-align: center; color: #059669; margin-bottom: 50px">${id}님의 정보수정</h2>
 
 				<font color='red'>*</font>표시는 필수 입력 사항입니다.
-				<hr style="border: 1px solid #059669; width: 100%; opacity: 1;">
+				<hr style="background:#059669; width: 100%; opacity: 1;">
 
 				<!-- name : id, pwd, name, RRN, gender, tel, email, nickname, profile? -->
 				<div class="divBlock1">
@@ -60,11 +60,6 @@
 				    </div>
 				</div>
 				
-				<div class="divBlock1" style="margin-top: 50px">
-					아래는 선택 사항입니다.<br>
-				</div>
-				<hr style="border: 1px solid #059669; width: 100%; opacity: 1;">
-				
 				<div class="divBlock1">
 				    <div style="text-align: left;">닉네임</div>
 				    <input type="text" name="nickname" id="nickname" class="form-control" placeholder="name..." value="${userBean.nickname}">
@@ -81,7 +76,6 @@
 					</label>
 				</div>
 				
-				<hr style="border: 1px solid #059669; width: 100%; opacity: 1;">
 				<div class="divBlock1">
 				    <input type="submit" class="submit btn btn-info" value="완료">
 				</div>

@@ -117,9 +117,9 @@ public class UserSignupProcessAction extends HttpServlet implements Action {
 			String subject = "shoots email verification : " + verifyNum;
 			String imgPath =  req.getServletContext().getRealPath("/img/logo.png");
 
-			String domain = "for.you";
-			final String username = "shoots@"+ domain; // 실제 아이디
-			final String password = "shoots3"; // 실제 비밀번호
+			String domain = "naver.com";
+			final String username = "shoots1126@"+ domain; // 실제 아이디
+			final String password = "shoots11262"; // 실제 비밀번호
 
 			String host = "smtp."+ domain;
 			String sender = username;

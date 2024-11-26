@@ -121,27 +121,11 @@ var htmlMarker1 = {
     };
 
 function onLoad() {
-	
-    var latlngs = [
-        new naver.maps.LatLng(37.3633324, 129.1054988),
-        new naver.maps.LatLng(37.3632916, 129.1085015),
-        new naver.maps.LatLng(37.3632507, 129.1115043),
-        new naver.maps.LatLng(37.3632097, 129.114507),
-        new naver.maps.LatLng(37.3631687, 129.1175097),
-        new naver.maps.LatLng(37.3597282, 129.105422),
-        new naver.maps.LatLng(37.3596874, 129.1084246),
-        new naver.maps.LatLng(37.3596465, 129.1114272),
-        new naver.maps.LatLng(37.3596056, 129.1144298),
-        new naver.maps.LatLng(37.3595646, 129.1174323)
-    ];
-    
-    for (var i=0; i<latlngs.length; i++) {
-        marker = new naver.maps.Marker({
-            position: latlngs[i],
-            map: map,
-            draggable: false,
-        });
-	}
+    var addressArr = ["서울 종로구 경희궁길 46 축구회관", "서울 동대문구 왕산로 68 용운빌딩 6층", "서울 동대문구 천호대로 133 홈플러스 동대문점 옥상층 HM풋살파크", "서울 용산구 한강대로23길 55 현대아이파크몰 리빙파크 9층" , "서울 성북구 서경로 118", "서울 성동구 옥수동 490-6", "서울 성동구 응봉동 240-1", "서울 용산구 한남동 782-2", "답십리동 530-8", "서울 강남구 압구정동 423", "서울 동대문구 답십리로 209", "서울 마포구 성산동 산53-28", "신사동 658", "덕은동 191-1", "성수동1가 656-1244", "답십리동 산2-9", "월계동 820-9", "양평동3가 85", "역삼동 725-25", "서울 중랑구 중화동 345-2", "창동 593-7", "진관동 63", "월계동 820", "염창동 64-1 2층", "잠실동 40-1", "상계동 764-1", "경기 고양시 덕양구 덕은동 131-4", "상암동 478-1", "자양동 227-20"];
+
+	 for (var i = 0; i < addressArr.length; i++) {
+	     searchAddressToCoordinate2(addressArr[i]);
+	 }
     
  /*    var data = accidentDeath.searchResult.accidentDeath;
     
@@ -187,7 +171,14 @@ function onLoad() {
     
 //search------------------------------------------------------------
 var infoWindow = new naver.maps.InfoWindow({
-    anchorSkew: true
+	  maxWidth: 140,
+	    backgroundColor: "#eee",
+	    borderColor: "#2db400",
+	    borderWidth: 5,
+	    anchorSize: new naver.maps.Size(30, 30),
+	    anchorSkew: true,
+	    anchorColor: "#eee",
+	    pixelOffset: new naver.maps.Point(20, -20)
 });
 
 map.setCursor('pointer');
@@ -288,29 +279,11 @@ function searchAddressToCoordinate2(address) {
 
         if (response.v2.meta.totalCount === 0) 
             return alert('totalCount' + response.v2.meta.totalCount);
-        
 
         var htmlAddresses = [],
             item = response.v2.addresses[0],
             point = new naver.maps.Point(item.x, item.y);
 		
-/* 		$.ajax({
-			url : "https://openapi.naver.com/v1/search/local.xml?query=%EC%A3%BC%EC%8B%9D&display=10&start=1&sort=random",
-			beforeSend : function(xhr){
-				xhr.setRequestHeader("X-Naver-Client-Id", ""); 
-				xhr.setRequestHeader("X-Naver-Client-Secret","");
-			},
-			type : "POST",
-			dataType : "json",
-			success : function(data){
-				console.log('ajax success');
-				console.log(data);
-			}, 
-			error:function(){
-				console.log('ajax error');
-			}
-		}); */
-        
         if (item.roadAddress) 
             htmlAddresses.push('[도로명 주소] ' + item.roadAddress);
         if (item.jibunAddress) 
@@ -325,8 +298,20 @@ function searchAddressToCoordinate2(address) {
             '</div>'
         ].join('\n'));
 
+            marker = new naver.maps.Marker({
+                position : point,
+                map: map,
+                draggable: false
+            });
+            
+            markers.push(marker);
 //        map.setCenter(point); //중앙으로
-        infoWindow.open(map, point); // message box 맵 포인트에
+ 	//	if (map.getZoom() >= 10)
+ 		 naver.maps.Event.addListener(marker, 'click', function() {
+            infoWindow.open(map, marker.getPosition());
+        });
+        
+        	//infoWindow.open(map, point); // message box 맵 포인트에
     });//naver.maps.Service.geocode
 }//searchAddressToCoordinate
 
