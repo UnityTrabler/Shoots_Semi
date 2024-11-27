@@ -1,3 +1,54 @@
+
+/* Flex 컨테이너 설정 */
+.buttonfront {
+    display: flex;
+    justify-content: space-between; /* 양 끝 정렬 */
+    align-items: center; /* 수직 가운데 정렬 */
+    padding: 10px 0; /* 상하 여백 */
+    border-bottom: 1px solid #ddd; /* 구분선 추가 (옵션) */
+}
+
+/* 텍스트 스타일 */
+.info-text {
+    font-size: 12px;
+    margin: 0; /* p 태그의 기본 여백 제거 */
+    color: #333; /* 텍스트 색상 */
+}
+
+/* 버튼 그룹 */
+.action-buttons {
+    display: flex;
+    gap: 10px; /* 버튼 간격 */
+}
+
+.ic-modify, .ic-delete {
+    font-size: 12px;
+    border-radius: 5px;
+    padding: 5px 10px;
+    border: none;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.ic-modify {
+    background-color: #1d4ed8; /* 수정 버튼 색상 */
+}
+
+.ic-modify:hover {
+    background-color: #2563eb; /* 수정 버튼 hover 색상 */
+}
+
+.ic-delete {
+    background-color: #be123c; /* 삭제 버튼 색상 */
+}
+
+.ic-delete:hover {
+    background-color: #dc2626; /* 삭제 버튼 hover 색상 */
+}
+
+
+
 .table{width : 90%; padding : 0px; margin-top : 20px; margin-bottom : 10px; font-size : 13px}
 
 .inquiryDetail {text-decoration: none; color : black; }
@@ -48,7 +99,27 @@ textarea {resize:none; width:35%;}
 .deleteBtn:hover {font-size :  12px; border-radius : 20px; border : 1px solid #d60e0e; width : 80px; height : 25px; color : #d60e0e ; background : white; margin-left : 10px; transition: background 0.3s, color 0.3s}
 .listB:hover {font-size :  12px; border-radius : 20px; border : 1px solid #059669; width : 80px; height : 25px; color : #059669 ; background : white; margin-left : 10px; transition: background 0.3s, color 0.3s}
 
-.contentT {width : 100%; border-radius : 20px; padding : 10px; min-height : 200px}
+.contentT {
+    width: 100%; /* 그대로 유지 */
+    border-radius: 20px; /* 그대로 유지 */
+    padding: 10px; /* 내부 여백 유지 */
+    min-height: 200px; /* 최소 높이 유지 */
+    text-align: left; /* 텍스트를 왼쪽으로 정렬 */
+    margin: 0; /* 외부 여백 초기화 */
+}
+.containerI {
+    width: 60%; /* 그대로 유지 */
+    border: 1.5px solid #059669; /* 그대로 유지 */
+    border-radius: 20px; /* 그대로 유지 */
+    margin: 0 auto; /* 중앙 정렬 */
+    text-align: left; /* 내부 요소 기본 정렬 왼쪽 */
+}
+.tableV {
+    margin: 0 auto; /* 중앙 정렬 */
+    margin-top: 20px; /* 위쪽 여백 */
+    text-align: left; /* 테이블 내부 정렬 */
+}
+
 hr {width : 90%}
 .comD {width : 90%; margin : 0 auto}
 .comP {margin-left : 10px}

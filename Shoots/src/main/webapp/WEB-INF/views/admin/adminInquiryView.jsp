@@ -96,7 +96,7 @@
 	
 	
 	 <!-- 댓글 리스트 출력 -->
-    <div class="comments-section">
+    <div class="comments-section" style="margin-bottom: 20px;">
         
         <c:if test="${!empty iqlist}">
             <c:forEach var="ic" items="${iqlist}">
@@ -105,15 +105,14 @@
                 	<input type="hidden" value="${ic.i_comment_id}" name = "i_comment_id" class="ic-num">  <!-- 문의댓글의 고유번호값 받아두기 -->
                 	
                 	<!-- 프로필 사진 -->
-                	<img src ="${pageContext.request.contextPath}/img/profile.png" alt="프로필" width="60" height="48">
+                	<img src ="${pageContext.request.contextPath}/img/info.png" alt="프로필" width="60" height="48">
                 	
                 	<input type="hidden" value="${ic.user_id}" class="iqcomment-writer"> <!-- 각 문의댓글을 남긴 댓글 작성자 값 -->
                 	<div class="buttonfront">
-                    <p><strong>작성자:</strong> ${ic.user_id} <strong>등록일:</strong> ${ic.register_date.substring(0,16)}
-                    </div>
+                    <p><strong>작성자:</strong> ${ic.user_id} <strong>등록일:</strong> ${ic.register_date.substring(0,16)}</p>
                     <button type="button" class="btn btn-primary ic-modify" style="display:none" value="${ic.i_comment_id}">수정</button>
                     <button type="button" class="btn btn-danger ic-delete" style="display:none" value="${ic.i_comment_id}">삭제</button>
-                    </p>
+                    </div>
                     <span class="iqcomment-content">${ic.content}</span>
                 </div>
                 <hr>
@@ -127,14 +126,16 @@
 	
 <!-- 댓글 폼 시작. 댓글 작성은 관리자만 가능 (role == admin) -->
 <c:if test="${role == 'admin'}">
-<form action="../iqcomments/add" method ="post" name = "iqcommentform" id="iqcommentform">
+<form action="../iqcomments/add" method ="post" name = "iqcommentform" id="iqcommentform"
+	style="display:flex; margin-top: 0; padding: 10px; background-color: #f9f9f9;
+    border: 1px solid #ddd; border-radius: 5px;">
 	<div class="comment-head">
 	</div>
 	
 	<!-- 댓글 내용 부분 -->
 	<div class="comment-body">
 		<input type="hidden" name="inquiry_id" value="${inquirydata.inquiry_id}">
-		<img src ="${pageContext.request.contextPath}/img/profile.png" alt="프로필" width="60" height="48">
+		<img src ="${pageContext.request.contextPath}/img/info.png" alt="프로필" width="60" height="48">
 		
 		<div class="nickname">
 		<input type="hidden" class ="nickname" name="writer" value="${idx}"> <!-- 댓글 작성자의 로그인id :int형, idx 가져옴. -->
