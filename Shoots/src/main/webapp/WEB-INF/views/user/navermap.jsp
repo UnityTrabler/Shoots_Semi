@@ -127,7 +127,7 @@ function onLoad() {
 	     searchAddressToCoordinate2(addressArr[i]);
 	 }
     
- /*    var data = accidentDeath.searchResult.accidentDeath;
+   var data = accidentDeath.searchResult.accidentDeath;
     
     for (var i = 0, ii = data.length; i < ii; i++) {
         var spot = data[i],
@@ -138,7 +138,7 @@ function onLoad() {
             });
 
         markers.push(marker);
-    } */
+    } 
 
     var markerClustering = new MarkerClustering({
         minClusterSize: 2,

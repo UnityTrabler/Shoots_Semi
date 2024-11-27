@@ -45,31 +45,57 @@ values (user_seq.nextval, 'youngsoo3', '3', '삼수',  333333, 3, '01012345678',
 
 -- 결제 테스트 위함
 insert into regular_user
-values (user_seq.nextval, 'test', 'a1', '강성현',  000305, 4, '01097117305', 'shk7357@naver.com', null, null, current_timestamp, 'common');
+values (user_seq.nextval, 'test', 'a1', '홍길동',  990305, 4, '01097117305', 'shk7357@naver.com', null, null, current_timestamp, 'common');
 
 insert into regular_user
-values (user_seq.nextval, 'test1', 'a1', '강강강',  990101, 1, '01000001234', 'nid@naver.com', null, null, current_timestamp, 'common');
+values (user_seq.nextval, 'test1', 'a1', '강성현',  990101, 1, '01000001234', 'nid@naver.com', null, null, current_timestamp, 'common');
 
 insert into regular_user
-values (user_seq.nextval, 'test2', 'a1', '김동휘',  020102, 3, '01099829384', 'gid@gmail.com', null, null, current_timestamp, 'common');
+values (user_seq.nextval, 'gsdf90', 'a1', '김동휘',  820102, 3, '01099829384', 'gid@gmail.com', null, null, current_timestamp, 'common');
 
 insert into regular_user
-values (user_seq.nextval, 'test3', 'a1', '임현빈',  880910, 2, '01026374637', 'did@daum.net', null, null, current_timestamp, 'common');
+values (user_seq.nextval, 'sgdf7', 'a1', '임현빈',  880910, 2, '01026374637', 'did@daum.net', null, null, current_timestamp, 'common');
 
 insert into regular_user
-values (user_seq.nextval, 'test4', 'a1', '최영수',  890207, 2, '01026737374', 'sidi@naver.com', null, null, current_timestamp, 'common');
+values (user_seq.nextval, 'afddsf78', 'a1', '최영수',  890207, 2, '01026737374', 'sidi@naver.com', null, null, current_timestamp, 'common');
 
 insert into regular_user
-values (user_seq.nextval, 'test5', 'a1', '최주경',  981215, 1, '01092837465', 'lkjfd@naver.com', null, null, current_timestamp, 'common');
+values (user_seq.nextval, 'shddfg7', 'a1', '최주경',  981215, 1, '01092837465', 'lkjfd@naver.com', null, null, current_timestamp, 'common');
 
 insert into regular_user
-values (user_seq.nextval, 'test6', 'a1', '김임최',  840506, 2, '01083848384', 'iudhsf7@naver.com', null, null, current_timestamp, 'common');
+values (user_seq.nextval, 'agf2', 'a1', '김민수',  840506, 2, '01083848384', 'iudhsf7@naver.com', null, null, current_timestamp, 'common');
 
 insert into regular_user
-values (user_seq.nextval, 'test7', 'a1', '강김임최',  980919, 2, '01098723231', 'uiasdf@naver.com', null, null, current_timestamp, 'common');
+values (user_seq.nextval, 'dj12', 'a1', '이지영',  980919, 2, '01098723231', 'uiasdf@naver.com', null, null, current_timestamp, 'common');
 
 insert into regular_user
-values (user_seq.nextval, 'test8', 'a1', '강김임',  910203, 1, '01083848181', 'opghjk@naver.com', null, null, current_timestamp, 'common');
+values (user_seq.nextval, 'sfgd3', 'a1', '박준호',  910203, 1, '01083848181', 'opghjk@naver.com', null, null, current_timestamp, 'common');
+
+insert into regular_user
+values (user_seq.nextval, 'shg33', 'a1', '최혜진',  941203, 1, '01073747283', 'gasdf@naver.com', null, null, current_timestamp, 'common');
+
+insert into regular_user
+values (user_seq.nextval, 'shg55', 'a1', '김태훈',  981211, 2, '01083848181', 'sgdf@naver.com', null, null, current_timestamp, 'common');
+
+insert into regular_user
+values (user_seq.nextval, 'eqtrwa32', 'a1', '한지민',  960703, 1, '01083848181', 'af@naver.com', null, null, current_timestamp, 'common');
+
+insert into regular_user
+values (user_seq.nextval, 'shd23', 'a1', '정다은',  960814, 2, '01083848181', 'agfd@naver.com', null, null, current_timestamp, 'common');
+
+insert into regular_user
+values (user_seq.nextval, 'fghj32', 'a1', '송민지',  930313, 1, '01083848181', 'sdhf@naver.com', null, null, current_timestamp, 'common');
+
+insert into regular_user
+values (user_seq.nextval, 'test14', 'a1', '김정희',  810223, 2, '01083848181', 'afds@naver.com', null, null, current_timestamp, 'common');
+
+insert into regular_user
+values (user_seq.nextval, 'test15', 'a1', '오준혁',  870902, 1, '01083848181', 'adfs@naver.com', null, null, current_timestamp, 'common');
+
+
+
+
+
 
 insert into regular_user
 values (user_seq.nextval, 'Admin', 'a1', '관리자',  990101, 1, '01074839283', 'admin@gmail.com', null, null, current_timestamp, 'admin');

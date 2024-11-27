@@ -522,7 +522,7 @@ function updateUserlist(data) {
             	<td>${item.name}</td>
             	<td>${item.RRN}</td>
             	<td>${gender}</td>
-            	<td>${String(user.tel).substring(0,3)}-${String(user.tel).substring(3,7)}-${String(user.tel).substring(7)}</td>
+            	<td>${String(item.tel).substring(0,3)}-${String(item.tel).substring(3,7)}-${String(item.tel).substring(7)}</td>
             	<td>${item.email}</td>
             	<td>${item.register_date.substring(0, 10)}</td>
             	<td><a href="../admin/grant?id=${item.id}" type="button" class="grantadmin">일반</a></td>
@@ -535,7 +535,7 @@ function updateUserlist(data) {
             	<td>${item.name}</td>
             	<td>${item.RRN}</td>
             	<td>${gender}</td>
-            	<td>${String(user.tel).substring(0,3)}-${String(user.tel).substring(3,7)}-${String(user.tel).substring(7)}</td>
+            	<td>${String(item.tel).substring(0,3)}-${String(item.tel).substring(3,7)}-${String(item.tel).substring(7)}</td>
             	<td>${item.email}</td>
             	<td>${item.register_date.substring(0, 10)}</td>
             	<td><a href="../admin/revoke?id=${item.id}" type="button" class="revokeadmin">관리자</a></td>
