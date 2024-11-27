@@ -17,15 +17,8 @@
 			$('#verify-block').css('display', 'none');
 			 $("#verify-toggle-text").hide();
 			 $('input[type=file]').hide();
-			 console.log("src : " +'${pageContext.request.contextPath}/userupload/${userBean.userfile}');
-			 console.log("src : " + $('#preview').attr('src') == null);
-			 console.log("src : " + $('#preview').attr('src').trim() == null);
-			 console.log("src : " + $('#preview').attr('src').indexOf("/Shoots/userupload/") !== -1);
-			 console.log("ends : " + $('#preview').attr('src').endsWith("/Shoots/userupload/"));
-			 
-			 if($('#preview').attr('src') == "/Shoots/userupload/")
-			 	$('#preview').attr('src', '${pageContext.request.contextPath}/img/info.png');
-			 else if('${pageContext.request.contextPath}/userupload/${userBean.userfile}' != null)
+	
+			 if('${userBean.userfile}'.trim() != '')//null 아니면
 			 	$('#preview').attr('src', '${pageContext.request.contextPath}/userupload/${userBean.userfile}');
 			 else
 			 	$('#preview').attr('src', '${pageContext.request.contextPath}/img/info.png');
