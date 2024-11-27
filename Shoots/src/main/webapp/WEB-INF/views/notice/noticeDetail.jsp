@@ -26,10 +26,8 @@
 			</tr>
 			
 			<tr>
-				<td colspan='2' style="padding-right: 0px">
-				<div class = "noticeCd">
-					<textarea rows="5" readOnly>${nb.content}</textarea>
-				</div>
+				<td colspan='3' style="padding-right: 0px">
+					<span class = "noticeCd">${nb.content}</span>
 				</td>
 			</tr>
 			

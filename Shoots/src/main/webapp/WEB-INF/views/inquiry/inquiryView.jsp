@@ -9,7 +9,56 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath }/css/inquiry.css" type="text/css">
 <script src="${pageContext.request.contextPath }/js/jquery-3.7.1.js"></script>
 <script src="${pageContext.request.contextPath }/js/inquiryJs/inquiryview.js"></script>
+<style>
+/* Flex 컨테이너 설정 */
+.buttonfront {
+    display: flex;
+    justify-content: space-between; /* 양 끝 정렬 */
+    align-items: center; /* 수직 가운데 정렬 */
+    padding: 10px 0; /* 상하 여백 */
+    border-bottom: 1px solid #ddd; /* 구분선 추가 (옵션) */
+}
 
+/* 텍스트 스타일 */
+.info-text {
+    font-size: 12px;
+    margin: 0; /* p 태그의 기본 여백 제거 */
+    color: #333; /* 텍스트 색상 */
+}
+
+/* 버튼 그룹 */
+.action-buttons {
+    display: flex;
+    gap: 10px; /* 버튼 간격 */
+}
+
+.ic-modify, .ic-delete {
+    font-size: 12px;
+    border-radius: 5px;
+    padding: 5px 10px;
+    border: none;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.ic-modify {
+    background-color: #1d4ed8; /* 수정 버튼 색상 */
+}
+
+.ic-modify:hover {
+    background-color: #2563eb; /* 수정 버튼 hover 색상 */
+}
+
+.ic-delete {
+    background-color: #be123c; /* 삭제 버튼 색상 */
+}
+
+.ic-delete:hover {
+    background-color: #dc2626; /* 삭제 버튼 hover 색상 */
+}
+
+</style>
 </head>
 <body>
 <input type="hidden" value="${id}" id="loginid">  <!-- 수정 삭제 버튼 보이게 하려고 현재 로그인 한 유저의 id값을 받아놓음 -->
@@ -30,7 +79,7 @@
 				
 				<tr>
 					<td colspan="2" style ="padding-right:0px">
-					<div class = "contentT">
+					<div class = "contentT" style="display:fixed">
 						<pre>${inquirydata.content}</pre>
 					</div>
 					</td>
@@ -67,10 +116,16 @@
                 	
                 	<input type="hidden" value="${ic.user_id}" class="iqcomment-writer"> <!-- 각 문의댓글을 남긴 댓글 작성자 값 -->
                 	<div class="buttonfront">
-                    	<p style = "font-size : 12px"><strong>작성자 :</strong> ${ic.user_id} <strong>등록일 :</strong> ${ic.register_date.substring(0,16)}</p>
-		            </div>
-		                    <button type="button" class="btn btn-primary ic-modify" style="display:none" value="${ic.i_comment_id}">수정</button>
-		                    <button type="button" class="btn btn-danger ic-delete" style="display:none" value="${ic.i_comment_id}">삭제</button>
+					    <p class="info-text">
+					        <strong>작성자:</strong> ${ic.user_id} 
+					        <strong>등록일:</strong> ${ic.register_date.substring(0,16)}
+					    </p>
+					    <div class="action-buttons">
+					        <button type="button" class="btn btn-primary ic-modify" style="display:none" value="${ic.i_comment_id}">수정</button>
+					        <button type="button" class="btn btn-danger ic-delete" style="display:none" value="${ic.i_comment_id}">삭제</button>
+					    </div>
+					</div>
+
                     <span class="iqcomment-content" style = "font-size : 13px">${ic.content}</span>
                 </div>
                 <hr>
@@ -87,14 +142,16 @@
 		
 	<!-- 댓글 폼 시작. 댓글 작성은 관리자만 가능 (role == admin) -->
 	 <c:if test="${role == 'admin'}">
-	  <form action="../iqcomments/add" method ="post" name = "iqcommentform" id="iqcommentform">
+	  <form action="../iqcomments/add" method ="post" name = "iqcommentform" id="iqcommentform"
+  		style="margin-top: 0; padding: 10px; background-color: #f9f9f9;
+ 		border: 1px solid #ddd; border-radius: 5px;">
 		<div class="comment-head">
 		</div>
 		
 		<!-- 댓글 내용 부분 -->
 		<div class="comment-body">
 			<input type="hidden" name="inquiry_id" value="${inquirydata.inquiry_id}">
-			<img src ="${pageContext.request.contextPath}/img/profile.png" alt="프로필" width="60" height="48">
+			<img src ="${pageContext.request.contextPath}/img/info.png" alt="프로필" width="60" height="48">
 			
 			<div class="nickname">
 			<input type="hidden" class ="nickname" name="writer" value="${idx}"> <!-- 댓글 작성자의 로그인id :int형, idx 가져옴. -->
