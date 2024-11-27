@@ -19,6 +19,14 @@ VALUES (
 );
 
 
+insert into payment values (payment_seq.nextval, 68, 14, 12, 'card', 1000, sysdate, 'SUCCESS', '111', '111','111');
+insert into payment values (payment_seq.nextval, 68, 26, 12, 'card', 1000, sysdate, 'SUCCESS', '111', '111','111');
+insert into payment values (payment_seq.nextval, 68, 25, 12, 'card', 1000, sysdate, 'SUCCESS', '111', '111','111');
+insert into payment values (payment_seq.nextval, 68, 28, 12, 'card', 1000, sysdate, 'SUCCESS', '111', '111','111');
+insert into payment values (payment_seq.nextval, 68, 27, 12, 'card', 1000, sysdate, 'SUCCESS', '111', '111','111');
+
+update payment set seller = 12 where match_id = 84;
+
 
 CREATE SEQUENCE payment_seq
 START WITH 1

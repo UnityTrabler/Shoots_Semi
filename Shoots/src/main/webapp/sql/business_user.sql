@@ -23,6 +23,8 @@ NOCACHE;
 
 select * from business_user;
 
+update business_user set password = 'a1';
+
 update business_user
 set login_status = 'approved'
 where business_id = 'aa';
@@ -39,7 +41,7 @@ VALUES (
     '1234', 
     '종로구 풋살장 A', 
     '1234567891', 
-    '028088080', 
+    '01092837483', 
     'JongRsc@gmail.com',
     '10882', 
     '서울시 종로구 종로3가', 
@@ -56,7 +58,7 @@ VALUES (
     '1234', 
     '강남구 풋살장 B', 
     '1234567891', 
-    '354345', 
+    '01092834523', 
     '222@gmail.com',
     '06090', 
     '서울특별시 강남구 학동로 426 (삼성동, 강남구청)', 
@@ -73,7 +75,7 @@ VALUES (
     '1234', 
     '강남구 풋살장 C', 
     '1234567891', 
-    '354345', 
+    '01092567483', 
     '222@gmail.com',
     '06090', 
     '서울특별시 강남구 학동로 426 (삼성동, 강남구청)', 
@@ -90,7 +92,7 @@ VALUES (
     'a1', 
     'testsetstest', 
     '0987654321232', 
-    '91099999999', 
+    '01092343234', 
     'JongRsc@gmail.com',
     '10882', 
     '서울시 종로구 종로3가', 
