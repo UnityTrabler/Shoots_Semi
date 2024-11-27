@@ -1,6 +1,7 @@
 package net.user.action;
 
 import java.io.IOException;
+import java.util.Base64;
 
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
@@ -9,6 +10,7 @@ import jakarta.servlet.ServletContext;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import net.core.Action;
 import net.core.ActionForward;
 import net.user.db.UserBean;
@@ -24,13 +26,17 @@ public class UserUpdateProcessAction implements Action {
 		String realFolder = sc.getRealPath("userupload");
 		System.out.println("realFolder : " + realFolder);
 		
+        HttpSession session = req.getSession();
+		System.out.println(new UserDAO().getUser(session.getAttribute("id").toString()).getUserfile());
+		
 		try {
 			MultipartRequest multi = new MultipartRequest(req, realFolder, fileSize, "UTF-8", new DefaultFileRenamePolicy());
 			String userFile = multi.getFilesystemName("userFile");
 			System.out.println("userFile : " + userFile);
-
+			
 			UserBean userBean = new UserBean();
 			
+			session.setAttribute("file", userFile);//session 값
 			userBean.setId(req.getSession().getAttribute("id").toString());
 			userBean.setPassword(multi.getParameter("pwd"));
 			userBean.setName(multi.getParameter("name"));
