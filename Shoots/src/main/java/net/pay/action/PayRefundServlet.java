@@ -56,8 +56,8 @@ public class PayRefundServlet implements Action {
 	
 	 private boolean callAimpotRefundAPI(String impUid, String reason, String paymentId, PaymentBean payment, PaymentDAO dao) {
 	       
-	        String impKey = "4374671001417615";  
-	        String impSecret = "ukuBMPxlLnuayHqeO6MTTUy82qMDLGHAzpQUsoLJyPsK8xUkqw5JzIewNqgI7BlCJ8NFNcRckg9YPpFE";  
+	        String impKey = " ";  
+	        String impSecret = " ";  
 
 	        try {
 	            URL url = new URL("https://api.iamport.kr/users/getToken");
