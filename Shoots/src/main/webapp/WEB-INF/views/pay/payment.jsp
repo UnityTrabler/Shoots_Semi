@@ -14,7 +14,7 @@
 	<script>
 		 $(document).ready(function() {
 	         var IMP = window.IMP;
-	         IMP.init('imp35523152'); 
+	         IMP.init(' '); 
 	
 	         var merchant_uid = 'merchant_' + new Date().getTime();
 	         
@@ -22,17 +22,17 @@
 	             pg: 'html5_inicis',
 	             pay_method: 'card', 
 	             merchant_uid: merchant_uid,
-	             name: '${matchId}' + ' ¹ø ¸ÅÄ¡ ÇÃ·¹ÀÌ¾î ½ÅÃ»', 
+	             name: '${matchId}' + ' ë²ˆ ë§¤ì¹˜ í”Œë ˆì´ì–´ ì‹ ì²­', 
 	             amount: '${price}', 
 	             buyer_email: '${userEmail}',  
 	             buyer_name: '${userName}',  
 	             buyer_tel: '${userTel}' 
 	         }, function(rsp) {
 	             if (rsp.success) {
-	                 var msg = '°áÁ¦°¡ ¿Ï·áµÇ¾ú½À´Ï´Ù.';
-	                 msg += '°íÀ¯ID : ' + rsp.imp_uid;
-	                 msg += '°áÁ¦ ±İ¾× : ' + rsp.paid_amount;
-	                 msg += 'Ä«µå ½ÂÀÎ¹øÈ£ : ' + rsp.apply_num;
+	                 var msg = 'ê²°ì œê°€ ì™„ë£Œë˜ì—ˆìŠµë‹ˆë‹¤.';
+	                 msg += 'ê³ ìœ ID : ' + rsp.imp_uid;
+	                 msg += 'ê²°ì œ ê¸ˆì•¡ : ' + rsp.paid_amount;
+	                 msg += 'ì¹´ë“œ ìŠ¹ì¸ë²ˆí˜¸ : ' + rsp.apply_num;
 
 	                 $.ajax({
 	                	type : "post",
@@ -49,19 +49,19 @@
 	                		merchantUid : merchant_uid
 	                	},
 	                	success : function(response) {
-	                		alert("°áÁ¦°¡ ¿Ï·áµÇ¾ú½À´Ï´Ù.");
+	                		alert("ê²°ì œê°€ ì™„ë£Œë˜ì—ˆìŠµë‹ˆë‹¤.");
 	                		location.href = '${pageContext.request.contextPath}/matchs/detail?match_id=' + ${matchId};
 	                	},
 	                	error : function (xhr, status, error) {
-	                		alert("°áÁ¦ Á¤º¸ ÀúÀå¿¡ ½ÇÆĞÇÏ¿´½À´Ï´Ù.");
+	                		alert("ê²°ì œ ì •ë³´ ì €ì¥ì— ì‹¤íŒ¨í•˜ì˜€ìŠµë‹ˆë‹¤.");
 	                		location.href = '${pageContext.request.contextPath}/matchs/detail?match_id=' + ${matchId};
 	                	}
 	                	
 	                 });
 	                 
 	             } else {
-	                 var msg = '°áÁ¦¿¡ ½ÇÆĞÇÏ¿´½À´Ï´Ù.';
-	                 msg += '¿¡·¯³»¿ë : ' + rsp.error_msg;
+	                 var msg = 'ê²°ì œì— ì‹¤íŒ¨í•˜ì˜€ìŠµë‹ˆë‹¤.';
+	                 msg += 'ì—ëŸ¬ë‚´ìš© : ' + rsp.error_msg;
 	                 alert(msg);
 	                 location.href = "${pageContext.request.contextPath}/matchs/detail?match_id=" + ${matchId};	                 
 	             }
