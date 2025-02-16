@@ -35,12 +35,15 @@
 - 네이버 지도 API를 이용하여 위치 검색, 근접한 집합 클러스터화, 해당 위치의 이미지 마커와 주소 출력.
 
 ## 📑 DEMO
+| 메인 페이지 | 로그인 |
+| :--------: | :--------: |
+| <img src="https://github.com/user-attachments/assets/31191bd1-c7b2-493a-af97-1eacf26fd7fc" width="960"> | <img src="https://github.com/user-attachments/assets/bc8366b1-b6d1-41d6-9bef-5f660927109f" width="960"> |
 
-|                               메인 페이지                               |                               로그인                              |
-| :---------------------------------------------------------------------: | :---------------------------------------------------------------------: |
-|![image](https://github.com/user-attachments/assets/31191bd1-c7b2-493a-af97-1eacf26fd7fc) | ![image](https://github.com/user-attachments/assets/bc8366b1-b6d1-41d6-9bef-5f660927109f)|
-|                               이메일 인증                             |                               회원가입                           |
-| :---------------------------------------------------------------------: | :---------------------------------------------------------------------: |
-| ![image](https://github.com/user-attachments/assets/1fe32555-f928-4418-8af9-519fb480c566)| ![image](https://github.com/user-attachments/assets/43875856-3737-4297-99f6-8f572752dccb)|
-|                               정보 수정                                                 |                               네이버 맵 풋살장 찾기                              |
-![image](https://github.com/user-attachments/assets/6b8a1756-2334-438e-b19c-a40856a75de7)| ![image](https://github.com/user-attachments/assets/f2673b68-93e7-4823-989f-59f7b04f1a11)|
+| 이메일 인증 | 회원가입 |
+| :--------: | :--------: |
+| <img src="https://github.com/user-attachments/assets/1fe32555-f928-4418-8af9-519fb480c566" width="960"> | <img src="https://github.com/user-attachments/assets/43875856-3737-4297-99f6-8f572752dccb" width="960"> |
+
+| 내 정보 수정 | 네이버 맵 풋살장 찾기 |
+| :--------: | :--------: |
+| <img src="https://github.com/user-attachments/assets/6b8a1756-2334-438e-b19c-a40856a75de7" width="960"> | <img src="https://github.com/user-attachments/assets/f2673b68-93e7-4823-989f-59f7b04f1a11" width="960"> |
+
